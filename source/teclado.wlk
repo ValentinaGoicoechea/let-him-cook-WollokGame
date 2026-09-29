@@ -17,7 +17,7 @@ object teclado{
     }
 
     method agarrarObjeto(){
-        keyboard.e().onPressDo({personajePrincipal.agarrar()})
+        keyboard.e().onPressDo({personajePrincipal.agarrar()}) //tendría que recibir una confirmacion del chef diciendo que agarro algo?
     }
 
 

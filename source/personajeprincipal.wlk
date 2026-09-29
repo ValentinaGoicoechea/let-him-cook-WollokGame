@@ -38,15 +38,17 @@ object personajePrincipal{
         }
     }
 
-    //TENGO QUE TENER UN MÉTODO QUE ME DIGA SI TENGO UN OBJETO EN FRENTE
-    
+    method objetoEn(posicion){ //Para ver si tengo un objeto en la posicion que le mando
+        const objetosExistentes = game.allVisuals()
+        return objetosExistentes.findOrDefault({objeto => objeto != self &&objeto.position() == posicion}, null)
+    }
 
-
-    method agarrar(){
-        if(position.down(1) == pechugaDePollo.position()){ //Ver como hacerlo mas polimorfico pq no se como saber que objeto esta en frente
-            pechugaDePollo.position(position)
+    method agarrar(){ //tendría que avisar a teclado que ya agarré algo para soltarlo?
+        const objetoAAgarrar = self.objetoEn(position.down(1))
+        if(objetoAAgarrar != null){
+            objetoAAgarrar.position(position)
             manoOcupada = true
-            objetoEnMano = pechugaDePollo //cambiar esto cuando sepamos como
+            objetoEnMano = objetoAAgarrar 
         }
     }
     //hacer method soltar para cambiar manoOcupada a false
