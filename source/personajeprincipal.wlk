@@ -6,7 +6,14 @@ object personajePrincipal{
     var property direccion = "ninguna"
 
     method image() = "cocinero.png"
-
+/*
+    method enSuelo(){
+        if (self.position().x().between(229, 890) && self.position().y().between(589){
+            return true
+        }
+        else if(self.position().x().between(min, max))
+    }
+*/
     method darPaso() {
         if (direccion == "derecha") position = position.right(1)
         if (direccion == "izquierda") position = position.left(1)
