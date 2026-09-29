@@ -15,5 +15,11 @@ object teclado{
             keyboard.w().onReleaseDo({ personajePrincipal.direccion("ninguna") })
             keyboard.s().onReleaseDo({ personajePrincipal.direccion("ninguna") })
     }
+
+    method agarrarObjeto(){
+        keyboard.e().onPressDo({personajePrincipal.agarrar()})
+    }
+
+
    
 }

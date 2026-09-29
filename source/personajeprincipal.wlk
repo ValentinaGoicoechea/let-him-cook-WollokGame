@@ -1,3 +1,4 @@
+import source.comida.*
 import wollok.game.*
 
 object personajePrincipal{
@@ -6,6 +7,9 @@ object personajePrincipal{
     var property direccion = "ninguna"
 
     method image() = "cocinero.png"
+
+    var manoOcupada = false
+    var objetoEnMano = null
 
     method esSuelo(pos){ //en base al piso
         const x = pos.x()
@@ -30,9 +34,22 @@ object personajePrincipal{
 
         if(self.esSuelo(nuevaPosicion)){
             position = nuevaPosicion
+            objetoEnMano.position(nuevaPosicion)
         }
     }
+
+    //TENGO QUE TENER UN MÉTODO QUE ME DIGA SI TENGO UN OBJETO EN FRENTE
     
+
+
+    method agarrar(){
+        if(position.down(1) == pechugaDePollo.position()){ //Ver como hacerlo mas polimorfico pq no se como saber que objeto esta en frente
+            pechugaDePollo.position(position)
+            manoOcupada = true
+            objetoEnMano = pechugaDePollo //cambiar esto cuando sepamos como
+        }
+    }
+    //hacer method soltar para cambiar manoOcupada a false
 }
 
 //LO DE LA DIRECCION ES ÚTIL PARA DESPUES CAMBIAR LAS IMAGENES!!
