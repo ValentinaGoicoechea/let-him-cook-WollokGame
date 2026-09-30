@@ -10,9 +10,9 @@ program juego{
     game.cellSize(50)
     game.title("Overcooked") //a chequear si despues lo cambiamos
     game.boardGround("fondo.png")
+    game.addVisual(horno)
     game.addVisual(personajePrincipal)
     game.addVisual(pechugaDePollo)
-
 
     teclado.movimiento()
     teclado.agarrarOSoltarObjeto()

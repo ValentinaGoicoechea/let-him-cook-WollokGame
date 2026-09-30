@@ -57,7 +57,7 @@ object personajePrincipal{
         if(not(manoOcupada)){
             var objetoAAgarrar = null
             objetoAAgarrar = self.objetoEn(self.posicionDondeMiro())
-            if(objetoAAgarrar != null){
+            if(objetoAAgarrar != null && objetoAAgarrar.elemento() == "comida"){
                 objetoAAgarrar.position(position)
                 manoOcupada = true
                 objetoEnMano = objetoAAgarrar 
@@ -68,6 +68,11 @@ object personajePrincipal{
             objetoEnMano = null
         }
     }
+
+    /*method cocinar(){
+        if(manoOcupada && objetoEnMano)
+    }
+    */
 
 }
 
