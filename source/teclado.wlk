@@ -4,10 +4,14 @@ import wollok.game.*
 object teclado{
     method movimiento() {
             // Al presionar: empieza a caminar en esa dirección
-            keyboard.d().onPressDo({ personajePrincipal.direccion("derecha") })
-            keyboard.a().onPressDo({ personajePrincipal.direccion("izquierda") })
-            keyboard.w().onPressDo({ personajePrincipal.direccion("arriba") })
-            keyboard.s().onPressDo({ personajePrincipal.direccion("abajo") })
+            keyboard.d().onPressDo({ personajePrincipal.direccion("derecha") 
+                                    personajePrincipal.ultimadireccion("derecha") })
+            keyboard.a().onPressDo({ personajePrincipal.direccion("izquierda") 
+                                    personajePrincipal.ultimadireccion("izquierda")})
+            keyboard.w().onPressDo({ personajePrincipal.direccion("arriba") 
+                                    personajePrincipal.ultimadireccion("arriba")})
+            keyboard.s().onPressDo({ personajePrincipal.direccion("abajo") 
+                                    personajePrincipal.ultimadireccion("abajo")})
 
             // Al soltar: se frena inmediatamente
             keyboard.d().onReleaseDo({ personajePrincipal.direccion("ninguna") })
@@ -16,8 +20,8 @@ object teclado{
             keyboard.s().onReleaseDo({ personajePrincipal.direccion("ninguna") })
     }
 
-    method agarrarObjeto(){
-        keyboard.e().onPressDo({personajePrincipal.agarrar()}) //tendría que recibir una confirmacion del chef diciendo que agarro algo?
+    method agarrarOSoltarObjeto(){
+        keyboard.e().onPressDo({personajePrincipal.agarrarOSoltar()}) 
     }
 
 

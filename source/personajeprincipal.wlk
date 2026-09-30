@@ -3,13 +3,13 @@ import wollok.game.*
 
 object personajePrincipal{
     var property position = game.at(10,10)
+    method image() = "cocinero.png"
     
     var property direccion = "ninguna"
-
-    method image() = "cocinero.png"
-
+    var property ultimadireccion = "ninguna"
     var manoOcupada = false
     var objetoEnMano = null
+
 
     method esSuelo(pos){ //en base al piso
         const x = pos.x()
@@ -34,7 +34,9 @@ object personajePrincipal{
 
         if(self.esSuelo(nuevaPosicion)){
             position = nuevaPosicion
-            objetoEnMano.position(nuevaPosicion)
+            if(objetoEnMano != null){
+                objetoEnMano.position(nuevaPosicion)
+            }
         }
     }
 
@@ -43,15 +45,30 @@ object personajePrincipal{
         return objetosExistentes.findOrDefault({objeto => objeto != self &&objeto.position() == posicion}, null)
     }
 
-    method agarrar(){ //tendría que avisar a teclado que ya agarré algo para soltarlo?
-        const objetoAAgarrar = self.objetoEn(position.down(1))
-        if(objetoAAgarrar != null){
-            objetoAAgarrar.position(position)
-            manoOcupada = true
-            objetoEnMano = objetoAAgarrar 
+    method posicionDondeMiro(){
+            if (ultimadireccion == "derecha") return position.right(1)
+            if (ultimadireccion == "izquierda") return position.left(1)
+            if (ultimadireccion == "arriba") return position.up(1)
+            if (ultimadireccion == "abajo") return position.down(1)
+            return position //error?
+    }
+
+    method agarrarOSoltar(){ 
+        if(not(manoOcupada)){
+            var objetoAAgarrar = null
+            objetoAAgarrar = self.objetoEn(self.posicionDondeMiro())
+            if(objetoAAgarrar != null){
+                objetoAAgarrar.position(position)
+                manoOcupada = true
+                objetoEnMano = objetoAAgarrar 
+            }
+        }else{
+            objetoEnMano.position(self.posicionDondeMiro())
+            manoOcupada = false
+            objetoEnMano = null
         }
     }
-    //hacer method soltar para cambiar manoOcupada a false
+
 }
 
 //LO DE LA DIRECCION ES ÚTIL PARA DESPUES CAMBIAR LAS IMAGENES!!

@@ -9,13 +9,13 @@ program juego{
     game.height(16)
     game.cellSize(50)
     game.title("Overcooked") //a chequear si despues lo cambiamos
-    game.addVisual(suelo)
+    game.boardGround("fondo.png")
     game.addVisual(personajePrincipal)
     game.addVisual(pechugaDePollo)
 
 
     teclado.movimiento()
-    teclado.agarrarObjeto()
+    teclado.agarrarOSoltarObjeto()
     game.onTick(100, "moverCocinero", { personajePrincipal.darPaso() }) //sirve para que pueda avanzar manteniendo presionado, pregunta cada 100ms a donde da un paso
 
     game.start()
