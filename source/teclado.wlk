@@ -24,6 +24,9 @@ object teclado{
         keyboard.e().onPressDo({personajePrincipal.agarrarOSoltar()}) 
     }
 
+    method realizarAccion() {
+        keyboard.q().onPressDo({personajePrincipal.accionar()})
+    }
 
    
 }
