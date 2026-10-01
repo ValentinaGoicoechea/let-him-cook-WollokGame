@@ -11,11 +11,13 @@ program juego{
     game.title("Overcooked") //a chequear si despues lo cambiamos
     game.boardGround("fondo.png")
     game.addVisual(horno)
-    game.addVisual(mesada)
+    game.addVisual(mesadaEntrega)
+    game.addVisual(mesadaArmado)
     game.addVisual(basura)
     game.addVisual(personajePrincipal)
-    game.addVisual(pechugaDePollo)
     game.addVisual(plato)
+    game.addVisual(pechugaDePollo)
+    
     
     
 
