@@ -3,13 +3,18 @@ import wollok.game.*
 
 object personajePrincipal{
     var property position = game.at(10,10)
-    method image() = "cocinero.png"
+    
     
     var property direccion = "ninguna"
     var property ultimadireccion = "ninguna"
     var manoOcupada = false
     var objetoEnMano = null
 
+    method image() {
+        if (ultimadireccion == "abajo") return "cocineroFrente.png"
+        if (ultimadireccion == "derecha") return "cocineroDerecha.png"
+        return "cocinero.png"
+    } 
 
     method esSuelo(pos){ //en base al piso
         const x = pos.x()
@@ -57,7 +62,8 @@ object personajePrincipal{
         if(not(manoOcupada)){
             var objetoAAgarrar = null
             objetoAAgarrar = self.objetoEn(self.posicionDondeMiro())
-            if(objetoAAgarrar != null && (objetoAAgarrar.elemento() == "comida" or objetoAAgarrar.elemento() == "plato")){
+            if(objetoAAgarrar != null && (objetoAAgarrar.elemento() == "comida" or objetoAAgarrar.elemento() == "plato")
+            && objetoAAgarrar.sePuedeAgarrar()){
                 objetoAAgarrar.position(position)
                 manoOcupada = true
                 objetoEnMano = objetoAAgarrar 
@@ -69,10 +75,12 @@ object personajePrincipal{
         }
     }
 
-    /*method cocinar(){
-        if(manoOcupada && objetoEnMano)
+    method accionar(){
+        if(manoOcupada && (self.objetoEn(self.posicionDondeMiro())).elemento() == "funcional"){
+            (self.objetoEn(self.posicionDondeMiro())).funcion(objetoEnMano)
+        }
     }
-    */
+    
 
 }
 
