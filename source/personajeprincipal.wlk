@@ -11,11 +11,11 @@ object personajePrincipal{
     var objetoEnMano = null
 
     method image() {
-        if (ultimadireccion == "abajo") return "cocineroFrente.png"
+        //if (ultimadireccion == "abajo") return "cocineroFrente.png"
         if (ultimadireccion == "derecha") return "cocineroDerecha.png"
         if (ultimadireccion == "arriba") return "cocineroEspalda.png"
         if (ultimadireccion == "izquierda") return "cocineroIzquierda.png"
-        return 
+        return "cocineroFrente.png" //o aparece o esta de frente
     } 
 
     method esSuelo(pos){ //en base al piso
