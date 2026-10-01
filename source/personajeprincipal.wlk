@@ -47,10 +47,14 @@ object personajePrincipal{
         }
     }
 
-    method objetoEn(posicion){
+    method agarrableEn(posicion){ //para objetos que necesito agarrar
         return game.getObjectsIn(posicion).findOrDefault({ objeto => objeto.sePuedeAgarrar() }, null)
     }
 
+    method funcionalEn(posicion) { //para objetos que tenco que interactuar con funcion
+        return game.getObjectsIn(posicion).findOrDefault({ objeto => objeto.elemento() == "funcional" }, null)
+    }
+    
     method posicionDondeMiro(){
             if (ultimadireccion == "derecha") return position.right(1)
             if (ultimadireccion == "izquierda") return position.left(1)
@@ -62,7 +66,7 @@ object personajePrincipal{
     method agarrarOSoltar(){ 
         if(not(manoOcupada)){
             var objetoAAgarrar = null
-            objetoAAgarrar = self.objetoEn(self.posicionDondeMiro())
+            objetoAAgarrar = self.agarrableEn(self.posicionDondeMiro())
             if(objetoAAgarrar != null && (objetoAAgarrar.elemento() == "comida" or objetoAAgarrar.elemento() == "plato")
             && objetoAAgarrar.sePuedeAgarrar()){
                 objetoAAgarrar.position(position)
@@ -77,9 +81,8 @@ object personajePrincipal{
     }
 
     method accionar(){
-        if(manoOcupada && (self.objetoEn(self.posicionDondeMiro())).elemento() == "funcional"){
-            
-            (self.objetoEn(self.posicionDondeMiro())).funcion(objetoEnMano)
+        if(manoOcupada && (self.funcionalEn(self.posicionDondeMiro())).elemento() == "funcional"){
+            (self.funcionalEn(self.posicionDondeMiro())).funcion(objetoEnMano)
         }
     }
     
