@@ -47,9 +47,8 @@ object personajePrincipal{
         }
     }
 
-    method objetoEn(posicion){ //Para ver si tengo un objeto en la posicion que le mando
-        const objetosExistentes = game.allVisuals()
-        return objetosExistentes.findOrDefault({objeto => objeto != self &&objeto.position() == posicion}, null)
+    method objetoEn(posicion){
+        return game.getObjectsIn(posicion).findOrDefault({ objeto => objeto.sePuedeAgarrar() }, null)
     }
 
     method posicionDondeMiro(){
