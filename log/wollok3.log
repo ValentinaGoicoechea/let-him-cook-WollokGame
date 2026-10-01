@@ -359,3 +359,6 @@
 {"level":"info","message":"⌛ Building environment","timeElapsed":144,"timestamp":"2026-10-01T03:09:24.140Z"}
 {"level":"info","message":"⌛ Validating source/ambiente.wlk","timeElapsed":218,"timestamp":"2026-10-01T03:09:24.380Z"}
 {"exitCode":"SIGHUP","level":"info","message":"👾 Game executed source.programa.juego on c:\\Users\\agosc\\PDEP-wollok\\juego-wollok-troyano","timeElapsed":110143,"timestamp":"2026-10-01T03:09:49.419Z"}
+{"level":"info","message":"🚀 Program executed \u001b[3m\u001b[34msource.programa.juego\u001b[39m\u001b[23m on \u001b[3m\u001b[34mc:\\Users\\agosc\\PDEP-wollok\\juego-wollok-troyano\u001b[39m\u001b[23m","ok":true,"timeElapsed":471,"timestamp":"2026-10-01T03:09:51.500Z"}
+{"level":"info","message":"⌛ Building environment","timeElapsed":161,"timestamp":"2026-10-01T03:10:38.116Z"}
+{"level":"info","message":"⌛ Validating source/ambiente.wlk","timeElapsed":173,"timestamp":"2026-10-01T03:10:38.341Z"}
