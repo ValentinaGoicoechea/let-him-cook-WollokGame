@@ -12,10 +12,20 @@ object horno{
         }
     }
 
+    method sePuedeAgarrar() = false
+    method elemento() = "funcional"
+
+    method funcion(objeto) {
+        prendido = true
+        if(objeto.sePuedeCocinar() && objeto.elemento() == "comida") {objeto.cocinada(true)}
+
+        return
+    }
+
 }
 
 object mesada {
-    const property position = game.at(14,12) 
+    const property position = game.at(14,11) 
     method image() = "mesada.png"
 }
 

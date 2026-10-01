@@ -13,7 +13,9 @@ object personajePrincipal{
     method image() {
         if (ultimadireccion == "abajo") return "cocineroFrente.png"
         if (ultimadireccion == "derecha") return "cocineroDerecha.png"
-        return "cocinero.png"
+        if (ultimadireccion == "arriba") return "cocineroEspalda.png"
+        if (ultimadireccion == "izquierda") return "cocineroIzquierda.png"
+        return 
     } 
 
     method esSuelo(pos){ //en base al piso
@@ -77,6 +79,7 @@ object personajePrincipal{
 
     method accionar(){
         if(manoOcupada && (self.objetoEn(self.posicionDondeMiro())).elemento() == "funcional"){
+            
             (self.objetoEn(self.posicionDondeMiro())).funcion(objetoEnMano)
         }
     }

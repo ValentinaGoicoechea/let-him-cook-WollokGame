@@ -21,6 +21,7 @@ program juego{
 
     teclado.movimiento()
     teclado.agarrarOSoltarObjeto()
+    teclado.realizarAccion()
     game.onTick(100, "moverCocinero", { personajePrincipal.darPaso() }) //sirve para que pueda avanzar manteniendo presionado, pregunta cada 100ms a donde da un paso
 
     game.start()

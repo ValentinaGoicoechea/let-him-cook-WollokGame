@@ -3,7 +3,7 @@ import wollok.game.*
 
 object pechugaDePollo{
     var property position = game.at(6,3)
-    var cocinada = false
+    var property cocinada = false
     method image(){
         if(cocinada){
             return "pechugacocinada.png"
@@ -11,8 +11,9 @@ object pechugaDePollo{
             return "pechuga.png"
         }
     }
-
+    method sePuedeAgarrar() = true
     method elemento() = "comida"
+    method sePuedeCocinar() = true 
 }
 
 object plato {
@@ -25,5 +26,6 @@ object plato {
             return "sinplato.png"
         }
     }
+    method sePuedeAgarrar() = cantidadPlatos > 0
     method elemento() = "plato"
 }
