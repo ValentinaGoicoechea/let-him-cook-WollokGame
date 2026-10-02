@@ -14,6 +14,7 @@ object pechugaDePollo{
     method sePuedeAgarrar() = true
     method elemento() = "comida"
     method sePuedeCocinar() = true 
+    method sePuedeCortar() = false 
 }
 
 object plato {
@@ -30,5 +31,7 @@ object plato {
     }
     method sePuedeAgarrar() = cantidadPlatos > 0
     method sePuedeCocinar() = false 
+    method sePuedeCortar() = false 
     method elemento() = "plato"
 }
+
