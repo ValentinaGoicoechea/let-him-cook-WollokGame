@@ -25,6 +25,26 @@ const pechuga1 = new PechugaDePollo(
     modificado = ""
 )
 
+const pechuga2 = new PechugaDePollo(
+    position = game.at(6,3),
+    modificado = ""
+)
+
+const pechuga3 = new PechugaDePollo(
+    position = game.at(6,3),
+    modificado = ""
+)
+
+const pechuga4 = new PechugaDePollo(
+    position = game.at(6,3),
+    modificado = ""
+)
+
+const pechuga5 = new PechugaDePollo(
+    position = game.at(6,3),
+    modificado = ""
+)
+
 class Plato {    
     var property position 
     var property modificado 
@@ -33,7 +53,7 @@ class Plato {
         if(self.modificado() == "limpio") return "plato.png"
         else return "platoSucio.png"
     }
-    
+
     method sePuedeAgarrar() = true
     method sePuedeCocinar() = false 
     method sePuedeCortar() = false 
