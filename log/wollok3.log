@@ -160,3 +160,18 @@
 {"level":"info","message":"⌛ Validating source/personajeprincipal.wlk","timeElapsed":180,"timestamp":"2026-10-01T00:46:19.455Z"}
 {"level":"info","message":"⌛ Validating source/comida.wlk","timeElapsed":199,"timestamp":"2026-10-01T00:46:19.654Z"}
 {"level":"info","message":"⌛ Validating source/ambiente.wlk","timeElapsed":199,"timestamp":"2026-10-01T00:46:19.854Z"}
+{"level":"info","message":"🚀 Program executed \u001b[3m\u001b[34msource.programa.juego\u001b[39m\u001b[23m on \u001b[3m\u001b[34mc:\\Users\\Usuario\\OneDrive\\Documentos\\UTN\\PDEP\\TP GAMES\u001b[39m\u001b[23m","ok":true,"timeElapsed":402,"timestamp":"2026-10-01T00:46:47.999Z"}
+{"exitCode":"SIGHUP","level":"info","message":"👾 Game executed source.programa.juego on c:\\Users\\Usuario\\OneDrive\\Documentos\\UTN\\PDEP\\TP GAMES","timeElapsed":902886,"timestamp":"2026-10-01T01:01:50.485Z"}
+{"level":"info","message":"⌛ Building environment","timeElapsed":267,"timestamp":"2026-10-02T20:53:05.583Z"}
+{"level":"info","message":"⌛ Building environment","timeElapsed":167,"timestamp":"2026-10-02T20:53:05.754Z"}
+{"level":"info","message":"⌛ Building environment","timeElapsed":154,"timestamp":"2026-10-02T20:53:06.379Z"}
+{"level":"info","message":"⌛ Validating source/comida.wlk","timeElapsed":309,"timestamp":"2026-10-02T20:53:06.689Z"}
+{"level":"info","message":"⌛ Building environment","timeElapsed":165,"timestamp":"2026-10-02T20:53:06.856Z"}
+{"level":"info","message":"⌛ Validating source/teclado.wlk","timeElapsed":122,"timestamp":"2026-10-02T20:53:07.090Z"}
+{"level":"info","message":"⌛ Building environment","timeElapsed":197,"timestamp":"2026-10-02T20:53:08.472Z"}
+{"level":"info","message":"⌛ Building environment","timeElapsed":131,"timestamp":"2026-10-02T20:53:08.612Z"}
+{"level":"info","message":"⌛ Validating source/comida.wlk","timeElapsed":215,"timestamp":"2026-10-02T20:53:08.827Z"}
+{"level":"info","message":"⌛ Validating source/teclado.wlk","timeElapsed":134,"timestamp":"2026-10-02T20:53:08.961Z"}
+{"level":"info","message":"⌛ Validating source/programa.wpgm","timeElapsed":163,"timestamp":"2026-10-02T20:53:09.125Z"}
+{"level":"info","message":"⌛ Validating source/personajeprincipal.wlk","timeElapsed":192,"timestamp":"2026-10-02T20:53:09.319Z"}
+{"level":"info","message":"⌛ Validating source/ambiente.wlk","timeElapsed":105,"timestamp":"2026-10-02T20:53:09.428Z"}
