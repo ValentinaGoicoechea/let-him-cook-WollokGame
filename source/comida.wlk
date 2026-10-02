@@ -7,8 +7,7 @@ class PechugaDePollo{
     
     method elemento() = "comida"
     method sePuedeAgarrar() = true
-    method sePuedeCocinar() = true 
-    method sePuedeCortar() = false
+    
     
     method image(){
         if(self.modificado() ==  "cocinado") { return "pechugacocinada.png"}
@@ -18,6 +17,9 @@ class PechugaDePollo{
         return "pechuga.png"
         
     }
+
+    method puede() = ["cocinar", "tirar"]
+    
 }
 
 const pechuga1 = new PechugaDePollo(
@@ -51,6 +53,7 @@ class Papa{
     
     method elemento() = "comida"
     method sePuedeAgarrar() = true
+
     method sePuedeCocinar() = true 
     method sePuedeCortar() = true
     
@@ -64,6 +67,8 @@ class Papa{
         return "papaCruda.png"
         
     }
+
+    method puede() = ["cocinar", "tirar", "cortar"]
 }
 
 const papa1 = new Papa(
@@ -84,6 +89,8 @@ class Plato {
     method sePuedeCocinar() = false 
     method sePuedeCortar() = false 
     method elemento() = "plato"
+
+    method puede() = ["limpiar"]
 }
 
 const plato1 = new Plato(
