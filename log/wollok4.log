@@ -641,3 +641,5 @@
 {"level":"info","message":"⌛ Validating source/programa.wpgm","timeElapsed":145,"timestamp":"2026-10-02T11:39:29.879Z"}
 {"level":"info","message":"🚀 Program executed \u001b[3m\u001b[34msource.programa.juego\u001b[39m\u001b[23m on \u001b[3m\u001b[34mc:\\Users\\Usuario\\OneDrive\\Documentos\\UTN\\PDEP\\TP GAMES\u001b[39m\u001b[23m","ok":true,"timeElapsed":435,"timestamp":"2026-10-02T20:54:37.160Z"}
 {"exitCode":"SIGHUP","level":"info","message":"👾 Game executed source.programa.juego on c:\\Users\\Usuario\\OneDrive\\Documentos\\UTN\\PDEP\\TP GAMES","timeElapsed":94636,"timestamp":"2026-10-02T20:56:11.362Z"}
+{"level":"info","message":"🚀 Program executed \u001b[3m\u001b[34msource.programa.juego\u001b[39m\u001b[23m on \u001b[3m\u001b[34mc:\\Users\\Usuario\\OneDrive\\Documentos\\UTN\\PDEP\\TP GAMES\u001b[39m\u001b[23m","ok":true,"timeElapsed":416,"timestamp":"2026-10-02T20:56:13.496Z"}
+{"exitCode":"SIGHUP","level":"info","message":"👾 Game executed source.programa.juego on c:\\Users\\Usuario\\OneDrive\\Documentos\\UTN\\PDEP\\TP GAMES","timeElapsed":78718,"timestamp":"2026-10-02T20:57:31.796Z"}

@@ -20,9 +20,6 @@ program juego{
     game.addVisual(plato)
     game.addVisual(pechugaDePollo)
     
-    
-    
-
     teclado.movimiento()
     teclado.agarrarOSoltarObjeto()
     teclado.realizarAccion()
