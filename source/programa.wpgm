@@ -13,6 +13,7 @@ program juego{
     game.addVisual(horno)
     game.addVisual(mesadaEntrega)
     game.addVisual(mesadaArmado)
+    game.addVisual(tablaDeCortar)
     game.addVisual(basura)
     game.addVisual(personajePrincipal)
     game.addVisual(plato)
