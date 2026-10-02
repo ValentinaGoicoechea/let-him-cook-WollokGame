@@ -17,8 +17,9 @@ object horno{
     method elemento() = "funcional"
 
     method funcion(objeto) {
-        prendido = true
+        
         if(objeto.sePuedeCocinar() && objeto.elemento() == "comida" && !hornoOcupado){
+            prendido = true
             hornoOcupado = true
             personajePrincipal.agarrarOSoltar()
             game.schedule(5000, { /*espero 5 segundos!!*/
