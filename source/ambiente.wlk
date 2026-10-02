@@ -41,6 +41,14 @@ object mesadaEntrega {
 object basura {
     const property position = game.at(20,7)
     method image() = "basura.png"
+    method sePuedeAgarrar() = false
+    method elemento() = "funcional"
+
+    method funcion(objeto) {
+        if(objeto.elemento() == "comida"){
+            game.removeVisual(objeto)
+        }
+    } 
 }
 
 object bacha {
