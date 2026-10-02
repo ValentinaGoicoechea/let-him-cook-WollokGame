@@ -87,8 +87,32 @@ object mesadaEntrega {
 }
 
 
-object mesadaArmado {
+object mesadaArmado { //Hay 3 mesas de armado, por eso un class
     const property position = game.at(24.5,7)
     method image() = "mesadaArmado.png"  
+    method elemento() = "funcional"
+    method sePuedeAgarrar() = false
+    var platoEnArmado = []
+
+    method funcion(objeto){
+        if (objeto == null) {
+        game.say(personajePrincipal, "No tengo nada en la mano")
+        }
+        if(objeto.elemento() == "plato"){
+            if(!platoEnArmado.any({elem=> elem.elemento() == "plato"})){
+                platoEnArmado.add(objeto)
+                personajePrincipal.agarrarOSoltar()
+                           
+                
+            } //Si hay alguno tendria qe decir que ya hay un plato!
+        } else{
+            if(platoEnArmado.any({elem => elem.elemento() == "plato"})){
+                platoEnArmado.add(objeto)
+                personajePrincipal.agarrarOSoltar()
+            }
+            //Si no hay plato tiene que decir que necesita un plato para poner la comida
+        }        
+
+    }
 }
 
