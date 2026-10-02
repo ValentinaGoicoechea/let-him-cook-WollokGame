@@ -2,7 +2,7 @@ import wollok.game.*
 import personajeprincipal.*
 
 object horno{
-    const property position = game.at(6,12)
+    const property position = game.at(6,11)
     var prendido = false
     var hornoOcupado = false
     method image(){
@@ -22,7 +22,7 @@ object horno{
             prendido = true
             hornoOcupado = true
             personajePrincipal.agarrarOSoltar()
-            game.schedule(5000, { /*espero 5 segundos!!*/
+            game.schedule(5000, { /*espero 7 segundos!!*/
                 objeto.cocinada(true)
                 prendido = false
                 hornoOcupado = false
@@ -34,7 +34,7 @@ object horno{
 }
 
 object mesadaEntrega {
-    const property position = game.at(14,12) 
+    const property position = game.at(14,11) 
     method image() = "mesada.png"
 }
 
@@ -50,7 +50,7 @@ object bacha {
     var bachaOcupada = false
 
     method funcion(objeto) {
-        if(objeto.elemento() == "plato" && !bachaOcupada && objeto.limpio(false)){
+        if(objeto.elemento() == "plato" && !bachaOcupada && !objeto.limpio()){
             bachaOcupada = true
             personajePrincipal.agarrarOSoltar()
             game.schedule(3000, { /*espero 3 segundos!!*/ //BLOQUE
@@ -68,4 +68,17 @@ object mesadaArmado {
 object tablaDeCortar {
     const property position = game.at(4,9)
     method image() = "tablaDeCortar.png" 
+    method sePuedeAgarrar() = false
+    method elemento() = "funcional"
+    var tablaOcupada = false
+
+    method funcion(objeto) {
+        if(objeto.elemento() == "comida" && !tablaOcupada && !objeto.cortado()){
+            tablaOcupada = true
+            personajePrincipal.agarrarOSoltar()
+            game.schedule(5000, { /*espero 5 segundos!!*/ //BLOQUE
+                objeto.cortado(true)
+                tablaOcupada = false
+            })}
+        }
 }
