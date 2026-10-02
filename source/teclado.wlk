@@ -29,7 +29,7 @@ object teclado{
     }
 
     method actualizarStockPapas() {
-        keyboard.1().onPressDo({personajePrincipal.()})
+        keyboard.1().onPressDo({personajePrincipal.accionarCajon()})
     }
 
    
