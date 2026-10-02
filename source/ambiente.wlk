@@ -9,7 +9,7 @@ class Estacion{
     var imagen1
     var imagen2
     var valorOtorgado
-    var property debeValidar
+    var debeValidar
 
     method sePuedeAgarrar() = false
     method elemento() = "estacion"
