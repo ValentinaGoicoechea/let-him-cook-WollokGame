@@ -33,7 +33,7 @@ object horno{
 }
 
 object mesadaEntrega {
-    const property position = game.at(14,11) 
+    const property position = game.at(14,12) 
     method image() = "mesada.png"
 }
 
@@ -44,10 +44,27 @@ object basura {
 
 object bacha {
     const property position = game.at(4,6)
-    
+    method sePuedeAgarrar() = false
+    method elemento() = "funcional"
+    var bachaOcupada = false
+
+    method funcion(objeto) {
+        if(objeto.elemento() == "plato" && !bachaOcupada && objeto.limpio(false)){
+            bachaOcupada = true
+            personajePrincipal.agarrarOSoltar()
+            game.schedule(3000, { /*espero 3 segundos!!*/ //BLOQUE
+                objeto.limpio(true)
+                bachaOcupada = false
+            })}
+        }
 }
 
 object mesadaArmado {
-    const property position = game.at(25,7)
+    const property position = game.at(24.5,7)
     method image() = "mesadaArmado.png"  
+}
+
+object tablaDeCortar {
+    const property position = game.at(4,9)
+    method image() = "tablaDeCortar.png" 
 }

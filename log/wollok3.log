@@ -1483,3 +1483,17 @@
 {"level":"info","message":"⌛ Building environment","timeElapsed":103,"timestamp":"2026-10-01T23:33:12.640Z"}
 {"level":"info","message":"⌛ Building environment","timeElapsed":145,"timestamp":"2026-10-01T23:33:36.728Z"}
 {"level":"info","message":"⌛ Validating source/personajeprincipal.wlk","timeElapsed":144,"timestamp":"2026-10-01T23:33:38.815Z"}
+{"level":"info","message":"⌛ Building environment","timeElapsed":377,"timestamp":"2026-10-02T00:50:57.818Z"}
+{"level":"info","message":"⌛ Building environment","timeElapsed":235,"timestamp":"2026-10-02T00:50:58.054Z"}
+{"level":"info","message":"⌛ Building environment","timeElapsed":108,"timestamp":"2026-10-02T00:50:58.237Z"}
+{"level":"info","message":"Removing diagnostics from /c:/Users/agosc/PDEP-wollok/juego-wollok-troyano/assets/basura.png","timestamp":"2026-10-02T00:50:58.238Z"}
+{"level":"info","message":"⌛ Validating source/teclado.wlk","timeElapsed":136,"timestamp":"2026-10-02T00:50:58.379Z"}
+{"level":"info","message":"⌛ Validating source/ambiente.wlk","timeElapsed":121,"timestamp":"2026-10-02T01:02:36.265Z"}
+{"level":"info","message":"⌛ Building environment","timeElapsed":159,"timestamp":"2026-10-02T01:02:37.649Z"}
+{"level":"info","message":"⌛ Building environment","timeElapsed":115,"timestamp":"2026-10-02T01:02:40.414Z"}
+{"level":"info","message":"⌛ Validating source/ambiente.wlk","timeElapsed":115,"timestamp":"2026-10-02T01:02:40.658Z"}
+{"level":"info","message":"⌛ Validating source/ambiente.wlk","timeElapsed":126,"timestamp":"2026-10-02T01:02:47.969Z"}
+{"level":"info","message":"⌛ Validating source/ambiente.wlk","timeElapsed":159,"timestamp":"2026-10-02T01:02:48.255Z"}
+{"level":"info","message":"⌛ Building environment","timeElapsed":111,"timestamp":"2026-10-02T01:02:49.117Z"}
+{"level":"info","message":"⌛ Validating source/programa.wpgm","timeElapsed":146,"timestamp":"2026-10-02T01:03:04.072Z"}
+{"level":"info","message":"⌛ Validating source/programa.wpgm","timeElapsed":118,"timestamp":"2026-10-02T01:03:04.260Z"}
