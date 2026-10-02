@@ -11,11 +11,21 @@ program juego{
     game.title("Overcooked") //a chequear si despues lo cambiamos
     game.boardGround("fondo.png")
     game.addVisual(horno)
+    game.addVisual(mesadaEntrega)
+    game.addVisual(mesadaArmado)
+    game.addVisual(tablaDeCortar)
+    game.addVisual(basura)
+    game.addVisual(bacha)
     game.addVisual(personajePrincipal)
+    game.addVisual(plato)
     game.addVisual(pechugaDePollo)
+    
+    
+    
 
     teclado.movimiento()
     teclado.agarrarOSoltarObjeto()
+    teclado.realizarAccion()
     game.onTick(100, "moverCocinero", { personajePrincipal.darPaso() }) //sirve para que pueda avanzar manteniendo presionado, pregunta cada 100ms a donde da un paso
 
     game.start()

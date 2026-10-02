@@ -3,13 +3,20 @@ import wollok.game.*
 
 object personajePrincipal{
     var property position = game.at(10,10)
-    method image() = "cocinero.png"
+    
     
     var property direccion = "ninguna"
     var property ultimadireccion = "ninguna"
     var manoOcupada = false
     var objetoEnMano = null
 
+    method image() {
+        //if (ultimadireccion == "abajo") return "cocineroFrente.png"
+        if (ultimadireccion == "derecha") return "cocineroDerecha.png"
+        if (ultimadireccion == "arriba") return "cocineroEspalda.png"
+        if (ultimadireccion == "izquierda") return "cocineroIzquierda.png"
+        return "cocineroFrente.png" //o aparece o esta de frente
+    } 
 
     method esSuelo(pos){ //en base al piso
         const x = pos.x()
@@ -40,11 +47,14 @@ object personajePrincipal{
         }
     }
 
-    method objetoEn(posicion){ //Para ver si tengo un objeto en la posicion que le mando
-        const objetosExistentes = game.allVisuals()
-        return objetosExistentes.findOrDefault({objeto => objeto != self &&objeto.position() == posicion}, null)
+    method agarrableEn(posicion){ //para objetos que necesito agarrar
+        return game.getObjectsIn(posicion).findOrDefault({ objeto => objeto.sePuedeAgarrar() }, null)
     }
 
+    method funcionalEn(posicion) { //para objetos que tenco que interactuar con funcion
+        return game.getObjectsIn(posicion).findOrDefault({ objeto => objeto.elemento() == "funcional" }, null)
+    }
+    
     method posicionDondeMiro(){
             if (ultimadireccion == "derecha") return position.right(1)
             if (ultimadireccion == "izquierda") return position.left(1)
@@ -56,8 +66,9 @@ object personajePrincipal{
     method agarrarOSoltar(){ 
         if(not(manoOcupada)){
             var objetoAAgarrar = null
-            objetoAAgarrar = self.objetoEn(self.posicionDondeMiro())
-            if(objetoAAgarrar != null && objetoAAgarrar.elemento() == "comida"){
+            objetoAAgarrar = self.agarrableEn(self.posicionDondeMiro())
+            if(objetoAAgarrar != null && (objetoAAgarrar.elemento() == "comida" or objetoAAgarrar.elemento() == "plato")
+            && objetoAAgarrar.sePuedeAgarrar()){
                 objetoAAgarrar.position(position)
                 manoOcupada = true
                 objetoEnMano = objetoAAgarrar 
@@ -69,10 +80,12 @@ object personajePrincipal{
         }
     }
 
-    /*method cocinar(){
-        if(manoOcupada && objetoEnMano)
+    method accionar(){
+        if(manoOcupada && (self.funcionalEn(self.posicionDondeMiro())).elemento() == "funcional"){
+            (self.funcionalEn(self.posicionDondeMiro())).funcion(objetoEnMano)
+        }
     }
-    */
+    
 
 }
 
