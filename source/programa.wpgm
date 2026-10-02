@@ -17,8 +17,8 @@ program juego{
     game.addVisual(basura)
     game.addVisual(bacha)
     game.addVisual(personajePrincipal)
-    game.addVisual(plato)
-    game.addVisual(pechugaDePollo)
+    game.addVisual(plato1)
+    game.addVisual(pechuga1)
     
     
     
