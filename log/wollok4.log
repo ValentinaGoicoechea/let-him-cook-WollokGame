@@ -457,3 +457,7 @@
 {"level":"info","message":"Removing diagnostics from /c:/Users/agosc/PDEP-wollok/juego-wollok-troyano/assets/tablaDeCortar.png","timestamp":"2026-10-02T03:01:44.186Z"}
 {"level":"info","message":"⌛ Validating source/teclado.wlk","timeElapsed":140,"timestamp":"2026-10-02T03:01:44.406Z"}
 {"exitCode":"SIGHUP","level":"info","message":"👾 Game executed source.programa.juego on c:\\Users\\agosc\\PDEP-wollok\\juego-wollok-troyano","timeElapsed":124436,"timestamp":"2026-10-02T03:02:03.543Z"}
+{"level":"info","message":"🚀 Program executed \u001b[3m\u001b[34msource.programa.juego\u001b[39m\u001b[23m on \u001b[3m\u001b[34mc:\\Users\\agosc\\PDEP-wollok\\juego-wollok-troyano\u001b[39m\u001b[23m","ok":true,"timeElapsed":457,"timestamp":"2026-10-02T03:02:05.759Z"}
+{"level":"info","message":"⌛ Building environment","timeElapsed":109,"timestamp":"2026-10-02T03:02:35.846Z"}
+{"level":"info","message":"⌛ Validating source/personajeprincipal.wlk","timeElapsed":117,"timestamp":"2026-10-02T03:02:35.965Z"}
+{"level":"info","message":"⌛ Validating source/personajeprincipal.wlk","timeElapsed":105,"timestamp":"2026-10-02T03:02:36.803Z"}
