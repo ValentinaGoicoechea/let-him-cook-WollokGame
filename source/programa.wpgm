@@ -15,6 +15,7 @@ program juego{
     game.addVisual(mesadaArmado)
     game.addVisual(tablaDeCortar)
     game.addVisual(basura)
+    game.addVisual(bacha)
     game.addVisual(personajePrincipal)
     game.addVisual(plato)
     game.addVisual(pechugaDePollo)
