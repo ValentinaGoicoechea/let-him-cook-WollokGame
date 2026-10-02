@@ -52,7 +52,7 @@ object personajePrincipal{
     }
 
     method funcionalEn(posicion) { //para objetos que tenco que interactuar con funcion
-        return game.getObjectsIn(posicion).findOrDefault({ objeto => objeto.elemento() == "funcional" }, null)
+        return game.getObjectsIn(posicion).findOrDefault({ objeto => objeto.elemento() == "estacion" }, null)
     }
     
     method posicionDondeMiro(){
@@ -81,8 +81,8 @@ object personajePrincipal{
     }
 
     method accionar(){
-        if(manoOcupada && (self.funcionalEn(self.posicionDondeMiro())).elemento() == "funcional"){
-            (self.funcionalEn(self.posicionDondeMiro())).funcion(objetoEnMano)
+        if(manoOcupada && (self.funcionalEn(self.posicionDondeMiro())).elemento() == "estacion"){
+            (self.funcionalEn(self.posicionDondeMiro())).tareaDeEstacion(objetoEnMano)
         }
     }
     

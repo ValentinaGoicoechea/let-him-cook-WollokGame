@@ -17,9 +17,13 @@ program juego{
     game.addVisual(basura)
     game.addVisual(bacha)
     game.addVisual(personajePrincipal)
-    game.addVisual(plato)
-    game.addVisual(pechugaDePollo)
-    
+    game.addVisual(plato1)
+    game.addVisual(pechuga1)
+    game.addVisual(pechuga2)
+    game.addVisual(pechuga3)
+    game.addVisual(pechuga4)
+    game.addVisual(pechuga5)
+
     teclado.movimiento()
     teclado.agarrarOSoltarObjeto()
     teclado.realizarAccion()

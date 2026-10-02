@@ -1,72 +1,91 @@
 import wollok.game.*
 import personajeprincipal.*
 
-object horno{
-    const property position = game.at(6,11)
-    var prendido = false
-    var hornoOcupado = false
+class Estacion{
+    const property position
+    var prendido 
+    var estaOcupado 
+    const tiempoTarea
+    var imagen1
+    var imagen2
+    var elementoAceptado
+    var valorOtorgado
+
+    method sePuedeAgarrar() = false
+    method elemento() = "estacion"
+
     method image(){
         if(prendido){
-            return "hornoprendido.png"
+            return imagen1
         } else{
-            return "hornoapagado.png"
+            return imagen2
         }
     }
 
-    method sePuedeAgarrar() = false
-    method elemento() = "funcional"
-
-    method funcion(objeto) {
-        
-        if(objeto.sePuedeCocinar() && objeto.elemento() == "comida" && !hornoOcupado){
+    method tareaDeEstacion(objeto) {
+        if(objeto.sePuedeCocinar() && objeto.elemento() == elementoAceptado && !estaOcupado){
             prendido = true
-            hornoOcupado = true
+            estaOcupado = true
             personajePrincipal.agarrarOSoltar()
-            game.schedule(5000, { /*espero 7 segundos!!*/
-                objeto.cocinada(true)
+            game.schedule(tiempoTarea, { 
+                objeto.modificado(valorOtorgado)
                 prendido = false
-                hornoOcupado = false
+                estaOcupado = false
             })}
         
         return
     }
-
 }
+
+const horno = new Estacion(
+    position = game.at(6,11),
+    prendido = false,
+    estaOcupado = false,
+    tiempoTarea = 7000,
+    imagen1 = "hornoprendido.png",
+    imagen2 = "hornoapagado.png",
+    elementoAceptado = "comida",
+    valorOtorgado = "cocinado"
+)
+
+const basura = new Estacion(
+    position = game.at(20,7),
+    prendido = false,
+    estaOcupado = false,
+    tiempoTarea = 500,
+    imagen1 = "basuraAbierta.png",
+    imagen2 = "basura.png",
+    elementoAceptado = "comida",
+    valorOtorgado = "tirado"
+)
+
+const bacha = new Estacion(
+    position = game.at(4,6),
+    prendido = false,
+    estaOcupado = false,
+    tiempoTarea = 3000,
+    imagen1 = "vacio.png", //ESPUMA O AGUA
+    imagen2 = "vacio.png",
+    elementoAceptado = "plato",
+    valorOtorgado = "limpio"
+)
+
+const tablaDeCortar = new Estacion(
+    position = game.at(4,9),
+    prendido = false,
+    estaOcupado = false,
+    tiempoTarea = 4500,
+    imagen1 = "tablaDeCortar.png", 
+    imagen2 = "tablaDeCortar.png", // hacer cambio (para notar que esta en uso)
+    elementoAceptado = "comida",
+    valorOtorgado = "cortada"
+)
 
 object mesadaEntrega {
     const property position = game.at(14,11) 
     method image() = "mesada.png"
 }
 
-object basura {
-    const property position = game.at(20,7)
-    method image() = "basura.png"
-    method sePuedeAgarrar() = false
-    method elemento() = "funcional"
-
-    method funcion(objeto) {
-        if(objeto.elemento() == "comida"){
-            game.removeVisual(objeto)
-        }
-    } 
-}
-
-object bacha {
-    const property position = game.at(4,6)
-    method sePuedeAgarrar() = false
-    method elemento() = "funcional"
-    var bachaOcupada = false
-
-    method funcion(objeto) {
-        if(objeto.elemento() == "plato" && !bachaOcupada && !objeto.limpio()){
-            bachaOcupada = true
-            personajePrincipal.agarrarOSoltar()
-            game.schedule(3000, { /*espero 3 segundos!!*/ //BLOQUE
-                objeto.limpio(true)
-                bachaOcupada = false
-            })}
-        }
-}
 
 object mesadaArmado { //Hay 3 mesas de armado, por eso un class
     const property position = game.at(24.5,7)
@@ -97,20 +116,3 @@ object mesadaArmado { //Hay 3 mesas de armado, por eso un class
     }
 }
 
-object tablaDeCortar {
-    const property position = game.at(4,9)
-    method image() = "tablaDeCortar.png" 
-    method sePuedeAgarrar() = false
-    method elemento() = "funcional"
-    var tablaOcupada = false
-
-    method funcion(objeto) {
-        if(objeto.elemento() == "comida" && !tablaOcupada && !objeto.cortado()){
-            tablaOcupada = true
-            personajePrincipal.agarrarOSoltar()
-            game.schedule(5000, { /*espero 5 segundos!!*/ //BLOQUE
-                objeto.cortado(true)
-                tablaOcupada = false
-            })}
-        }
-}
