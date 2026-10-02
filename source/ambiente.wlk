@@ -3,8 +3,8 @@ import personajeprincipal.*
 
 class Estacion{
     const property position
-    var prendido = false
-    var estaOcupado = false
+    var prendido 
+    var estaOcupado 
     const tiempoTarea
     var imagen1
     var imagen2
