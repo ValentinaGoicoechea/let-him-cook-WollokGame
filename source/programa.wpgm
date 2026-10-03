@@ -3,6 +3,7 @@ import teclado.*
 import personajeprincipal.*
 import ambiente.*
 import comida.*
+import pedidos.*
 
 program juego{
     game.width(28)
