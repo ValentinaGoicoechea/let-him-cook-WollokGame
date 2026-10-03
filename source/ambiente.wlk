@@ -94,12 +94,12 @@ class PlatoArmado {
     var property position
     var property elementosPlato = []
     const property estaEnPlato = false
+    method tareas() = ["tirar"]
     
     method sePuedeAgarrar(){
         return(elementosPlato.size() > 1)
     }
-    method sePuedeCocinar() = false
-    method sePuedeCortar() = false
+
 
     method elemento(){
         if(self.sePuedeAgarrar()){
