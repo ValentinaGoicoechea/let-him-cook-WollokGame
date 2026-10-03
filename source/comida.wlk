@@ -13,13 +13,16 @@ class PechugaDePollo{
     method image(){
         if(self.modificado() ==  "cocinado") { return "pechugacocinada.png"}
         
-        if(self.modificado() == "tirado") {game.removeVisual(self)}
+        if(self.modificado() == "tirado") return "vacio.png"
         
         return "pechuga.png"
-        
     }
 
-    method puede() = ["cocinar", "tirar"]
+    method tareas() {
+        if(self.modificado() ==  "cocinado") return ["tirar"]
+        if(self.modificado() == "tirado") return [] 
+        return ["cocinar", "tirar"]
+    }
     
 }
 
@@ -51,25 +54,29 @@ const pechuga5 = new PechugaDePollo(
 class Papa{
     var property position 
     var property modificado
+    var property estaEnPlato = false
     
     method elemento() = "comida"
     method sePuedeAgarrar() = true
 
-    method sePuedeCocinar() = true 
-    method sePuedeCortar() = true
     
     method image(){
         if(self.modificado() == "cocinado") { return "papaFrita.png"}
         
         if(self.modificado() == "cortada") { return "papaCortada.png"}
 
-        if(self.modificado() == "tirado") {game.removeVisual(self)}
+        if(self.modificado() == "tirado") return "vacio.png"
         
         return "papaCruda.png"
         
     }
 
-    method puede() = ["cocinar", "tirar", "cortar"]
+    method tareas() {
+        if(self.modificado() ==  "cortada") return ["cocinar", "tirar"]
+        if(self.modificado() == "cocinado") return ["tirar"]
+        if(self.modificado() == "tirado") return [] 
+        return ["cortar", "tirar"]
+    }
 }
 
 const papa1 = new Papa(
@@ -82,17 +89,18 @@ class Plato {
     var property modificado 
     var property estaEnPlato = false
 
+    method sePuedeAgarrar() = true
+    method elemento() = "plato"
+
     method image(){
         if(self.modificado() == "limpio") return "plato.png"
         else return "platoSucio.png"
     }
 
-    method sePuedeAgarrar() = true
-    method sePuedeCocinar() = false 
-    method sePuedeCortar() = false 
-    method elemento() = "plato"
-
-    method puede() = ["limpiar"]
+    method tareas() {
+        if(self.modificado() == "limpio") return []
+        else return ["limpiar"]
+    }
 }
 
 const plato1 = new Plato(
