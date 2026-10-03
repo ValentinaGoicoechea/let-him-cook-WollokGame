@@ -132,7 +132,7 @@ object mesadaArmado { //Hay 3 mesas de armado, por eso un class
     const property platoEnArmado = platoArmado1 //Cada mesa tiene un plato asignado? ver como hacemos cuando los entregamos
 
 
-    method funcion(objeto){
+    method armarPlato(objeto){
         if(objeto.elemento() == "plato"){
             if(!platoEnArmado.elementosPlato().any({elem=> elem.elemento() == "plato"})){
                 platoEnArmado.elementosPlato().add(objeto)

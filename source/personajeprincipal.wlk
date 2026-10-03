@@ -101,7 +101,7 @@ object personajePrincipal{
 
         if(elementoQueMiro != null && manoOcupada && (elementoQueMiro).elemento() == "estacion"){
             if(elementoQueMiro.mesaArmado()){
-                elementoQueMiro.funcion(objetoEnMano)
+                elementoQueMiro.armarPlato(objetoEnMano)
             }else{
                 (elementoQueMiro).tareaDeEstacion(objetoEnMano)
             }
