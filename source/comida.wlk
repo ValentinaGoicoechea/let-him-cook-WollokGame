@@ -5,9 +5,9 @@ class PechugaDePollo{
     var property position 
     var property modificado
     var property estaEnPlato = false
+    var property sePuedeAgarrar = true 
     
     method elemento() = "comida"
-    method sePuedeAgarrar() = true
     
     
     method image(){
@@ -55,9 +55,9 @@ class Papa{
     var property position 
     var property modificado
     var property estaEnPlato = false
+    var property sePuedeAgarrar = true 
     
     method elemento() = "comida"
-    method sePuedeAgarrar() = true
 
     
     method image(){
@@ -88,8 +88,8 @@ class Plato {
     var property position 
     var property modificado 
     var property estaEnPlato = false
-
-    method sePuedeAgarrar() = true
+    var property sePuedeAgarrar = true 
+    
     method elemento() = "plato"
 
     method image(){
