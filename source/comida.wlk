@@ -4,6 +4,7 @@ import wollok.game.*
 class PechugaDePollo{
     var property position 
     var property modificado
+    var property estaEnPlato = false
     
     method elemento() = "comida"
     method sePuedeAgarrar() = true
@@ -48,6 +49,7 @@ const pechuga5 = new PechugaDePollo(
 class Plato {    
     var property position 
     var property modificado 
+    var property estaEnPlato = false
 
     method image(){
         if(self.modificado() == "limpio") return "plato.png"
