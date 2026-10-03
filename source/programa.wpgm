@@ -18,6 +18,7 @@ program juego{
     game.addVisual(bacha)
     game.addVisual(personajePrincipal)
     game.addVisual(plato1)
+    game.addVisual(plato2)
     game.addVisual(pechuga1)
     game.addVisual(pechuga2)
     game.addVisual(pechuga3)
