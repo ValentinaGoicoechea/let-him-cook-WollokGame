@@ -431,3 +431,10 @@
 {"level":"info","message":"⌛ Validating source/comida.wlk","timeElapsed":132,"timestamp":"2026-10-02T23:22:49.780Z"}
 {"level":"info","message":"⌛ Building environment","timeElapsed":156,"timestamp":"2026-10-02T23:22:49.938Z"}
 {"level":"info","message":"⌛ Building environment","timeElapsed":109,"timestamp":"2026-10-02T23:22:50.053Z"}
+{"level":"info","message":"⌛ Building environment","timeElapsed":186,"timestamp":"2026-10-02T23:28:45.085Z"}
+{"level":"info","message":"⌛ Building environment","timeElapsed":110,"timestamp":"2026-10-02T23:28:45.197Z"}
+{"level":"info","message":"⌛ Validating source/ambiente.wlk","timeElapsed":123,"timestamp":"2026-10-02T23:28:45.321Z"}
+{"level":"info","message":"⌛ Validating source/ambiente.wlk","timeElapsed":120,"timestamp":"2026-10-02T23:28:45.443Z"}
+{"level":"info","message":"⌛ Validating source/ambiente.wlk","timeElapsed":124,"timestamp":"2026-10-02T23:28:45.829Z"}
+{"level":"info","message":"⌛ Validating source/ambiente.wlk","timeElapsed":151,"timestamp":"2026-10-02T23:28:46.076Z"}
+{"level":"info","message":"⌛ Building environment","timeElapsed":103,"timestamp":"2026-10-02T23:28:46.694Z"}
