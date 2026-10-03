@@ -8,8 +8,8 @@ class Estacion{
     const tiempoTarea
     var imagen1
     var imagen2
-    var elementoAceptado
     var valorOtorgado
+    var debeValidar
     method mesaArmado() = false //PRUEBA
 
     method sePuedeAgarrar() = false
@@ -24,7 +24,7 @@ class Estacion{
     }
 
     method tareaDeEstacion(objeto) {
-        if(objeto.sePuedeCocinar() && objeto.elemento() == elementoAceptado && !estaOcupado){
+        if((objeto.puede()).contains(debeValidar) && !estaOcupado){
             prendido = true
             estaOcupado = true
             personajePrincipal.agarrarOSoltar()
@@ -45,8 +45,8 @@ const horno = new Estacion(
     tiempoTarea = 7000,
     imagen1 = "hornoprendido.png",
     imagen2 = "hornoapagado.png",
-    elementoAceptado = "comida",
-    valorOtorgado = "cocinado"
+    valorOtorgado = "cocinado",
+    debeValidar = "cocinar"
 )
 
 const basura = new Estacion(
@@ -56,8 +56,8 @@ const basura = new Estacion(
     tiempoTarea = 500,
     imagen1 = "basuraAbierta.png",
     imagen2 = "basura.png",
-    elementoAceptado = "comida",
-    valorOtorgado = "tirado"
+    valorOtorgado = "tirado",
+    debeValidar = "tirar"
 )
 
 const bacha = new Estacion(
@@ -67,8 +67,8 @@ const bacha = new Estacion(
     tiempoTarea = 3000,
     imagen1 = "vacio.png", //ESPUMA O AGUA
     imagen2 = "vacio.png",
-    elementoAceptado = "plato",
-    valorOtorgado = "limpio"
+    valorOtorgado = "limpio",
+    debeValidar = "limpiar"
 )
 
 const tablaDeCortar = new Estacion(
@@ -78,8 +78,8 @@ const tablaDeCortar = new Estacion(
     tiempoTarea = 4500,
     imagen1 = "tablaDeCortar.png", 
     imagen2 = "tablaDeCortar.png", // hacer cambio (para notar que esta en uso)
-    elementoAceptado = "comida",
-    valorOtorgado = "cortada"
+    valorOtorgado = "cortada",
+    debeValidar = "cortar"
 )
 
 object mesadaEntrega {
