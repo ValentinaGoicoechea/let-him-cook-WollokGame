@@ -10,6 +10,7 @@ class Estacion{
     var imagen2
     var valorOtorgado
     var debeValidar
+    method mesaArmado() = false //PRUEBA
 
     method sePuedeAgarrar() = false
     method elemento() = "estacion"
@@ -86,33 +87,79 @@ object mesadaEntrega {
     method image() = "mesada.png"
 }
 
+class PlatoArmado {
+    var property position
+    var property elementosPlato = []
+    const property estaEnPlato = false
+    
+    method sePuedeAgarrar(){
+        return(elementosPlato.size() > 1)
+    }
+    method sePuedeCocinar() = false
+    method sePuedeCortar() = false
+
+    method elemento(){
+        if(self.sePuedeAgarrar()){
+            return "plato armado"
+        }else{
+            return "plato no armado"
+        }
+    } 
+
+    method nuevaposicion(nuevaPos) {
+        position = nuevaPos
+        elementosPlato.forEach({ elem => elem.position(nuevaPos) })
+    }
+
+
+}
+
+const platoArmado1 = new PlatoArmado( //ASIGNANDO UN PLATO A CADA MESADA
+    position = game.at(24.5,7)
+
+)
+
 
 object mesadaArmado { //Hay 3 mesas de armado, por eso un class
     const property position = game.at(24.5,7)
     method image() = "mesadaArmado.png"  
-    method elemento() = "funcional"
+    method elemento() = "estacion"
+    method mesaArmado() = true
     method sePuedeAgarrar() = false
-    var platoEnArmado = []
+    const property platoEnArmado = platoArmado1 //Cada mesa tiene un plato asignado? ver como hacemos cuando los entregamos
+
 
     method funcion(objeto){
-        if (objeto == null) {
-        game.say(personajePrincipal, "No tengo nada en la mano")
-        }
         if(objeto.elemento() == "plato"){
-            if(!platoEnArmado.any({elem=> elem.elemento() == "plato"})){
-                platoEnArmado.add(objeto)
+            if(!platoEnArmado.elementosPlato().any({elem=> elem.elemento() == "plato"})){
+                platoEnArmado.elementosPlato().add(objeto)
+                objeto.estaEnPlato(true)  
                 personajePrincipal.agarrarOSoltar()
                            
                 
             } //Si hay alguno tendria qe decir que ya hay un plato!
         } else{
-            if(platoEnArmado.any({elem => elem.elemento() == "plato"})){
-                platoEnArmado.add(objeto)
+            if(platoEnArmado.elementosPlato().any({elem => elem.elemento() == "plato"})){
+                platoEnArmado.elementosPlato().add(objeto)
+                objeto.estaEnPlato(true)
                 personajePrincipal.agarrarOSoltar()
             }
             //Si no hay plato tiene que decir que necesita un plato para poner la comida
         }        
 
     }
+
+    method agarrarPlatoArmado() {
+        if(platoEnArmado.sePuedeAgarrar()){
+            return platoEnArmado
+        }else{
+            return null
+        }
+    }
+
 }
+
+
+
+
 

@@ -24,6 +24,7 @@ program juego{
     game.addVisual(pechuga4)
     game.addVisual(pechuga5)
     game.addVisual(papa1)
+    game.addVisual(platoArmado1)
 
     teclado.movimiento()
     teclado.agarrarOSoltarObjeto()

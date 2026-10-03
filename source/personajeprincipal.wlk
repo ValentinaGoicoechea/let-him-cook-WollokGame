@@ -1,3 +1,4 @@
+import source.ambiente.*
 import source.comida.*
 import wollok.game.*
 
@@ -41,19 +42,22 @@ object personajePrincipal{
 
         if(self.esSuelo(nuevaPosicion)){
             position = nuevaPosicion
-            if(objetoEnMano != null){
+            if(objetoEnMano != null && (objetoEnMano.elemento() == "comida" or objetoEnMano.elemento() == "plato")){
                 objetoEnMano.position(nuevaPosicion)
+            }else if(objetoEnMano != null && objetoEnMano.elemento() == "plato armado"){
+                objetoEnMano.elementosPlato().forEach({elemento => elemento.position(nuevaPosicion)})
             }
         }
     }
 
     method agarrableEn(posicion){ //para objetos que necesito agarrar
-        return game.getObjectsIn(posicion).findOrDefault({ objeto => objeto.sePuedeAgarrar() }, null)
+        return game.getObjectsIn(posicion).findOrDefault({ objeto => objeto.sePuedeAgarrar() && not(objeto.estaEnPlato()) }, null)
     }
 
     method funcionalEn(posicion) { //para objetos que tenco que interactuar con funcion
         return game.getObjectsIn(posicion).findOrDefault({ objeto => objeto.elemento() == "estacion" }, null)
     }
+
     
     method posicionDondeMiro(){
             if (ultimadireccion == "derecha") return position.right(1)
@@ -64,27 +68,46 @@ object personajePrincipal{
     }
 
     method agarrarOSoltar(){ 
-        if(not(manoOcupada)){
+        if(!(manoOcupada)){
             var objetoAAgarrar = null
             objetoAAgarrar = self.agarrableEn(self.posicionDondeMiro())
             if(objetoAAgarrar != null && (objetoAAgarrar.elemento() == "comida" or objetoAAgarrar.elemento() == "plato")
-            && objetoAAgarrar.sePuedeAgarrar()){
-                objetoAAgarrar.position(position)
+                && objetoAAgarrar.sePuedeAgarrar()){
+                    objetoAAgarrar.position(position)
+                    manoOcupada = true
+                    objetoEnMano = objetoAAgarrar 
+            }else if(objetoAAgarrar != null && (objetoAAgarrar.elemento() == "plato armado")){ //si es plato armado es porque se puede agarrar
+                objetoEnMano = objetoAAgarrar
                 manoOcupada = true
-                objetoEnMano = objetoAAgarrar 
+                objetoEnMano.nuevaposicion(position)
+                
             }
         }else{
-            objetoEnMano.position(self.posicionDondeMiro())
-            manoOcupada = false
-            objetoEnMano = null
+            if(objetoEnMano.elemento() == "comida" || objetoEnMano.elemento() == "plato"){
+                objetoEnMano.position(self.posicionDondeMiro())
+                manoOcupada = false
+                objetoEnMano = null
+            }
+            else if(objetoEnMano.elemento() == "plato armado"){
+                objetoEnMano.nuevaposicion(self.posicionDondeMiro())
+                objetoEnMano = null
+                manoOcupada = false
+            }
         }
     }
 
     method accionar(){
-        if(manoOcupada && (self.funcionalEn(self.posicionDondeMiro())).elemento() == "estacion"){
-            (self.funcionalEn(self.posicionDondeMiro())).tareaDeEstacion(objetoEnMano)
+    const elementoQueMiro = self.funcionalEn(self.posicionDondeMiro())
+
+        if(elementoQueMiro != null && manoOcupada && (elementoQueMiro).elemento() == "estacion"){
+            if(elementoQueMiro.mesaArmado()){
+                elementoQueMiro.funcion(objetoEnMano)
+            }else{
+                (elementoQueMiro).tareaDeEstacion(objetoEnMano)
+            }
         }
     }
+
     
 
 }
