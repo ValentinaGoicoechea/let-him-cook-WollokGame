@@ -6,10 +6,10 @@ class Estacion{
     var prendido 
     var estaOcupado 
     const tiempoTarea
-    var imagen1
-    var imagen2
-    var valorOtorgado
-    var debeValidar
+    const imagen1
+    const imagen2
+    const valorOtorgado
+    const debeValidar
     method mesaArmado() = false //PRUEBA
 
     method sePuedeAgarrar() = false
@@ -24,14 +24,17 @@ class Estacion{
     }
 
     method tareaDeEstacion(objeto) {
-        if((objeto.puede()).contains(debeValidar) && !estaOcupado){
+        if(objeto.tareas().contains(debeValidar) && !estaOcupado){
             prendido = true
             estaOcupado = true
             personajePrincipal.agarrarOSoltar()
+            objeto.sePuedeAgarrar(false)
             game.schedule(tiempoTarea, { 
                 objeto.modificado(valorOtorgado)
+                if(valorOtorgado == "tirado") game.removeVisual(objeto)
                 prendido = false
                 estaOcupado = false
+                objeto.sePuedeAgarrar(true)
             })}
         
         return
