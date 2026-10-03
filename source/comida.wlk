@@ -89,7 +89,7 @@ class Plato {
     var property modificado 
     var property estaEnPlato = false
     var property sePuedeAgarrar = true 
-    
+
     method elemento() = "plato"
 
     method image(){
@@ -104,6 +104,11 @@ class Plato {
 }
 
 const plato1 = new Plato(
+    position = game.at(16,3),
+    modificado = "limpio"
+)
+
+const plato2 = new Plato(
     position = game.at(16,3),
     modificado = "limpio"
 )
