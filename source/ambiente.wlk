@@ -162,6 +162,14 @@ object mesadaArmado { //Hay 3 mesas de armado, por eso un class
 
 }
 
+object cajonDePapas {
+    const property position = game.at(26,5)
+    method image() = "cajonDePapas.png"
+    method elemento() = "cajonDePapas"
+
+    
+}
+
 
 
 
