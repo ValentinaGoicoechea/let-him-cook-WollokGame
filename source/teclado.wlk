@@ -26,9 +26,9 @@ object teclado{
 
     method realizarAccion() {
         keyboard.q().onPressDo({personajePrincipal.accionar()})
- }
+    }
 
-    method actualizarStockPapas() {
+    method interactuarConCajon() {
         keyboard.num1().onPressDo({personajePrincipal.accionarCajon()})
     }
 
