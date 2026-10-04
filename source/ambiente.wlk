@@ -172,6 +172,16 @@ object cajonDePapas {
     }
 }
 
+object cajonDePollo {
+    const property position = game.at(26,6)
+    method image() = "cajonDePollo.png"
+    method elemento() = "cajonDePollo"
+
+    method reponerStock() {
+        
+    }
+}
+
 
 
 
