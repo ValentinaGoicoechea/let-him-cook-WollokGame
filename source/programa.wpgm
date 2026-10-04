@@ -26,10 +26,13 @@ program juego{
     game.addVisual(pechuga5)
     game.addVisual(papa1)
     game.addVisual(platoArmado1)
+    game.addVisual(cajonDePapas)
+    game.addVisual(cajonDePollo)
 
     teclado.movimiento()
     teclado.agarrarOSoltarObjeto()
     teclado.realizarAccion()
+    teclado.interactuarConCajon()
     game.onTick(100, "moverCocinero", { personajePrincipal.darPaso() }) //sirve para que pueda avanzar manteniendo presionado, pregunta cada 100ms a donde da un paso
 
     game.start()
