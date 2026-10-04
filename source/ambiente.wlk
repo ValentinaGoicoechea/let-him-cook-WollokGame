@@ -167,7 +167,9 @@ object cajonDePapas {
     method image() = "cajonDePapas.png"
     method elemento() = "cajonDePapas"
 
-    
+    method reponerStock() {
+        
+    }
 }
 
 

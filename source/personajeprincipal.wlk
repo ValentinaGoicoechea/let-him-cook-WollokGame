@@ -108,8 +108,15 @@ object personajePrincipal{
         }
     }
 
-    
+    method accionarCajon() {
+        const elementoQueMiro = self.funcionalEn(self.posicionDondeMiro())
 
+        if (elementoQueMiro != null && ((elementoQueMiro).elemento() == "cajonDePapas" || 
+            (elementoQueMiro).elemento() == "cajonDePollo")) {
+            elementoQueMiro.reponerStock()
+        }
+
+    }
 }
 
 //LO DE LA DIRECCION ES ÚTIL PARA DESPUES CAMBIAR LAS IMAGENES!!
