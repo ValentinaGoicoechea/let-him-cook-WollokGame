@@ -162,6 +162,46 @@ object mesadaArmado { //Hay 3 mesas de armado, por eso un class
 
 }
 
+object cajonDePapas {  //La idea es que el cajón cuente la cantidad de papas de alguna forma
+                       // y en base a eso restockee. Tal vez haya que hacer una colección de papas.
+    const property position = game.at(26,5)
+    const stockMaximo = 5
+    method image() = "cajonDePapas.png"
+    method elemento() = "cajonDePapas"
+    /*
+    method reponerStock() {
+        const cantidadDePapas = papasEnJuego.size()
+        if (cantidadDePapas <= stockMaximo) {
+            
+        }
+    }
+
+    method cantidadDePapas() {
+        return papasEnJuego.size()
+    } 
+    */
+
+    
+}
+
+object cajonDePollo {
+    const property position = game.at(26,6)
+    const stockMaximo = 5
+    method image() = "cajonDePollo.png"
+    method elemento() = "cajonDePollo"
+
+    /*
+    method reponerStock() {
+        
+    }
+
+    method cantidadDePollos() {
+        return pollosEnJuego().size()
+    }
+    */
+
+}
+
 
 
 
