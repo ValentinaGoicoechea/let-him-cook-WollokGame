@@ -6,7 +6,7 @@ import comida.*
 import pedidos.*
 
 program juego{
-    game.width(28)
+    game.width(32)
     game.height(16)
     game.cellSize(50)
     game.title("Overcooked") //a chequear si despues lo cambiamos
