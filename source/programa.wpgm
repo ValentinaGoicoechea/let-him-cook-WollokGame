@@ -32,6 +32,7 @@ program juego{
     teclado.agarrarOSoltarObjeto()
     teclado.realizarAccion()
     game.onTick(100, "moverCocinero", { personajePrincipal.darPaso() }) //sirve para que pueda avanzar manteniendo presionado, pregunta cada 100ms a donde da un paso
+    generadorDePedidos.empezar()
 
     game.start()
     //game.ground("archivo de la imagen") o game.boardGround("nombre de archivo")

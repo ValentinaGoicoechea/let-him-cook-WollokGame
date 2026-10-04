@@ -8,7 +8,6 @@ class Pedido{
     var property estado = "NUEVO"// estados NUEVO, ESPERA1, ESPERA2, PERDIDO
     const receta   //por ahora solo pollo con papas
     const ingredientes // por ahora creo "ingredientes" para luego verifivcar si cumplen
-    const tiempoDeCreacion
     var property seEntrego = false
 
     method image() {
@@ -27,4 +26,22 @@ class Pedido{
         game.schedule(30000, { estado = "PERDIDO" })
     }
 
+}
+
+object generadorDePedidos {
+    var property puedeGenerarPedidos = true
+    
+    method nuevoPedido() {
+        const pedidoX = new Pedido(
+            position = game.at(27, 4),
+            receta = "polloConPapas",
+            ingredientes = ["plato", "pechugaCocinada", "papasFritas"]
+        )
+        pedidoX.estadoDelPedido()
+    }
+
+    method empezar() {
+        self.nuevoPedido()                                        
+        game.onTick(20000, "generarPedido", { self.nuevoPedido() }) //Creacion de pedidos cda 20 sec
+    }
 }
