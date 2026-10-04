@@ -40,7 +40,7 @@ object generadorDePedidos {
         contadorDePedidos += 1
         posicionSegunFila = contadorDePedidos % 4
         const pedidoX = new Pedido(
-            position = game.at(27, 4 + (posicionSegunFila * 4)), // X se mantiebe igual, voy a hacer que por ahora haya 4 en pantalla
+            position = game.at(27, (posicionSegunFila * 4)), // X se mantiebe igual, voy a hacer que por ahora haya 4 en pantalla
             receta = "polloConPapas",
             ingredientes = ["plato", "pechugaCocinada", "papasFritas"]
         )
