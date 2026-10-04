@@ -25,7 +25,8 @@ class Pedido{
         game.schedule(20000, { estado = "ESPERA2" })
         game.schedule(30000, { 
             estado = "PERDIDO" 
-            game.schedule(2000, game.removeVisual(self))})
+            game.schedule(2000, {game.removeVisual(self)})
+            })
     }
 
 }
