@@ -1,5 +1,7 @@
 import wollok.game.*
+import pedidos.*
 import personajeprincipal.*
+import comida.*
 
 class Estacion{
     const property position
@@ -11,6 +13,7 @@ class Estacion{
     const valorOtorgado
     const debeValidar
     method mesaArmado() = false //PRUEBA
+    method mesadaEntrega() = false //PRUEBA
 
     method sePuedeAgarrar() = false
     method elemento() = "estacion"
@@ -87,7 +90,57 @@ const tablaDeCortar = new Estacion(
 
 object mesadaEntrega {
     const property position = game.at(14,11) 
+    var listaActual = null
     method image() = "mesada.png"
+    method elemento() = "estacion"
+    var property contador = 0 
+
+    method mesaArmado() = false //PRUEBA
+    method mesadaEntrega() = true //PRUEBA
+    //PRIORIDAD: ENTREGA PRIMERO LOS QUE ESTAN EN ESPERA 2, DESPUES ESPERA 1, DESPUES LOS NUEVOS 
+
+    method compararIngredientesLista(plato, lista){
+       return ((plato.size() == lista.size())&& plato.all({elemento => lista.contains(elemento.elementoYEstado())}))
+    }
+
+    method devolverPlatoSucio(plato){
+        plato.position(game.at(16,3))
+        plato.modificado("sucio")
+    }
+    //Debería aparecer un plato sucio y volver a estar donde estaba el platoArmado
+    method tomarPlato(plato, lista){ 
+        const platoUsado = plato.elementosPlato().findOrDefault({elemento => elemento.elemento() == "plato"}, null) //obtengo el plato que usaba el platoArmado
+        game.removeVisual(plato)
+        game.removeVisual(lista)
+        self.devolverPlatoSucio(platoUsado)
+    }
+
+    method procesoPlato(listaSegunEspera, plato){
+        listaActual = listaSegunEspera.first() 
+            if(self.compararIngredientesLista(plato.elementosPlato(), listaActual.ingredientes())){ // si tienen lo mismo
+                //Acá se añaden los puntos 
+                self.tomarPlato(plato, listaActual)
+            }else{
+                //Restar puntos
+                self.tomarPlato(plato, listaActual)
+            }
+    }
+
+
+
+    method entregarPlato(platoArmado){ //verifico antes que es un plato armado
+    const listaEspera2 = generadorDePedidos.listaPedidos().findOrDefault({pedidolista => pedidolista.estadoDelPedido() == "ESPERA2"})
+    const listaEspera1 = generadorDePedidos.listaPedidos().findOrDefault({pedidolista => pedidolista.estadoDelPedido() == "ESPERA1"})
+    const listaNuevos = generadorDePedidos.listaPedidos().findOrDefault({pedidolista => pedidolista.estadoDelPedido() == "NUEVO"})
+    
+    if (listaEspera2 != null){ // si hay pedidos en espera2
+        self.procesoPlato(listaEspera2, platoArmado)       
+    }else if(listaEspera1 != null){
+        self.procesoPlato(listaEspera1, platoArmado)
+    }else if(listaNuevos != null){
+        self.procesoPlato(listaNuevos, platoArmado)
+    }
+    }
 }
 
 class PlatoArmado {
@@ -128,6 +181,7 @@ object mesadaArmado { //Hay 3 mesas de armado, por eso un class
     method image() = "mesadaArmado.png"  
     method elemento() = "estacion"
     method mesaArmado() = true
+    method mesadaEntrega() = false
     method sePuedeAgarrar() = false
     const property platoEnArmado = platoArmado1 //Cada mesa tiene un plato asignado? ver como hacemos cuando los entregamos
 

@@ -8,6 +8,11 @@ class PechugaDePollo{
     var property sePuedeAgarrar = true 
     
     method elemento() = "comida"
+
+    method elementoYEstado(){
+        if(self.modificado() == "cocinado") return "pechugaCocinada"
+        else return "pechugaDePollo"
+    }
     
     
     method image(){
@@ -58,6 +63,13 @@ class Papa{
     var property sePuedeAgarrar = true 
     
     method elemento() = "comida"
+
+
+    method elementoYEstado(){
+        if(self.modificado() == "cocinado") return "papasFritas"
+        else if(self.modificado() == "cortada") return "papaCortada"
+        else return "papaCruda"
+    }
 
     
     method image(){

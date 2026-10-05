@@ -23,9 +23,9 @@ object personajePrincipal{
         const x = pos.x()
         const y= pos.y()
 
-        return(x.between(4, 24) && y.between(7,11) || 
-                x.between(6,18) && y == 6||
-                x.between(4,25) && y.between(4, 5))||
+        return(x.between(5, 24) && y.between(7,11) || 
+                x.between(5,18) && y == 6||
+                x.between(5,25) && y.between(4, 5))||
                 x.between(18,25) && y == 3
     }
 
@@ -102,6 +102,8 @@ object personajePrincipal{
         if(elementoQueMiro != null && manoOcupada && (elementoQueMiro).elemento() == "estacion"){
             if(elementoQueMiro.mesaArmado()){
                 elementoQueMiro.armarPlato(objetoEnMano)
+            }else if(elementoQueMiro.mesadaEntrega() && objetoEnMano =="plato armado"){
+                elementoQueMiro.entregarPlato(objetoEnMano)
             }else{
                 (elementoQueMiro).tareaDeEstacion(objetoEnMano)
             }
