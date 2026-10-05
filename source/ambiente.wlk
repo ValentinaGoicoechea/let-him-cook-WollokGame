@@ -101,12 +101,10 @@ object mesadaEntrega {
     //PRIORIDAD: ENTREGA PRIMERO LOS QUE ESTAN EN ESPERA 2, DESPUES ESPERA 1, DESPUES LOS NUEVOS 
 
     method compararIngredientesLista(plato, lista){
-        console.println("COMPARANDO LISTA Y PLATO")
        return ((plato.size() == lista.size())&& plato.all({elemento => lista.contains(elemento.elementoYEstado())}))
     }
 
     method devolverPlatoSucio(plato){
-        console.println("DEVOLVIENDO PLATO SUCIO")
         plato.position(game.at(16,3))
         plato.modificado("sucio")
         plato.estaEnPlato(false)
@@ -121,13 +119,11 @@ object mesadaEntrega {
     
     //Debería aparecer un plato sucio y volver a estar donde estaba el platoArmado
     method tomarPlato(plato, lista){ 
-        console.println("REMOVIENDO ELEMENTOS")
         const platoUsado = plato.elementosPlato().findOrDefault({elemento => elemento.elementoYEstado() == "plato"}, null) //obtengo el plato que usaba el platoArmado
         const posicionPlatoAArmar = plato.position()
 
 
         if(platoUsado != null){
-            console.println("EXISTE PLATO SUCIO")
             self.resetearPlatoArmado(plato)
             game.removeVisual(lista)
             self.devolverPlatoSucio(platoUsado)
@@ -138,12 +134,10 @@ object mesadaEntrega {
     method procesoPlato(listaSegunEspera, plato){
         listaActual = listaSegunEspera.first() 
             if(self.compararIngredientesLista(plato.elementosPlato(), listaActual.ingredientes())){ // si tienen lo mismo
-                console.println("CUMPLE EL PLATO CON LA LISTA")
                 //Acá se añaden los puntos 
                 generadorDePedidos.listaPedidos().remove(listaActual)
                 self.tomarPlato(plato, listaActual)
             }else{
-                console.println("EL PLATO NO CUMPLE CON LA LISTA")
                 //Restar puntos
                 generadorDePedidos.listaPedidos().remove(listaActual)
                 self.tomarPlato(plato, listaActual)
@@ -208,16 +202,22 @@ const platoArmado1 = new PlatoArmado( //ASIGNANDO UN PLATO A CADA MESADA
     position = game.at(24.5,7)
 )
 
+const platoArmado2 = new PlatoArmado(
+    position = game.at(24.5, 9)
+)
 
-object mesadaArmado { //Hay 3 mesas de armado, por eso un class
-    const property position = game.at(24.5,7)
-    method image() = "mesadaArmado.png"  
+const platoArmado3 = new PlatoArmado(
+    position = game.at(24.5, 11)
+)
+
+class MesadaArmado{
+    const property position
+    const property image
+    const property platoEnArmado
     method elemento() = "estacion"
     method mesaArmado() = true
     method mesadaEntrega() = false
     method sePuedeAgarrar() = false
-    const property platoEnArmado = platoArmado1 //Cada mesa tiene un plato asignado? ver como hacemos cuando los entregamos
-
 
     method armarPlato(objeto){
         if(objeto.elemento() == "plato"){
@@ -246,8 +246,30 @@ object mesadaArmado { //Hay 3 mesas de armado, por eso un class
             return null
         }
     }
-
 }
+
+
+const mesadaArmado1 = new MesadaArmado(
+    position = game.at(24.5,7),
+    image = "mesadaArmado.png",
+    platoEnArmado = platoArmado1
+)
+
+
+const mesadaArmado2 = new MesadaArmado(
+    position = game.at(24.5,9),
+    image = "vacio.png",
+    platoEnArmado = platoArmado2
+)
+
+
+const mesadaArmado3 = new MesadaArmado(
+    position = game.at(24.5,11),
+    image = "vacio.png",
+    platoEnArmado = platoArmado3
+)
+
+
 
 object cajonDePapas {  //La idea es que el cajón cuente la cantidad de papas de alguna forma
                        // y en base a eso restockee. Tal vez haya que hacer una colección de papas.
