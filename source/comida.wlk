@@ -31,31 +31,6 @@ class PechugaDePollo{
     
 }
 
-const pechuga1 = new PechugaDePollo(
-    position = game.at(6,3),
-    modificado = ""
-)
-
-const pechuga2 = new PechugaDePollo(
-    position = game.at(6,3),
-    modificado = ""
-)
-
-const pechuga3 = new PechugaDePollo(
-    position = game.at(6,3),
-    modificado = ""
-)
-
-const pechuga4 = new PechugaDePollo(
-    position = game.at(6,3),
-    modificado = ""
-)
-
-const pechuga5 = new PechugaDePollo(
-    position = game.at(6,3),
-    modificado = ""
-)
-
 class Papa{
     var property position 
     var property modificado
@@ -90,11 +65,6 @@ class Papa{
         return ["cortar", "tirar"]
     }
 }
-
-const papa1 = new Papa(
-    position = game.at(9,3),
-    modificado = ""
-)
 
 class Plato {    
     var property position 

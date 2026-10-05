@@ -271,30 +271,35 @@ const mesadaArmado3 = new MesadaArmado(
 
 
 
-object cajonDePapas {  //La idea es que el cajón cuente la cantidad de papas de alguna forma
-                       // y en base a eso restockee. Tal vez haya que hacer una colección de papas.
-    const property position = game.at(26,5)
+object cajonDePapas {
+    const property position = game.at(23,5)
+    const posicionPapas = game.at(9,3)
     const stockMaximo = 5
+    const papas = [] 
+
+    method sePuedeAgarrar() = false
+    method estaEnPlato() = false
     method image() = "cajonDePapas.png"
     method elemento() = "stock"
-    /*
-    method reponerStock() {
-        const cantidadDePapas = papasEnJuego.size()
-        if (cantidadDePapas <= stockMaximo) {
-            
-        }
+
+    method cantidadEnStock() {
+        return papas.count({papa => papa.position() == posicionPapas })
     }
 
-    method cantidadDePapas() {
-        return papasEnJuego.size()
-    } 
-    */
-
-    
+    method reponerStock() {
+        if (self.cantidadEnStock() == 0) { 
+            stockMaximo.times( 
+                {papaX => const nuevaPapa = new PechugaDePollo(position = posicionPapas, modificado = "")
+                papas.add(nuevaPapa)
+                game.addVisual(nuevaPapa)
+                }
+            )
+        }
+    }
 }
 
 object cajonDePollo {
-    const property position = game.at(26,6)
+    const property position = game.at(20,5)
     const posicionPollos = game.at(6,3)
     const stockMaximo = 5
     const pechugas = [] 
