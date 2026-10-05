@@ -1,7 +1,15 @@
 describe "Tests TPGame-Overcooked" {
 
-    test "Al cortar una papa en la tabla de cortar, cambia su estado a 'cortada' " {
+    test "Al cortarse una papa, esta cambia su estado, su tipo e imagen." {
+        const papa = new Papa(position = game.at(4,9),
+                              modificado = "")
 
+        papa.modificado("cortada")
+
+        assert.equals("cortada", papa.modificado())
+        assert.equals("papaCortada", papa.elementoYEstado())
+        assert.equals("papaCortada.png", papa.image())
+        
     }
 
     test "Cuando se pone la pechuga en el horno, cambia su estado a 'cocida' " {
@@ -17,6 +25,6 @@ describe "Tests TPGame-Overcooked" {
     }
 
     test "Cuando el cajón de pollo repone stock, aparecen 5 pechugas en el lugar correspondiente" {
-        
+
     }
 }
