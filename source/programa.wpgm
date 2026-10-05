@@ -19,6 +19,8 @@ program juego{
     game.addVisual(tablaDeCortar)
     game.addVisual(basura)
     game.addVisual(bacha)
+    game.addVisual(cajonDePapas)
+    game.addVisual(cajonDePollo)
     game.addVisual(personajePrincipal)
     game.addVisual(plato1)
     game.addVisual(plato2)
@@ -26,8 +28,7 @@ program juego{
     game.addVisual(platoArmado1)
     game.addVisual(platoArmado2)
     game.addVisual(platoArmado3)
-    game.addVisual(cajonDePapas)
-    game.addVisual(cajonDePollo)
+    
     
     cajonDePollo.reponerStock()
 
