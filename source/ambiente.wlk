@@ -276,7 +276,7 @@ object cajonDePapas {  //La idea es que el cajón cuente la cantidad de papas de
     const property position = game.at(26,5)
     const stockMaximo = 5
     method image() = "cajonDePapas.png"
-    method elemento() = "cajonDePapas"
+    method elemento() = "stock"
     /*
     method reponerStock() {
         const cantidadDePapas = papasEnJuego.size()
@@ -295,23 +295,33 @@ object cajonDePapas {  //La idea es que el cajón cuente la cantidad de papas de
 
 object cajonDePollo {
     const property position = game.at(26,6)
+    const posicionPollos = game.at(6,3)
     const stockMaximo = 5
+    const pechugas = [] 
+
+    method sePuedeAgarrar() = false
+    method estaEnPlato() = false
     method image() = "cajonDePollo.png"
-    method elemento() = "cajonDePollo"
+    method elemento() = "stock"
 
-    /*
+    method cantidadEnStock() {
+        return pechugas.count({pechuga => pechuga.position() == posicionPollos })
+    }
+
     method reponerStock() {
-        
+        if (self.cantidadEnStock() == 0) { //el .times es para que se ejecute esa cant de veces
+            stockMaximo.times( 
+                {pechugaX => const nuevaPechuga = new PechugaDePollo(position = posicionPollos, modificado = "")
+                pechugas.add(nuevaPechuga)
+                game.addVisual(nuevaPechuga)
+                }
+            )
+        }
     }
-
-    method cantidadDePollos() {
-        return pollosEnJuego().size()
-    }
-    */
-
 }
 
-
+//en adelante nos conviene que haya una class de cajon )todas comparten lo mismo). 
+//seria conveniente cuando implementemos mas ingredientesn (mas cajones iguales)
 
 
 
