@@ -1,3 +1,5 @@
+import comida.*
+import ambiente.*
 describe "Tests TPGame-Overcooked" {
 
     test "Al cortarse una papa, esta cambia su estado, su tipo e imagen." {
@@ -9,7 +11,7 @@ describe "Tests TPGame-Overcooked" {
         assert.equals("cortada", papa.modificado())
         assert.equals("papaCortada", papa.elementoYEstado())
         assert.equals("papaCortada.png", papa.image())
-        
+
     }
 
     test "Cuando se pone la pechuga en el horno, cambia su estado a 'cocida' " {
@@ -17,10 +19,12 @@ describe "Tests TPGame-Overcooked" {
     }
 
     test "El stock inicial de pechugas y de papas es de 5 (cada uno)" {
-
+        
+        assert.equals(5, cajonDePapas.cantidadEnStock())
+        assert.equals(5, cajonDePollo.cantidadEnStock())
     }
 
-    test "Cuando tiro una pechuga al tacho de basura, esta desaparece" {
+    test "Cuando se tira una pechuga al tacho de basura, esta desaparece" {
 
     }
 
