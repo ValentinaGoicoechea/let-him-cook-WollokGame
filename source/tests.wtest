@@ -24,7 +24,15 @@ describe "Tests TPGame-Overcooked" {
         assert.equals(5, cajonDePollo.cantidadEnStock())
     }
 
-    test "Cuando se tira una pechuga al tacho de basura, esta desaparece" {
+    test "Cuando se tira una pechuga al tacho de basura, esta desaparece" { //Seguramente haya que
+                                                                            //modificar esto.
+        const pechuga = new PechugaDePollo(position = game.at(6,3),
+                                           modificado = "")
+        
+        basura.tareaDeEstacion(pechuga)
+
+        assert.equals("tirado", pechuga.modificado())
+        assert.equals("vacio.png", pechuga.image())
 
     }
 
