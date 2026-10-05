@@ -54,11 +54,14 @@ object personajePrincipal{
         return game.getObjectsIn(posicion).findOrDefault({ objeto => objeto.sePuedeAgarrar() && not(objeto.estaEnPlato()) }, null)
     }
 
-    method funcionalEn(posicion) { //para objetos que tenco que interactuar con funcion
+    method estacionEn(posicion) { //para objetos que tenco que interactuar con funcion
         return game.getObjectsIn(posicion).findOrDefault({ objeto => objeto.elemento() == "estacion" }, null)
     }
 
-    
+    method cajonEn(posicion) {
+        return game.getObjectsIn(posicion).findOrDefault({objeto => objeto.elemento() == "stock"}, null)
+    }
+
     method posicionDondeMiro(){
             if (ultimadireccion == "derecha") return position.right(1)
             if (ultimadireccion == "izquierda") return position.left(1)
@@ -97,7 +100,7 @@ object personajePrincipal{
     }
 
     method accionar(){
-    const elementoQueMiro = self.funcionalEn(self.posicionDondeMiro())
+    const elementoQueMiro = self.estacionEn(self.posicionDondeMiro())
 
         if(elementoQueMiro != null && manoOcupada && (elementoQueMiro).elemento() == "estacion"){
             if(elementoQueMiro.mesaArmado()){
@@ -111,13 +114,8 @@ object personajePrincipal{
     }
 
     method accionarCajon() {
-        const elementoQueMiro = self.funcionalEn(self.posicionDondeMiro())
-
-        if (elementoQueMiro != null && ((elementoQueMiro).elemento() == "cajonDePapas" || 
-            (elementoQueMiro).elemento() == "cajonDePollo")) {
-            elementoQueMiro.reponerStock()
-        }
-
+        const cajon = self.cajonEn(self.posicionDondeMiro())
+        if (cajon != null) cajon.reponerStock()
     }
 }
 
