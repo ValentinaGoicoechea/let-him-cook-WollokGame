@@ -1,5 +1,7 @@
 import wollok.game.*
+import pedidos.*
 import personajeprincipal.*
+import comida.*
 
 class Estacion{
     const property position
@@ -11,6 +13,7 @@ class Estacion{
     const valorOtorgado
     const debeValidar
     method mesaArmado() = false //PRUEBA
+    method mesadaEntrega() = false //PRUEBA
 
     method sePuedeAgarrar() = false
     method elemento() = "estacion"
@@ -87,14 +90,98 @@ const tablaDeCortar = new Estacion(
 
 object mesadaEntrega {
     const property position = game.at(14,11) 
+    var listaActual = null
     method image() = "mesada.png"
+    method elemento() = "estacion"
+    var property contador = 0 
+
+    method mesaArmado() = false //PRUEBA
+    method mesadaEntrega() = true //PRUEBA
+    method sePuedeAgarrar() = false
+    //PRIORIDAD: ENTREGA PRIMERO LOS QUE ESTAN EN ESPERA 2, DESPUES ESPERA 1, DESPUES LOS NUEVOS 
+
+    method compararIngredientesLista(plato, lista){
+        console.println("COMPARANDO LISTA Y PLATO")
+       return ((plato.size() == lista.size())&& plato.all({elemento => lista.contains(elemento.elementoYEstado())}))
+    }
+
+    method devolverPlatoSucio(plato){
+        console.println("DEVOLVIENDO PLATO SUCIO")
+        plato.position(game.at(16,3))
+        plato.modificado("sucio")
+        plato.estaEnPlato(false)
+    }
+
+    method resetearPlatoArmado(plato){
+        plato.elementosPlato().forEach({elemento => game.removeVisual(elemento)})
+        plato.elementosPlato().clear()
+        plato.resetearPosicion()
+    }
+
+    
+    //Debería aparecer un plato sucio y volver a estar donde estaba el platoArmado
+    method tomarPlato(plato, lista){ 
+        console.println("REMOVIENDO ELEMENTOS")
+        const platoUsado = plato.elementosPlato().findOrDefault({elemento => elemento.elementoYEstado() == "plato"}, null) //obtengo el plato que usaba el platoArmado
+        const posicionPlatoAArmar = plato.position()
+
+
+        if(platoUsado != null){
+            console.println("EXISTE PLATO SUCIO")
+            self.resetearPlatoArmado(plato)
+            game.removeVisual(lista)
+            self.devolverPlatoSucio(platoUsado)
+            game.addVisual(platoUsado)
+        }
+    }
+
+    method procesoPlato(listaSegunEspera, plato){
+        listaActual = listaSegunEspera.first() 
+            if(self.compararIngredientesLista(plato.elementosPlato(), listaActual.ingredientes())){ // si tienen lo mismo
+                console.println("CUMPLE EL PLATO CON LA LISTA")
+                //Acá se añaden los puntos 
+                generadorDePedidos.listaPedidos().remove(listaActual)
+                self.tomarPlato(plato, listaActual)
+            }else{
+                console.println("EL PLATO NO CUMPLE CON LA LISTA")
+                //Restar puntos
+                generadorDePedidos.listaPedidos().remove(listaActual)
+                self.tomarPlato(plato, listaActual)
+            }
+    }
+
+
+
+    method entregarPlato(platoArmado){ //verifico antes que es un plato armado
+        const listaEspera2 = generadorDePedidos.listaPedidos().filter({pedidolista => pedidolista.estado() == "ESPERA2"})
+        const listaEspera1 = generadorDePedidos.listaPedidos().filter({pedidolista => pedidolista.estado() == "ESPERA1"})
+        const listaNuevos = generadorDePedidos.listaPedidos().filter({pedidolista => pedidolista.estado() == "NUEVO"})
+        
+        personajePrincipal.agarrarOSoltar() //el personaje lo suelta
+        if (!listaEspera2.isEmpty()){ // si hay pedidos en espera2
+            self.procesoPlato(listaEspera2, platoArmado)       
+        }else if(!listaEspera1.isEmpty()){
+            self.procesoPlato(listaEspera1, platoArmado)
+        }else if(!listaNuevos.isEmpty()){
+            self.procesoPlato(listaNuevos, platoArmado)
+        }
+    }
 }
 
 class PlatoArmado {
     var property position
     var property elementosPlato = []
     const property estaEnPlato = false
+    var posicionInicial = null
     method tareas() = ["tirar"]
+
+    method initialize(){ //la asigna al crearse con NEW
+        posicionInicial = position
+    }
+
+    method resetearPosicion(){
+        self.position(posicionInicial)
+    }
     
     method sePuedeAgarrar(){
         return(elementosPlato.size() > 1)
@@ -119,7 +206,6 @@ class PlatoArmado {
 
 const platoArmado1 = new PlatoArmado( //ASIGNANDO UN PLATO A CADA MESADA
     position = game.at(24.5,7)
-
 )
 
 
@@ -128,6 +214,7 @@ object mesadaArmado { //Hay 3 mesas de armado, por eso un class
     method image() = "mesadaArmado.png"  
     method elemento() = "estacion"
     method mesaArmado() = true
+    method mesadaEntrega() = false
     method sePuedeAgarrar() = false
     const property platoEnArmado = platoArmado1 //Cada mesa tiene un plato asignado? ver como hacemos cuando los entregamos
 

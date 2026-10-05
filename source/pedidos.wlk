@@ -10,6 +10,8 @@ class Pedido{
     const ingredientes // por ahora creo "ingredientes" para luego verifivcar si cumplen
     var property seEntrego = false
 
+    method ingredientes() = ingredientes
+
     method image() {
         //if(receta = "polloConPapas") ##para cuando haya mas recetas
             if(estado == "NUEVO") return "pedidoPolloNuevo.png"
@@ -25,7 +27,7 @@ class Pedido{
         game.schedule(20000, { estado = "ESPERA2" })
         game.schedule(30000, { 
             estado = "PERDIDO" 
-            game.schedule(2000, {game.removeVisual(self)})
+            game.schedule(2000, {game.removeVisual(self)}) //Y ACÁ DESCONTAR PUNTOS
             })
     }
 
@@ -35,6 +37,9 @@ object generadorDePedidos {
     var property puedeGenerarPedidos = true
     var contadorDePedidos = 0
     var posicionSegunFila = null
+    const listapedidos = []
+
+    method listaPedidos() = listapedidos
     
     method nuevoPedido() {
         contadorDePedidos += 1
@@ -44,6 +49,7 @@ object generadorDePedidos {
             receta = "polloConPapas",
             ingredientes = ["plato", "pechugaCocinada", "papasFritas"]
         )
+        listapedidos.add(pedidoX)
         pedidoX.estadoDelPedido()
     }
 
