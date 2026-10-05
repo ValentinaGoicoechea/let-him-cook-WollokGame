@@ -23,10 +23,10 @@ object personajePrincipal{
         const x = pos.x()
         const y= pos.y()
 
-        return(x.between(4, 23) && y.between(10,11) || 
-                x.between(4,24) && y.between(8,9)||
-                x.between(5,24) && y == 7||
-                x.between(5,18) && y.between(4, 6))
+        return(x.between(4, 24) && y.between(7,11) || 
+                x.between(6,18) && y == 6||
+                x.between(4,25) && y.between(4, 5))||
+                x.between(18,25) && y == 3
     }
 
     method proximaPosicion() {
