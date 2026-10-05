@@ -36,7 +36,12 @@ describe "Tests TPGame-Overcooked" {
 
     }
 
-    test "Cuando el cajón de pollo repone stock, aparecen 5 pechugas en el lugar correspondiente" {
-
+    test "El cajón de pollo no repone si todavía tiene stock." {  //Este queda medio raro porque
+                                                                  // no tenemos forma de llevar a 0
+                                                                  // la cantidad de pollos.
+        
+        cajonDePollo.reponerStock()
+        assert.equals(5, cajonDePollo.cantidadEnStock())
+        
     }
 }
