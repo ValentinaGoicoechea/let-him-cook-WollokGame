@@ -102,7 +102,7 @@ object personajePrincipal{
         if(elementoQueMiro != null && manoOcupada && (elementoQueMiro).elemento() == "estacion"){
             if(elementoQueMiro.mesaArmado()){
                 elementoQueMiro.armarPlato(objetoEnMano)
-            }else if(elementoQueMiro.mesadaEntrega() && objetoEnMano =="plato armado"){
+            }else if(elementoQueMiro.mesadaEntrega() && objetoEnMano.elemento() =="plato armado"){
                 elementoQueMiro.entregarPlato(objetoEnMano)
             }else{
                 (elementoQueMiro).tareaDeEstacion(objetoEnMano)

@@ -103,6 +103,7 @@ class Plato {
     var property sePuedeAgarrar = true 
 
     method elemento() = "plato"
+    method elementoYEstado() = "plato"
 
     method image(){
         if(self.modificado() == "limpio") return "plato.png"

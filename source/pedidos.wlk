@@ -10,6 +10,8 @@ class Pedido{
     const ingredientes // por ahora creo "ingredientes" para luego verifivcar si cumplen
     var property seEntrego = false
 
+    method ingredientes() = ingredientes
+
     method image() {
         //if(receta = "polloConPapas") ##para cuando haya mas recetas
             if(estado == "NUEVO") return "pedidoPolloNuevo.png"

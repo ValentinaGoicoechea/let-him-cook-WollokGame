@@ -97,31 +97,55 @@ object mesadaEntrega {
 
     method mesaArmado() = false //PRUEBA
     method mesadaEntrega() = true //PRUEBA
+    method sePuedeAgarrar() = false
     //PRIORIDAD: ENTREGA PRIMERO LOS QUE ESTAN EN ESPERA 2, DESPUES ESPERA 1, DESPUES LOS NUEVOS 
 
     method compararIngredientesLista(plato, lista){
+        console.println("COMPARANDO LISTA Y PLATO")
        return ((plato.size() == lista.size())&& plato.all({elemento => lista.contains(elemento.elementoYEstado())}))
     }
 
     method devolverPlatoSucio(plato){
+        console.println("DEVOLVIENDO PLATO SUCIO")
         plato.position(game.at(16,3))
         plato.modificado("sucio")
+        plato.estaEnPlato(false)
     }
+
+    method resetearPlatoArmado(plato){
+        plato.elementosPlato().forEach({elemento => game.removeVisual(elemento)})
+        plato.elementosPlato().clear()
+        plato.resetearPosicion()
+    }
+
+    
     //Debería aparecer un plato sucio y volver a estar donde estaba el platoArmado
     method tomarPlato(plato, lista){ 
-        const platoUsado = plato.elementosPlato().findOrDefault({elemento => elemento.elemento() == "plato"}, null) //obtengo el plato que usaba el platoArmado
-        game.removeVisual(plato)
-        game.removeVisual(lista)
-        self.devolverPlatoSucio(platoUsado)
+        console.println("REMOVIENDO ELEMENTOS")
+        const platoUsado = plato.elementosPlato().findOrDefault({elemento => elemento.elementoYEstado() == "plato"}, null) //obtengo el plato que usaba el platoArmado
+        const posicionPlatoAArmar = plato.position()
+
+
+        if(platoUsado != null){
+            console.println("EXISTE PLATO SUCIO")
+            self.resetearPlatoArmado(plato)
+            game.removeVisual(lista)
+            self.devolverPlatoSucio(platoUsado)
+            game.addVisual(platoUsado)
+        }
     }
 
     method procesoPlato(listaSegunEspera, plato){
         listaActual = listaSegunEspera.first() 
             if(self.compararIngredientesLista(plato.elementosPlato(), listaActual.ingredientes())){ // si tienen lo mismo
+                console.println("CUMPLE EL PLATO CON LA LISTA")
                 //Acá se añaden los puntos 
+                generadorDePedidos.listaPedidos().remove(listaActual)
                 self.tomarPlato(plato, listaActual)
             }else{
+                console.println("EL PLATO NO CUMPLE CON LA LISTA")
                 //Restar puntos
+                generadorDePedidos.listaPedidos().remove(listaActual)
                 self.tomarPlato(plato, listaActual)
             }
     }
@@ -129,17 +153,18 @@ object mesadaEntrega {
 
 
     method entregarPlato(platoArmado){ //verifico antes que es un plato armado
-    const listaEspera2 = generadorDePedidos.listaPedidos().findOrDefault({pedidolista => pedidolista.estadoDelPedido() == "ESPERA2"})
-    const listaEspera1 = generadorDePedidos.listaPedidos().findOrDefault({pedidolista => pedidolista.estadoDelPedido() == "ESPERA1"})
-    const listaNuevos = generadorDePedidos.listaPedidos().findOrDefault({pedidolista => pedidolista.estadoDelPedido() == "NUEVO"})
-    
-    if (listaEspera2 != null){ // si hay pedidos en espera2
-        self.procesoPlato(listaEspera2, platoArmado)       
-    }else if(listaEspera1 != null){
-        self.procesoPlato(listaEspera1, platoArmado)
-    }else if(listaNuevos != null){
-        self.procesoPlato(listaNuevos, platoArmado)
-    }
+        const listaEspera2 = generadorDePedidos.listaPedidos().filter({pedidolista => pedidolista.estado() == "ESPERA2"})
+        const listaEspera1 = generadorDePedidos.listaPedidos().filter({pedidolista => pedidolista.estado() == "ESPERA1"})
+        const listaNuevos = generadorDePedidos.listaPedidos().filter({pedidolista => pedidolista.estado() == "NUEVO"})
+        
+        personajePrincipal.agarrarOSoltar() //el personaje lo suelta
+        if (!listaEspera2.isEmpty()){ // si hay pedidos en espera2
+            self.procesoPlato(listaEspera2, platoArmado)       
+        }else if(!listaEspera1.isEmpty()){
+            self.procesoPlato(listaEspera1, platoArmado)
+        }else if(!listaNuevos.isEmpty()){
+            self.procesoPlato(listaNuevos, platoArmado)
+        }
     }
 }
 
@@ -147,7 +172,16 @@ class PlatoArmado {
     var property position
     var property elementosPlato = []
     const property estaEnPlato = false
+    var posicionInicial = null
     method tareas() = ["tirar"]
+
+    method initialize(){ //la asigna al crearse con NEW
+        posicionInicial = position
+    }
+
+    method resetearPosicion(){
+        self.position(posicionInicial)
+    }
     
     method sePuedeAgarrar(){
         return(elementosPlato.size() > 1)
@@ -172,7 +206,6 @@ class PlatoArmado {
 
 const platoArmado1 = new PlatoArmado( //ASIGNANDO UN PLATO A CADA MESADA
     position = game.at(24.5,7)
-
 )
 
 
