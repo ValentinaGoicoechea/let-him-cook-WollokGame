@@ -1,6 +1,8 @@
+// source/tests.wtest
 import comida.*
 import ambiente.*
-describe "Tests TPGame-Overcooked" {
+import personajeprincipal.*
+describe "Tests preliminares TPGame-Overcooked" {
 
     test "Al cortarse una papa, esta cambia su estado, su tipo e imagen." {
         const papa = new Papa(position = game.at(4,9),
@@ -14,18 +16,23 @@ describe "Tests TPGame-Overcooked" {
 
     }
 
-    test "Cuando se pone la pechuga en el horno, cambia su estado a 'cocida' " {
+    test "Una pechuga cruda se puede cocinar o tirar." {
+        const pechuga = new PechugaDePollo(position = game.at(10, 10),
+                                           modificado = "")
 
+        assert.equals(true, pechuga.tareas().contains("cocinar"))
+        assert.equals(true, pechuga.tareas().contains("tirar"))
     }
 
-    test "El stock inicial de pechugas y de papas es de 5 (cada uno)" {
+    test "El stock inicial de pechugas y de papas es de 5 (cada uno)." {
         
         assert.equals(5, cajonDePapas.cantidadEnStock())
         assert.equals(5, cajonDePollo.cantidadEnStock())
     }
 
-    test "Cuando se tira una pechuga al tacho de basura, esta desaparece" { //Seguramente haya que
-                                                                            //modificar esto.
+    test "Cuando se tira una pechuga al tacho de basura, esta desaparece." { //Seguramente haya que
+                                                                            //modificar esto porque la 
+                                                                            //basura tarda 500ms en tirar cosas
         const pechuga = new PechugaDePollo(position = game.at(6,3),
                                            modificado = "")
         
@@ -36,12 +43,29 @@ describe "Tests TPGame-Overcooked" {
 
     }
 
-    test "El cajón de pollo no repone si todavía tiene stock." {  //Este queda medio raro porque
-                                                                  // no tenemos forma de llevar a 0
+    test "El cajón de pollo no repone si tiene stock máximo." {  //Este queda medio raro porque
+                                                                  // no tenemos forma de llevar a 1, 2, 3...
                                                                   // la cantidad de pollos.
         
         cajonDePollo.reponerStock()
         assert.equals(5, cajonDePollo.cantidadEnStock())
         
     }
+
+    test "Un plato armado con más de un elemento se puede agarrar." {
+        const plato = new Plato(
+            position = game.at(10, 10),
+            modificado = "limpio")
+
+        const papa = new Papa(
+            position = game.at(10, 10),
+            modificado = "cocinado")
+
+        const platoArmado = new PlatoArmado(
+            position = game.at(10, 10),
+            elementosPlato = [plato, papa])
+
+        assert.equals(true, platoArmado.sePuedeAgarrar())
+    }
+
 }
