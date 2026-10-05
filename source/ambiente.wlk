@@ -289,7 +289,7 @@ object cajonDePapas {
     method reponerStock() {
         if (self.cantidadEnStock() == 0) { 
             stockMaximo.times( 
-                {papaX => const nuevaPapa = new PechugaDePollo(position = posicionPapas, modificado = "")
+                {papaX => const nuevaPapa = new Papa(position = posicionPapas, modificado = "")
                 papas.add(nuevaPapa)
                 game.addVisual(nuevaPapa)
                 }
