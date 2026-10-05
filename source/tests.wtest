@@ -1,0 +1,22 @@
+describe "Tests TPGame-Overcooked" {
+
+    test "Al cortar una papa en la tabla de cortar, cambia su estado a 'cortada' " {
+
+    }
+
+    test "Cuando se pone la pechuga en el horno, cambia su estado a 'cocida' " {
+
+    }
+
+    test "El stock inicial de pechugas y de papas es de 5 (cada uno)" {
+
+    }
+
+    test "Cuando tiro una pechuga al tacho de basura, esta desaparece" {
+
+    }
+
+    test "Cuando el cajón de pollo repone stock, aparecen 5 pechugas en el lugar correspondiente" {
+        
+    }
+}
