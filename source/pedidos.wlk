@@ -55,6 +55,6 @@ object generadorDePedidos {
 
     method empezar() {
         self.nuevoPedido()                                        
-        game.onTick(15000, "generarPedido", { self.nuevoPedido() }) //Creacion de pedidos cda 15 sec
+        game.onTick(20000, "generarPedido", { self.nuevoPedido() }) //Creacion de pedidos cda 20 sec
     }
 }
