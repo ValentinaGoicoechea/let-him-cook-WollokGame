@@ -9,7 +9,7 @@ program juego{
     game.width(32)
     game.height(16)
     game.cellSize(50)
-    game.title("Overcooked") //a chequear si despues lo cambiamos
+    game.title("LET HIM COOK") //a chequear si despues lo cambiamos
     game.boardGround("fondo.png")
     game.addVisual(horno)
     game.addVisual(mesadaEntrega)
