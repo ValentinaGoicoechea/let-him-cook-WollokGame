@@ -38,7 +38,7 @@ describe "Tests preliminares TPGame-Overcooked" {
         const pechuga1 = new PechugaDePollo(position = game.at(6,3),
                                            modificado = "")
         const basura1 = new Estacion(
-            position = game.at(20,7),
+            position = game.at(25,7),
             prendido = false,
             estaOcupado = false,
             tiempoTarea = 0,

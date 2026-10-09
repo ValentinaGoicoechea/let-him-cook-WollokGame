@@ -95,3 +95,10 @@ const plato2 = new Plato(
     position = game.at(16,3),
     modificado = "limpio"
 )
+
+class objetoQuemado {
+    var property position 
+    var property modificado
+    var property estaEnPlato = false
+    var property sePuedeAgarrar = true 
+}

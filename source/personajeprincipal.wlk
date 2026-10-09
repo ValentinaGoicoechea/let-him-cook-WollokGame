@@ -70,32 +70,25 @@ object personajePrincipal{
             return position //error?
     }
 
-    method agarrarOSoltar(){ 
-        if(!(manoOcupada)){
+    method agarrarOSoltar() {  //Se podrá simplificar más? No lo sé
+        if (!(manoOcupada)) {
             var objetoAAgarrar = null
             objetoAAgarrar = self.agarrableEn(self.posicionDondeMiro())
-            if(objetoAAgarrar != null && (objetoAAgarrar.elemento() == "comida" or objetoAAgarrar.elemento() == "plato")
-                && objetoAAgarrar.sePuedeAgarrar()){
-                    objetoAAgarrar.position(position)
-                    manoOcupada = true
-                    objetoEnMano = objetoAAgarrar 
-            }else if(objetoAAgarrar != null && (objetoAAgarrar.elemento() == "plato armado")){ //si es plato armado es porque se puede agarrar
-                objetoEnMano = objetoAAgarrar
-                manoOcupada = true
-                objetoEnMano.nuevaposicion(position)
-                
+            if (objetoAAgarrar != null && (objetoAAgarrar.elemento() == "comida" || objetoAAgarrar.elemento() == "plato")) { // Si es comida o plato se pueden agarrar por default
+                objetoAAgarrar.position(position)
+            } else if (objetoAAgarrar != null && (objetoAAgarrar.elemento() == "plato armado")){ //Si es plato armado
+                objetoEnMano.nuevaPosicion(position)
             }
-        }else{
-            if(objetoEnMano.elemento() == "comida" || objetoEnMano.elemento() == "plato"){
+            objetoEnMano = objetoAAgarrar
+            manoOcupada = true
+        } else {
+            if (objetoEnMano.elemento() == "comida" || objetoEnMano.elemento() == "plato") {
                 objetoEnMano.position(self.posicionDondeMiro())
-                manoOcupada = false
-                objetoEnMano = null
+            } else if (objetoEnMano.elemento() == "plato armado"){
+                objetoEnMano.nuevaPosicion(self.posicionDondeMiro())
             }
-            else if(objetoEnMano.elemento() == "plato armado"){
-                objetoEnMano.nuevaposicion(self.posicionDondeMiro())
-                objetoEnMano = null
-                manoOcupada = false
-            }
+            objetoEnMano = null
+            manoOcupada = false
         }
     }
 
