@@ -32,20 +32,28 @@ describe "Tests preliminares TPGame-Overcooked" {
         assert.equals(5, cajonDePollo.cantidadEnStock())
     }
 
-    /*
     test "Cuando se tira una pechuga al tacho de basura, esta desaparece." { //Seguramente haya que
                                                                             //modificar esto porque la 
                                                                             //basura tarda 500ms en tirar cosas
-        const pechuga = new PechugaDePollo(position = game.at(6,3),
+        const pechuga1 = new PechugaDePollo(position = game.at(6,3),
                                            modificado = "")
+        const basura1 = new Estacion(
+            position = game.at(20,7),
+            prendido = false,
+            estaOcupado = false,
+            tiempoTarea = 0,
+            imagen1 = "basuraAbierta.png",
+            imagen2 = "basura.png",
+            valorOtorgado = "tirado",
+            debeValidar = "tirar"
+        )
         
-        basura.tareaDeEstacion(pechuga)
+        basura1.tareaDeEstacion(pechuga1)
 
-        assert.equals("tirado", pechuga.modificado())
-        assert.equals("vacio.png", pechuga.image())
+        assert.equals("tirado", pechuga1.modificado())
+        assert.equals("vacio.png", pechuga1.image())
 
     }
-    */
 
     test "El cajón de pollo no repone si tiene stock máximo." {  //Este queda medio raro porque
                                                                   // no tenemos forma de llevar a 1, 2, 3...
