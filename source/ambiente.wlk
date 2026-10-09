@@ -111,7 +111,7 @@ object mesadaEntrega {
     }
 
     method resetearPlatoArmado(plato){
-        plato.elementosPlato().forEach({elemento => game.removeVisual(elemento)})
+        plato.elementosPlato().forEach({elemento => if (elemento.elemento() != "plato"){game.removeVisual(elemento)}})
         plato.elementosPlato().clear()
         plato.resetearPosicion()
     }
@@ -127,7 +127,6 @@ object mesadaEntrega {
             self.resetearPlatoArmado(plato)
             game.removeVisual(lista)
             self.devolverPlatoSucio(platoUsado)
-            game.addVisual(platoUsado)
         }
     }
 
