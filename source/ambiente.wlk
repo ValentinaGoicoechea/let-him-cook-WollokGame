@@ -269,27 +269,33 @@ const mesadaArmado3 = new MesadaArmado(
 )
 
 
-
-object cajonDePapas {
-    const property position = game.at(23,5)
-    const posicionPapas = game.at(9,3)
-    const stockMaximo = 5
-    const papas = [] 
+class Cajon {
+    const property position 
+    const posicionAlimento
+    const stockMaximo
+    const alimentos = [] 
+    const imagenCajon
 
     method sePuedeAgarrar() = false
     method estaEnPlato() = false
-    method image() = "cajonDePapas.png"
+    method image() = imagenCajon
     method elemento() = "stock"
 
     method cantidadEnStock() {
-        return papas.count({papa => papa.position() == posicionPapas })
+        return alimentos.count({alimento => alimento.position() == posicionAlimento })
     }
+}
 
+object cajonDePapas inherits Cajon (
+    position = game.at(23,5),
+    posicionAlimento = game.at(9,3),
+    stockMaximo = 5,
+    imagenCajon = "cajonDePapas.png"){
     method reponerStock() {
         if (self.cantidadEnStock() == 0) { 
             stockMaximo.times( 
-                {papaX => const nuevaPapa = new Papa(position = posicionPapas, modificado = "")
-                papas.add(nuevaPapa)
+                {papaX => const nuevaPapa = new Papa(position = posicionAlimento, modificado = "")
+                alimentos.add(nuevaPapa)
                 game.addVisual(nuevaPapa)
                 }
             )
@@ -297,35 +303,22 @@ object cajonDePapas {
     }
 }
 
-object cajonDePollo {
-    const property position = game.at(20,5)
-    const posicionPollos = game.at(6,3)
-    const stockMaximo = 5
-    const pechugas = [] 
-
-    method sePuedeAgarrar() = false
-    method estaEnPlato() = false
-    method image() = "cajonDePollo.png"
-    method elemento() = "stock"
-
-    method cantidadEnStock() {
-        return pechugas.count({pechuga => pechuga.position() == posicionPollos })
-    }
-
+object cajonDePollo inherits Cajon (
+    position = game.at(20,5),
+    posicionAlimento = game.at(6,3),
+    stockMaximo = 5,
+    imagenCajon = "cajonDePollo.png"){
     method reponerStock() {
-        if (self.cantidadEnStock() == 0) { //el .times es para que se ejecute esa cant de veces
+        if (self.cantidadEnStock() == 0) { 
             stockMaximo.times( 
-                {pechugaX => const nuevaPechuga = new PechugaDePollo(position = posicionPollos, modificado = "")
-                pechugas.add(nuevaPechuga)
+                {pechugaX => const nuevaPechuga = new PechugaDePollo(position = posicionAlimento, modificado = "")
+                alimentos.add(nuevaPechuga)
                 game.addVisual(nuevaPechuga)
                 }
             )
         }
     }
 }
-
-//en adelante nos conviene que haya una class de cajon )todas comparten lo mismo). 
-//seria conveniente cuando implementemos mas ingredientesn (mas cajones iguales)
 
 
 
