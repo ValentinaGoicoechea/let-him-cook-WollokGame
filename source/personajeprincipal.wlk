@@ -54,12 +54,8 @@ object personajePrincipal{
         return game.getObjectsIn(posicion).findOrDefault({ objeto => objeto.sePuedeAgarrar() && not(objeto.estaEnPlato()) }, null)
     }
 
-    method estacionEn(posicion) { //para objetos que tenco que interactuar con funcion
-        return game.getObjectsIn(posicion).findOrDefault({ objeto => objeto.elemento() == "estacion" }, null)
-    }
-
-    method cajonEn(posicion) {
-        return game.getObjectsIn(posicion).findOrDefault({objeto => objeto.elemento() == "stock"}, null)
+    method elementoEn(posicion, tipo) { 
+        return game.getObjectsIn(posicion).findOrDefault({objeto => objeto.elemento() == tipo }, null)
     }
 
     method posicionDondeMiro(){
@@ -93,7 +89,7 @@ object personajePrincipal{
     }
 
     method accionar(){
-    const elementoQueMiro = self.estacionEn(self.posicionDondeMiro())
+    const elementoQueMiro = self.elementoEn(self.posicionDondeMiro(), "estacion")
 
         if(elementoQueMiro != null && manoOcupada && (elementoQueMiro).elemento() == "estacion"){
             if(elementoQueMiro.mesaArmado()){
@@ -107,7 +103,7 @@ object personajePrincipal{
     }
 
     method accionarCajon() {
-        const cajon = self.cajonEn(self.posicionDondeMiro())
+        const cajon = self.elementoEn(self.posicionDondeMiro(), "stock")
         if (cajon != null) cajon.reponerStock()
     }
 }
