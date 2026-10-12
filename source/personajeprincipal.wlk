@@ -42,10 +42,12 @@ object personajePrincipal{
 
         if(self.esSuelo(nuevaPosicion)){
             position = nuevaPosicion
-            if(objetoEnMano != null && (objetoEnMano.elemento() == "comida" or objetoEnMano.elemento() == "plato")){
+            if(objetoEnMano != null){
+                if(objetoEnMano.elemento() != "plato armado"){
                 objetoEnMano.position(nuevaPosicion)
-            }else if(objetoEnMano != null && objetoEnMano.elemento() == "plato armado"){
+            } else{
                 objetoEnMano.elementosPlato().forEach({elemento => elemento.position(nuevaPosicion)})
+                }
             }
         }
     }
@@ -89,17 +91,16 @@ object personajePrincipal{
     }
 
     method accionar(){
-    const elementoQueMiro = self.elementoEn(self.posicionDondeMiro(), "estacion")
-
-        if(elementoQueMiro != null && manoOcupada && (elementoQueMiro).elemento() == "estacion"){
-            if(elementoQueMiro.mesaArmado()){
-                elementoQueMiro.armarPlato(objetoEnMano)
-            }else if(elementoQueMiro.mesadaEntrega() && objetoEnMano.elemento() =="plato armado"){
-                elementoQueMiro.entregarPlato(objetoEnMano)
-            }else{
-                (elementoQueMiro).tareaDeEstacion(objetoEnMano)
+        const elementoQueMiro = self.elementoEn(self.posicionDondeMiro(), "estacion")
+            if(elementoQueMiro != null && manoOcupada && (elementoQueMiro).elemento() == "estacion"){
+                if(elementoQueMiro.mesaArmado()){
+                    elementoQueMiro.armarPlato(objetoEnMano)
+                }else if(elementoQueMiro.mesadaEntrega() && objetoEnMano.elemento() =="plato armado"){
+                    elementoQueMiro.entregarPlato(objetoEnMano)
+                }else{
+                    (elementoQueMiro).tareaDeEstacion(objetoEnMano)
+                }
             }
-        }
     }
 
     method accionarCajon() {
