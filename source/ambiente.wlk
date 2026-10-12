@@ -218,7 +218,7 @@ class MesadaArmado{
     method mesadaEntrega() = false
     method sePuedeAgarrar() = false
 
-    method armarPlato(objeto){
+    method tareaDeEstacion(objeto){
         if(objeto.elemento() == "plato"){
             if(!platoEnArmado.elementosPlato().any({elem=> elem.elemento() == "plato"})){
                 platoEnArmado.elementosPlato().add(objeto)
