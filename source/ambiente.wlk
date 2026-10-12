@@ -188,8 +188,8 @@ class PlatoArmado {
             return "plato no armado"
         }
     } 
-
-    method nuevaposicion(nuevaPos) {
+    
+    method nuevaPosicion(nuevaPos) {
         position = nuevaPos
         elementosPlato.forEach({ elem => elem.position(nuevaPos) })
     }

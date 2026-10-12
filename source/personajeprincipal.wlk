@@ -43,11 +43,7 @@ object personajePrincipal{
         if(self.esSuelo(nuevaPosicion)){
             position = nuevaPosicion
             if(objetoEnMano != null){
-                if(objetoEnMano.elemento() != "plato armado"){
-                objetoEnMano.position(nuevaPosicion)
-            } else{
-                objetoEnMano.elementosPlato().forEach({elemento => elemento.position(nuevaPosicion)})
-                }
+                self.otorgarPosicionAlElemento(nuevaPosicion)
             }
         }
     }
@@ -68,27 +64,30 @@ object personajePrincipal{
             return position //error?
     }
 
-    method agarrarOSoltar() {  //Se podrá simplificar más? No lo sé
-        if (!(manoOcupada)) {
+    method otorgarPosicionAlElemento(posicion) {
+        if(objetoEnMano.elemento() != "plato armado") {
+                objetoEnMano.position(posicion)
+            } else { 
+                objetoEnMano.nuevaPosicion(posicion)
+            }
+    }
+
+    method agarrarOSoltar() {
+        if (!manoOcupada) {
             var objetoAAgarrar = null
             objetoAAgarrar = self.agarrableEn(self.posicionDondeMiro())
-            if (objetoAAgarrar != null && (objetoAAgarrar.elemento() == "comida" || objetoAAgarrar.elemento() == "plato")) { // Si es comida o plato se pueden agarrar por default
-                objetoAAgarrar.position(position)
-            } else if (objetoAAgarrar != null && (objetoAAgarrar.elemento() == "plato armado")){ //Si es plato armado
-                objetoEnMano.nuevaPosicion(position)
-            }
-            objetoEnMano = objetoAAgarrar
-            manoOcupada = true
+            if (objetoAAgarrar != null){
+                objetoEnMano = objetoAAgarrar
+                self.otorgarPosicionAlElemento(position)
+                manoOcupada = true
+            } 
         } else {
-            if (objetoEnMano.elemento() == "comida" || objetoEnMano.elemento() == "plato") {
-                objetoEnMano.position(self.posicionDondeMiro())
-            } else if (objetoEnMano.elemento() == "plato armado"){
-                objetoEnMano.nuevaPosicion(self.posicionDondeMiro())
-            }
+            self.otorgarPosicionAlElemento(self.posicionDondeMiro())
             objetoEnMano = null
             manoOcupada = false
         }
     }
+
 
     method accionar(){
         const elementoQueMiro = self.elementoEn(self.posicionDondeMiro(), "estacion")
