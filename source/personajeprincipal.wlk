@@ -91,13 +91,13 @@ object personajePrincipal{
 
     method accionar(){
         const elementoQueMiro = self.elementoEn(self.posicionDondeMiro(), "estacion")
-            if(elementoQueMiro != null && manoOcupada && (elementoQueMiro).elemento() == "estacion"){
+            if(elementoQueMiro != null && manoOcupada){
                 if(elementoQueMiro.mesaArmado()){
                     elementoQueMiro.armarPlato(objetoEnMano)
                 }else if(elementoQueMiro.mesadaEntrega() && objetoEnMano.elemento() =="plato armado"){
                     elementoQueMiro.entregarPlato(objetoEnMano)
                 }else{
-                    (elementoQueMiro).tareaDeEstacion(objetoEnMano)
+                    elementoQueMiro.tareaDeEstacion(objetoEnMano)
                 }
             }
     }
@@ -107,6 +107,3 @@ object personajePrincipal{
         if (cajon != null) cajon.reponerStock()
     }
 }
-
-//LO DE LA DIRECCION ES ÚTIL PARA DESPUES CAMBIAR LAS IMAGENES!!
-//habría que tener algun if dependiendo el personaje que se eligió al inicio
