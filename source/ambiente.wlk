@@ -12,6 +12,7 @@ class Estacion{
     const imagen2
     const valorOtorgado
     const debeValidar
+    const property esMesadaArmado = false //ver si modificamos esto
 
     method sePuedeAgarrar() = false
     method elemento() = "estacion"
@@ -92,6 +93,7 @@ object mesadaEntrega {
     method image() = "mesada.png"
     method elemento() = "estacion"
     var property contador = 0 
+    const property esMesadaArmado = false
 
     method sePuedeAgarrar() = false
     //PRIORIDAD: ENTREGA PRIMERO LOS QUE ESTAN EN ESPERA 2, DESPUES ESPERA 1, DESPUES LOS NUEVOS 
@@ -189,14 +191,17 @@ class PlatoArmado {
 class MesadaArmado{
     const property position
     const property image
+    const property esMesadaArmado = true
     var property platoEnArmado = null
     var property hayPlatoParaArmar = false
     method elemento() = "estacion"
     method sePuedeAgarrar() = false
+
    
-   method crearPlatoArmado(){
+
+    method crearPlatoArmado(){
       platoEnArmado = new PlatoArmado(position = position) //Creo un nuevo PlatoArmado
-   }
+    }
 
     method tareaDeEstacion(objeto){
         if(objeto.elemento() == "plato"){ //si el elemento que traigo es un plato
@@ -229,8 +234,7 @@ class MesadaArmado{
     }
 
     method agarrarPlatoArmado() {
-        if(platoEnArmado.sePuedeAgarrar()){
-            personajePrincipal.agarrarOSoltar() //agarra el plato
+        if(platoEnArmado.sePuedeAgarrar()){ //si tiene el plato y algun elemento
             hayPlatoParaArmar = false
             platoEnArmado = null //no hay plato en armado, está dando vueltas 
         }
@@ -262,6 +266,7 @@ class Cajon {
     const stockMaximo
     const alimentos = [] 
     const imagenCajon
+    const property esMesadaArmado = false
 
     method sePuedeAgarrar() = false
     method estaEnPlato() = false
