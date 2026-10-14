@@ -107,9 +107,9 @@ object mesadaEntrega {
     }
 
     method resetearPlatoArmado(plato){
-        plato.elementosPlato().forEach({elemento => if (elemento.elemento() != "plato"){game.removeVisual(elemento)}})
-        plato.elementosPlato().clear()
-        plato.resetearPosicion()
+        plato.elementosPlato().forEach({elemento => if (elemento.elemento() != "plato"){game.removeVisual(elemento)}}) //borro todos los ingredientes de plato armado que no sea "plato"
+        plato.elementosPlato().clear() //libero la lista de elementos del objeto PlatoArmado
+        game.removeVisual(plato)
     }
 
     
@@ -163,16 +163,7 @@ class PlatoArmado {
     var property position
     var property elementosPlato = []
     const property estaEnPlato = false
-    var posicionInicial = null
     method tareas() = ["tirar"]
-
-    method initialize(){ //la asigna al crearse con NEW
-        posicionInicial = position
-    }
-
-    method resetearPosicion(){
-        self.position(posicionInicial)
-    }
     
     method sePuedeAgarrar(){
         return(elementosPlato.size() > 1)
@@ -195,30 +186,25 @@ class PlatoArmado {
 
 }
 
-const platoArmado1 = new PlatoArmado( //ASIGNANDO UN PLATO A CADA MESADA
-    position = game.at(24.5,7)
-)
-
-const platoArmado2 = new PlatoArmado(
-    position = game.at(24.5, 9)
-)
-
-const platoArmado3 = new PlatoArmado(
-    position = game.at(24.5, 11)
-)
-
 class MesadaArmado{
     const property position
     const property image
-    var property platoEnArmado
+    var property platoEnArmado = null
     var property hayPlatoParaArmar = false
     method elemento() = "estacion"
     method sePuedeAgarrar() = false
    
+   method crearPlatoArmado(){
+      platoEnArmado = new PlatoArmado(position = position) //Creo un nuevo PlatoArmado
+   }
 
     method tareaDeEstacion(objeto){
         if(objeto.elemento() == "plato"){ //si el elemento que traigo es un plato
-            if(!platoEnArmado.elementosPlato().any({elem=> elem.elemento() == "plato"})){ //si en la mesada no hay ningun plato
+            if(platoEnArmado == null){ //si no hay plato armado
+                self.crearPlatoArmado()
+                game.addVisual(platoEnArmado)
+            }
+            if(!platoEnArmado.elementosPlato().any({elem=> elem.elemento() == "plato"})){ //si en la mesada no hay ningun plato               
                 platoEnArmado.elementosPlato().add(objeto) //agrego el plato
                 objeto.estaEnPlato(true)  //agrego plato a PlatoArmado
                 personajePrincipal.agarrarOSoltar() //el personaje suelta el plato
@@ -256,22 +242,19 @@ class MesadaArmado{
 
 const mesadaArmado1 = new MesadaArmado(
     position = game.at(24.5,7),
-    image = "mesadaArmado.png",
-    platoEnArmado = platoArmado1
+    image = "mesadaArmado.png"
 )
 
 
 const mesadaArmado2 = new MesadaArmado(
     position = game.at(24.5,9),
-    image = "vacio.png",
-    platoEnArmado = platoArmado2
+    image = "vacio.png"
 )
 
 
 const mesadaArmado3 = new MesadaArmado(
     position = game.at(24.5,11),
-    image = "vacio.png",
-    platoEnArmado = platoArmado3
+    image = "vacio.png"
 )
 
 

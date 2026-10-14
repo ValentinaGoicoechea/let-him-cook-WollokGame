@@ -24,10 +24,6 @@ program juego{
     game.addVisual(personajePrincipal)
     game.addVisual(plato1)
     game.addVisual(plato2)
-    game.addVisual(platoArmado1)
-    game.addVisual(platoArmado2)
-    game.addVisual(platoArmado3)
-    
     
     cajonDePollo.reponerStock()
     cajonDePapas.reponerStock()
