@@ -145,18 +145,20 @@ object mesadaEntrega {
 
 
 
-    method entregarPlato(platoArmado){ //verifico antes que es un plato armado
-        const listaEspera2 = generadorDePedidos.listaPedidos().filter({pedidolista => pedidolista.estado() == "ESPERA2"})
-        const listaEspera1 = generadorDePedidos.listaPedidos().filter({pedidolista => pedidolista.estado() == "ESPERA1"})
-        const listaNuevos = generadorDePedidos.listaPedidos().filter({pedidolista => pedidolista.estado() == "NUEVO"})
-        
-        personajePrincipal.agarrarOSoltar() //el personaje lo suelta
-        if (!listaEspera2.isEmpty()){ // si hay pedidos en espera2
-            self.procesoPlato(listaEspera2, platoArmado)       
-        }else if(!listaEspera1.isEmpty()){
-            self.procesoPlato(listaEspera1, platoArmado)
-        }else if(!listaNuevos.isEmpty()){
-            self.procesoPlato(listaNuevos, platoArmado)
+    method tareaDeEstacion(platoArmado){
+        if(platoArmado.elemento() == "plato armado"){ //verifico antes que es un plato armado
+            const listaEspera2 = generadorDePedidos.listaPedidos().filter({pedidolista => pedidolista.estado() == "ESPERA2"})
+            const listaEspera1 = generadorDePedidos.listaPedidos().filter({pedidolista => pedidolista.estado() == "ESPERA1"})
+            const listaNuevos = generadorDePedidos.listaPedidos().filter({pedidolista => pedidolista.estado() == "NUEVO"})
+            
+            personajePrincipal.agarrarOSoltar() //el personaje lo suelta
+            if (!listaEspera2.isEmpty()){ // si hay pedidos en espera2
+                self.procesoPlato(listaEspera2, platoArmado)       
+            }else if(!listaEspera1.isEmpty()){
+                self.procesoPlato(listaEspera1, platoArmado)
+            }else if(!listaNuevos.isEmpty()){
+                self.procesoPlato(listaNuevos, platoArmado)
+            }
         }
     }
 }

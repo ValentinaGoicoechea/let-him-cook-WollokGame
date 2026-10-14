@@ -92,11 +92,7 @@ object personajePrincipal{
     method accionar(){
         const elementoQueMiro = self.elementoEn(self.posicionDondeMiro(), "estacion")
             if(elementoQueMiro != null && manoOcupada){
-                if(elementoQueMiro.mesadaEntrega() && objetoEnMano.elemento() =="plato armado"){
-                    elementoQueMiro.entregarPlato(objetoEnMano)
-                }else{
-                    elementoQueMiro.tareaDeEstacion(objetoEnMano)
-                }
+                elementoQueMiro.tareaDeEstacion(objetoEnMano)
             }
     }
 
