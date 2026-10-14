@@ -12,8 +12,6 @@ class Estacion{
     const imagen2
     const valorOtorgado
     const debeValidar
-    //method mesaArmado() = false //PRUEBA
-   // method mesadaEntrega() = false //PRUEBA
 
     method sePuedeAgarrar() = false
     method elemento() = "estacion"
@@ -95,8 +93,6 @@ object mesadaEntrega {
     method elemento() = "estacion"
     var property contador = 0 
 
-    //method mesaArmado() = false //PRUEBA
-    //method mesadaEntrega() = true //PRUEBA
     method sePuedeAgarrar() = false
     //PRIORIDAD: ENTREGA PRIMERO LOS QUE ESTAN EN ESPERA 2, DESPUES ESPERA 1, DESPUES LOS NUEVOS 
 
@@ -215,24 +211,29 @@ class MesadaArmado{
     const property position
     const property image
     const property platoEnArmado
+    var property hayPlatoParaArmar = false
     method elemento() = "estacion"
-   // method mesaArmado() = true
-    //method mesadaEntrega() = false
     method sePuedeAgarrar() = false
+   
 
     method tareaDeEstacion(objeto){
-        if(objeto.elemento() == "plato"){
-            if(!platoEnArmado.elementosPlato().any({elem=> elem.elemento() == "plato"})){
-                platoEnArmado.elementosPlato().add(objeto)
-                objeto.estaEnPlato(true)  
-                personajePrincipal.agarrarOSoltar()
-                           
+        if(objeto.elemento() == "plato"){ //si el elemento que traigo es un plato
+            if(!platoEnArmado.elementosPlato().any({elem=> elem.elemento() == "plato"})){ //si en la mesada no hay ningun plato
+                platoEnArmado.elementosPlato().add(objeto) //agrego el plato
+                objeto.estaEnPlato(true)  //agrego plato a PlatoArmado
+                personajePrincipal.agarrarOSoltar() //el personaje suelta el plato
+                hayPlatoParaArmar = true
                 
             } //Si hay alguno tendria qe decir que ya hay un plato!
-        } else{
-            if(platoEnArmado.elementosPlato().any({elem => elem.elemento() == "plato"})){
+        } else if (objeto.elemento()== "plato armado" && objeto == platoEnArmado){ // si vengo con un plato armado
+            hayPlatoParaArmar = true
+            personajePrincipal.agarrarOSoltar()
+            
+
+        } else{ //si lo que traigo no es un plato
+            if(hayPlatoParaArmar){ //me fijo si hay un plato en la mesada, si lo hay puedo agregar la comida
                 platoEnArmado.elementosPlato().add(objeto)
-                objeto.estaEnPlato(true)
+                objeto.estaEnPlato(true) //agrego comida a PlatoArmado
                 personajePrincipal.agarrarOSoltar()
             }
             //Si no hay plato tiene que decir que necesita un plato para poner la comida
@@ -242,6 +243,7 @@ class MesadaArmado{
 
     method agarrarPlatoArmado() {
         if(platoEnArmado.sePuedeAgarrar()){
+            hayPlatoParaArmar = false
             return platoEnArmado
         }else{
             return null
