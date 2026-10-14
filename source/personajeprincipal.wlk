@@ -91,8 +91,11 @@ object personajePrincipal{
 
     method accionar(){
         const elementoQueMiro = self.elementoEn(self.posicionDondeMiro(), "estacion")
-            if(elementoQueMiro != null && manoOcupada){
-                elementoQueMiro.tareaDeEstacion(objetoEnMano)
+            if(elementoQueMiro != null)
+                if(manoOcupada){
+                    elementoQueMiro.tareaDeEstacion(objetoEnMano)
+                }else{
+                    elementoQueMiro.agarrarPlatoArmado() //Es un metodo que va a activar mesa de armado, por ahora lo creo en todos y los demás no hacen nada, buscar mejor solucion
             }
     }
 
