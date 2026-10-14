@@ -103,7 +103,7 @@ object mesadaEntrega {
     method devolverPlatoSucio(plato){
         plato.position(game.at(16,3))
         plato.modificado("sucio")
-        plato.estaEnPlato(false)
+        plato.estaEnPlato(false) //lo saco de plato
     }
 
     method resetearPlatoArmado(plato){
@@ -210,7 +210,7 @@ const platoArmado3 = new PlatoArmado(
 class MesadaArmado{
     const property position
     const property image
-    const property platoEnArmado
+    var property platoEnArmado
     var property hayPlatoParaArmar = false
     method elemento() = "estacion"
     method sePuedeAgarrar() = false
@@ -225,9 +225,10 @@ class MesadaArmado{
                 hayPlatoParaArmar = true
                 
             } //Si hay alguno tendria qe decir que ya hay un plato!
-        } else if (objeto.elemento()== "plato armado" && objeto == platoEnArmado){ // si vengo con un plato armado
+        } else if (objeto.elemento()== "plato armado"){ // si vengo con un plato armado
             hayPlatoParaArmar = true
             personajePrincipal.agarrarOSoltar()
+            platoEnArmado = objeto //actualizo el nuevo plato en armado
             
 
         } else{ //si lo que traigo no es un plato
@@ -244,6 +245,7 @@ class MesadaArmado{
     method agarrarPlatoArmado() {
         if(platoEnArmado.sePuedeAgarrar()){
             hayPlatoParaArmar = false
+            platoEnArmado = null //no hay plato en armado, está dando vueltas 
             return platoEnArmado
         }else{
             return null
