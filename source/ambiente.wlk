@@ -12,8 +12,8 @@ class Estacion{
     const imagen2
     const valorOtorgado
     const debeValidar
-    method mesaArmado() = false //PRUEBA
-    method mesadaEntrega() = false //PRUEBA
+    //method mesaArmado() = false //PRUEBA
+   // method mesadaEntrega() = false //PRUEBA
 
     method sePuedeAgarrar() = false
     method elemento() = "estacion"
@@ -95,8 +95,8 @@ object mesadaEntrega {
     method elemento() = "estacion"
     var property contador = 0 
 
-    method mesaArmado() = false //PRUEBA
-    method mesadaEntrega() = true //PRUEBA
+    //method mesaArmado() = false //PRUEBA
+    //method mesadaEntrega() = true //PRUEBA
     method sePuedeAgarrar() = false
     //PRIORIDAD: ENTREGA PRIMERO LOS QUE ESTAN EN ESPERA 2, DESPUES ESPERA 1, DESPUES LOS NUEVOS 
 
@@ -216,8 +216,8 @@ class MesadaArmado{
     const property image
     const property platoEnArmado
     method elemento() = "estacion"
-    method mesaArmado() = true
-    method mesadaEntrega() = false
+   // method mesaArmado() = true
+    //method mesadaEntrega() = false
     method sePuedeAgarrar() = false
 
     method tareaDeEstacion(objeto){
