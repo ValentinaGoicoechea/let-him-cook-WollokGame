@@ -96,7 +96,24 @@ const plato2 = new Plato(
     modificado = "limpio"
 )
 
-class objetoQuemado {
+class PlatoArmado {
+    var property position
+    var property elementosPlato = []
+    const property estaEnPlato = false
+    method tareas() = ["tirar"]
+    
+    method sePuedeAgarrar() = true
+    method elemento() = "plato armado"
+    
+    method nuevaPosicion(nuevaPos) {
+        position = nuevaPos
+        elementosPlato.forEach({ elem => elem.position(nuevaPos) })
+    }
+
+
+}
+
+class ObjetoQuemado {
     var property position 
     var property modificado
     var property estaEnPlato = false

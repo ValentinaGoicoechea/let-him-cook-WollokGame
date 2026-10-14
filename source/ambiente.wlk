@@ -26,18 +26,28 @@ class Estacion{
     }
 
     method tareaDeEstacion(objeto) {
-        if(objeto.tareas().contains(debeValidar) && !estaOcupado){
+        if(objeto.tareas().contains(debeValidar) && !estaOcupado){ //plato armado solo va a responder a tirar porque es lo unico que puede hacer
             prendido = true
             estaOcupado = true
-            personajePrincipal.agarrarOSoltar()
-            objeto.sePuedeAgarrar(false)
-            game.schedule(tiempoTarea, { 
-                objeto.modificado(valorOtorgado)
-                if(valorOtorgado == "tirado") game.removeVisual(objeto)
+            personajePrincipal.agarrarOSoltar() //el personaje principal suelta el objeto
+            if(objeto.elemento() == "plato armado"){ //solo se va a usar en tirar
+                objeto.elementosPlato().forEach({elemento => if (elemento.elemento() != "plato"){
+                    game.removeVisual(elemento)
+                    objeto.elementosPlato().remove(elemento) //lo saco de la lista del plato
+                }}) //borro todos los ingredientes de plato armado que no sea "plato"
                 prendido = false
                 estaOcupado = false
-                objeto.sePuedeAgarrar(true)
+                
+            }else{
+                objeto.sePuedeAgarrar(false)
+                game.schedule(tiempoTarea, { 
+                    objeto.modificado(valorOtorgado)
+                    if(valorOtorgado == "tirado") game.removeVisual(objeto)
+                    prendido = false
+                    estaOcupado = false
+                    objeto.sePuedeAgarrar(true)
             })}
+        }
         
         return
     }
@@ -161,32 +171,6 @@ object mesadaEntrega {
     }
 }
 
-class PlatoArmado {
-    var property position
-    var property elementosPlato = []
-    const property estaEnPlato = false
-    method tareas() = ["tirar"]
-    
-    method sePuedeAgarrar(){
-        return(elementosPlato.size() > 1)
-    }
-
-
-    method elemento(){
-        if(self.sePuedeAgarrar()){
-            return "plato armado"
-        }else{
-            return "plato no armado"
-        }
-    } 
-    
-    method nuevaPosicion(nuevaPos) {
-        position = nuevaPos
-        elementosPlato.forEach({ elem => elem.position(nuevaPos) })
-    }
-
-
-}
 
 class MesadaArmado{
     const property position
@@ -204,7 +188,7 @@ class MesadaArmado{
     }
 
     method tareaDeEstacion(objeto){
-        if(objeto.elemento() == "plato"){ //si el elemento que traigo es un plato
+        if(objeto.elemento() == "plato" && objeto.modificado() == "limpio"){ //si el elemento que traigo es un plato y está limpio
             if(platoEnArmado == null){ //si no hay plato armado
                 self.crearPlatoArmado()
                 game.addVisual(platoEnArmado)
