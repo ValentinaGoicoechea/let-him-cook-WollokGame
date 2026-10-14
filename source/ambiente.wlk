@@ -230,9 +230,10 @@ class MesadaArmado{
 
     method agarrarPlatoArmado() {
         if(platoEnArmado.sePuedeAgarrar()){
+            const platoADevolver = platoEnArmado
             hayPlatoParaArmar = false
             platoEnArmado = null //no hay plato en armado, está dando vueltas 
-            return platoEnArmado
+            return platoADevolver
         }else{
             return null
         }
