@@ -1,5 +1,6 @@
 import personajeprincipal.*
 import wollok.game.*
+import controladorNiveles.*
 
 object teclado{
     method movimiento() {
@@ -30,6 +31,10 @@ object teclado{
 
     method interactuarConCajon() {
         keyboard.num1().onPressDo({personajePrincipal.accionarCajon()})
+    }
+
+    method iniciarJuego() {    //PRELIMINAR PARA CAMBIOS DE ESCENA O NIVELES
+        keyboard.i().onPressDo({controladorNiveles.iniciarNivel1()})
     }
 
    
