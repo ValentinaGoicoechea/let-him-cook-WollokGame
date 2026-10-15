@@ -33,8 +33,8 @@ object teclado{
         keyboard.num1().onPressDo({personajePrincipal.accionarCajon()})
     }
 
-    method iniciarJuego() {    //PRELIMINAR PARA CAMBIOS DE ESCENA O NIVELES
-        keyboard.i().onPressDo({controladorNiveles.iniciarNivel1()})
+    method iniciarJuego() { 
+        keyboard.enter().onPressDo({pantallaInicio.mostrarPantallaInicio()})
     }
 
    

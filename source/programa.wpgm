@@ -10,45 +10,10 @@ program juego{
     game.width(32)
     game.height(16)
     game.cellSize(50)
-
-    game.boardGround("menuInicio.jpg")   //IMAGEN DE INICIO DE PRUEBA
-
-    teclado.iniciarJuego()  //PRUEBA PARA QUE AL TOCAR LA "i" EMPIECE EL JUEGO. 
-
-    //IMPORTANTE: SI QUERÉS QUE FUNCIONE BIEN EL JUEGO, DESCOMENTAR ESTO DE ABAJO Y COMENTAR teclado.iniciarJuego() Y game.boardGround("menuInicio.jpg")
+    game.title("LET HIM COOK")
     
-    /*
-    game.title("LET HIM COOK") //a chequear si despues lo cambiamos
-    game.boardGround("fondo.png")
-    game.addVisual(horno1)
-    game.addVisual(horno2)
-    game.addVisual(mesadaEntrega1)
-    game.addVisual(mesadaEntrega2)
-    game.addVisual(mesadaEntrega3)
-    game.addVisual(mesadaArmado1)
-    game.addVisual(mesadaArmado2)
-    game.addVisual(mesadaArmado3)
-    game.addVisual(tablaDeCortar)
-    game.addVisual(basura)
-    game.addVisual(bacha)
-    game.addVisual(cajonDePapas)
-    game.addVisual(cajonDePollo)
-    game.addVisual(personajePrincipal)
-    game.addVisual(plato1)
-    game.addVisual(plato2)
-    
-    cajonDePollo.reponerStock()
-    cajonDePapas.reponerStock()
-
-    teclado.movimiento()
-    teclado.agarrarOSoltarObjeto()
-    teclado.realizarAccion()
-    teclado.interactuarConCajon()
-    game.onTick(100, "moverCocinero", { personajePrincipal.darPaso() }) //sirve para que pueda avanzar manteniendo presionado, pregunta cada 100ms a donde da un paso
-    generadorDePedidos.empezar()
-    */
-
-
+    pantallaInicio.mostrarPantallaInicio()
     game.start()
-    //game.ground("archivo de la imagen") o game.boardGround("nombre de archivo")
+   
 }
+
