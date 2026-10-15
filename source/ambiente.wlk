@@ -53,7 +53,7 @@ class Estacion{
     }
 }
 
-const horno = new Estacion(
+const horno1 = new Estacion(
     position = game.at(6,11),
     prendido = false,
     estaOcupado = false,
@@ -63,6 +63,20 @@ const horno = new Estacion(
     valorOtorgado = "cocinado",
     debeValidar = "cocinar"
 )
+
+
+const horno2 = new Estacion(
+    position = game.at(8,11),
+    prendido = false,
+    estaOcupado = false,
+    tiempoTarea = 7000,
+    imagen1 = "hornoprendido.png",
+    imagen2 = "hornoapagado.png",
+    valorOtorgado = "cocinado",
+    debeValidar = "cocinar"
+)
+
+
 
 const basura = new Estacion(
     position = game.at(20,7),
