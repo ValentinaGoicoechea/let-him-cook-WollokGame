@@ -111,10 +111,10 @@ const tablaDeCortar = new Estacion(
     debeValidar = "cortar"
 )
 
-object mesadaEntrega {
-    const property position = game.at(14,11) 
+class MesadaEntrega {
+    const property position
     var listaActual = null
-    method image() = "mesada.png"
+    var property image
     method elemento() = "estacion"
     var property contador = 0 
     const property esMesadaArmado = false
@@ -184,6 +184,24 @@ object mesadaEntrega {
         }
     }
 }
+
+
+const mesadaEntrega1 = new MesadaEntrega(
+    position = game.at(14,11),
+    image = "mesada.png"
+)
+
+const mesadaEntrega2 = new MesadaEntrega(
+    position = game.at(15,11),
+    image = "vacio.png"
+)
+
+const mesadaEntrega3 = new MesadaEntrega(
+    position = game.at(16,11),
+    image = "vacio.png"
+)
+
+
 
 
 class MesadaArmado{
