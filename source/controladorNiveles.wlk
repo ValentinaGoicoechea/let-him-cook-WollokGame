@@ -10,8 +10,11 @@ object controladorNiveles {
     method iniciarNivel1() {
         game.title("LET HIM COOK") //a chequear si despues lo cambiamos
         game.boardGround("fondo.png")
-        game.addVisual(horno)
-        game.addVisual(mesadaEntrega)
+        game.addVisual(horno1)
+        game.addVisual(horno2)
+        game.addVisual(mesadaEntrega1)
+        game.addVisual(mesadaEntrega2)
+        game.addVisual(mesadaEntrega3)
         game.addVisual(mesadaArmado1)
         game.addVisual(mesadaArmado2)
         game.addVisual(mesadaArmado3)

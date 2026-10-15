@@ -16,7 +16,8 @@ program juego{
     teclado.iniciarJuego()  //PRUEBA PARA QUE AL TOCAR LA "i" EMPIECE EL JUEGO. 
 
     //IMPORTANTE: SI QUERÉS QUE FUNCIONE BIEN EL JUEGO, DESCOMENTAR ESTO DE ABAJO Y COMENTAR teclado.iniciarJuego() Y game.boardGround("menuInicio.jpg")
-    /*   
+    
+    /*
     game.title("LET HIM COOK") //a chequear si despues lo cambiamos
     game.boardGround("fondo.png")
     game.addVisual(horno1)
@@ -46,6 +47,7 @@ program juego{
     game.onTick(100, "moverCocinero", { personajePrincipal.darPaso() }) //sirve para que pueda avanzar manteniendo presionado, pregunta cada 100ms a donde da un paso
     generadorDePedidos.empezar()
     */
+
 
     game.start()
     //game.ground("archivo de la imagen") o game.boardGround("nombre de archivo")
