@@ -73,13 +73,19 @@ object personajePrincipal{
     }
 
     method agarrarOSoltar() {
+        const elementoQueMiro = self.elementoEn(self.posicionDondeMiro(), "estacion")
         if (!manoOcupada) {
             var objetoAAgarrar = null
             objetoAAgarrar = self.agarrableEn(self.posicionDondeMiro())
+
             if (objetoAAgarrar != null){
+                if(objetoAAgarrar.elemento() == "plato armado" && elementoQueMiro != null && elementoQueMiro.esMesadaArmado()){ //si es plato armado y está en la mesada
+                    elementoQueMiro.agarrarPlatoArmado()
+                }
                 objetoEnMano = objetoAAgarrar
                 self.otorgarPosicionAlElemento(position)
                 manoOcupada = true
+                
             } 
         } else {
             self.otorgarPosicionAlElemento(self.posicionDondeMiro())
@@ -91,12 +97,8 @@ object personajePrincipal{
 
     method accionar(){
         const elementoQueMiro = self.elementoEn(self.posicionDondeMiro(), "estacion")
-            if(elementoQueMiro != null)
-                if(manoOcupada){
-                    elementoQueMiro.tareaDeEstacion(objetoEnMano)
-                }else{
-                    elementoQueMiro.agarrarPlatoArmado() //Es un metodo que va a activar mesa de armado, por ahora lo creo en todos y los demás no hacen nada, buscar mejor solucion
-            }
+            if(elementoQueMiro != null && manoOcupada)
+                elementoQueMiro.tareaDeEstacion(objetoEnMano)
     }
 
     method accionarCajon() {
