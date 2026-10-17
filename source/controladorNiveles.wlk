@@ -39,9 +39,9 @@ import pedidos.*
 } */
 
 object pantallaInicio {
+    const property position = game.at(0, 0)
+    method image() = "menuInicio.png"
     method mostrarPantallaInicio() {
-        game.clear()
-        game.boardGround("menuInicio.png")   
         keyboard.enter().onPressDo({juegoCocinero.iniciarJuego()})
     }
 }
@@ -53,7 +53,7 @@ object pantallaSeleccionPersonaje {
 object juegoCocinero { //ANTERIOR 'JUEGO' EN PROGRAM.WPGM
     method iniciarJuego() { // SE MANTIENE IGUAL PARA TODOS LOS NIVELES
         game.clear()
-        game.boardGround("fondo.png")
+        game.removeVisual(pantallaInicio)
         game.addVisual(horno1)
         game.addVisual(horno2)
         game.addVisual(mesadaEntrega1)
