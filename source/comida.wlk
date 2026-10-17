@@ -1,21 +1,28 @@
 import wollok.game.*
 
 
-class PechugaDePollo{
+class Comida{
     var property position 
     var property modificado
     var property estaEnPlato = false
     var property sePuedeAgarrar = true 
-    
     method elemento() = "comida"
 
-    method elementoYEstado(){
+    method elementoYEstado()
+    method image()
+    method tareas()
+}
+
+
+class PechugaDePollo inherits Comida{
+
+    override method elementoYEstado(){
         if(self.modificado() == "cocinado") return "pechugaCocinada"
         else return "pechugaDePollo"
     }
     
     
-    method image(){
+    override method image(){
         if(self.modificado() ==  "cocinado") { return "pechugacocinada.png"}
         
         if(self.modificado() == "tirado") return "vacio.png"
@@ -23,7 +30,7 @@ class PechugaDePollo{
         return "pechuga.png"
     }
 
-    method tareas() {
+    override method tareas() {
         if(self.modificado() ==  "cocinado") return ["tirar"]
         if(self.modificado() == "tirado") return [] 
         return ["cocinar", "tirar"]
@@ -31,23 +38,16 @@ class PechugaDePollo{
     
 }
 
-class Papa{
-    var property position 
-    var property modificado
-    var property estaEnPlato = false
-    var property sePuedeAgarrar = true 
+class Papa inherits Comida{
     
-    method elemento() = "comida"
-
-
-    method elementoYEstado(){
+    override method elementoYEstado(){
         if(self.modificado() == "cocinado") return "papasFritas"
         else if(self.modificado() == "cortada") return "papaCortada"
         else return "papaCruda"
     }
 
     
-    method image(){
+    override method image(){
         if(self.modificado() == "cocinado") { return "papaFrita.png"}
         
         if(self.modificado() == "cortada") { return "papaCortada.png"}
@@ -58,7 +58,7 @@ class Papa{
         
     }
 
-    method tareas() {
+    override method tareas() {
         if(self.modificado() ==  "cortada") return ["cocinar", "tirar"]
         if(self.modificado() == "cocinado") return ["tirar"]
         if(self.modificado() == "tirado") return [] 
