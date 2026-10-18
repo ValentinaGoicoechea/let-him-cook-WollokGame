@@ -32,6 +32,17 @@ class Pedido{
     }
 
 }
+/*
+
+class PedidoPolloConPapas inherits Pedido {
+
+    override method image() = "pedidoPolloNuevo.png"
+}
+
+class PedidoOjoDeBifeConHuevo inherits Pedido {
+
+}
+*/
 
 object generadorDePedidos {
     var property puedeGenerarPedidos = true

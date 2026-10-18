@@ -66,6 +66,44 @@ class Papa inherits Comida{
     }
 }
 
+class OjoDeBife inherits Comida {
+
+    override method elementoYEstado() {
+        if (self.modificado() == "cocinado") return "ojoBifeCocinado"
+        else return "ojoBife"
+    }
+
+    override method image() {
+        if (self.modificado() == "cocinado") return "ojoBifeCocinado.png"
+        else return "ojoBife.png"
+    }
+
+    override method tareas() {
+        if (self.modificado() == "cocinado") return ["cocinar", "tirar"]
+        else if (self.modificado() == "tirado") return []
+        else return ["cocinar", "tirar"]
+    }
+}
+
+class Huevo inherits Comida {
+
+    override method elementoYEstado() {
+        if (self.modificado() == "cocinado") return "huevoFrito"
+        else return "huevo"
+    }
+
+    override method image() {
+        if (self.modificado() == "cocinado") return "huevoFrito.png"
+        else return "huevo.png"
+    }
+
+    override method tareas() {
+        if (self.modificado() == "cocinado") return ["cocinar", "tirar"]
+        else if (self.modificado() == "tirado") return []
+        else return ["cocinar", "tirar"]
+    }
+}
+
 class Plato {    
     var property position 
     var property modificado 
