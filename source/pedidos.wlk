@@ -82,7 +82,7 @@ object generadorDePedidos {
         const pedidoX = new PedidoOjoDeBifeConHuevo ( 
                 position = game.at(27, 3 + (posicionSegunFila * 3)),
                 receta = "ojoDeBifeConHuevo",
-                ingredientes = ["plato", "OjoBifeConHuevo", "huevoFrito"]
+                ingredientes = ["plato", "ojoBifeCocinado", "huevoFrito"]
             )
             listapedidos.add(pedidoX)
             pedidoX.estadoDelPedido()

@@ -144,7 +144,6 @@ class MesadaEntrega {
         const platoUsado = plato.elementosPlato().findOrDefault({elemento => elemento.elementoYEstado() == "plato"}, null) //obtengo el plato que usaba el platoArmado
         const posicionPlatoAArmar = plato.position()
 
-
         if(platoUsado != null){
             self.resetearPlatoArmado(plato)
             game.removeVisual(lista)
@@ -154,33 +153,43 @@ class MesadaEntrega {
 
     method procesoPlato(listaSegunEspera, plato){
         listaActual = listaSegunEspera.first() 
-            if(self.compararIngredientesLista(plato.elementosPlato(), listaActual.ingredientes())){ // si tienen lo mismo
-                //Acá se añaden los puntos 
-                generadorDePedidos.listaPedidos().remove(listaActual)
-                self.tomarPlato(plato, listaActual)
-            }else{
-                //Restar puntos
-                generadorDePedidos.listaPedidos().remove(listaActual)
-                self.tomarPlato(plato, listaActual)
-            }
+        generadorDePedidos.listaPedidos().remove(listaActual)
+        self.tomarPlato(plato, listaActual) 
+        //Sumar puntos
     }
-
-
 
     method tareaDeEstacion(platoArmado){
         if(platoArmado.elemento() == "plato armado"){ //verifico antes que es un plato armado
-            const listaEspera2 = generadorDePedidos.listaPedidos().filter({pedidolista => pedidolista.estado() == "ESPERA2"})
-            const listaEspera1 = generadorDePedidos.listaPedidos().filter({pedidolista => pedidolista.estado() == "ESPERA1"})
-            const listaNuevos = generadorDePedidos.listaPedidos().filter({pedidolista => pedidolista.estado() == "NUEVO"})
-            
+            const listaEspera2 = generadorDePedidos.listaPedidos().filter({ pedido =>
+                pedido.estado() == "ESPERA2" &&   //Comparo si tienen los mismos ingredientes ANTES de
+                self.compararIngredientesLista(   //procesoPlato.
+                platoArmado.elementosPlato(),
+                pedido.ingredientes()
+                )}
+            )
+            const listaEspera1 = generadorDePedidos.listaPedidos().filter({ pedido =>
+                pedido.estado() == "ESPERA1" &&
+                self.compararIngredientesLista(
+                platoArmado.elementosPlato(),
+                pedido.ingredientes()
+                )}
+            )
+            const listaNuevos = generadorDePedidos.listaPedidos().filter({ pedido =>
+                pedido.estado() == "NUEVO" &&
+                self.compararIngredientesLista(
+                platoArmado.elementosPlato(),
+                pedido.ingredientes()
+                )}
+            )
+
             personajePrincipal.agarrarOSoltar() //el personaje lo suelta
-            if (!listaEspera2.isEmpty()){ // si hay pedidos en espera2
+            if (!listaEspera2.isEmpty()){ // si hay pedidos en espera2 y que coincidan
                 self.procesoPlato(listaEspera2, platoArmado)       
             }else if(!listaEspera1.isEmpty()){
                 self.procesoPlato(listaEspera1, platoArmado)
             }else if(!listaNuevos.isEmpty()){
                 self.procesoPlato(listaNuevos, platoArmado)
-            }
+            } // else { restar puntos } ? Habría que restar en caso de que un pedido pasa a perdido, supongo
         }
     }
 }
