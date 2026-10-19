@@ -60,13 +60,32 @@ object generadorDePedidos {
     method nuevoPedido() {
         contadorDePedidos += 1
         posicionSegunFila = contadorDePedidos % 4
-        const pedidoX = new PedidoPolloConPapas (  //Por ahora queda en pollo con papas, hay que encontrar forma de que aparezca el bife de forma aleatoria
-            position = game.at(27, 3 + (posicionSegunFila * 3)), // X se mantiebe igual, voy a hacer que por ahora haya 4 en pantalla
-            receta = "polloConPapas",
-            ingredientes = ["plato", "pechugaCocinada", "papasFritas"]
-        )
-        listapedidos.add(pedidoX)
-        pedidoX.estadoDelPedido()
+        const numeroDePedido = 0.randomUpTo(1).round()  //Por ahora puede salir 0 o 1 para los dos pedidos.
+        if (numeroDePedido == 0) {
+            self.pedirPolloConPapas()
+        } else {
+            self.pedirOjoDeBifeConHuevo()
+        }
+    }
+
+    method pedirPolloConPapas() {
+        const pedidoX = new PedidoPolloConPapas ( 
+                position = game.at(27, 3 + (posicionSegunFila * 3)), // X se mantiebe igual, voy a hacer que por ahora haya 4 en pantalla
+                receta = "polloConPapas",
+                ingredientes = ["plato", "pechugaCocinada", "papasFritas"]
+            )
+            listapedidos.add(pedidoX)
+            pedidoX.estadoDelPedido()
+    }
+
+    method pedirOjoDeBifeConHuevo() {
+        const pedidoX = new PedidoOjoDeBifeConHuevo ( 
+                position = game.at(27, 3 + (posicionSegunFila * 3)),
+                receta = "ojoDeBifeConHuevo",
+                ingredientes = ["plato", "OjoBifeConHuevo", "huevoFrito"]
+            )
+            listapedidos.add(pedidoX)
+            pedidoX.estadoDelPedido()
     }
 
     method empezar() {
