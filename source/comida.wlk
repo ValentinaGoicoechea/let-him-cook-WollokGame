@@ -91,19 +91,18 @@ class Huevo inherits Comida {
     }
 }
 
-class Platos {
+class Vajilla {
     var property position
     var property estaEnPlato = false
     var property sePuedeAgarrar = true 
 
-    method image()
     method tareas() 
     method elemento()
 }
-class Plato inherits Platos {    
+class Plato inherits Vajilla {    
     var property modificado 
 
-    override method image(){
+    method image(){
         if(self.modificado() == "limpio") return "plato.png"
         else return "platoSucio.png"
     }
@@ -127,17 +126,16 @@ const plato2 = new Plato(
     modificado = "limpio"
 )
 
-class PlatoArmado inherits Platos{
+class PlatoArmado inherits Vajilla{
     override method tareas() = ["tirar"]
     override method elemento() = "plato armado"
-    
+
     var property elementosPlato = []
     
     method nuevaPosicion(nuevaPos) {
         position = nuevaPos
         elementosPlato.forEach({ elem => elem.position(nuevaPos) })
-    }
-
+    } 
 
 }
 
