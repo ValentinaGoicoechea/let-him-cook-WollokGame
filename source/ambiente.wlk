@@ -288,7 +288,7 @@ const mesadaArmado3 = new MesadaArmado(
 class Cajon {
     const property position 
     const posicionAlimento
-    const stockMaximo
+    const stockMaximo = 5
     const alimentos = [] 
     const imagenCajon
     const property esMesadaArmado = false
@@ -301,14 +301,15 @@ class Cajon {
     method cantidadEnStock() {
         return alimentos.count({alimento => alimento.position() == posicionAlimento })
     }
+
+    method reponerStock()
 }
 
 object cajonDePapas inherits Cajon (
     position = game.at(23,5),
     posicionAlimento = game.at(9,3),
-    stockMaximo = 5,
     imagenCajon = "cajonDePapas.png"){
-    method reponerStock() {
+    override method reponerStock() {
         if (self.cantidadEnStock() == 0) { 
             stockMaximo.times( 
                 {papaX => const nuevaPapa = new Papa(position = posicionAlimento, modificado = "")
@@ -323,9 +324,8 @@ object cajonDePapas inherits Cajon (
 object cajonDePollo inherits Cajon (
     position = game.at(20,5),
     posicionAlimento = game.at(6,3),
-    stockMaximo = 5,
     imagenCajon = "cajonDePollo.png"){
-    method reponerStock() {
+    override method reponerStock() {
         if (self.cantidadEnStock() == 0) { 
             stockMaximo.times( 
                 {pechugaX => const nuevaPechuga = new PechugaDePollo(position = posicionAlimento, modificado = "")
