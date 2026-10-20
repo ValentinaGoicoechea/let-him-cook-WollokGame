@@ -40,9 +40,6 @@ object juegoCocinero { //ANTERIOR 'JUEGO' EN PROGRAM.WPGM
         cajonDePollo.reponerStock()
         cajonDePapas.reponerStock()
 
-        game.addVisual(huevo1)  //PRUEBA
-        game.addVisual(bife1)   //PRUEBA
-
         teclado.movimiento()
         teclado.agarrarOSoltarObjeto()
         teclado.realizarAccion()
@@ -53,11 +50,3 @@ object juegoCocinero { //ANTERIOR 'JUEGO' EN PROGRAM.WPGM
 
 }
 
-const huevo1 = new Huevo (  //PRUEBA
-    position = game.at(15, 3),
-    modificado = ""
-)
-const bife1 = new OjoDeBife (   //PRUEBA
-    position = game.at(14, 3),
-    modificado = ""
-)
