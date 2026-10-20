@@ -111,15 +111,19 @@ const tablaDeCortar = new Estacion(
     debeValidar = "cortar"
 )
 
-class MesadaEntrega {
+class Mesada{
     const property position
-    var listaActual = null
-    var property image
+    const property image
+
     method elemento() = "estacion"
+    method sePuedeAgarrar() = false
+    method tareaDeEstacion(objeto)
+}
+class MesadaEntrega inherits Mesada{
+    var listaActual = null
     var property contador = 0 
     const property esMesadaArmado = false
 
-    method sePuedeAgarrar() = false
     //PRIORIDAD: ENTREGA PRIMERO LOS QUE ESTAN EN ESPERA 2, DESPUES ESPERA 1, DESPUES LOS NUEVOS 
 
     method compararIngredientesLista(plato, lista){
@@ -158,7 +162,7 @@ class MesadaEntrega {
         //Sumar puntos
     }
 
-    method tareaDeEstacion(platoArmado){
+    override method tareaDeEstacion(platoArmado){
         if(platoArmado.elemento() == "plato armado"){ //verifico antes que es un plato armado
             const listaEspera2 = generadorDePedidos.listaPedidos().filter({ pedido =>
                 pedido.estado() == "ESPERA2" &&   //Comparo si tienen los mismos ingredientes ANTES de
@@ -213,14 +217,10 @@ const mesadaEntrega3 = new MesadaEntrega(
 
 
 
-class MesadaArmado{
-    const property position
-    const property image
+class MesadaArmado inherits Mesada{
     const property esMesadaArmado = true
     var property platoEnArmado = null
     var property hayPlatoParaArmar = false
-    method elemento() = "estacion"
-    method sePuedeAgarrar() = false
 
    
 
@@ -228,7 +228,7 @@ class MesadaArmado{
       platoEnArmado = new PlatoArmado(position = position) //Creo un nuevo PlatoArmado
     }
 
-    method tareaDeEstacion(objeto){
+    override method tareaDeEstacion(objeto){
         if(objeto.elemento() == "plato" && objeto.modificado() == "limpio"){ //si el elemento que traigo es un plato y está limpio
             if(platoEnArmado == null){ //si no hay plato armado
                 self.crearPlatoArmado()
