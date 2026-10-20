@@ -10,7 +10,11 @@ class Comida{
 
     method elementoYEstado()
     method image()
-    method tareas()
+    method tareas() {
+        if(self.modificado() ==  "cocinado") return ["tirar"]
+        if(self.modificado() == "tirado") return [] 
+        return ["cocinar", "tirar"]
+    }
 }
 
 
@@ -28,12 +32,6 @@ class PechugaDePollo inherits Comida{
         if(self.modificado() == "tirado") return "vacio.png"
         
         return "pechuga.png"
-    }
-
-    override method tareas() {
-        if(self.modificado() ==  "cocinado") return ["tirar"]
-        if(self.modificado() == "tirado") return [] 
-        return ["cocinar", "tirar"]
     }
     
 }
@@ -78,11 +76,6 @@ class OjoDeBife inherits Comida {
         else return "ojoBife.png"
     }
 
-    override method tareas() {
-        if (self.modificado() == "cocinado") return ["cocinar", "tirar"]
-        else if (self.modificado() == "tirado") return []
-        else return ["cocinar", "tirar"]
-    }
 }
 
 class Huevo inherits Comida {
@@ -95,12 +88,6 @@ class Huevo inherits Comida {
     override method image() {
         if (self.modificado() == "cocinado") return "huevoFrito.png"
         else return "huevo.png"
-    }
-
-    override method tareas() {
-        if (self.modificado() == "cocinado") return ["cocinar", "tirar"]
-        else if (self.modificado() == "tirado") return []
-        else return ["cocinar", "tirar"]
     }
 }
 
