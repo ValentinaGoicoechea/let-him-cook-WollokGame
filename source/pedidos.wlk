@@ -1,8 +1,6 @@
 import wollok.game.*
 
-class Pedido{ 
-    //clase para todos los pedidos! cuando veamos herencia va a haber una clase para cada receta
-    // por ahora dejemoslo solo en pollo c papas
+class Pedido{
 
     var property position //van apareciendo a la derecha y "caen"
     var property estado = "NUEVO"// estados NUEVO, ESPERA1, ESPERA2, PERDIDO
@@ -13,12 +11,7 @@ class Pedido{
     method ingredientes() = ingredientes
 
     method image() {
-        //if(receta = "polloConPapas") ##para cuando haya mas recetas
-            if(estado == "NUEVO") return "pedidoPolloNuevo.png"
-            if(estado == "ESPERA1") return "pedidoPolloEspera1.png"
-            if(estado == "ESPERA2") return "pedidoPolloEspera2.png"
-            if(estado == "PERDIDO") return "pedidoPolloPerdido.png"
-        return "vacio.png"
+        //Cada subclase lo maneja según le corresponda
     }
 
     method estadoDelPedido() {
@@ -33,6 +26,29 @@ class Pedido{
 
 }
 
+class PedidoPolloConPapas inherits Pedido {
+
+    override method image() {
+        if(estado == "NUEVO") return "pedidoPolloNuevo.png"
+        if(estado == "ESPERA1") return "pedidoPolloEspera1.png"
+        if(estado == "ESPERA2") return "pedidoPolloEspera2.png"
+        if(estado == "PERDIDO") return "pedidoPolloPerdido.png"
+        return "vacio.png"
+    }
+}
+
+class PedidoOjoDeBifeConHuevo inherits Pedido {
+
+    override method image() {
+        if(estado == "NUEVO") return "pedidoOjoBifeNuevo.png"
+        if(estado == "ESPERA1") return "pedidoOjoBifeEspera1.png"
+        if(estado == "ESPERA2") return "pedidoOjoBifeEspera2.png"
+        if(estado == "PERDIDO") return "pedidoOjoBifePerdido.png"
+        return "vacio.png"
+    }
+}
+
+
 object generadorDePedidos {
     var property puedeGenerarPedidos = true
     var contadorDePedidos = 0
@@ -44,13 +60,32 @@ object generadorDePedidos {
     method nuevoPedido() {
         contadorDePedidos += 1
         posicionSegunFila = contadorDePedidos % 4
-        const pedidoX = new Pedido(
-            position = game.at(27, 3 + (posicionSegunFila * 3)), // X se mantiebe igual, voy a hacer que por ahora haya 4 en pantalla
-            receta = "polloConPapas",
-            ingredientes = ["plato", "pechugaCocinada", "papasFritas"]
-        )
-        listapedidos.add(pedidoX)
-        pedidoX.estadoDelPedido()
+        const numeroDePedido = 0.randomUpTo(1).round()  //Por ahora puede salir 0 o 1 para los dos pedidos.
+        if (numeroDePedido == 0) {
+            self.pedirPolloConPapas()
+        } else {
+            self.pedirOjoDeBifeConHuevo()
+        }
+    }
+
+    method pedirPolloConPapas() {
+        const pedidoX = new PedidoPolloConPapas ( 
+                position = game.at(27, 3 + (posicionSegunFila * 3)), // X se mantiebe igual, voy a hacer que por ahora haya 4 en pantalla
+                receta = "polloConPapas",
+                ingredientes = ["plato", "pechugaCocinada", "papasFritas"]
+            )
+            listapedidos.add(pedidoX)
+            pedidoX.estadoDelPedido()
+    }
+
+    method pedirOjoDeBifeConHuevo() {
+        const pedidoX = new PedidoOjoDeBifeConHuevo ( 
+                position = game.at(27, 3 + (posicionSegunFila * 3)),
+                receta = "ojoDeBifeConHuevo",
+                ingredientes = ["plato", "ojoBifeCocinado", "huevoFrito"]
+            )
+            listapedidos.add(pedidoX)
+            pedidoX.estadoDelPedido()
     }
 
     method empezar() {

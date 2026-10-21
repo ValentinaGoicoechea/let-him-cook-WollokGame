@@ -111,15 +111,19 @@ const tablaDeCortar = new Estacion(
     debeValidar = "cortar"
 )
 
-class MesadaEntrega {
+class Mesada{
     const property position
-    var listaActual = null
-    var property image
+    const property image
+
     method elemento() = "estacion"
+    method sePuedeAgarrar() = false
+    method tareaDeEstacion(objeto)
+}
+class MesadaEntrega inherits Mesada{
+    var listaActual = null
     var property contador = 0 
     const property esMesadaArmado = false
 
-    method sePuedeAgarrar() = false
     //PRIORIDAD: ENTREGA PRIMERO LOS QUE ESTAN EN ESPERA 2, DESPUES ESPERA 1, DESPUES LOS NUEVOS 
 
     method compararIngredientesLista(plato, lista){
@@ -144,7 +148,6 @@ class MesadaEntrega {
         const platoUsado = plato.elementosPlato().findOrDefault({elemento => elemento.elementoYEstado() == "plato"}, null) //obtengo el plato que usaba el platoArmado
         const posicionPlatoAArmar = plato.position()
 
-
         if(platoUsado != null){
             self.resetearPlatoArmado(plato)
             game.removeVisual(lista)
@@ -154,33 +157,43 @@ class MesadaEntrega {
 
     method procesoPlato(listaSegunEspera, plato){
         listaActual = listaSegunEspera.first() 
-            if(self.compararIngredientesLista(plato.elementosPlato(), listaActual.ingredientes())){ // si tienen lo mismo
-                //Acá se añaden los puntos 
-                generadorDePedidos.listaPedidos().remove(listaActual)
-                self.tomarPlato(plato, listaActual)
-            }else{
-                //Restar puntos
-                generadorDePedidos.listaPedidos().remove(listaActual)
-                self.tomarPlato(plato, listaActual)
-            }
+        generadorDePedidos.listaPedidos().remove(listaActual)
+        self.tomarPlato(plato, listaActual) 
+        //Sumar puntos
     }
 
-
-
-    method tareaDeEstacion(platoArmado){
+    override method tareaDeEstacion(platoArmado){
         if(platoArmado.elemento() == "plato armado"){ //verifico antes que es un plato armado
-            const listaEspera2 = generadorDePedidos.listaPedidos().filter({pedidolista => pedidolista.estado() == "ESPERA2"})
-            const listaEspera1 = generadorDePedidos.listaPedidos().filter({pedidolista => pedidolista.estado() == "ESPERA1"})
-            const listaNuevos = generadorDePedidos.listaPedidos().filter({pedidolista => pedidolista.estado() == "NUEVO"})
-            
+            const listaEspera2 = generadorDePedidos.listaPedidos().filter({ pedido =>
+                pedido.estado() == "ESPERA2" &&   //Comparo si tienen los mismos ingredientes ANTES de
+                self.compararIngredientesLista(   //procesoPlato.
+                platoArmado.elementosPlato(),
+                pedido.ingredientes()
+                )}
+            )
+            const listaEspera1 = generadorDePedidos.listaPedidos().filter({ pedido =>
+                pedido.estado() == "ESPERA1" &&
+                self.compararIngredientesLista(
+                platoArmado.elementosPlato(),
+                pedido.ingredientes()
+                )}
+            )
+            const listaNuevos = generadorDePedidos.listaPedidos().filter({ pedido =>
+                pedido.estado() == "NUEVO" &&
+                self.compararIngredientesLista(
+                platoArmado.elementosPlato(),
+                pedido.ingredientes()
+                )}
+            )
+
             personajePrincipal.agarrarOSoltar() //el personaje lo suelta
-            if (!listaEspera2.isEmpty()){ // si hay pedidos en espera2
+            if (!listaEspera2.isEmpty()){ // si hay pedidos en espera2 y que coincidan
                 self.procesoPlato(listaEspera2, platoArmado)       
             }else if(!listaEspera1.isEmpty()){
                 self.procesoPlato(listaEspera1, platoArmado)
             }else if(!listaNuevos.isEmpty()){
                 self.procesoPlato(listaNuevos, platoArmado)
-            }
+            } // else { restar puntos } ? Habría que restar en caso de que un pedido pasa a perdido, supongo
         }
     }
 }
@@ -204,14 +217,10 @@ const mesadaEntrega3 = new MesadaEntrega(
 
 
 
-class MesadaArmado{
-    const property position
-    const property image
+class MesadaArmado inherits Mesada{
     const property esMesadaArmado = true
     var property platoEnArmado = null
     var property hayPlatoParaArmar = false
-    method elemento() = "estacion"
-    method sePuedeAgarrar() = false
 
    
 
@@ -219,7 +228,7 @@ class MesadaArmado{
       platoEnArmado = new PlatoArmado(position = position) //Creo un nuevo PlatoArmado
     }
 
-    method tareaDeEstacion(objeto){
+    override method tareaDeEstacion(objeto){
         if(objeto.elemento() == "plato" && objeto.modificado() == "limpio"){ //si el elemento que traigo es un plato y está limpio
             if(platoEnArmado == null){ //si no hay plato armado
                 self.crearPlatoArmado()
@@ -279,7 +288,7 @@ const mesadaArmado3 = new MesadaArmado(
 class Cajon {
     const property position 
     const posicionAlimento
-    const stockMaximo
+    const stockMaximo = 5
     const alimentos = [] 
     const imagenCajon
     const property esMesadaArmado = false
@@ -292,14 +301,15 @@ class Cajon {
     method cantidadEnStock() {
         return alimentos.count({alimento => alimento.position() == posicionAlimento })
     }
+
+    method reponerStock()
 }
 
 object cajonDePapas inherits Cajon (
     position = game.at(23,5),
     posicionAlimento = game.at(9,3),
-    stockMaximo = 5,
     imagenCajon = "cajonDePapas.png"){
-    method reponerStock() {
+    override method reponerStock() {
         if (self.cantidadEnStock() == 0) { 
             stockMaximo.times( 
                 {papaX => const nuevaPapa = new Papa(position = posicionAlimento, modificado = "")
@@ -314,9 +324,8 @@ object cajonDePapas inherits Cajon (
 object cajonDePollo inherits Cajon (
     position = game.at(20,5),
     posicionAlimento = game.at(6,3),
-    stockMaximo = 5,
     imagenCajon = "cajonDePollo.png"){
-    method reponerStock() {
+    override method reponerStock() {
         if (self.cantidadEnStock() == 0) { 
             stockMaximo.times( 
                 {pechugaX => const nuevaPechuga = new PechugaDePollo(position = posicionAlimento, modificado = "")

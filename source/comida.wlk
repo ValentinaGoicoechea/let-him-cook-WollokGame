@@ -1,53 +1,51 @@
 import wollok.game.*
 
 
-class PechugaDePollo{
+class Comida{
     var property position 
     var property modificado
     var property estaEnPlato = false
     var property sePuedeAgarrar = true 
-    
     method elemento() = "comida"
 
-    method elementoYEstado(){
+    method elementoYEstado()
+    method image()
+    method tareas() {
+        if(self.modificado() ==  "cocinado") return ["tirar"]
+        if(self.modificado() == "tirado") return [] 
+        return ["cocinar", "tirar"]
+    }
+}
+
+
+class PechugaDePollo inherits Comida{
+
+    override method elementoYEstado(){
         if(self.modificado() == "cocinado") return "pechugaCocinada"
         else return "pechugaDePollo"
     }
     
     
-    method image(){
+    override method image(){
         if(self.modificado() ==  "cocinado") { return "pechugacocinada.png"}
         
         if(self.modificado() == "tirado") return "vacio.png"
         
         return "pechuga.png"
     }
-
-    method tareas() {
-        if(self.modificado() ==  "cocinado") return ["tirar"]
-        if(self.modificado() == "tirado") return [] 
-        return ["cocinar", "tirar"]
-    }
     
 }
 
-class Papa{
-    var property position 
-    var property modificado
-    var property estaEnPlato = false
-    var property sePuedeAgarrar = true 
+class Papa inherits Comida{
     
-    method elemento() = "comida"
-
-
-    method elementoYEstado(){
+    override method elementoYEstado(){
         if(self.modificado() == "cocinado") return "papasFritas"
         else if(self.modificado() == "cortada") return "papaCortada"
         else return "papaCruda"
     }
 
     
-    method image(){
+    override method image(){
         if(self.modificado() == "cocinado") { return "papaFrita.png"}
         
         if(self.modificado() == "cortada") { return "papaCortada.png"}
@@ -58,7 +56,7 @@ class Papa{
         
     }
 
-    method tareas() {
+    override method tareas() {
         if(self.modificado() ==  "cortada") return ["cocinar", "tirar"]
         if(self.modificado() == "cocinado") return ["tirar"]
         if(self.modificado() == "tirado") return [] 
@@ -66,24 +64,56 @@ class Papa{
     }
 }
 
-class Plato {    
-    var property position 
-    var property modificado 
+class OjoDeBife inherits Comida {
+
+    override method elementoYEstado() {
+        if (self.modificado() == "cocinado") return "ojoBifeCocinado"
+        else return "ojoBife"
+    }
+
+    override method image() {
+        if (self.modificado() == "cocinado") return "ojoBifeCocinado.png"
+        else return "ojoBife.png"
+    }
+
+}
+
+class Huevo inherits Comida {
+
+    override method elementoYEstado() {
+        if (self.modificado() == "cocinado") return "huevoFrito"
+        else return "huevo"
+    }
+
+    override method image() {
+        if (self.modificado() == "cocinado") return "huevoFrito.png"
+        else return "huevo.png"
+    }
+}
+
+class Vajilla {
+    var property position
     var property estaEnPlato = false
     var property sePuedeAgarrar = true 
 
-    method elemento() = "plato"
-    method elementoYEstado() = "plato"
+    method tareas() 
+    method elemento()
+}
+class Plato inherits Vajilla {    
+    var property modificado 
 
     method image(){
         if(self.modificado() == "limpio") return "plato.png"
         else return "platoSucio.png"
     }
-
-    method tareas() {
+    override method tareas() {
         if(self.modificado() == "limpio") return []
         else return ["limpiar"]
     }
+    override method elemento() = "plato"
+    
+    method elementoYEstado() = "plato"
+
 }
 
 const plato1 = new Plato(
@@ -96,20 +126,16 @@ const plato2 = new Plato(
     modificado = "limpio"
 )
 
-class PlatoArmado {
-    var property position
+class PlatoArmado inherits Vajilla{
+    override method tareas() = ["tirar"]
+    override method elemento() = "plato armado"
+
     var property elementosPlato = []
-    const property estaEnPlato = false
-    method tareas() = ["tirar"]
-    
-    method sePuedeAgarrar() = true
-    method elemento() = "plato armado"
     
     method nuevaPosicion(nuevaPos) {
         position = nuevaPos
         elementosPlato.forEach({ elem => elem.position(nuevaPos) })
-    }
-
+    } 
 
 }
 
