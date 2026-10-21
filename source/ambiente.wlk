@@ -15,6 +15,7 @@ class Estacion{
     const valorOtorgado
     const debeValidar
     const property esMesadaArmado = false //ver si modificamos esto
+    const property numeroEstacion
 
     method sePuedeAgarrar() = false
     method elemento() = "estacion"
@@ -27,16 +28,43 @@ class Estacion{
         }
     }
 
+    method tirarPlatoArmado(objeto){
+        objeto.elementosPlato().forEach({elemento => if (elemento.elemento() != "plato"){
+                game.removeVisual(elemento)
+                objeto.elementosPlato().remove(elemento) //lo saco de la lista del plato
+        }}) //borro todos los ingredientes del plato armado que no sea "plato"
+    }
+
+    method controlarQuemado(objeto){
+        var tiempoHastaQuemarse = 10 //si está mas de 10 segundos se quema
+        var nombreTick
+        if(numeroEstacion == 1) nombreTick = "controlarQuemado1"
+        if(numeroEstacion == 2) nombreTick = "controlarQuemado2"
+        game.onTick(500, nombreTick, { //controla cada medio segundo
+        if(tiempoHastaQuemarse == 0){ //no me importa la posicion, si llego a 0 se quemó
+            prendido= false
+            estaOcupado = false
+            objeto.modificado("quemado")
+            game.removeTickEvent(nombreTick)
+        }else{
+            if(objeto.position() != position){ // si lo saque
+                prendido= false
+                estaOcupado = false
+                game.removeTickEvent(nombreTick)
+            }else{
+                tiempoHastaQuemarse -= 0.5
+            }
+        }
+        })
+    }
+
     method tareaDeEstacion(objeto) {
         if(objeto.tareas().contains(debeValidar) && !estaOcupado){ //plato armado solo va a responder a tirar porque es lo unico que puede hacer
             prendido = true
             estaOcupado = true
             personajePrincipal.agarrarOSoltar() //el personaje principal suelta el objeto
             if(objeto.elemento() == "plato armado"){ //solo se va a usar en tirar
-                objeto.elementosPlato().forEach({elemento => if (elemento.elemento() != "plato"){
-                    game.removeVisual(elemento)
-                    objeto.elementosPlato().remove(elemento) //lo saco de la lista del plato
-                }}) //borro todos los ingredientes de plato armado que no sea "plato"
+                self.tirarPlatoArmado(objeto)
                 prendido = false
                 estaOcupado = false
                 
@@ -45,13 +73,17 @@ class Estacion{
                 game.schedule(tiempoTarea, { 
                     objeto.modificado(valorOtorgado)
                     if(valorOtorgado == "tirado") game.removeVisual(objeto)
-                    prendido = false
-                    estaOcupado = false
-                    objeto.sePuedeAgarrar(true)
+                    if(debeValidar == "cocinar"){
+                        objeto.sePuedeAgarrar(true) //ya esta cocido asi que lo puedo agarrar
+                        self.controlarQuemado(objeto)                        
+                    }else{
+                        prendido = false
+                        estaOcupado = false
+                        objeto.sePuedeAgarrar(true)
+                    }
             })}
         }
         
-        return
     }
 }
 
@@ -63,7 +95,9 @@ const horno1 = new Estacion(
     imagen1 = "hornoprendido.png",
     imagen2 = "hornoapagado.png",
     valorOtorgado = "cocinado",
-    debeValidar = "cocinar"
+    debeValidar = "cocinar",
+    numeroEstacion = 1
+
 )
 
 
@@ -75,7 +109,8 @@ const horno2 = new Estacion(
     imagen1 = "hornoprendido.png",
     imagen2 = "hornoapagado.png",
     valorOtorgado = "cocinado",
-    debeValidar = "cocinar"
+    debeValidar = "cocinar",
+    numeroEstacion = 2
 )
 
 
@@ -88,7 +123,8 @@ const basura = new Estacion(
     imagen1 = "basuraAbierta.png",
     imagen2 = "basura.png",
     valorOtorgado = "tirado",
-    debeValidar = "tirar"
+    debeValidar = "tirar",
+    numeroEstacion = 1
 )
 
 const bacha = new Estacion(
@@ -99,7 +135,8 @@ const bacha = new Estacion(
     imagen1 = "vacio.png", //ESPUMA O AGUA
     imagen2 = "vacio.png",
     valorOtorgado = "limpio",
-    debeValidar = "limpiar"
+    debeValidar = "limpiar",
+    numeroEstacion = 1
 )
 
 const tablaDeCortar = new Estacion(
@@ -110,7 +147,8 @@ const tablaDeCortar = new Estacion(
     imagen1 = "tablaDeCortar.png", 
     imagen2 = "tablaDeCortar.png", // hacer cambio (para notar que esta en uso)
     valorOtorgado = "cortada",
-    debeValidar = "cortar"
+    debeValidar = "cortar",
+    numeroEstacion = 1
 )
 
 class Mesada{
