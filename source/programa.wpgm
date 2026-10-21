@@ -4,7 +4,7 @@ import personajeprincipal.*
 import ambiente.*
 import comida.*
 import pedidos.*
-import controladorNiveles.*
+import controladorPantallasYNiveles.*
 
 program juego{
     game.width(32)
