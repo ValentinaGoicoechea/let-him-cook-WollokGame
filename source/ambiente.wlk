@@ -43,13 +43,23 @@ class Estacion{
                 game.schedule(tiempoTarea, { 
                     objeto.modificado(valorOtorgado)
                     if(valorOtorgado == "tirado") game.removeVisual(objeto)
-                    prendido = false
-                    estaOcupado = false
-                    objeto.sePuedeAgarrar(true)
+                    if(debeValidar == "cocinar"){
+                        objeto.sePuedeAgarrar(true) //ya esta cocido asi que lo puedo agarrar
+                        game.schedule(10000,{ //sigue prendido por 10 segundos mas
+                            if(objeto.position() == position && objeto.modificado() == "cocinado"){
+                                objeto.modificado("quemado")
+                            }
+                            prendido = false
+                            estaOcupado = false
+                        })
+                    }else{
+                        prendido = false
+                        estaOcupado = false
+                        objeto.sePuedeAgarrar(true)
+                    }
             })}
         }
         
-        return
     }
 }
 
