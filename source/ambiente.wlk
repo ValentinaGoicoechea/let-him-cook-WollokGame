@@ -310,7 +310,7 @@ class Cajon {
 }
 
 object cajonDePapas inherits Cajon (
-    position = game.at(23,5),
+    position = game.at(22,6),
     posicionAlimento = game.at(9,3),
     imagenCajon = "cajonDePapas.png"){
     override method reponerStock() {
@@ -326,7 +326,7 @@ object cajonDePapas inherits Cajon (
 }
 
 object cajonDePollo inherits Cajon (
-    position = game.at(20,5),
+    position = game.at(20,6),
     posicionAlimento = game.at(6,3),
     imagenCajon = "cajonDePollo.png"){
     override method reponerStock() {
@@ -342,9 +342,9 @@ object cajonDePollo inherits Cajon (
 }
 
 object cajonDeHuevo inherits Cajon (
-    position = game.at(26,5),
+    position = game.at(24,6),
     posicionAlimento = game.at(11,3),
-    imagenCajon = "cajonDePollo.png"){ // hay que hacer uno para el resto!!
+    imagenCajon = "cajonDeHuevos.png"){ // hay que hacer uno para el resto!!
     override method reponerStock() {
         if (self.cantidadEnStock() == 0) { 
             stockMaximo.times( 
@@ -360,7 +360,7 @@ object cajonDeHuevo inherits Cajon (
 object cajonDeBife inherits Cajon (
     position = game.at(20,3),
     posicionAlimento = game.at(13,3),
-    imagenCajon = "cajonDePollo.png"){ // hay que hacer uno para el resto!!
+    imagenCajon = "cajonDeOjoDeBife.png"){ // hay que hacer uno para el resto!!
     override method reponerStock() {
         if (self.cantidadEnStock() == 0) { 
             stockMaximo.times( 
