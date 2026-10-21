@@ -196,12 +196,14 @@ class MesadaEntrega inherits Mesada{
 
     override method tareaDeEstacion(platoArmado){
         if(platoArmado.elemento() == "plato armado"){
-            const pedido = selectorPedidos.eleccionDePedido(platoArmado.elementosPlato())
-            personajePrincipal.agarrarOSoltar()
-            if (pedido == null) { //ENTREGO UN PLATO NADA QUE VER
+            const pedido = selectorPedidos.eleccionDePedido(platoArmado.elementosPlato()) //elije el pedido que coincida con los elementos de la receta y la que tenga mas prioridad
+            personajePrincipal.agarrarOSoltar() //suelta el plato armado
+            if (pedido == null) { //Si el plato no coincide con ningun pedido
                 puntaje.restar(150)  
-            } 
-            self.procesoPlato(pedido, platoArmado)
+                self.tomarPlato(platoArmado)
+            } else{
+                self.procesoPlato(pedido, platoArmado)
+            }
             
         }
     }
