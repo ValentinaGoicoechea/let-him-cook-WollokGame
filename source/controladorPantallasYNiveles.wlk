@@ -36,6 +36,8 @@ object juegoCocinero { //ANTERIOR 'JUEGO' EN PROGRAM.WPGM
         game.addVisual(bacha)
         game.addVisual(cajonDePapas)
         game.addVisual(cajonDePollo)
+        game.addVisual(cajonDeHuevo)
+        game.addVisual(cajonDeBife)
         game.addVisual(personajePrincipal)
         game.addVisual(plato1)
         game.addVisual(plato2)
@@ -43,6 +45,8 @@ object juegoCocinero { //ANTERIOR 'JUEGO' EN PROGRAM.WPGM
 
         cajonDePollo.reponerStock()
         cajonDePapas.reponerStock()
+        cajonDeHuevo.reponerStock()
+        cajonDeBife.reponerStock()
 
         teclado.movimiento()
         teclado.agarrarOSoltarObjeto()

@@ -339,5 +339,35 @@ object cajonDePollo inherits Cajon (
     }
 }
 
+object cajonDeHuevo inherits Cajon (
+    position = game.at(26,5),
+    posicionAlimento = game.at(11,3),
+    imagenCajon = "cajonDePollo.png"){ // hay que hacer uno para el resto!!
+    override method reponerStock() {
+        if (self.cantidadEnStock() == 0) { 
+            stockMaximo.times( 
+                {huevoX => const nuevoHuevo = new Huevo(position = posicionAlimento, modificado = "")
+                alimentos.add(nuevoHuevo)
+                game.addVisual(nuevoHuevo)
+                }
+            )
+        }
+    }
+}
 
+object cajonDeBife inherits Cajon (
+    position = game.at(20,3),
+    posicionAlimento = game.at(13,3),
+    imagenCajon = "cajonDePollo.png"){ // hay que hacer uno para el resto!!
+    override method reponerStock() {
+        if (self.cantidadEnStock() == 0) { 
+            stockMaximo.times( 
+                {bifeX => const nuevoOjoBife = new OjoDeBife(position = posicionAlimento, modificado = "")
+                alimentos.add(nuevoOjoBife)
+                game.addVisual(nuevoOjoBife)
+                }
+            )
+        }
+    }
+}
 
