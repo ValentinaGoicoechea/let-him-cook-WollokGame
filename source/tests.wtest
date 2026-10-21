@@ -126,5 +126,25 @@ describe "Tests preliminares TPGame-Overcooked" {
         assert.equals("sucio", plato.modificado())
     }
 
+    test "Al entregar un plato que no coincide con ninguna receta, resta 150 puntos"{
+        generadorDePedidos.listaPedidos().clear()
+        puntaje.valor(300)
+        
+        const pedido = new PedidoOjoDeBifeConHuevo(
+            position = game.at(27,3),
+            ingredientes = ["plato",  "ojoBifeCocinado", "huevoFrito"])
+        generadorDePedidos.listaPedidos().add(pedido)
+
+        
+        const plato = new Plato(position= game.at(24, 7), modificado = "limpio")
+        const pechuga = new PechugaDePollo(position = game.at(24, 7), modificado = "cocinado") 
+        const platoArmado = new PlatoArmado(position = game.at(24, 7), elementosPlato = [plato, pechuga])
+        const mesadaEntrega = new MesadaEntrega(position = game.at(14, 11), image = "mesada.png")
+
+        mesadaEntrega.tareaDeEstacion(platoArmado)
+
+        assert.equals(150, puntaje.valor())
+    }
+
 
 }
