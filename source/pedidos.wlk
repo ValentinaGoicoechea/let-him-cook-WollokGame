@@ -16,9 +16,9 @@ class Pedido{
 
     method estadoDelPedido() {
         game.addVisual(self)
-        game.schedule(10000,  { estado = "ESPERA1" })
-        game.schedule(20000, { estado = "ESPERA2" })
-        game.schedule(30000, { 
+        game.schedule(20000,  { estado = "ESPERA1" })
+        game.schedule(30000, { estado = "ESPERA2" })
+        game.schedule(40000, { 
             if (!seEntrego) {
                 estado = "PERDIDO" 
                 puntaje.restar(30)
@@ -70,7 +70,7 @@ object generadorDePedidos {
     
     method nuevoPedido() {
         contadorDePedidos += 1
-        posicionSegunFila = contadorDePedidos % 4
+        posicionSegunFila = contadorDePedidos % 4 // el primer pedido es 1, el segundo 2, el tercero 3, el 4 0
         const numeroDePedido = 0.randomUpTo(1).round()  //Por ahora puede salir 0 o 1 para los dos pedidos.
         if (numeroDePedido == 0) {
             self.pedirPolloConPapas()
@@ -79,9 +79,17 @@ object generadorDePedidos {
         }
     }
 
+    //posicion en Y va del 3 al 14, creo que cada pedido ocupa 3
+
+    method cambiarPosicionPedidosActivos(){
+        if(listapedidos.size() != 0){
+            listapedidos.forEach({pedido => pedido.position(pedido.position().down(3))})
+        }
+    }
+
     method pedirPolloConPapas() {
         const pedidoX = new PedidoPolloConPapas ( 
-                position = game.at(27, 3 + (posicionSegunFila * 3)), 
+                position = game.at(27, 12), //Hice cambios en las posiciones!
                 // X se mantiebe igual, voy a hacer que por ahora haya 4 en pantalla
                 ingredientes = ["plato", "pechugaCocinada", "papasFritas"]
             )
@@ -91,7 +99,7 @@ object generadorDePedidos {
 
     method pedirOjoDeBifeConHuevo() {
         const pedidoX = new PedidoOjoDeBifeConHuevo ( 
-                position = game.at(27, 3 + (posicionSegunFila * 3)),
+                position = game.at(27,12),
                 ingredientes = ["plato", "ojoBifeCocinado", "huevoFrito"]
             )
             listapedidos.add(pedidoX)
@@ -99,8 +107,9 @@ object generadorDePedidos {
     }
 
     method empezar() {
-        self.nuevoPedido()                                        
-        game.onTick(40000, "generarPedido", { self.nuevoPedido() }) //Creacion de pedidos cda 40 sec
+        self.nuevoPedido()                                     
+        game.onTick(20000, "generarPedido", { self.cambiarPosicionPedidosActivos()
+        self.nuevoPedido() }) //Creacion de pedidos cda 40 sec
     }
     //esta parte se modificaria segun el nivel
 }
