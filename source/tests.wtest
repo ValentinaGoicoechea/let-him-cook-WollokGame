@@ -2,6 +2,10 @@
 import comida.*
 import ambiente.*
 import personajeprincipal.*
+import pedidos.*
+import puntaje.*
+
+
 describe "Tests preliminares TPGame-Overcooked" {
 
     test "Al cortarse una papa, esta cambia su estado, su tipo e imagen." {
@@ -80,5 +84,27 @@ describe "Tests preliminares TPGame-Overcooked" {
 
         assert.equals(true, platoArmado.sePuedeAgarrar())
     }
+
+    test "Un plato armado de pollo con papas coincide con el pedido, lo marca como entregado y lo saca de la lista." {
+        generadorDePedidos.listaPedidos().clear() //para el test 'empiezo desde 0' sin pedidos
+
+        const pedido = new PedidoPolloConPapas(
+            position = game.at(27, 3),
+            ingredientes = ["plato", "pechugaCocinada", "papasFritas"])
+        generadorDePedidos.listaPedidos().add(pedido)
+
+        const plato = new Plato(position= game.at(24, 7), modificado = "limpio")
+        const pechuga = new PechugaDePollo(position = game.at(24, 7), modificado = "cocinado") 
+        //uso "cocinado" ya que no me importa si las demas estaciones funcionan, solo evaluo la entrega
+        const papa = new Papa(position = game.at(24, 7), modificado= "cocinado")
+        const platoArmado = new PlatoArmado(position = game.at(24, 7), elementosPlato = [plato, pechuga, papa])
+        const mesadaEntrega = new MesadaEntrega(position = game.at(14, 11), image = "mesada.png")
+
+        mesadaEntrega.tareaDeEstacion(platoArmado)
+
+        assert.equals(true, pedido.seEntrego())
+        assert.equals(false, generadorDePedidos.listaPedidos().contains(pedido))
+    }
+
 
 }
