@@ -215,14 +215,10 @@ const mesadaEntrega3 = new MesadaEntrega(
 )
 
 
-
-
 class MesadaArmado inherits Mesada{
     const property esMesadaArmado = true
     var property platoEnArmado = null
     var property hayPlatoParaArmar = false
-
-   
 
     method crearPlatoArmado(){
       platoEnArmado = new PlatoArmado(position = position) //Creo un nuevo PlatoArmado
@@ -230,36 +226,33 @@ class MesadaArmado inherits Mesada{
 
     override method tareaDeEstacion(objeto){
         if(objeto.elemento() == "plato" && objeto.modificado() == "limpio"){ //si el elemento que traigo es un plato y está limpio
-            if(platoEnArmado == null){ //si no hay plato armado
+            if(platoEnArmado == null){ //si no hay plato armado => no hay plato en la mesa
                 self.crearPlatoArmado()
-                game.addVisual(platoEnArmado)
-            }
-            if(!platoEnArmado.elementosPlato().any({elem=> elem.elemento() == "plato"})){ //si en la mesada no hay ningun plato               
+                game.addVisual(platoEnArmado)               
                 platoEnArmado.elementosPlato().add(objeto) //agrego el plato
                 objeto.estaEnPlato(true)  //agrego plato a PlatoArmado
                 personajePrincipal.agarrarOSoltar() //el personaje suelta el plato
                 hayPlatoParaArmar = true
                 
-            } //Si hay alguno tendria qe decir que ya hay un plato!
+            } 
         } else if (objeto.elemento()== "plato armado"){ // si vengo con un plato armado
-            hayPlatoParaArmar = true
-            personajePrincipal.agarrarOSoltar()
-            platoEnArmado = objeto //actualizo el nuevo plato en armado
-            
-
+            if(platoEnArmado == null){
+                hayPlatoParaArmar = true
+                platoEnArmado = objeto //actualizo el nuevo plato en armado
+                personajePrincipal.agarrarOSoltar()
+            }
         } else{ //si lo que traigo no es un plato
             if(hayPlatoParaArmar){ //me fijo si hay un plato en la mesada, si lo hay puedo agregar la comida
                 platoEnArmado.elementosPlato().add(objeto)
                 objeto.estaEnPlato(true) //agrego comida a PlatoArmado
                 personajePrincipal.agarrarOSoltar()
             }
-            //Si no hay plato tiene que decir que necesita un plato para poner la comida
         }        
 
     }
 
     method agarrarPlatoArmado() {
-        if(platoEnArmado.sePuedeAgarrar()){ //si tiene el plato y algun elemento
+        if(platoEnArmado.sePuedeAgarrar() && platoEnArmado != null){ //si tiene el plato y algun elemento
             hayPlatoParaArmar = false
             platoEnArmado = null //no hay plato en armado, está dando vueltas 
         }

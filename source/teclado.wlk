@@ -1,6 +1,6 @@
 import personajeprincipal.*
 import wollok.game.*
-import controladorNiveles.*
+import controladorPantallasYNiveles.*
 
 object teclado{
     method movimiento() {
