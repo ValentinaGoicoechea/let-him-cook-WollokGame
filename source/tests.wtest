@@ -146,5 +146,24 @@ describe "Tests preliminares TPGame-Overcooked" {
         assert.equals(150, puntaje.valor())
     }
 
+    test "Es posible ir con un plato ya con comida y seguir agregando ingredientes"{
+        const plato = new Plato(position= game.at(24, 7), modificado = "limpio")
+        const pechuga = new PechugaDePollo(position = game.at(24, 7), modificado = "cocinado") 
+        const papa = new Papa(position = game.at(24, 7), modificado= "cocinado")
+        const platoArmado = new PlatoArmado(position = game.at(24, 7), elementosPlato = [plato, papa]) //inicio con el platoArmado con plato y papa
+        const mesadaEntrega = new MesadaEntrega(position = game.at(14, 11), image = "mesada.png")
+
+        
+        const mesadaArmado1 = new MesadaArmado(
+            position = game.at(24.5,7),
+            image = "mesadaArmado.png"
+        )
+
+        mesadaArmado1.tareaDeEstacion(platoArmado)
+        mesadaArmado1.tareaDeEstacion(pechuga)
+
+        assert.equals([plato, papa, pechuga], mesadaArmado1.platoEnArmado().elementosPlato())
+    }
+
 
 }

@@ -141,10 +141,3 @@ class PlatoArmado inherits Vajilla{
     } 
 
 }
-
-class ObjetoQuemado {
-    var property position 
-    var property modificado
-    var property estaEnPlato = false
-    var property sePuedeAgarrar = true 
-}
