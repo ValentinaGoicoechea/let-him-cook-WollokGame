@@ -45,7 +45,8 @@ describe "Tests preliminares TPGame-Overcooked" {
             imagen1 = "basuraAbierta.png",
             imagen2 = "basura.png",
             valorOtorgado = "tirado",
-            debeValidar = "tirar"
+            debeValidar = "tirar",
+            numeroEstacion = 1
         )
         
         basura1.tareaDeEstacion(pechuga1)
