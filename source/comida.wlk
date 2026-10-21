@@ -30,6 +30,9 @@ class PechugaDePollo inherits Comida{
         if(self.modificado() ==  "cocinado") { return "pechugacocinada.png"}
         
         if(self.modificado() == "tirado") return "vacio.png"
+
+        if(self.modificado() == "quemado") return "pechugaquemada.png"
+
         
         return "pechuga.png"
     }

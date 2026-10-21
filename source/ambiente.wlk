@@ -45,13 +45,24 @@ class Estacion{
                     if(valorOtorgado == "tirado") game.removeVisual(objeto)
                     if(debeValidar == "cocinar"){
                         objeto.sePuedeAgarrar(true) //ya esta cocido asi que lo puedo agarrar
-                        game.schedule(10000,{ //sigue prendido por 10 segundos mas
-                            if(objeto.position() == position && objeto.modificado() == "cocinado"){
+                        var tiempoHastaQuemarse = 10 //si está mas de 10 segundos se quema
+                        game.onTick(500, "controlarQuemado", { //controla cada medio segundo
+                            if(tiempoHastaQuemarse == 0){ //no me importa la posicion, si llego a 0 se quemó
+                                prendido= false
+                                estaOcupado = false
                                 objeto.modificado("quemado")
+                                game.removeTickEvent("controlarQuemado")
+                            }else{
+                                if(objeto.position() != position){ // si lo saque
+                                    prendido= false
+                                    estaOcupado = false
+                                    game.removeTickEvent("controlarQuemado")
+                                }else{
+                                    tiempoHastaQuemarse -= 0.5
+                                }
                             }
-                            prendido = false
-                            estaOcupado = false
                         })
+                        
                     }else{
                         prendido = false
                         estaOcupado = false
