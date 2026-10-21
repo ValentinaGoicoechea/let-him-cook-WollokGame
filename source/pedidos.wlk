@@ -1,10 +1,10 @@
 import wollok.game.*
+import puntaje.*
 
 class Pedido{
 
     var property position //van apareciendo a la derecha y "caen"
     var property estado = "NUEVO"// estados NUEVO, ESPERA1, ESPERA2, PERDIDO
-    const receta   //por ahora solo pollo con papas
     const ingredientes // por ahora creo "ingredientes" para luego verifivcar si cumplen
     var property seEntrego = false
 
@@ -19,11 +19,23 @@ class Pedido{
         game.schedule(10000,  { estado = "ESPERA1" })
         game.schedule(20000, { estado = "ESPERA2" })
         game.schedule(30000, { 
-            estado = "PERDIDO" 
-            game.schedule(2000, {game.removeVisual(self)}) //Y ACÁ DESCONTAR PUNTOS
+            if (!seEntrego) {
+                estado = "PERDIDO" 
+                puntaje.restar(30)
+                game.schedule(2000, {
+                    game.removeVisual(self)
+                    generadorDePedidos.listaPedidos().remove(self)}) 
+                }
             })
+                
     }
 
+    // ESPERA2 es el más urgente, se entrega primero
+    method prioridad() {
+        if (estado == "ESPERA2") return 3
+        if (estado == "ESPERA1") return 2
+        return 1
+    }
 }
 
 class PedidoPolloConPapas inherits Pedido {
@@ -50,7 +62,6 @@ class PedidoOjoDeBifeConHuevo inherits Pedido {
 
 
 object generadorDePedidos {
-    var property puedeGenerarPedidos = true
     var contadorDePedidos = 0
     var posicionSegunFila = null
     const listapedidos = []
@@ -70,8 +81,8 @@ object generadorDePedidos {
 
     method pedirPolloConPapas() {
         const pedidoX = new PedidoPolloConPapas ( 
-                position = game.at(27, 3 + (posicionSegunFila * 3)), // X se mantiebe igual, voy a hacer que por ahora haya 4 en pantalla
-                receta = "polloConPapas",
+                position = game.at(27, 3 + (posicionSegunFila * 3)), 
+                // X se mantiebe igual, voy a hacer que por ahora haya 4 en pantalla
                 ingredientes = ["plato", "pechugaCocinada", "papasFritas"]
             )
             listapedidos.add(pedidoX)
@@ -81,7 +92,6 @@ object generadorDePedidos {
     method pedirOjoDeBifeConHuevo() {
         const pedidoX = new PedidoOjoDeBifeConHuevo ( 
                 position = game.at(27, 3 + (posicionSegunFila * 3)),
-                receta = "ojoDeBifeConHuevo",
                 ingredientes = ["plato", "ojoBifeCocinado", "huevoFrito"]
             )
             listapedidos.add(pedidoX)
@@ -90,6 +100,20 @@ object generadorDePedidos {
 
     method empezar() {
         self.nuevoPedido()                                        
-        game.onTick(20000, "generarPedido", { self.nuevoPedido() }) //Creacion de pedidos cda 20 sec
+        game.onTick(40000, "generarPedido", { self.nuevoPedido() }) //Creacion de pedidos cda 40 sec
     }
+    //esta parte se modificaria segun el nivel
+}
+
+object selectorPedidos{
+    method eleccionDePedido(elementosPlato) { //pedido con la receta mas urgente
+        const candidatos = generadorDePedidos.listaPedidos().filter({pedido => self.coincide(pedido, elementosPlato)})
+        if (candidatos.isEmpty()) return null 
+        else return candidatos.max({pedido => pedido.prioridad()})
+    }
+
+    method coincide(pedido, elementosPlato) = (!pedido.seEntrego() && pedido.estado() != "PERDIDO") &&
+        elementosPlato.size() == pedido.ingredientes().size() && 
+        elementosPlato.all({elemento => pedido.ingredientes().contains(elemento.elementoYEstado()) 
+    })
 }

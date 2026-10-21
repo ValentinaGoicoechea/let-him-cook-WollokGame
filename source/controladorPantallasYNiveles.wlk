@@ -4,6 +4,8 @@ import personajeprincipal.*
 import ambiente.*
 import comida.*
 import pedidos.*
+import puntaje.*
+
 
 object pantallaInicio {
     const property position = game.at(0, 0)
@@ -37,6 +39,8 @@ object juegoCocinero { //ANTERIOR 'JUEGO' EN PROGRAM.WPGM
         game.addVisual(personajePrincipal)
         game.addVisual(plato1)
         game.addVisual(plato2)
+        game.addVisual(puntaje)
+
         cajonDePollo.reponerStock()
         cajonDePapas.reponerStock()
 
