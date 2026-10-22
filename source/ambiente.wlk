@@ -179,9 +179,9 @@ class MesadaEntrega inherits Mesada{
     method procesoPlato(pedido, plato){
         pedido.seEntrego(true)
         generadorDePedidos.listaPedidos().remove(pedido)
+        puntaje.sumar(puntaje.asignarPuntos(pedido, plato))
         game.removeVisual(pedido)
         self.tomarPlato(plato)
-        puntaje.sumar(puntaje.puntosAlEntregar(pedido))
     }
 
     override method tareaDeEstacion(platoArmado){
@@ -189,7 +189,7 @@ class MesadaEntrega inherits Mesada{
             const pedido = selectorPedidos.eleccionDePedido(platoArmado.elementosPlato()) //elije el pedido que coincida con los elementos de la receta y la que tenga mas prioridad
             personajePrincipal.agarrarOSoltar() //suelta el plato armado
             if (pedido == null) { //Si el plato no coincide con ningun pedido
-                puntaje.restar(150)  
+                puntaje.restar(100)  
                 self.tomarPlato(platoArmado)
             } else{
                 self.procesoPlato(pedido, platoArmado)

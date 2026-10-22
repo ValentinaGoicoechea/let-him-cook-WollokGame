@@ -21,4 +21,12 @@ object puntaje{
     }
 
     method puntosAlEntregar(pedido) = 200 + self.puntosPorEspera(pedido)
+
+    method asignarPuntos(pedido, plato){
+        if(plato.elementosPlato().any{ingrediente => ingrediente.modificado() == "quemado"}) {
+            self.restar(250)
+            return 0
+        }
+        return self.puntosAlEntregar(pedido)
+    }
 }
