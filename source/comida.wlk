@@ -54,6 +54,8 @@ class Papa inherits Comida{
         if(self.modificado() == "cortada") { return "papaCortada.png"}
 
         if(self.modificado() == "tirado") return "vacio.png"
+
+        if(self.modificado() == "quemado") return "papaFritaQuemada.png"
         
         return "papaCruda.png"
         
@@ -76,9 +78,11 @@ class OjoDeBife inherits Comida {
 
     override method image() {
         if (self.modificado() == "cocinado") return "ojoBifeCocinado.png"
+
+        else if(self.modificado() == "quemado") return "ojoBifeQuemado.png"
+
         else return "ojoBife.png"
     }
-
 }
 
 class Huevo inherits Comida {
@@ -90,6 +94,7 @@ class Huevo inherits Comida {
 
     override method image() {
         if (self.modificado() == "cocinado") return "huevoFrito.png"
+        else if (self.modificado() == "quemado") return "huevoFritoQuemado.png"
         else return "huevo.png"
     }
 }
