@@ -7,8 +7,8 @@ import puntaje.*
 
 class Estacion{
     const property position
-    var prendido 
-    var estaOcupado 
+    var prendido = false
+    var estaOcupado = false
     const tiempoTarea
     const imagen1
     const imagen2
@@ -28,83 +28,68 @@ class Estacion{
         }
     }
 
-    method tirarPlatoArmado(objeto){
-        objeto.elementosPlato().forEach({elemento => if (elemento.elemento() != "plato"){
-                game.removeVisual(elemento)
-                objeto.elementosPlato().remove(elemento) //lo saco de la lista del plato
-        }}) //borro todos los ingredientes del plato armado que no sea "plato"
+    method tareaDeEstacion(objeto) {
+        if(objeto.tareas().contains(debeValidar) && !estaOcupado){ //plato armado solo va a responder a tirar porque es lo unico que puede hacer
+            prendido = true
+            estaOcupado = true
+            personajePrincipal.agarrarOSoltar() //el personaje principal suelta el objeto
+            objeto.sePuedeAgarrar(false)
+            game.schedule(tiempoTarea, { 
+                    objeto.modificado(valorOtorgado)
+                    objeto.sePuedeAgarrar(true)
+                    self.tareaExtra(objeto)
+                    prendido = false
+                    estaOcupado = false
+            })
+        }
     }
+        
+    method tareaExtra(objeto) {
+        //cada estacion resuelve su propia tarea
+    }
+}
 
+class Horno inherits Estacion{
     method controlarQuemado(objeto){
         var tiempoHastaQuemarse = 10 //si está mas de 10 segundos se quema
         var nombreTick
         if(numeroEstacion == 1) nombreTick = "controlarQuemado1"
         if(numeroEstacion == 2) nombreTick = "controlarQuemado2"
         game.onTick(500, nombreTick, { //controla cada medio segundo
-        if(tiempoHastaQuemarse == 0){ //no me importa la posicion, si llego a 0 se quemó
-            prendido= false
-            estaOcupado = false
-            objeto.modificado("quemado")
-            game.removeTickEvent(nombreTick)
-        }else{
-            if(objeto.position() != position){ // si lo saque
+            if(tiempoHastaQuemarse == 0){ //no me importa la posicion, si llego a 0 se quemó
                 prendido= false
                 estaOcupado = false
+                objeto.modificado("quemado")
                 game.removeTickEvent(nombreTick)
             }else{
-                tiempoHastaQuemarse -= 0.5
+                if(objeto.position() != position){ // si lo saque
+                    prendido= false
+                    estaOcupado = false
+                    game.removeTickEvent(nombreTick)
+                }else{
+                    tiempoHastaQuemarse -= 0.5
+                }
             }
-        }
-        })
+            })
     }
-
-    method tareaDeEstacion(objeto) {
-        if(objeto.tareas().contains(debeValidar) && !estaOcupado){ //plato armado solo va a responder a tirar porque es lo unico que puede hacer
-            prendido = true
-            estaOcupado = true
-            personajePrincipal.agarrarOSoltar() //el personaje principal suelta el objeto
-            if(objeto.elemento() == "plato armado"){ //solo se va a usar en tirar
-                self.tirarPlatoArmado(objeto)
-                prendido = false
-                estaOcupado = false
-                
-            }else{
-                objeto.sePuedeAgarrar(false)
-                game.schedule(tiempoTarea, { 
-                    objeto.modificado(valorOtorgado)
-                    if(valorOtorgado == "tirado") game.removeVisual(objeto)
-                    if(debeValidar == "cocinar"){
-                        objeto.sePuedeAgarrar(true) //ya esta cocido asi que lo puedo agarrar
-                        self.controlarQuemado(objeto)                        
-                    }else{
-                        prendido = false
-                        estaOcupado = false
-                        objeto.sePuedeAgarrar(true)
-                    }
-            })}
-        }
-        
+    override method tareaExtra(objeto){
+        self.controlarQuemado(objeto)
     }
 }
 
-const horno1 = new Estacion(
+const horno1 = new Horno(
     position = game.at(6,11),
-    prendido = false,
-    estaOcupado = false,
     tiempoTarea = 7000,
     imagen1 = "hornoprendido.png",
     imagen2 = "hornoapagado.png",
     valorOtorgado = "cocinado",
     debeValidar = "cocinar",
     numeroEstacion = 1
-
 )
 
 
-const horno2 = new Estacion(
+const horno2 = new Horno(
     position = game.at(8,11),
-    prendido = false,
-    estaOcupado = false,
     tiempoTarea = 7000,
     imagen1 = "hornoprendido.png",
     imagen2 = "hornoapagado.png",
@@ -113,24 +98,31 @@ const horno2 = new Estacion(
     numeroEstacion = 2
 )
 
-
-
-const basura = new Estacion(
+object basura inherits Estacion(
     position = game.at(20,7),
-    prendido = false,
-    estaOcupado = false,
     tiempoTarea = 500,
     imagen1 = "basuraAbierta.png",
     imagen2 = "basura.png",
     valorOtorgado = "tirado",
     debeValidar = "tirar",
     numeroEstacion = 1
-)
+){
+    override method tareaExtra(objeto){
+        objeto.sePuedeAgarrar(false)
+        if(objeto.elemento() == "plato armado"){ //solo se va a usar en tirar
+            objeto.elementosPlato().forEach({elemento => if (elemento.elemento() != "plato")
+                {game.removeVisual(elemento)
+                objeto.elementosPlato().remove(elemento)}
+            }) 
+        }else{
+            game.removeVisual(objeto)            
+        }
+    }
+}
+
 
 const bacha = new Estacion(
     position = game.at(4,6),
-    prendido = false,
-    estaOcupado = false,
     tiempoTarea = 3000,
     imagen1 = "vacio.png", //ESPUMA O AGUA
     imagen2 = "vacio.png",
@@ -141,8 +133,6 @@ const bacha = new Estacion(
 
 const tablaDeCortar = new Estacion(
     position = game.at(4,9),
-    prendido = false,
-    estaOcupado = false,
     tiempoTarea = 4500,
     imagen1 = "tablaDeCortar.png", 
     imagen2 = "tablaDeCortar.png", // hacer cambio (para notar que esta en uso)
