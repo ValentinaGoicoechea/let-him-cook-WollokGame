@@ -47,7 +47,7 @@ class Estacion{
     method tareaExtra(objeto) {
         self.liberar()
     }
-    
+
     method liberar(){
         prendido = false
         estaOcupado = false
@@ -163,7 +163,7 @@ class MesadaEntrega inherits Mesada{
     const property esMesadaArmado = false
 
     method devolverPlatoSucio(plato){
-        plato.position(game.at(16,3))
+        plato.position(game.at(4,5))
         plato.modificado("sucio")
         plato.estaEnPlato(false) //lo saco de plato
     }
