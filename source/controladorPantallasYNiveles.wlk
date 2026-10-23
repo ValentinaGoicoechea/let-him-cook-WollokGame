@@ -41,6 +41,7 @@ object juegoCocinero { //ANTERIOR 'JUEGO' EN PROGRAM.WPGM
         game.addVisual(personajePrincipal)
         game.addVisual(plato1)
         game.addVisual(plato2)
+        game.addVisual(plato3)
         game.addVisual(puntaje)
 
         cajonDePollo.reponerStock()

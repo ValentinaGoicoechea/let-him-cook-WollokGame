@@ -38,33 +38,36 @@ class Estacion{
                     objeto.modificado(valorOtorgado)
                     objeto.sePuedeAgarrar(true)
                     self.tareaExtra(objeto)
-                    prendido = false
-                    estaOcupado = false
-            })
+            }
+            )
+            
         }
     }
         
     method tareaExtra(objeto) {
-        //cada estacion resuelve su propia tarea
+        self.liberar()
+    }
+    
+    method liberar(){
+        prendido = false
+        estaOcupado = false
     }
 }
 
 class Horno inherits Estacion{
     method controlarQuemado(objeto){
-        var tiempoHastaQuemarse = 10 //si está mas de 10 segundos se quema
+        var tiempoHastaQuemarse = 10 //si está mas de 10 segundos despues de cocinarse se quema
         var nombreTick
         if(numeroEstacion == 1) nombreTick = "controlarQuemado1"
         if(numeroEstacion == 2) nombreTick = "controlarQuemado2"
         game.onTick(500, nombreTick, { //controla cada medio segundo
             if(tiempoHastaQuemarse == 0){ //no me importa la posicion, si llego a 0 se quemó
-                prendido= false
-                estaOcupado = false
+                self.liberar()
                 objeto.modificado("quemado")
                 game.removeTickEvent(nombreTick)
             }else{
                 if(objeto.position() != position){ // si lo saque
-                    prendido= false
-                    estaOcupado = false
+                    self.liberar()
                     game.removeTickEvent(nombreTick)
                 }else{
                     tiempoHastaQuemarse -= 0.5
@@ -109,14 +112,19 @@ object basura inherits Estacion(
 ){
     override method tareaExtra(objeto){
         objeto.sePuedeAgarrar(false)
+
         if(objeto.elemento() == "plato armado"){ //solo se va a usar en tirar
             objeto.elementosPlato().forEach({elemento => if (elemento.elemento() != "plato")
                 {game.removeVisual(elemento)
-                objeto.elementosPlato().remove(elemento)}
-            }) 
+                objeto.elementosPlato().remove(elemento)}                
+            })
+            objeto.sePuedeAgarrar(true)
+             
         }else{
             game.removeVisual(objeto)            
         }
+        self.liberar()
+
     }
 }
 

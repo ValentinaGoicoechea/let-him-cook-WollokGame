@@ -103,12 +103,12 @@ class Vajilla {
     var property position
     var property estaEnPlato = false
     var property sePuedeAgarrar = true 
+    var property modificado
 
     method tareas() 
     method elemento()
 }
-class Plato inherits Vajilla {    
-    var property modificado 
+class Plato inherits Vajilla {     
 
     method image(){
         if(self.modificado() == "limpio") return "plato.png"
@@ -134,7 +134,13 @@ const plato2 = new Plato(
     modificado = "limpio"
 )
 
-class PlatoArmado inherits Vajilla{
+const plato3 = new Plato(
+    position = game.at(16,3),
+    modificado = "limpio"
+)
+
+class PlatoArmado inherits Vajilla(modificado = null){
+    
     override method tareas() = ["tirar"]
     override method elemento() = "plato armado"
 
