@@ -71,12 +71,7 @@ object generadorDePedidos {
     method nuevoPedido() {
         contadorDePedidos += 1
         posicionSegunFila = contadorDePedidos % 4 // el primer pedido es 1, el segundo 2, el tercero 3, el 4 0
-        const numeroDePedido = 0.randomUpTo(1).round()  //Por ahora puede salir 0 o 1 para los dos pedidos.
-        if (numeroDePedido == 0) {
-            self.pedirPolloConPapas()
-        } else {
-            self.pedirOjoDeBifeConHuevo()
-        }
+        self.pedir(0.randomUpTo(1).round())
     }
 
     //posicion en Y va del 3 al 14, creo que cada pedido ocupa 3
@@ -87,23 +82,27 @@ object generadorDePedidos {
         }
     }
 
-    method pedirPolloConPapas() {
-        const pedidoX = new PedidoPolloConPapas ( 
-                position = game.at(27, 12), //Hice cambios en las posiciones!
-                // X se mantiebe igual, voy a hacer que por ahora haya 4 en pantalla
-                ingredientes = ["plato", "pechugaCocinada", "papasFritas"]
-            )
-            listapedidos.add(pedidoX)
-            pedidoX.estadoDelPedido()
+    method agregarNuevoPedido(pedidoX){
+        listapedidos.add(pedidoX)
+        pedidoX.estadoDelPedido()
     }
 
-    method pedirOjoDeBifeConHuevo() {
-        const pedidoX = new PedidoOjoDeBifeConHuevo ( 
+    method pedir(numeroDePedido) {
+        var pedidoX
+        if(numeroDePedido == 0){
+            pedidoX = new PedidoPolloConPapas ( 
+                    position = game.at(27, 12), //Hice cambios en las posiciones!
+                    // X se mantiebe igual, voy a hacer que por ahora haya 4 en pantalla
+                    ingredientes = ["plato", "pechugaCocinada", "papasFritas"]
+                )
+        }
+        else{
+            pedidoX = new PedidoOjoDeBifeConHuevo ( 
                 position = game.at(27,12),
                 ingredientes = ["plato", "ojoBifeCocinado", "huevoFrito"]
             )
-            listapedidos.add(pedidoX)
-            pedidoX.estadoDelPedido()
+        }
+        self.agregarNuevoPedido(pedidoX)
     }
 
     method empezar() {
