@@ -54,21 +54,38 @@ class Estacion{
     }
 }
 
+class CartelPrecaucion {
+    var property position
+    method image() = "cartelPrecaucion.png"
+}
+
 class Horno inherits Estacion{
+
     method controlarQuemado(objeto){
         var tiempoHastaQuemarse = 10 //si está mas de 10 segundos despues de cocinarse se quema
         var nombreTick
         if(numeroEstacion == 1) nombreTick = "controlarQuemado1"
         if(numeroEstacion == 2) nombreTick = "controlarQuemado2"
+
+        var posicionX = position.x() + 0.5
+        var posicionY = position.y() + 2
+        const precaucion1 = new CartelPrecaucion (
+                    position = game.at(posicionX, posicionY) 
+                )
         game.onTick(500, nombreTick, { //controla cada medio segundo
             if(tiempoHastaQuemarse == 0){ //no me importa la posicion, si llego a 0 se quemó
                 self.liberar()
                 objeto.modificado("quemado")
                 game.removeTickEvent(nombreTick)
-            }else{
+                game.removeVisual(precaucion1)
+            } else if (tiempoHastaQuemarse == 5) {
+                game.addVisual(precaucion1)
+                tiempoHastaQuemarse -= 0.5
+            } else {
                 if(objeto.position() != position){ // si lo saque
                     self.liberar()
                     game.removeTickEvent(nombreTick)
+                    game.removeVisual(precaucion1)//Quitar cartel
                 }else{
                     tiempoHastaQuemarse -= 0.5
                 }
