@@ -60,6 +60,7 @@ class CartelPrecaucion {
 }
 
 class Horno inherits Estacion{
+    var precaucion = null
 
     method controlarQuemado(objeto){
         var tiempoHastaQuemarse = 10 //si está mas de 10 segundos despues de cocinarse se quema
@@ -67,25 +68,21 @@ class Horno inherits Estacion{
         if(numeroEstacion == 1) nombreTick = "controlarQuemado1"
         if(numeroEstacion == 2) nombreTick = "controlarQuemado2"
 
-        var posicionX = position.x() + 0.5
-        var posicionY = position.y() + 2
-        const precaucion1 = new CartelPrecaucion (
-                    position = game.at(posicionX, posicionY) 
-                )
+        self.crearCartelPrecaucion()
         game.onTick(500, nombreTick, { //controla cada medio segundo
             if(tiempoHastaQuemarse == 0){ //no me importa la posicion, si llego a 0 se quemó
                 self.liberar()
                 objeto.modificado("quemado")
                 game.removeTickEvent(nombreTick)
-                game.removeVisual(precaucion1)
+                game.removeVisual(precaucion)
             } else if (tiempoHastaQuemarse == 5) {
-                game.addVisual(precaucion1)
+                game.addVisual(precaucion)
                 tiempoHastaQuemarse -= 0.5
             } else {
                 if(objeto.position() != position){ // si lo saque
                     self.liberar()
                     game.removeTickEvent(nombreTick)
-                    game.removeVisual(precaucion1)//Quitar cartel
+                    game.removeVisual(precaucion)//Quitar cartel
                 }else{
                     tiempoHastaQuemarse -= 0.5
                 }
@@ -94,6 +91,13 @@ class Horno inherits Estacion{
     }
     override method tareaExtra(objeto){
         self.controlarQuemado(objeto)
+    }
+    method crearCartelPrecaucion() {
+        var posicionX = position.x() + 0.5
+        var posicionY = position.y() + 2
+        precaucion = new CartelPrecaucion (
+                    position = game.at(posicionX, posicionY) 
+                )
     }
 }
 
