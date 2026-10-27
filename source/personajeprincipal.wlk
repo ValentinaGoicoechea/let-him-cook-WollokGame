@@ -14,7 +14,7 @@ object personajePrincipal{
         tipoPersonaje = nuevoTipo
     }
 
-    method image() = tipoPersonaje.image(ultimadireccion)
+    method image() = tipoPersonaje.imagen(ultimadireccion)
 
     method esSuelo(pos){ //en base al piso
         const x = pos.x()
@@ -112,7 +112,7 @@ object personajePrincipal{
 
 object cocinero {
 
-    method image(ultimadireccion) {
+    method imagen(ultimadireccion) {
         if (ultimadireccion == "abajo") return "cocineroFrente.png"
         if (ultimadireccion == "derecha") return "cocineroDerecha.png"
         if (ultimadireccion == "arriba") return "cocineroEspalda.png"
@@ -123,7 +123,7 @@ object cocinero {
 
 object otro { //Después vemos el nombre
 
-    method image(ultimadireccion) {
+    method imagen(ultimadireccion) {
         if (ultimadireccion == "abajo") return "otroFrente.png" //Después ponemos bien los nombres
         if (ultimadireccion == "derecha") return "otroDerecha.png"
         if (ultimadireccion == "arriba") return "otroEspalda.png"
