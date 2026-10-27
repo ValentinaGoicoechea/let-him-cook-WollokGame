@@ -35,9 +35,9 @@ object selectorPersonajes { //highlight alrededor de personaje
 
     method elegirPersonaje() {
         if (position == ropaCocinero.position()) {
-            personajePrincipal.asignarTipoPersonaje("cocinero")
+            personajePrincipal.asignarTipoPersonaje(cocinero)
         } else {
-            personajePrincipal.asignarTipoPersonaje("otro")   
+            personajePrincipal.asignarTipoPersonaje(otro)   
         }
     }
 }
