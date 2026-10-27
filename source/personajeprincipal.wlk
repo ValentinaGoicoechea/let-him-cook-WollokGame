@@ -3,20 +3,31 @@ import source.comida.*
 import wollok.game.*
 
 object personajePrincipal{
-    var property position = game.at(10,10)
-    
-    
+    var property tipoPersonaje = "cocinero"
+    var property position = game.at(10, 10)
     var property direccion = "ninguna"
     var property ultimadireccion = "ninguna"
     var manoOcupada = false
     var objetoEnMano = null
 
-    method image() {
-        //if (ultimadireccion == "abajo") return "cocineroFrente.png"
-        if (ultimadireccion == "derecha") return "cocineroDerecha.png"
-        if (ultimadireccion == "arriba") return "cocineroEspalda.png"
-        if (ultimadireccion == "izquierda") return "cocineroIzquierda.png"
-        return "cocineroFrente.png" //o aparece o esta de frente
+    method asignarTipoPersonaje(nuevoTipo) {
+        tipoPersonaje = nuevoTipo
+    }
+
+    method image() { //Esto idealmente habría que hacerlo con herencia, etc, pero bueno.
+        if (tipoPersonaje == "cocinero") { 
+            if (ultimadireccion == "abajo") return "cocineroFrente.png"
+            if (ultimadireccion == "derecha") return "cocineroDerecha.png"
+            if (ultimadireccion == "arriba") return "cocineroEspalda.png"
+            if (ultimadireccion == "izquierda") return "cocineroIzquierda.png"
+            return "cocineroFrente.png" //o aparece o esta de frente
+        } else {
+            if (ultimadireccion == "abajo") return "otroFrente.png" //Después ponemos bien los nombres
+            if (ultimadireccion == "derecha") return "otroDerecha.png"
+            if (ultimadireccion == "arriba") return "otroEspalda.png"
+            if (ultimadireccion == "izquierda") return "otroIzquierda.png"
+            return "otroFrente.png" 
+        }
     } 
 
     method esSuelo(pos){ //en base al piso

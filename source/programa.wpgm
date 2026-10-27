@@ -5,6 +5,7 @@ import ambiente.*
 import comida.*
 import pedidos.*
 import controladorPantallasYNiveles.*
+import selectorPersonajes.*
 
 program juego{
     game.width(32)
@@ -14,7 +15,8 @@ program juego{
     game.boardGround("fondoCocina.png")
     
     game.addVisual(pantallaInicio)
-    pantallaInicio.mostrarPantallaInicio()
+    pantallaInicio.saltarPantallaInicio()
+
     game.start()
    
 }

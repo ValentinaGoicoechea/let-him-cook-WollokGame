@@ -5,24 +5,52 @@ import ambiente.*
 import comida.*
 import pedidos.*
 import puntaje.*
+import selectorPersonajes.*
 
 
 object pantallaInicio {
     const property position = game.at(0, 0)
     method image() = "menuInicio.png"
-    method mostrarPantallaInicio() {
-        keyboard.enter().onPressDo({juegoCocinero.iniciarJuego()})
+
+    method saltarPantallaInicio() {
+        keyboard.enter().onPressDo({
+            pantallaSeleccionPersonaje.iniciarSeleccionPersonajes()
+        })
     }
 }
 
 object pantallaSeleccionPersonaje {
-  
+    var property position = game.at(10, 5)
+    method image() = "fondoSeleccionPersonajes.png"
+
+    method iniciarSeleccionPersonajes() {
+        game.clear()
+        game.addVisual(self)
+        game.addVisual(selectorPersonajes)
+        game.addVisual(ropaCocinero) //PRUEBA
+        game.addVisual(ropaOtro) //PRUEBA
+        teclado.moverEntrePersonajes()
+        self.elegirPersonajes() 
+        self.seleccionarPersonaje()
+    }
+
+    method elegirPersonajes() {  
+        teclado.moverEntrePersonajes()
+    }
+
+    method seleccionarPersonaje() {   //cuanto toco enter se elige el tipo de personaje
+        keyboard.enter().onPressDo({
+            selectorPersonajes.elegirPersonaje()
+
+            juegoCocinero.iniciarJuego() //empieza juego
+        })
+    }
 }
 
 object juegoCocinero { //ANTERIOR 'JUEGO' EN PROGRAM.WPGM
     method iniciarJuego() { // SE MANTIENE IGUAL PARA TODOS LOS NIVELES
         game.clear()
-        game.removeVisual(pantallaInicio)
+        game.removeVisual(pantallaSeleccionPersonaje)
         game.addVisual(horno1)
         game.addVisual(horno2)
         game.addVisual(mesadaEntrega1)

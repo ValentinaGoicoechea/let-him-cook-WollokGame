@@ -1,6 +1,7 @@
 import personajeprincipal.*
 import wollok.game.*
 import controladorPantallasYNiveles.*
+import selectorPersonajes.*
 
 object teclado{
     method movimiento() {
@@ -33,8 +34,15 @@ object teclado{
         keyboard.num1().onPressDo({personajePrincipal.accionarCajon()})
     }
 
+    method moverEntrePersonajes() {
+        keyboard.d().onPressDo({ selectorPersonajes.moverseA("derecha") })
+        keyboard.a().onPressDo({ selectorPersonajes.moverseA("izquierda") })
+        keyboard.w().onPressDo({ selectorPersonajes.moverseA("arriba") })
+        keyboard.s().onPressDo({ selectorPersonajes.moverseA("abajo") })
+    }
+
     method iniciarJuego() { 
-        keyboard.enter().onPressDo({pantallaInicio.mostrarPantallaInicio()})
+        keyboard.enter().onPressDo({pantallaInicio.saltarPantallaInicio()})
     }
 
    
