@@ -3,7 +3,7 @@ import source.comida.*
 import wollok.game.*
 
 object personajePrincipal{
-    var property tipoPersonaje = "cocinero"
+    var property tipoPersonaje = cocinero
     var property position = game.at(10, 10)
     var property direccion = "ninguna"
     var property ultimadireccion = "ninguna"
@@ -14,21 +14,7 @@ object personajePrincipal{
         tipoPersonaje = nuevoTipo
     }
 
-    method image() { //Esto idealmente habría que hacerlo con herencia, etc, pero bueno.
-        if (tipoPersonaje == "cocinero") { 
-            if (ultimadireccion == "abajo") return "cocineroFrente.png"
-            if (ultimadireccion == "derecha") return "cocineroDerecha.png"
-            if (ultimadireccion == "arriba") return "cocineroEspalda.png"
-            if (ultimadireccion == "izquierda") return "cocineroIzquierda.png"
-            return "cocineroFrente.png" //o aparece o esta de frente
-        } else {
-            if (ultimadireccion == "abajo") return "otroFrente.png" //Después ponemos bien los nombres
-            if (ultimadireccion == "derecha") return "otroDerecha.png"
-            if (ultimadireccion == "arriba") return "otroEspalda.png"
-            if (ultimadireccion == "izquierda") return "otroIzquierda.png"
-            return "otroFrente.png" 
-        }
-    } 
+    method image() = tipoPersonaje.image(ultimadireccion)
 
     method esSuelo(pos){ //en base al piso
         const x = pos.x()
@@ -121,5 +107,27 @@ object personajePrincipal{
     method accionarCajon() {
         const cajon = self.elementoEn(self.posicionDondeMiro(), "stock")
         if (cajon != null) cajon.reponerStock()
+    }
+}
+
+object cocinero {
+
+    method image(ultimadireccion) {
+        if (ultimadireccion == "abajo") return "cocineroFrente.png"
+        if (ultimadireccion == "derecha") return "cocineroDerecha.png"
+        if (ultimadireccion == "arriba") return "cocineroEspalda.png"
+        if (ultimadireccion == "izquierda") return "cocineroIzquierda.png"
+        return "cocineroFrente.png" //o aparece o esta de frente
+    }
+}
+
+object otro { //Después vemos el nombre
+
+    method image(ultimadireccion) {
+        if (ultimadireccion == "abajo") return "otroFrente.png" //Después ponemos bien los nombres
+        if (ultimadireccion == "derecha") return "otroDerecha.png"
+        if (ultimadireccion == "arriba") return "otroEspalda.png"
+        if (ultimadireccion == "izquierda") return "otroIzquierda.png"
+        return "otroFrente.png" 
     }
 }
