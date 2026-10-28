@@ -2,7 +2,7 @@ import wollok.game.*
 
 //DIRECCIONES(OBJETOS) POSIBLES DE MOVIMIENTO
 object arriba {
-    method siguiente(posicion) = posicion.up(1)
+    method siguiente(posicion) = posicion.up(1) 
     method direccionImagen() = "Espalda"
 }
 object abajo {
@@ -18,6 +18,6 @@ object derecha {
     method direccionImagen() = "Derecha"
 }
 object ninguna {  
-    method siguiente(posicion) = posicion
+    method siguiente(posicion) = posicion //no muevo
     method direccionImagen() = "Frente"
 }

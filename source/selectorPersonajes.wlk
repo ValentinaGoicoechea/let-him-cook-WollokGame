@@ -10,20 +10,9 @@ object selectorPersonajes { //highlight alrededor de personaje
     var personajeElegido = null
     method image() = "selectorPersonajes.png"
 
-    method moverseA(direccion) {
-        if (self.direccionHabilitada(direccion)) {
-            if (direccion == "derecha") { 
-                position = position.right(1) 
-            }
-            if (direccion == "izquierda") { 
-                position = position.left(1)
-            }
-            if (direccion == "arriba") { 
-                position = position.up(1) 
-            }
-            if (direccion == "abajo") {  
-                position = position.down(1)
-            } 
+    method moverseA(unaDireccion) {
+        if (self.direccionHabilitada(unaDireccion)) {
+            position = unaDireccion.siguiente(position)
         }
     }
 
@@ -39,7 +28,7 @@ object selectorPersonajes { //highlight alrededor de personaje
         if (position == ropaCocinero.position()) {
             personajePrincipal.asignarTipoPersonaje(cocinero)
         } else {
-            personajePrincipal.asignarTipoPersonaje(otro)   
+            personajePrincipal.asignarTipoPersonaje(parrillero)   
         }
     }
 }

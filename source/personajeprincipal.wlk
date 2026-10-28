@@ -16,7 +16,7 @@ object personajePrincipal{
         tipoPersonaje = nuevoTipo
     }
 
-    method image() = tipoPersonaje.imagenSegun(ultimadireccion)
+    method image() = tipoPersonaje.idImagen() + ultimadireccion.direccionImagen() + ".png"
 
     method esSuelo(pos){ //en base al piso
         const x = pos.x()
@@ -34,13 +34,7 @@ object personajePrincipal{
     //entre (14,15,15 y 11) no
     // entre (6,8 y 11) no
 
-    method proximaPosicion() {
-            if (direccion == "derecha") return position.right(1)
-            if (direccion == "izquierda") return position.left(1)
-            if (direccion == "arriba") return position.up(1)
-            if (direccion == "abajo") return position.down(1)
-            return position //error
-    }
+    method proximaPosicion() = direccion.siguiente(position)
 
     method darPaso(){
         const nuevaPosicion=self.proximaPosicion()
@@ -61,13 +55,7 @@ object personajePrincipal{
         return game.getObjectsIn(posicion).findOrDefault({objeto => objeto.elemento() == tipo }, null)
     }
 
-    method posicionDondeMiro(){
-            if (ultimadireccion == "derecha") return position.right(1)
-            if (ultimadireccion == "izquierda") return position.left(1)
-            if (ultimadireccion == "arriba") return position.up(1)
-            if (ultimadireccion == "abajo") return position.down(1)
-            return position //error?
-    }
+    method posicionDondeMiro() = ultimadireccion.siguiente(position)
 
     method otorgarPosicionAlElemento(posicion) {
         if(objetoEnMano.elemento() != "plato armado") {
@@ -113,23 +101,9 @@ object personajePrincipal{
 }
 
 object cocinero {
-
-    method imagenSegun(ultimadireccion) {
-        if (ultimadireccion == "abajo") return "cocineroFrente.png"
-        if (ultimadireccion == "derecha") return "cocineroDerecha.png"
-        if (ultimadireccion == "arriba") return "cocineroEspalda.png"
-        if (ultimadireccion == "izquierda") return "cocineroIzquierda.png"
-        return "cocineroFrente.png" //o aparece o esta de frente
-    }
+    method idImagen() = "cocinero" 
 }
 
-object otro { //Después vemos el nombre
-
-    method imagenSegun(ultimadireccion) {
-        if (ultimadireccion == "abajo") return "otroFrente.png" //Después ponemos bien los nombres
-        if (ultimadireccion == "derecha") return "otroDerecha.png"
-        if (ultimadireccion == "arriba") return "otroEspalda.png"
-        if (ultimadireccion == "izquierda") return "otroIzquierda.png"
-        return "otroFrente.png" 
-    }
+object parrillero { //Después vemos el nombre
+    method idImagen() = "parrillero" 
 }
