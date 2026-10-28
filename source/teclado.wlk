@@ -2,26 +2,22 @@ import personajeprincipal.*
 import wollok.game.*
 import controladorPantallasYNiveles.*
 import selectorPersonajes.*
+import direcciones.*
 
 // MANEJO DEL TECLADO (MOVERSE-AGARRAR/SOLTAR-INICIAR-ACCIONAR)
 
 object teclado{
     method movimiento() {
-            // Al presionar: empieza a caminar en esa dirección
-            keyboard.d().onPressDo({ personajePrincipal.direccion("derecha") 
-                                    personajePrincipal.ultimadireccion("derecha") })
-            keyboard.a().onPressDo({ personajePrincipal.direccion("izquierda") 
-                                    personajePrincipal.ultimadireccion("izquierda")})
-            keyboard.w().onPressDo({ personajePrincipal.direccion("arriba") 
-                                    personajePrincipal.ultimadireccion("arriba")})
-            keyboard.s().onPressDo({ personajePrincipal.direccion("abajo") 
-                                    personajePrincipal.ultimadireccion("abajo")})
+        self.movimientoTecla(keyboard.d(), derecha)
+        self.movimientoTecla(keyboard.a(), izquierda)
+        self.movimientoTecla(keyboard.w(), arriba)
+        self.movimientoTecla(keyboard.s(), abajo)
+    }
 
-            // Al soltar: se frena inmediatamente
-            keyboard.d().onReleaseDo({ personajePrincipal.direccion("ninguna") })
-            keyboard.a().onReleaseDo({ personajePrincipal.direccion("ninguna") })
-            keyboard.w().onReleaseDo({ personajePrincipal.direccion("ninguna") })
-            keyboard.s().onReleaseDo({ personajePrincipal.direccion("ninguna") })
+    method movimientoTecla(tecla, direccion) {
+        tecla.onPressDo({personajePrincipal.direccion(direccion) 
+                        personajePrincipal.ultimadireccion(direccion)})
+        tecla.onReleaseDo({personajePrincipal.direccion(ninguna)})
     }
 
     method agarrarOSoltarObjeto(){
@@ -36,7 +32,7 @@ object teclado{
         keyboard.num1().onPressDo({personajePrincipal.accionarCajon()})
     }
 
-    method moverEntrePersonajes() {
+    method moverEntrePersonajes() { //para que es esto y por que es lo mismo que arriba???
         keyboard.d().onPressDo({ selectorPersonajes.moverseA("derecha") })
         keyboard.a().onPressDo({ selectorPersonajes.moverseA("izquierda") })
         keyboard.w().onPressDo({ selectorPersonajes.moverseA("arriba") })
