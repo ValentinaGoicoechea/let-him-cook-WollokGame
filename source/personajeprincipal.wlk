@@ -3,7 +3,7 @@ import source.comida.*
 import wollok.game.*
 
 object personajePrincipal{
-    var property tipoPersonaje = cocinero
+    var property tipoPersonaje = null 
     var property position = game.at(10, 10)
     var property direccion = "ninguna"
     var property ultimadireccion = "ninguna"
@@ -14,7 +14,7 @@ object personajePrincipal{
         tipoPersonaje = nuevoTipo
     }
 
-    method image() = tipoPersonaje.imagen(ultimadireccion)
+    method image() = tipoPersonaje.imagenSegun(ultimadireccion)
 
     method esSuelo(pos){ //en base al piso
         const x = pos.x()
@@ -112,7 +112,7 @@ object personajePrincipal{
 
 object cocinero {
 
-    method imagen(ultimadireccion) {
+    method imagenSegun(ultimadireccion) {
         if (ultimadireccion == "abajo") return "cocineroFrente.png"
         if (ultimadireccion == "derecha") return "cocineroDerecha.png"
         if (ultimadireccion == "arriba") return "cocineroEspalda.png"
@@ -123,7 +123,7 @@ object cocinero {
 
 object otro { //Después vemos el nombre
 
-    method imagen(ultimadireccion) {
+    method imagenSegun(ultimadireccion) {
         if (ultimadireccion == "abajo") return "otroFrente.png" //Después ponemos bien los nombres
         if (ultimadireccion == "derecha") return "otroDerecha.png"
         if (ultimadireccion == "arriba") return "otroEspalda.png"

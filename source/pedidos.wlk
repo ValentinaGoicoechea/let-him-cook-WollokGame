@@ -1,26 +1,25 @@
+import source.comida.*
 import wollok.game.*
 import puntaje.*
 
 class Pedido{
 
+    var receta //pollo con papas u ojo de bife con huevo
     var property position //van apareciendo a la derecha y "caen"
-    var property estado = "NUEVO"// estados NUEVO, ESPERA1, ESPERA2, PERDIDO
-    const ingredientes // por ahora creo "ingredientes" para luego verifivcar si cumplen
+    var property estado = nuevo //Pruebo que estado tenga asignado un objeto
     var property seEntrego = false
 
-    method ingredientes() = ingredientes
+    method ingredientes() = receta.ingredientes()
 
-    method image() {
-        //Cada subclase lo maneja según le corresponda
-    }
+    method image() = receta.imagenSegun(estado)
 
     method estadoDelPedido() {
         game.addVisual(self)
-        game.schedule(20000,  { estado = "ESPERA1" })
-        game.schedule(30000, { estado = "ESPERA2" })
+        game.schedule(20000,  { estado = espera1 })
+        game.schedule(30000, { estado = espera2 })
         game.schedule(40000, { 
             if (!seEntrego) {
-                estado = "PERDIDO" 
+                estado = perdido 
                 puntaje.restar(100)
                 game.schedule(2000, {
                     game.removeVisual(self)
@@ -31,33 +30,38 @@ class Pedido{
     }
 
     // ESPERA2 es el más urgente, se entrega primero
-    method prioridad() {
-        if (estado == "ESPERA2") return 3
-        if (estado == "ESPERA1") return 2
-        return 1
-    }
+    method prioridad() = estado.prioridad()
+}
+object nuevo {
+    var property prioridad = 1
+
+    method imagenPollo() = "pedidoPolloNuevo.png"
+    method imagenOjoDeBife() = "pedidoOjoBifeNuevo.png"
+}
+object espera1 {
+    var property prioridad = 2
+    method imagenPollo() = "pedidoPolloEspera1.png"
+    method imagenOjoDeBife() = "pedidoOjoBifeEspera1.png"
+}
+object espera2 {
+    var property prioridad = 3
+    method imagenPollo() = "pedidoPolloEspera2.png"
+    method imagenOjoDeBife() = "pedidoOjoBifeEspera2.png"
+}
+object perdido {
+    var property prioridad = 0
+    method imagenPollo() = "pedidoPolloPerdido.png"
+    method imagenOjoDeBife() = "pedidoOjoBifePerdido.png"
 }
 
-class PedidoPolloConPapas inherits Pedido {
-
-    override method image() {
-        if(estado == "NUEVO") return "pedidoPolloNuevo.png"
-        if(estado == "ESPERA1") return "pedidoPolloEspera1.png"
-        if(estado == "ESPERA2") return "pedidoPolloEspera2.png"
-        if(estado == "PERDIDO") return "pedidoPolloPerdido.png"
-        return "vacio.png"
-    }
+object polloConPapas {
+    method imagenSegun(estado) = estado.imagenPollo()
+    method ingredientes() = ["plato", "pechugaCocinada", "papasFritas"]
 }
 
-class PedidoOjoDeBifeConHuevo inherits Pedido {
-
-    override method image() {
-        if(estado == "NUEVO") return "pedidoOjoBifeNuevo.png"
-        if(estado == "ESPERA1") return "pedidoOjoBifeEspera1.png"
-        if(estado == "ESPERA2") return "pedidoOjoBifeEspera2.png"
-        if(estado == "PERDIDO") return "pedidoOjoBifePerdido.png"
-        return "vacio.png"
-    }
+object ojoDeBifeConHuevo {
+    method imagenSegun(estado) = estado.imagenOjoDeBife()
+    method ingredientes() = ["plato", "ojoBifeCocinado", "huevoFrito"]
 }
 
 
@@ -90,16 +94,16 @@ object generadorDePedidos {
     method pedir(numeroDePedido) {
         var pedidoX
         if(numeroDePedido == 0){
-            pedidoX = new PedidoPolloConPapas ( 
+            pedidoX = new Pedido (
                     position = game.at(27, 12), //Hice cambios en las posiciones!
                     // X se mantiebe igual, voy a hacer que por ahora haya 4 en pantalla
-                    ingredientes = ["plato", "pechugaCocinada", "papasFritas"]
+                    receta = polloConPapas
                 )
         }
         else{
-            pedidoX = new PedidoOjoDeBifeConHuevo ( 
+            pedidoX = new Pedido ( 
                 position = game.at(27,12),
-                ingredientes = ["plato", "ojoBifeCocinado", "huevoFrito"]
+                receta = ojoDeBifeConHuevo
             )
         }
         self.agregarNuevoPedido(pedidoX)
