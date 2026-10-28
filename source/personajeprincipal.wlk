@@ -1,3 +1,4 @@
+import source.direcciones.*
 import source.ambiente.*
 import source.comida.*
 import wollok.game.*
@@ -17,29 +18,12 @@ object personajePrincipal{
     }
 
     method image() = tipoPersonaje.idImagen() + ultimadireccion.direccionImagen() + ".png"
-
-    method esSuelo(pos){ //en base al piso
-        const x = pos.x()
-        const y= pos.y()
-
-        return  x == 5 && y.between(7,11)||
-                x.between(9,13) && y == 11||
-                x.between(17,24) && y == 11||
-                (x.between(5, 24) && y.between(7,10) || 
-                x.between(5,18) && y == 6||
-                x.between(5,25) && y.between(4, 5))||
-                x.between(18,25) && y == 3
-    }
-
-    //entre (14,15,15 y 11) no
-    // entre (6,8 y 11) no
-
     method proximaPosicion() = direccion.siguiente(position)
 
     method darPaso(){
         const nuevaPosicion=self.proximaPosicion()
 
-        if(self.esSuelo(nuevaPosicion)){
+        if(escenario.esTransitable(nuevaPosicion)){
             position = nuevaPosicion
             if(objetoEnMano != null){
                 self.otorgarPosicionAlElemento(nuevaPosicion)
