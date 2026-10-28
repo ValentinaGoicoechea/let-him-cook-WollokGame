@@ -11,7 +11,7 @@ import selectorPersonajes.*
 
 object pantallaInicio {
     const property position = game.at(0, 0)
-    method image() = "menuInicio.png"
+    method image() = "imagenesFondos/menuInicio.png"
 
     method saltarPantallaInicio() {
         keyboard.enter().onPressDo({
@@ -22,7 +22,7 @@ object pantallaInicio {
 
 object pantallaSeleccionPersonaje {
     var property position = game.at(10, 5)
-    method image() = "fondoSeleccionPersonajes.png"
+    method image() = "imagenesFondos/fondoSeleccionPersonajes.png"
 
     method iniciarSeleccionPersonajes() {
         game.clear()

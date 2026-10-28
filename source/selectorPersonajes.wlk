@@ -8,7 +8,7 @@ object selectorPersonajes { //highlight alrededor de personaje
     var property position = game.at(15, 8)
     var personajeActual = null
     var personajeElegido = null
-    method image() = "selectorPersonajes.png"
+    method image() = "imagenesFondos/selectorPersonajes.png"
 
     method moverseA(unaDireccion) {
         if (self.direccionHabilitada(unaDireccion)) {

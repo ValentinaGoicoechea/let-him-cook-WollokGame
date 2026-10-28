@@ -85,9 +85,9 @@ object personajePrincipal{
 }
 
 object cocinero {
-    method idImagen() = "cocinero" 
+    method idImagen() = "imagenesPersonajes/cocinero" 
 }
 
 object parrillero { //Después vemos el nombre
-    method idImagen() = "parrillero" 
+    method idImagen() = "imagenesPersonajes/parrillero" 
 }
