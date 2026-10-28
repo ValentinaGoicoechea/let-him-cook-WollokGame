@@ -1,6 +1,8 @@
 import teclado.*
 import personajeprincipal.*
 
+//SELECCION DE PERSONAJES (?)
+
 object selectorPersonajes { //highlight alrededor de personaje
 
     var property position = game.at(15, 8)

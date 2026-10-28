@@ -3,6 +3,8 @@ import wollok.game.*
 import controladorPantallasYNiveles.*
 import selectorPersonajes.*
 
+// MANEJO DEL TECLADO (MOVERSE-AGARRAR/SOLTAR-INICIAR-ACCIONAR)
+
 object teclado{
     method movimiento() {
             // Al presionar: empieza a caminar en esa dirección

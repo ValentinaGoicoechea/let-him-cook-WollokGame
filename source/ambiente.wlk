@@ -4,6 +4,7 @@ import personajeprincipal.*
 import comida.*
 import puntaje.*
 
+//MANEJO DE ESTACIONES DE LA COCINA + STOCK DEL DEPOSTIO + ENTREGAS
 
 class Estacion{
     const property position

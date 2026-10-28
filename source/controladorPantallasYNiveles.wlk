@@ -7,6 +7,7 @@ import pedidos.*
 import puntaje.*
 import selectorPersonajes.*
 
+//CAMBIO DE PANTALLAS (INICIO, MENU DE PERSONAJES, NIVELES)
 
 object pantallaInicio {
     const property position = game.at(0, 0)

@@ -2,6 +2,8 @@ import source.ambiente.*
 import source.comida.*
 import wollok.game.*
 
+//ACCIONES DEL PERSONAJE (MOVERSE-MIRAR-AGARRAR-ACCIONAR)
+
 object personajePrincipal{
     var property tipoPersonaje = null 
     var property position = game.at(10, 10)

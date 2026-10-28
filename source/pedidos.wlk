@@ -2,6 +2,8 @@ import source.comida.*
 import wollok.game.*
 import puntaje.*
 
+//PEDIDOS(CLASES Y OBJETOS) + GENERADOR + SELECTOR DE PEDIDOS
+
 class Pedido{
 
     var receta //pollo con papas u ojo de bife con huevo

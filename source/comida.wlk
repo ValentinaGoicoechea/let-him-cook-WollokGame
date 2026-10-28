@@ -1,5 +1,6 @@
 import wollok.game.*
 
+// COMIDAS Y VAJILLA (CLASES Y OBJETOS)
 
 class Comida{
     var property position 

@@ -1,6 +1,8 @@
 import wollok.game.*
 import pedidos.*
 
+//PUNTAJE: CONTEO-SUMA-RESTA-CALCULAR FRENTE A PEDIDOS
+
 object puntaje{
     var property valor = 0
 

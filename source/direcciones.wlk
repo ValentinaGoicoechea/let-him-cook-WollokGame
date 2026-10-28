@@ -1,4 +1,6 @@
 import wollok.game.*
+
+//DIRECCIONES(OBJETOS) POSIBLES DE MOVIMIENTO
 object arriba {
     method siguiente(posicion) = posicion.up(1)
     method direccionImagen() = "Espalda"
