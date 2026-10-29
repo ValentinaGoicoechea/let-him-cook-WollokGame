@@ -20,8 +20,8 @@ object puntajeEnJuego inherits Puntaje{
     }
 
     method puntosPorEspera(pedido){
-        if (pedido.estado() == nuevo) return 50 
-        else if (pedido.estado() == espera1) return 25 
+        if (pedido.prioridad() == 1) return 50 
+        else if (pedido.prioridad() == 2) return 25 
         else return 0
     }
 

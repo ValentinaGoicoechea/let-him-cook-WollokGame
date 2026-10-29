@@ -127,7 +127,7 @@ object selectorPedidos{
         else return candidatos.max({pedido => pedido.prioridad()})
     }
 
-    method coincide(pedido, elementosPlato) = (!pedido.seEntrego() && pedido.estado() != "PERDIDO") &&
+    method coincide(pedido, elementosPlato) = (!pedido.seEntrego() && pedido.prioridad() != 0) &&
         elementosPlato.size() == pedido.ingredientes().size() && 
         elementosPlato.all({elemento => pedido.ingredientes().contains(elemento.elementoYEstado()) 
     })
