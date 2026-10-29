@@ -33,10 +33,12 @@ object teclado{
     }
 
     method moverEntrePersonajes() { //para que es esto y por que es lo mismo que arriba???
+        /*
         keyboard.d().onPressDo({ selectorPersonajes.moverseA("derecha") })
         keyboard.a().onPressDo({ selectorPersonajes.moverseA("izquierda") })
         keyboard.w().onPressDo({ selectorPersonajes.moverseA("arriba") })
         keyboard.s().onPressDo({ selectorPersonajes.moverseA("abajo") })
+        */
     }
 
     method iniciarJuego() { 

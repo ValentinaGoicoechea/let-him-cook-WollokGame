@@ -4,7 +4,7 @@ import personajeprincipal.*
 //SELECCION DE PERSONAJES (?)
 
 object selectorPersonajes { //highlight alrededor de personaje
-
+ /*
     var property position = game.at(15, 8)
     var personajeActual = null
     var personajeElegido = null
@@ -31,6 +31,7 @@ object selectorPersonajes { //highlight alrededor de personaje
             personajePrincipal.asignarTipoPersonaje(parrillero)   
         }
     }
+    */
 }
 
 object ropaCocinero {

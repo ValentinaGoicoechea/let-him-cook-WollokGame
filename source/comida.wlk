@@ -2,6 +2,7 @@ import wollok.game.*
 
 // COMIDAS Y VAJILLA (CLASES Y OBJETOS)
 
+
 class Comida{
     var property position 
     var property modificado
@@ -15,6 +16,9 @@ class Comida{
         if(self.modificado() ==  "cocinado") return ["tirar"]
         if(self.modificado() == "tirado") return [] 
         return ["cocinar", "tirar"]
+    }
+    method nuevaPosicion(posicion){
+        self.position(posicion)
     }
 }
 
@@ -108,6 +112,10 @@ class Vajilla {
 
     method tareas() 
     method elemento()
+
+    method nuevaPosicion(posicion){
+        self.position(posicion)
+    }
 }
 class Plato inherits Vajilla {     
 
@@ -147,7 +155,7 @@ class PlatoArmado inherits Vajilla(modificado = null){
 
     var property elementosPlato = []
     
-    method nuevaPosicion(nuevaPos) {
+    override method nuevaPosicion(nuevaPos) {
         position = nuevaPos
         elementosPlato.forEach({ elem => elem.position(nuevaPos) })
     } 

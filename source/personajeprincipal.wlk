@@ -26,7 +26,7 @@ object personajePrincipal{
         if(escenario.esTransitable(nuevaPosicion)){
             position = nuevaPosicion
             if(objetoEnMano != null){
-                self.otorgarPosicionAlElemento(nuevaPosicion)
+                objetoEnMano.position(nuevaPosicion)
             }
         }
     }
@@ -41,14 +41,6 @@ object personajePrincipal{
 
     method posicionDondeMiro() = ultimadireccion.siguiente(position)
 
-    method otorgarPosicionAlElemento(posicion) {
-        if(objetoEnMano.elemento() != "plato armado") {
-                objetoEnMano.position(posicion)
-            } else { 
-                objetoEnMano.nuevaPosicion(posicion)
-            }
-    }
-
     method agarrarOSoltar() {
         const elementoQueMiro = self.elementoEn(self.posicionDondeMiro(), "estacion")
         if (!manoOcupada) {
@@ -57,15 +49,15 @@ object personajePrincipal{
 
             if (objetoAAgarrar != null){
                 if(objetoAAgarrar.elemento() == "plato armado" && elementoQueMiro != null && elementoQueMiro.esMesadaArmado()){ //si es plato armado y está en la mesada
-                    elementoQueMiro.agarrarPlatoArmado()
+                    elementoQueMiro.agarrarPlatoArmado() //Avisa que ya no tiene un plato en armado a la mesada
                 }
                 objetoEnMano = objetoAAgarrar
-                self.otorgarPosicionAlElemento(position)
+                objetoEnMano.position(position)
                 manoOcupada = true
                 
             } 
         } else {
-            self.otorgarPosicionAlElemento(self.posicionDondeMiro())
+            objetoEnMano.position(self.posicionDondeMiro())
             objetoEnMano = null
             manoOcupada = false
         }
