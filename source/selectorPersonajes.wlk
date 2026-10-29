@@ -11,13 +11,6 @@ object selectorPersonajes { //highlight alrededor de personaje
     var personajeElegido = null // el personaje confirmado tras seleccion
     method image() = "imagenesFondos/selectorPersonajes.png"
 
-    /*
-    method moverseA(unaDireccion) {
-        if (self.direccionHabilitada(unaDireccion)) {
-            position = unaDireccion.siguiente(position)
-        }
-    }
-    */
 
     method seleccionarPersonaje(numero){
         personajeActual = personajesDisponibles.find({personaje => personaje.numero() == numero})
@@ -34,17 +27,6 @@ object selectorPersonajes { //highlight alrededor de personaje
         juegoCocinero.iniciarJuego()
         
     }
-
-    /* Todo esto es util si lo hacemos por teclas, sino borrar
-    method direccionHabilitada(direccion) {
-        return true //Por ahora lo dejo así
-    }
-    
-
-    method personajeEnPosicion() {
-        personajeActual = game.getObjectsIn(position)
-    }
-    */
 
     method elegirPersonaje() {
         personajePrincipal.asignarPersonaje(personajeElegido) 

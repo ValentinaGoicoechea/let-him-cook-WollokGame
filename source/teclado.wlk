@@ -30,18 +30,7 @@ object teclado{
     
     method moverEntrePersonajes(tecla, numero) { 
         //Implementacion con numeros para seleccionar personaje
-        tecla.onPressDo({selectorPersonajes.seleccionarPersonaje(numero)})
-
-        /*
-        Implementacion con teclas y logica de movimiento de personaje
-        keyboard.d().onPressDo({ selectorPersonajes.moverseA("derecha") })
-        keyboard.a().onPressDo({ selectorPersonajes.moverseA("izquierda") })
-        keyboard.w().onPressDo({ selectorPersonajes.moverseA("arriba") })
-        keyboard.s().onPressDo({ selectorPersonajes.moverseA("abajo") })
-        */
-
-    
-        
+        tecla.onPressDo({selectorPersonajes.seleccionarPersonaje(numero)})        
     }
 
     method confirmarPersonaje(){

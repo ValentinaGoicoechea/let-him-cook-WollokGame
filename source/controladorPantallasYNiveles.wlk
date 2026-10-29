@@ -32,12 +32,8 @@ object pantallaSeleccionPersonaje {
         game.addVisual(ropaCocinero) //PRUEBA
         game.addVisual(ropaOtro) //PRUEBA
         teclado.seleccion()
-        //self.elegirPersonajes() 
+       
     }
-
-    //method elegirPersonajes() {  
-    //    teclado.moverEntrePersonajes()
-    //}
 
 }
 
