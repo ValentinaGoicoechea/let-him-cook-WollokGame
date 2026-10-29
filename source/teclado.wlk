@@ -1,3 +1,4 @@
+import source.pedidos.*
 import personajeprincipal.*
 import wollok.game.*
 import controladorPantallasYNiveles.*
@@ -15,13 +16,36 @@ object teclado{
     }
 
     method seleccion(){
-
+        self.moverEntrePersonajes(keyboard.num1(),1)
+        self.moverEntrePersonajes(keyboard.num2(), 2)
+        //por ahora solo 2 personajes
     }
 
     method movimientoTecla(tecla, direccion) {
         tecla.onPressDo({personajePrincipal.direccion(direccion) 
                         personajePrincipal.ultimadireccion(direccion)})
         tecla.onReleaseDo({personajePrincipal.direccion(ninguna)})
+    }
+
+    
+    method moverEntrePersonajes(tecla, numero) { 
+        //Implementacion con numeros para seleccionar personaje
+        tecla.onPressDo({selectorPersonajes.seleccionarPersonaje(numero)})
+
+        /*
+        Implementacion con teclas y logica de movimiento de personaje
+        keyboard.d().onPressDo({ selectorPersonajes.moverseA("derecha") })
+        keyboard.a().onPressDo({ selectorPersonajes.moverseA("izquierda") })
+        keyboard.w().onPressDo({ selectorPersonajes.moverseA("arriba") })
+        keyboard.s().onPressDo({ selectorPersonajes.moverseA("abajo") })
+        */
+
+    
+        
+    }
+
+    method confirmarPersonaje(){
+        keyboard.enter().onPressDo({selectorPersonajes.confirmarSeleccion()})
     }
 
     method agarrarOSoltarObjeto(){
@@ -36,22 +60,6 @@ object teclado{
         keyboard.num1().onPressDo({personajePrincipal.accionarCajon()})
     }
 
-    method moverEntrePersonajes(numero) { //para que es esto y por que es lo mismo que arriba???
-
-        /*
-        Implementacion con teclas y logica de movimiento de personaje
-        keyboard.d().onPressDo({ selectorPersonajes.moverseA("derecha") })
-        keyboard.a().onPressDo({ selectorPersonajes.moverseA("izquierda") })
-        keyboard.w().onPressDo({ selectorPersonajes.moverseA("arriba") })
-        keyboard.s().onPressDo({ selectorPersonajes.moverseA("abajo") })
-        */
-
-        //Implementacion con numeros para seleccionar personaje
-        keyboard.1().onPressDo({selectorPersonajes.direccion(direccion)})
-        
-        
-        
-    }
 
     method iniciarJuego() { 
         keyboard.enter().onPressDo({pantallaInicio.saltarPantallaInicio()})

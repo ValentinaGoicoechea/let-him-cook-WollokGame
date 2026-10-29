@@ -1,12 +1,14 @@
 import teclado.*
 import personajeprincipal.*
+import controladorPantallasYNiveles.*
 
 //SELECCION DE PERSONAJES (?)
 
 object selectorPersonajes { //highlight alrededor de personaje
     var property position = game.at(15, 8)
-    var personajeActual = null
-    var personajeElegido = null
+    const personajesDisponibles = [ropaCocinero, ropaOtro] //cambiar nombres a futuro
+    var personajeActual = null //el personaje actualmente seleccionado
+    var personajeElegido = null // el personaje confirmado tras seleccion
     method image() = "imagenesFondos/selectorPersonajes.png"
 
     /*
@@ -17,38 +19,54 @@ object selectorPersonajes { //highlight alrededor de personaje
     }
     */
 
+    method seleccionarPersonaje(numero){
+        personajeActual = personajesDisponibles.find({personaje => personaje.numero() == numero})
+        if(personajeActual != null){
+            position = personajeActual.position()
+            teclado.confirmarPersonaje()
+        }
+        
+    }
+
+    method confirmarSeleccion(){ //solo se va a activar cuando ya tenga un personaje actual
+        personajeElegido = personajeActual
+        self.elegirPersonaje() //le asigno el tipo al personaje principal para ver el buff
+        juegoCocinero.iniciarJuego()
+        
+    }
+
+    /* Todo esto es util si lo hacemos por teclas, sino borrar
     method direccionHabilitada(direccion) {
         return true //Por ahora lo dejo así
     }
+    
 
     method personajeEnPosicion() {
         personajeActual = game.getObjectsIn(position)
     }
+    */
 
     method elegirPersonaje() {
-        if (position == ropaCocinero.position()) {
-            personajePrincipal.asignarTipoPersonaje(cocinero)
-        } else {
-            personajePrincipal.asignarTipoPersonaje(parrillero)   
-        }
+        personajePrincipal.asignarPersonaje(personajeElegido) 
+
     }
 }
 
 class Personajes{
-    var property id
+    var property tipo
     var property numero
     var property position
     var property image
 }
 
 const ropaCocinero = new Personajes(
-    id = "cocinero",
+    tipo = "cocinero",
     numero = 1,
     position = game.at(15, 8),
     image = "ropaCocinero.png"
 )
 const ropaOtro = new Personajes(    //PRUEBA, después hacemos otro tipo de personaje
-    id = "otro",
+    tipo = "parrillero",
     numero =2 ,
     position = game.at(17, 8),
     image= "ropaOtro.png"

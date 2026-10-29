@@ -31,22 +31,14 @@ object pantallaSeleccionPersonaje {
         game.addVisual(selectorPersonajes)
         game.addVisual(ropaCocinero) //PRUEBA
         game.addVisual(ropaOtro) //PRUEBA
-        teclado.moverEntrePersonajes()
-        self.elegirPersonajes() 
-        self.seleccionarPersonaje()
+        teclado.seleccion()
+        //self.elegirPersonajes() 
     }
 
-    method elegirPersonajes() {  
-        teclado.moverEntrePersonajes()
-    }
+    //method elegirPersonajes() {  
+    //    teclado.moverEntrePersonajes()
+    //}
 
-    method seleccionarPersonaje() {   //cuanto toco enter se elige el tipo de personaje
-        keyboard.enter().onPressDo({
-            selectorPersonajes.elegirPersonaje()
-
-            juegoCocinero.iniciarJuego() //empieza juego
-        })
-    }
 }
 
 object juegoCocinero { //ANTERIOR 'JUEGO' EN PROGRAM.WPGM

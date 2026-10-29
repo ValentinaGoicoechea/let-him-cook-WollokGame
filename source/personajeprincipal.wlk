@@ -1,23 +1,27 @@
 import source.direcciones.*
 import source.ambiente.*
 import source.comida.*
+import source.selectorPersonajes.*
 import wollok.game.*
+
 
 //ACCIONES DEL PERSONAJE (MOVERSE-MIRAR-AGARRAR-ACCIONAR)
 
 object personajePrincipal{
-    var property tipoPersonaje = null 
+    var property personajeSeleccionado = null //Dependiendo el elegido hay un buff diferente
+    var property tipoPersonaje = null
     var property position = game.at(10, 10)
-    var property direccion = "ninguna"
-    var property ultimadireccion = "ninguna"
+    var property direccion = ninguna
+    var property ultimadireccion = ninguna
     var manoOcupada = false
     var objetoEnMano = null
 
-    method asignarTipoPersonaje(nuevoTipo) {
-        tipoPersonaje = nuevoTipo
+    method asignarPersonaje(personaje) {
+        personajeSeleccionado = personaje
+        tipoPersonaje = personajeSeleccionado.tipo()
     }
 
-    method image() = tipoPersonaje.idImagen() + ultimadireccion.direccionImagen() + ".png"
+    method image() = personajeSeleccionado.tipo() + ultimadireccion.direccionImagen() + ".png"
     method proximaPosicion() = direccion.siguiente(position)
 
     method darPaso(){
