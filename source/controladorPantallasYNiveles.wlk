@@ -60,7 +60,7 @@ object juegoCocinero { //ANTERIOR 'JUEGO' EN PROGRAM.WPGM
         game.addVisual(plato1)
         game.addVisual(plato2)
         game.addVisual(plato3)
-        game.addVisual(puntaje)
+        game.addVisual(puntajeEnJuego)
 
         cajonDePollo.reponerStock()
         cajonDePapas.reponerStock()
@@ -73,6 +73,7 @@ object juegoCocinero { //ANTERIOR 'JUEGO' EN PROGRAM.WPGM
         teclado.interactuarConCajon()
         game.onTick(100, "moverCocinero", { personajePrincipal.darPaso() }) 
         generadorDePedidos.empezar() //LINEA QUE PODRIA LLEGAR A CAMBIAR CON LA IMPLEMENTACION DE NIVELES
+        game.onTick(200, "controlarPartida", {controladorDePartida.controlarProgresoPartida()})
     }
 
 }

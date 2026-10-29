@@ -22,7 +22,8 @@ class Pedido{
         game.schedule(40000, { 
             if (!seEntrego) {
                 estado = perdido 
-                puntaje.restar(100)
+                puntajeEnJuego.restar(100)
+                controladorDePartida.pedidoPerdido()
                 game.schedule(2000, {
                     game.removeVisual(self)
                     generadorDePedidos.listaPedidos().remove(self)}) 
