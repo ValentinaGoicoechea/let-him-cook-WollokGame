@@ -14,6 +14,10 @@ object teclado{
         self.movimientoTecla(keyboard.s(), abajo)
     }
 
+    method seleccion(){
+
+    }
+
     method movimientoTecla(tecla, direccion) {
         tecla.onPressDo({personajePrincipal.direccion(direccion) 
                         personajePrincipal.ultimadireccion(direccion)})
@@ -32,13 +36,21 @@ object teclado{
         keyboard.num1().onPressDo({personajePrincipal.accionarCajon()})
     }
 
-    method moverEntrePersonajes() { //para que es esto y por que es lo mismo que arriba???
+    method moverEntrePersonajes(numero) { //para que es esto y por que es lo mismo que arriba???
+
         /*
+        Implementacion con teclas y logica de movimiento de personaje
         keyboard.d().onPressDo({ selectorPersonajes.moverseA("derecha") })
         keyboard.a().onPressDo({ selectorPersonajes.moverseA("izquierda") })
         keyboard.w().onPressDo({ selectorPersonajes.moverseA("arriba") })
         keyboard.s().onPressDo({ selectorPersonajes.moverseA("abajo") })
         */
+
+        //Implementacion con numeros para seleccionar personaje
+        keyboard.1().onPressDo({selectorPersonajes.direccion(direccion)})
+        
+        
+        
     }
 
     method iniciarJuego() { 

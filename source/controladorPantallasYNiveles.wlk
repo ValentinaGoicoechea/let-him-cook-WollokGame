@@ -15,6 +15,7 @@ object pantallaInicio {
 
     method saltarPantallaInicio() {
         keyboard.enter().onPressDo({
+            pantallaSeleccionPersonaje.iniciarSeleccionPersonajes() //funcionando
             pantallaSeleccionPersonaje.iniciarSeleccionPersonajes()
         })
     }
