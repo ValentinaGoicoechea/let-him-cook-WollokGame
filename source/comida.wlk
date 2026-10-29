@@ -107,7 +107,7 @@ class Huevo inherits Comida {
 class Vajilla {
     var property position
     var property estaEnPlato = false
-    var property sePuedeAgarrar = true 
+    var property sePuedeAgarrar = true
     var property modificado
 
     method tareas() 
@@ -117,7 +117,7 @@ class Vajilla {
         self.position(posicion)
     }
 }
-class Plato inherits Vajilla {     
+class Plato inherits Vajilla() {  
 
     method image(){
         if(self.modificado() == "limpio") return "imagenesComida-Vajilla/plato.png"

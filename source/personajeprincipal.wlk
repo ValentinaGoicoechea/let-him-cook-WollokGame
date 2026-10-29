@@ -30,7 +30,7 @@ object personajePrincipal{
         if(escenario.esTransitable(nuevaPosicion)){
             position = nuevaPosicion
             if(objetoEnMano != null){
-                objetoEnMano.position(nuevaPosicion)
+                objetoEnMano.nuevaPosicion(nuevaPosicion)
             }
         }
     }
@@ -56,7 +56,7 @@ object personajePrincipal{
                     elementoQueMiro.agarrarPlatoArmado() //Avisa que ya no tiene un plato en armado a la mesada
                 }
                 objetoEnMano = objetoAAgarrar
-                objetoEnMano.position(position)
+                objetoEnMano.nuevaPosicion(position)
                 manoOcupada = true
                 
             } 
@@ -79,7 +79,7 @@ object personajePrincipal{
         if (cajon != null) cajon.reponerStock()
     }
 }
-
+/* Creo que no es necesario
 object cocinero {
     method idImagen() = "imagenesPersonajes/cocinero" 
 }
@@ -87,3 +87,4 @@ object cocinero {
 object parrillero { //Después vemos el nombre
     method idImagen() = "imagenesPersonajes/parrillero" 
 }
+*/

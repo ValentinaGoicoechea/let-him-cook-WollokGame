@@ -283,7 +283,7 @@ class MesadaArmado inherits Mesada{
     }
 
     method agarrarPlatoArmado() {
-        if(platoEnArmado.sePuedeAgarrar() && platoEnArmado != null){ //si tiene el plato y algun elemento
+        if( platoEnArmado != null && platoEnArmado.sePuedeAgarrar()){ //si tiene el plato y algun elemento
             hayPlatoParaArmar = false
             platoEnArmado = null //no hay plato en armado, está dando vueltas 
         }
