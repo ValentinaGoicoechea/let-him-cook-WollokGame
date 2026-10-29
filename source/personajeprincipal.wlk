@@ -21,7 +21,7 @@ object personajePrincipal{
         tipoPersonaje = personajeSeleccionado.tipo()
     }
 
-    method image() = personajeSeleccionado.tipo() + ultimadireccion.direccionImagen() + ".png"
+    method image() = "imagenesPersonajes/" + personajeSeleccionado.tipo() + ultimadireccion.direccionImagen() + ".png"
     method proximaPosicion() = direccion.siguiente(position)
 
     method darPaso(){

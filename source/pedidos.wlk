@@ -37,23 +37,23 @@ class Pedido{
 object nuevo {
     var property prioridad = 1
 
-    method imagenPollo() = "pedidoPolloNuevo.png"
-    method imagenOjoDeBife() = "pedidoOjoBifeNuevo.png"
+    method imagenPollo() = "imagenesPedidos/pedidoPolloNuevo.png"
+    method imagenOjoDeBife() = "imagenesPedidos/pedidoOjoBifeNuevo.png"
 }
 object espera1 {
     var property prioridad = 2
-    method imagenPollo() = "pedidoPolloEspera1.png"
-    method imagenOjoDeBife() = "pedidoOjoBifeEspera1.png"
+    method imagenPollo() = "imagenesPedidos/pedidoPolloEspera1.png"
+    method imagenOjoDeBife() = "imagenesPedidos/pedidoOjoBifeEspera1.png"
 }
 object espera2 {
     var property prioridad = 3
-    method imagenPollo() = "pedidoPolloEspera2.png"
-    method imagenOjoDeBife() = "pedidoOjoBifeEspera2.png"
+    method imagenPollo() = "imagenesPedidos/pedidoPolloEspera2.png"
+    method imagenOjoDeBife() = "imagenesPedidos/pedidoOjoBifeEspera2.png"
 }
 object perdido {
     var property prioridad = 0
-    method imagenPollo() = "pedidoPolloPerdido.png"
-    method imagenOjoDeBife() = "pedidoOjoBifePerdido.png"
+    method imagenPollo() = "imagenesPedidos/pedidoPolloPerdido.png"
+    method imagenOjoDeBife() = "imagenesPedidos/pedidoOjoBifePerdido.png"
 }
 
 object polloConPapas {

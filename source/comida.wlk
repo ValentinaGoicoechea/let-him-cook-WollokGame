@@ -32,14 +32,14 @@ class PechugaDePollo inherits Comida{
     
     
     override method image(){
-        if(self.modificado() ==  "cocinado") { return "pechugacocinada.png"}
+        if(self.modificado() ==  "cocinado") { return "imagenesComida-Vajilla/pechugacocinada.png"}
         
         if(self.modificado() == "tirado") return "vacio.png"
 
-        if(self.modificado() == "quemado") return "pechugaquemada.png"
+        if(self.modificado() == "quemado") return "imagenesComida-Vajilla/pechugaquemada.png"
 
         
-        return "pechuga.png"
+        return "imagenesComida-Vajilla/pechuga.png"
     }
     
 }
@@ -54,15 +54,15 @@ class Papa inherits Comida{
 
     
     override method image(){
-        if(self.modificado() == "cocinado") { return "papaFrita.png"}
+        if(self.modificado() == "cocinado") { return "imagenesComida-Vajilla/papaFrita.png"}
         
-        if(self.modificado() == "cortada") { return "papaCortada.png"}
+        if(self.modificado() == "cortada") { return "imagenesComida-Vajilla/papaCortada.png"}
 
         if(self.modificado() == "tirado") return "vacio.png"
 
-        if(self.modificado() == "quemado") return "papaFritaQuemada.png"
+        if(self.modificado() == "quemado") return "imagenesComida-Vajilla/papaFritaQuemada.png"
         
-        return "papaCruda.png"
+        return "imagenesComida-Vajilla/papaCruda.png"
         
     }
 
@@ -82,11 +82,11 @@ class OjoDeBife inherits Comida {
     }
 
     override method image() {
-        if (self.modificado() == "cocinado") return "ojoBifeCocinado.png"
+        if (self.modificado() == "cocinado") return "imagenesComida-Vajilla/ojoBifeCocinado.png"
 
-        else if(self.modificado() == "quemado") return "ojoBifeQuemado.png"
+        else if(self.modificado() == "quemado") return "imagenesComida-Vajilla/ojoBifeQuemado.png"
 
-        else return "ojoBife.png"
+        else return "imagenesComida-Vajilla/ojoBife.png"
     }
 }
 
@@ -98,9 +98,9 @@ class Huevo inherits Comida {
     }
 
     override method image() {
-        if (self.modificado() == "cocinado") return "huevoFrito.png"
-        else if (self.modificado() == "quemado") return "huevoFritoQuemado.png"
-        else return "huevo.png"
+        if (self.modificado() == "cocinado") return "imagenesComida-Vajilla/huevoFrito.png"
+        else if (self.modificado() == "quemado") return "imagenesComida-Vajilla/huevoFritoQuemado.png"
+        else return "imagenesComida-Vajilla/huevo.png"
     }
 }
 
@@ -120,8 +120,8 @@ class Vajilla {
 class Plato inherits Vajilla {     
 
     method image(){
-        if(self.modificado() == "limpio") return "plato.png"
-        else return "platoSucio.png"
+        if(self.modificado() == "limpio") return "imagenesComida-Vajilla/plato.png"
+        else return "imagenesComida-Vajilla/platoSucio.png"
     }
     override method tareas() {
         if(self.modificado() == "limpio") return []

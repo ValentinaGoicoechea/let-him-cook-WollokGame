@@ -105,8 +105,8 @@ class Horno inherits Estacion{
 const horno1 = new Horno(
     position = game.at(6,11),
     tiempoTarea = 7000,
-    imagen1 = "hornoprendido.png",
-    imagen2 = "hornoapagado.png",
+    imagen1 = "imagenesEstaciones/hornoprendido.png",
+    imagen2 = "imagenesEstaciones/hornoapagado.png",
     valorOtorgado = "cocinado",
     debeValidar = "cocinar",
     numeroEstacion = 1
@@ -116,8 +116,8 @@ const horno1 = new Horno(
 const horno2 = new Horno(
     position = game.at(8,11),
     tiempoTarea = 7000,
-    imagen1 = "hornoprendido.png",
-    imagen2 = "hornoapagado.png",
+    imagen1 = "imagenesEstaciones/hornoprendido.png",
+    imagen2 = "imagenesEstaciones/hornoapagado.png",
     valorOtorgado = "cocinado",
     debeValidar = "cocinar",
     numeroEstacion = 2
@@ -126,8 +126,8 @@ const horno2 = new Horno(
 object basura inherits Estacion(
     position = game.at(20,7),
     tiempoTarea = 500,
-    imagen1 = "basuraAbierta.png",
-    imagen2 = "basura.png",
+    imagen1 = "imagenesEstaciones/basuraAbierta.png",
+    imagen2 = "imagenesEstaciones/basura.png",
     valorOtorgado = "tirado",
     debeValidar = "tirar",
     numeroEstacion = 1
@@ -154,8 +154,8 @@ object basura inherits Estacion(
 const bacha = new Estacion(
     position = game.at(4,6),
     tiempoTarea = 3000,
-    imagen1 = "vacio.png", //ESPUMA O AGUA
-    imagen2 = "vacio.png",
+    imagen1 = "imagenesEstaciones/vacio.png", //ESPUMA O AGUA
+    imagen2 = "imagenesEstaciones/vacio.png",
     valorOtorgado = "limpio",
     debeValidar = "limpiar",
     numeroEstacion = 1
@@ -164,8 +164,8 @@ const bacha = new Estacion(
 const tablaDeCortar = new Estacion(
     position = game.at(4,9),
     tiempoTarea = 4500,
-    imagen1 = "tablaDeCortar.png", 
-    imagen2 = "tablaDeCortar.png", // hacer cambio (para notar que esta en uso)
+    imagen1 = "imagenesEstaciones/tablaDeCortar.png", 
+    imagen2 = "imagenesEstaciones/tablaDeCortar.png", // hacer cambio (para notar que esta en uso)
     valorOtorgado = "cortada",
     debeValidar = "cortar",
     numeroEstacion = 1
@@ -232,17 +232,17 @@ class MesadaEntrega inherits Mesada{
 
 const mesadaEntrega1 = new MesadaEntrega(
     position = game.at(14,11),
-    image = "mesada.png"
+    image = "imagenesEstaciones/mesada.png"
 )
 
 const mesadaEntrega2 = new MesadaEntrega(
     position = game.at(15,11),
-    image = "vacio.png"
+    image = "imagenesEstaciones/vacio.png"
 )
 
 const mesadaEntrega3 = new MesadaEntrega(
     position = game.at(16,11),
-    image = "vacio.png"
+    image = "imagenesEstaciones/vacio.png"
 )
 
 
@@ -293,19 +293,19 @@ class MesadaArmado inherits Mesada{
 
 const mesadaArmado1 = new MesadaArmado(
     position = game.at(24.5,7),
-    image = "mesadaArmado.png"
+    image = "imagenesEstaciones/mesadaArmado.png"
 )
 
 
 const mesadaArmado2 = new MesadaArmado(
     position = game.at(24.5,9),
-    image = "vacio.png"
+    image = "imagenesEstaciones/vacio.png"
 )
 
 
 const mesadaArmado3 = new MesadaArmado(
     position = game.at(24.5,11),
-    image = "vacio.png"
+    image = "imagenesEstaciones/vacio.png"
 )
 
 
@@ -332,7 +332,7 @@ class Cajon {
 object cajonDePapas inherits Cajon (
     position = game.at(22,6),
     posicionAlimento = game.at(9,3),
-    imagenCajon = "cajonDePapas.png"){
+    imagenCajon = "imagenesCajones/cajonDePapas.png"){
     override method reponerStock() {
         if (self.cantidadEnStock() == 0) { 
             stockMaximo.times( 
@@ -348,7 +348,7 @@ object cajonDePapas inherits Cajon (
 object cajonDePollo inherits Cajon (
     position = game.at(20,6),
     posicionAlimento = game.at(6,3),
-    imagenCajon = "cajonDePollo.png"){
+    imagenCajon = "imagenesCajones/cajonDePollo.png"){
     override method reponerStock() {
         if (self.cantidadEnStock() == 0) { 
             stockMaximo.times( 
@@ -364,7 +364,7 @@ object cajonDePollo inherits Cajon (
 object cajonDeHuevo inherits Cajon (
     position = game.at(24,6),
     posicionAlimento = game.at(11,3),
-    imagenCajon = "cajonDeHuevos.png"){ // hay que hacer uno para el resto!!
+    imagenCajon = "imagenesCajones/cajonDeHuevos.png"){ // hay que hacer uno para el resto!!
     override method reponerStock() {
         if (self.cantidadEnStock() == 0) { 
             stockMaximo.times( 
@@ -380,7 +380,7 @@ object cajonDeHuevo inherits Cajon (
 object cajonDeBife inherits Cajon (
     position = game.at(20,3),
     posicionAlimento = game.at(13,3),
-    imagenCajon = "cajonDeOjoDeBife.png"){ // hay que hacer uno para el resto!!
+    imagenCajon = "imagenesCajones/cajonDeOjoDeBife.png"){ // hay que hacer uno para el resto!!
     override method reponerStock() {
         if (self.cantidadEnStock() == 0) { 
             stockMaximo.times( 
