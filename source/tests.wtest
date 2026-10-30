@@ -88,10 +88,11 @@ describe "Tests preliminares TPGame-Overcooked" {
     test "Un plato armado de pollo con papas coincide con el pedido, lo marca como entregado y lo saca de la lista." {
         generadorDePedidos.listaPedidos().clear() //para el test 'empiezo desde 0' sin pedidos
 
-        const pedido = new PedidoPolloConPapas(
-            position = game.at(27, 3),
-            ingredientes = ["plato", "pechugaCocinada", "papasFritas"])
-        generadorDePedidos.listaPedidos().add(pedido)
+        const pedido = new Pedido(
+            receta = polloConPapas,
+            position = game.at(27, 3)
+        )
+        generadorDePedidos.agregarNuevoPedido(pedido)
 
         const plato = new Plato(position= game.at(24, 7), modificado = "limpio")
         const pechuga = new PechugaDePollo(position = game.at(24, 7), modificado = "cocinado") 
@@ -108,11 +109,12 @@ describe "Tests preliminares TPGame-Overcooked" {
 
     test "Despues de entregar, el plato usado queda sucio" {
         generadorDePedidos.listaPedidos().clear()
-
-        const pedido = new PedidoPolloConPapas(
-            position = game.at(27, 3),
-            ingredientes = ["plato", "pechugaCocinada", "papasFritas"])
-        generadorDePedidos.listaPedidos().add(pedido)
+ 
+        const pedido = new Pedido(
+            receta = polloConPapas,
+            position = game.at(27, 3)
+        )
+        generadorDePedidos.agregarNuevoPedido(pedido)
 
         const plato = new Plato(position= game.at(24, 7), modificado = "limpio")
         const pechuga = new PechugaDePollo(position = game.at(24, 7), modificado = "cocinado") 
@@ -126,14 +128,16 @@ describe "Tests preliminares TPGame-Overcooked" {
         assert.equals("sucio", plato.modificado())
     }
 
-    test "Al entregar un plato que no coincide con ninguna receta, resta 150 puntos"{
+    test "Al entregar un plato que no coincide con ninguna receta, resta 100 puntos"{
         generadorDePedidos.listaPedidos().clear()
-        puntaje.valor(300)
+        puntajeEnJuego.valor(300)
         
-        const pedido = new PedidoOjoDeBifeConHuevo(
-            position = game.at(27,3),
-            ingredientes = ["plato",  "ojoBifeCocinado", "huevoFrito"])
-        generadorDePedidos.listaPedidos().add(pedido)
+    
+        const pedido = new Pedido(
+            receta = ojoDeBifeConHuevo,
+            position = game.at(27, 3)
+        )
+        generadorDePedidos.agregarNuevoPedido(pedido)
 
         
         const plato = new Plato(position= game.at(24, 7), modificado = "limpio")
@@ -143,7 +147,7 @@ describe "Tests preliminares TPGame-Overcooked" {
 
         mesadaEntrega.tareaDeEstacion(platoArmado)
 
-        assert.equals(150, puntaje.valor())
+        assert.equals(200, puntajeEnJuego.valor())
     }
 
     test "Es posible ir con un plato ya con comida y seguir agregando ingredientes"{
