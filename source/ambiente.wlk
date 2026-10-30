@@ -336,8 +336,8 @@ object cajonDePapas inherits Cajon (
     override method reponerStock() {
         if (self.cantidadEnStock() == 0) { 
             stockMaximo.times( 
-                {papaX => const nuevaPapa = new Papa(position = posicionAlimento, modificado = "")
-                alimentos.add(nuevaPapa)
+                {papaX => const nuevaPapa = new Papa(position = posicionAlimento, modificado = "");
+                alimentos.add(nuevaPapa);
                 game.addVisual(nuevaPapa)
                 }
             )
@@ -352,8 +352,8 @@ object cajonDePollo inherits Cajon (
     override method reponerStock() {
         if (self.cantidadEnStock() == 0) { 
             stockMaximo.times( 
-                {pechugaX => const nuevaPechuga = new PechugaDePollo(position = posicionAlimento, modificado = "")
-                alimentos.add(nuevaPechuga)
+                {pechugaX => const nuevaPechuga = new PechugaDePollo(position = posicionAlimento, modificado = "");
+                alimentos.add(nuevaPechuga);
                 game.addVisual(nuevaPechuga)
                 }
             )
@@ -368,8 +368,8 @@ object cajonDeHuevo inherits Cajon (
     override method reponerStock() {
         if (self.cantidadEnStock() == 0) { 
             stockMaximo.times( 
-                {huevoX => const nuevoHuevo = new Huevo(position = posicionAlimento, modificado = "")
-                alimentos.add(nuevoHuevo)
+                {huevoX => const nuevoHuevo = new Huevo(position = posicionAlimento, modificado = "");
+                alimentos.add(nuevoHuevo);
                 game.addVisual(nuevoHuevo)
                 }
             )
@@ -384,8 +384,8 @@ object cajonDeBife inherits Cajon (
     override method reponerStock() {
         if (self.cantidadEnStock() == 0) { 
             stockMaximo.times( 
-                {bifeX => const nuevoOjoBife = new OjoDeBife(position = posicionAlimento, modificado = "")
-                alimentos.add(nuevoOjoBife)
+                {bifeX => const nuevoOjoBife = new OjoDeBife(position = posicionAlimento, modificado = "");
+                alimentos.add(nuevoOjoBife);
                 game.addVisual(nuevoOjoBife)
                 }
             )
