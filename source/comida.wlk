@@ -1,3 +1,4 @@
+import source.ambiente.*
 import wollok.game.*
 
 // COMIDAS Y VAJILLA (CLASES Y OBJETOS)
@@ -5,10 +6,26 @@ import wollok.game.*
 
 class Comida{
     var property position 
-    var property modificado
+    var property modificado = ""
     var property estaEnPlato = false
     var property sePuedeAgarrar = true 
-    method elemento() = "comida"
+    //method elemento() = "comida"
+
+    method esPlato() = false
+    
+    method vaciarElementos() {}
+
+    method desaparecerDeBasura() {
+        game.removeVisual(self)
+    }
+
+    method procesarEnMesadaEntrega(mesadaEntrega) {
+        // Por defecto, los alimentos sueltos no se pueden entregar en la mesada de entrega
+    }
+
+    method colocarseEnMesadaArmado(){
+        MesadaArmado.recibirComida(self)
+    }
 
     method elementoYEstado()
     method image()
@@ -110,6 +127,7 @@ class Vajilla {
     var property sePuedeAgarrar = true
     var property modificado
 
+
     method tareas() 
     method elemento()
 
@@ -118,6 +136,12 @@ class Vajilla {
     }
 }
 class Plato inherits Vajilla() {  
+    
+    method colocarseEnMesadaArmado(){
+        if(modificado == "limpio"){
+            MesadaArmado.recibirPlatoLimpio(self)
+        }
+    }
 
     method image(){
         if(self.modificado() == "limpio") return "imagenesComida-Vajilla/plato.png"
@@ -159,5 +183,20 @@ class PlatoArmado inherits Vajilla(modificado = null){
         position = nuevaPos
         elementosPlato.forEach({ elem => elem.position(nuevaPos) })
     } 
+    
+    method colocarseEnMesadaArmado(){
+        MesadaArmado.recibirPlatoArmado(self)
+    }
+
+    method vaciarElementos() {
+    self.categoria().sePuedeAgarrar(false)
+    elementosPlato.forEach({ elemento => 
+        if (elemento.elemento() != "plato") {
+            game.removeVisual(elemento)
+            elementosPlato.remove(elemento)
+        }
+    })
+    self.categoria().sePuedeAgarrar(true)
+}
 
 }

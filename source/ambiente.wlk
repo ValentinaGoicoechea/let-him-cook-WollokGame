@@ -255,31 +255,37 @@ class MesadaArmado inherits Mesada{
       platoEnArmado = new PlatoArmado(position = position) //Creo un nuevo PlatoArmado
     }
 
-    override method tareaDeEstacion(objeto){
-        if(objeto.elemento() == "plato" && objeto.modificado() == "limpio"){ //si el elemento que traigo es un plato y está limpio
-            if(platoEnArmado == null){ //si no hay plato armado => no hay plato en la mesa
-                self.crearPlatoArmado()
-                game.addVisual(platoEnArmado)               
-                platoEnArmado.elementosPlato().add(objeto) //agrego el plato
-                objeto.estaEnPlato(true)  //agrego plato a PlatoArmado
-                personajePrincipal.agarrarOSoltar() //el personaje suelta el plato
-                hayPlatoParaArmar = true
+    method recibirPlatoLimpio(objeto){
+        if(platoEnArmado == null){ //si no hay plato armado => no hay plato en la mesa
+            self.crearPlatoArmado()
+            game.addVisual(platoEnArmado)               
+            platoEnArmado.elementosPlato().add(objeto) //agrego el plato
+            objeto.estaEnPlato(true)  //agrego plato a PlatoArmado
+            personajePrincipal.agarrarOSoltar() //el personaje suelta el plato
+            hayPlatoParaArmar = true
                 
-            } 
-        } else if (objeto.elemento()== "plato armado"){ // si vengo con un plato armado
-            if(platoEnArmado == null){
-                hayPlatoParaArmar = true
-                platoEnArmado = objeto //actualizo el nuevo plato en armado
-                personajePrincipal.agarrarOSoltar()
-            }
-        } else{ //si lo que traigo no es un plato
-            if(hayPlatoParaArmar){ //me fijo si hay un plato en la mesada, si lo hay puedo agregar la comida
-                platoEnArmado.elementosPlato().add(objeto)
-                objeto.estaEnPlato(true) //agrego comida a PlatoArmado
-                personajePrincipal.agarrarOSoltar()
-            }
-        }        
+        } 
+    }
 
+    method recibirPlatoArmado(objeto){
+        if(platoEnArmado == null){
+            hayPlatoParaArmar = true
+            platoEnArmado = objeto //actualizo el nuevo plato en armado
+            personajePrincipal.agarrarOSoltar()
+        }
+    }
+
+    method recibirComida(objeto){
+        if(hayPlatoParaArmar){ 
+            platoEnArmado.elementosPlato().add(objeto)
+            objeto.estaEnPlato(true) 
+            personajePrincipal.agarrarOSoltar()
+        }
+    }
+
+
+    override method tareaDeEstacion(objeto){
+         objeto.colocarseEnMesadaArmado()      
     }
 
     method agarrarPlatoArmado() {
