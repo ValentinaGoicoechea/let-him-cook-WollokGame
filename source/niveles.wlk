@@ -29,7 +29,7 @@ class Nivel{
 }
 
 object nivel2 inherits Nivel(
-    puntosParaGanar = 100,
+    puntosParaGanar = 850,
     pantalla = pantallaNivel2
     ){
     override method nuevoPedido() {
@@ -49,7 +49,7 @@ object nivel2 inherits Nivel(
 }
 
 object nivel1 inherits Nivel(
-    puntosParaGanar = 100,
+    puntosParaGanar = 750,
     siguienteNivel = nivel2,
     pantalla = pantallaNivel1
     ){
