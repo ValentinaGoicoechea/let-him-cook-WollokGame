@@ -9,7 +9,8 @@ object selectorPersonajes { //highlight alrededor de personaje
     const personajesDisponibles = [ropaCocinero, ropaOtro] //cambiar nombres a futuro
     var personajeActual = null //el personaje actualmente seleccionado
     var personajeElegido = null // el personaje confirmado tras seleccion
-    method image() = "imagenesFondos/selectorPersonajes.png"
+    method image() {if(personajeActual == null ) return "imagenesEstaciones/vacio.png"
+                    else return "imagenesFondos/selectorPersonajes.png"}
 
 
     method seleccionarPersonaje(numero){
