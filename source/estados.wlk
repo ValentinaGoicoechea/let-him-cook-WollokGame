@@ -48,7 +48,7 @@ object quemada {
     method tirar(comida) { comida.estado(tirada) }
 }
 
-object tirada {
+object tirada { //VALIDAR SI ES NECESARIO O SI ES MEJOR BORRARLO Y YA
     method elementoYEstado(comida) = "vacio"
     method image(comida) = "imagenesEstaciones/vacio.png"
     method tareas(comida) = []

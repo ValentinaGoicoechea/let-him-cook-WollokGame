@@ -305,13 +305,24 @@ class Cajon {
     method sePuedeAgarrar() = false
     method estaEnPlato() = false
     method image() = imagenCajon
-    method elemento() = "stock"
+    method elemento() = "stock" //CAMBIAR, ES LO MISMO QUE LO DE ESTACION
 
     method cantidadEnStock() {
         return alimentos.count({alimento => alimento.position() == posicionAlimento })
     }
 
-    method reponerStock()
+    method crearAlimento(){}
+
+    method reponerStock() {
+        if (self.cantidadEnStock() == 0) { 
+            stockMaximo.times({ _ => 
+                const nuevoAlimento = self.crearAlimento()
+                alimentos.add(nuevoAlimento)
+                game.addVisual(nuevoAlimento)
+            })
+        }
+    }
+    
 
     method reiniciarPorFinDeNivel() {
         alimentos.clear()
@@ -322,63 +333,27 @@ object cajonDePapas inherits Cajon (
     position = game.at(22,6),
     posicionAlimento = game.at(9,3),
     imagenCajon = "imagenesCajones/cajonDePapas.png"){
-    override method reponerStock() {
-        if (self.cantidadEnStock() == 0) { 
-            stockMaximo.times( 
-                {papaX => const nuevaPapa = new Papa(position = posicionAlimento, modificado = "");
-                alimentos.add(nuevaPapa);
-                game.addVisual(nuevaPapa)
-                }
-            )
-        }
-    }
+    override method crearAlimento() = new Papa(position = posicionAlimento)
 }
 
 object cajonDePollo inherits Cajon (
     position = game.at(20,6),
     posicionAlimento = game.at(6,3),
     imagenCajon = "imagenesCajones/cajonDePollo.png"){
-    override method reponerStock() {
-        if (self.cantidadEnStock() == 0) { 
-            stockMaximo.times( 
-                {pechugaX => const nuevaPechuga = new PechugaDePollo(position = posicionAlimento, modificado = "");
-                alimentos.add(nuevaPechuga);
-                game.addVisual(nuevaPechuga)
-                }
-            )
-        }
-    }
+    override method crearAlimento() = new PechugaDePollo(position = posicionAlimento)
 }
 
 object cajonDeHuevo inherits Cajon (
     position = game.at(24,6),
     posicionAlimento = game.at(11,3),
-    imagenCajon = "imagenesCajones/cajonDeHuevos.png"){ // hay que hacer uno para el resto!!
-    override method reponerStock() {
-        if (self.cantidadEnStock() == 0) { 
-            stockMaximo.times( 
-                {huevoX => const nuevoHuevo = new Huevo(position = posicionAlimento, modificado = "");
-                alimentos.add(nuevoHuevo);
-                game.addVisual(nuevoHuevo)
-                }
-            )
-        }
-    }
+    imagenCajon = "imagenesCajones/cajonDeHuevos.png"){ 
+    override method crearAlimento() = new Huevo(position = posicionAlimento)
 }
 
 object cajonDeBife inherits Cajon (
     position = game.at(20,3),
     posicionAlimento = game.at(13,3),
-    imagenCajon = "imagenesCajones/cajonDeOjoDeBife.png"){ // hay que hacer uno para el resto!!
-    override method reponerStock() {
-        if (self.cantidadEnStock() == 0) { 
-            stockMaximo.times( 
-                {bifeX => const nuevoOjoBife = new OjoDeBife(position = posicionAlimento, modificado = "");
-                alimentos.add(nuevoOjoBife);
-                game.addVisual(nuevoOjoBife)
-                }
-            )
-        }
-    }
+    imagenCajon = "imagenesCajones/cajonDeOjoDeBife.png"){ 
+    override method crearAlimento() = new OjoDeBife(position = posicionAlimento)
 }
 
