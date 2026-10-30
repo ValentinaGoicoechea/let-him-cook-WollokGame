@@ -119,6 +119,10 @@ object generadorDePedidos {
         game.onTick(20000, "generarPedido", { self.cambiarPosicionPedidosActivos()
         self.nuevoPedido(nivel) }) //Creacion de pedidos cda 40 sec
     }
+
+    method terminar(nivel){
+        listapedidos.forEach({pedido => pedido.estado(perdido)})
+    }
     //esta parte se modificaria segun el nivel
 }
 

@@ -5,7 +5,7 @@ import puntaje.*
 
 
 object nivel1 {
-    var property puntosParaGanar = 750
+    var property puntosParaGanar = 100
     var property siguienteNivel = nivel2
     method nuevoPedido() {
         generadorDePedidos.pedir(1)  //Solo ojo de bife con huevo
@@ -22,13 +22,12 @@ object nivel1 {
     }
 }
 object nivel2 {
-    var property puntosParaGanar = 850
-    var property siguienteNivel = nivel3
+    var property puntosParaGanar = 100
+    var property siguienteNivel = null
     method nuevoPedido() {
         generadorDePedidos.pedir(0.randomUpTo(1).round()) //Puede salir ojo de bife y pollo con papas
     }
     method iniciar() {
-        nivel1.iniciar()
         game.addVisual(cajonDePapas)
         game.addVisual(cajonDePollo)
         cajonDePollo.reponerStock()

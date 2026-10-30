@@ -39,7 +39,7 @@ object puntajeEnJuego inherits Puntaje{
     }
 }
 
-class PedidosMalEntregados{
+class PedidosMalEntregados{ //terminar
     var position
     var numeroVida
 
@@ -47,7 +47,7 @@ class PedidosMalEntregados{
 
 }
 
-const vida1 = new PedidosMalEntregados(
+const vida1 = new PedidosMalEntregados( //terminar
     position = game.at(3,2),
     numeroVida = 1
 )
@@ -72,7 +72,7 @@ object controladorDePartida {
         pedidosPerdidos += 1
     }
 
-    method controlarVidas(){
+    method controlarVidas(){ //terminar
         
     }
 
@@ -82,16 +82,17 @@ object controladorDePartida {
                 self.terminarPartida()
             else if (puntajeEnJuego.valor() >= puntosParaGanar){
                 partidaGanada = true
-                self.pasarASiguienteNivel()  
-                //self.terminarPartida()}
+                self.continuarJuego() // si hay otro nivel o termina
             }
         }
     }
 
-    method pasarASiguienteNivel() {
-        if (nivelActual != null) {
+    method continuarJuego() {
+        if (nivelActual.siguienteNivel() != null) {
+            generadorDePedidos.terminar(nivelActual) 
             nivelActual = nivelActual.siguienteNivel()
             nivelActual.iniciar()
+            puntajeEnJuego.valor(0)
         } else {
             self.terminarPartida()
         }
