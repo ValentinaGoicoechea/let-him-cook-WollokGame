@@ -115,13 +115,24 @@ object generadorDePedidos {
     }
 
     method empezar(nivel) {
+        //try {
+          //  game.removeTickEvent("generarPedido")
+       // } catch e {
+       // }
         self.nuevoPedido(nivel)                                     
         game.onTick(20000, "generarPedido", { self.cambiarPosicionPedidosActivos()
         self.nuevoPedido(nivel) }) //Creacion de pedidos cda 40 sec
     }
 
     method terminar(nivel){
-        listapedidos.forEach({pedido => pedido.estado(perdido)})
+        listapedidos.forEach({pedido => game.removeVisual(pedido)}) //los pone como perdidos y resta puntos y vida (esta mal)
+        listapedidos.clear()
+        //try {
+        //    game.removeTickEvent("generarPedido")
+        //} catch e {
+            
+        //}
+
     }
     //esta parte se modificaria segun el nivel
 }

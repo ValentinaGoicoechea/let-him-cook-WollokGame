@@ -90,10 +90,10 @@ object controladorDePartida {
 
     method continuarJuego() {
         if (nivelActual.siguienteNivel() != null) {
+            puntajeEnJuego.valor(0)
             generadorDePedidos.terminar(nivelActual) 
             nivelActual = nivelActual.siguienteNivel()
             nivelActual.iniciar()
-            puntajeEnJuego.valor(0)
         } else {
             self.terminarPartida()
         }
