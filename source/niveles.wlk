@@ -5,7 +5,7 @@ import puntaje.*
 
 class Nivel{
     var property puntosParaGanar 
-    var property siguienteNivel 
+    var property siguienteNivel = null
     const pantalla
 
     method nuevoPedido() {
