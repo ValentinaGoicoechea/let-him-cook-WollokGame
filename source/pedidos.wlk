@@ -75,10 +75,11 @@ object generadorDePedidos {
 
     method listaPedidos() = listapedidos
     
-    method nuevoPedido() {
+    method nuevoPedido(nivel) {
         contadorDePedidos += 1
         posicionSegunFila = contadorDePedidos % 4 // el primer pedido es 1, el segundo 2, el tercero 3, el 4 0
-        self.pedir(0.randomUpTo(1).round())
+        //self.pedir(0.randomUpTo(1).round())
+        nivel.nuevoPedido() //Se manejan los pedidos dependiendo del nivel en el que estemos
     }
 
     //posicion en Y va del 3 al 14, creo que cada pedido ocupa 3
@@ -112,10 +113,10 @@ object generadorDePedidos {
         self.agregarNuevoPedido(pedidoX)
     }
 
-    method empezar() {
-        self.nuevoPedido()                                     
+    method empezar(nivel) {
+        self.nuevoPedido(nivel)                                     
         game.onTick(20000, "generarPedido", { self.cambiarPosicionPedidosActivos()
-        self.nuevoPedido() }) //Creacion de pedidos cda 40 sec
+        self.nuevoPedido(nivel) }) //Creacion de pedidos cda 40 sec
     }
     //esta parte se modificaria segun el nivel
 }
@@ -131,4 +132,20 @@ object selectorPedidos{
         elementosPlato.size() == pedido.ingredientes().size() && 
         elementosPlato.all({elemento => pedido.ingredientes().contains(elemento.elementoYEstado()) 
     })
+}
+
+object nivel1 {
+    method nuevoPedido() {
+        generadorDePedidos.pedir(1)  //Solo ojo de bife con huevo
+    }
+}
+object nivel2 {
+    method nuevoPedido() {
+        generadorDePedidos.pedir(0.randomUpTo(1).round()) //Puede salir ojo de bife y pollo con papas
+    }
+}
+object nivel3 {
+    method nuevoPedido() {
+        generadorDePedidos.pedir(0.randomUpTo(2).round()) //Se agrega el fernet u otra cosa
+    }
 }

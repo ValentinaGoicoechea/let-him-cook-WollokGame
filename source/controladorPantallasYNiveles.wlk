@@ -16,7 +16,6 @@ object pantallaInicio {
     method saltarPantallaInicio() {
         keyboard.enter().onPressDo({
             pantallaSeleccionPersonaje.iniciarSeleccionPersonajes() //funcionando
-            pantallaSeleccionPersonaje.iniciarSeleccionPersonajes()
         })
     }
 }
@@ -38,6 +37,13 @@ object pantallaSeleccionPersonaje {
 }
 
 object juegoCocinero { //ANTERIOR 'JUEGO' EN PROGRAM.WPGM
+
+    var nivel = nivel1
+
+    method asignarNivel(nuevoNivel) {
+        nivel = nuevoNivel
+    }
+
     method iniciarJuego() { // SE MANTIENE IGUAL PARA TODOS LOS NIVELES
         game.clear()
         game.removeVisual(pantallaSeleccionPersonaje)
@@ -72,9 +78,11 @@ object juegoCocinero { //ANTERIOR 'JUEGO' EN PROGRAM.WPGM
         teclado.realizarAccion()
         teclado.interactuarConCajon()
         game.onTick(100, "moverCocinero", { personajePrincipal.darPaso() }) 
-        generadorDePedidos.empezar() //LINEA QUE PODRIA LLEGAR A CAMBIAR CON LA IMPLEMENTACION DE NIVELES
+        
+        generadorDePedidos.empezar(nivel) //LINEA QUE PODRIA LLEGAR A CAMBIAR CON LA IMPLEMENTACION DE NIVELES
+
+
         game.onTick(200, "controlarPartida", {controladorDePartida.controlarProgresoPartida()})
     }
-
 }
 
