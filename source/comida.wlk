@@ -10,6 +10,7 @@ class Comida{
     var property estado = cruda //asi comienzan todas las comidas
     var property estaEnPlato = false
     var property sePuedeAgarrar = true 
+    var property debeEliminarseAlVaciar = true //util para saber si al estar en un plato armado debo sacarlos o no
 
     method nuevaPosicion(posicion){
         self.position(posicion)
@@ -92,11 +93,14 @@ class Vajilla {
     method nuevaPosicion(posicion){
         self.position(posicion)
     }
+    method desaparecerDeBasura(){} //plato no hace nada
 
     method image() {estado.image(self)} //la imagen se activa segun el estado en el que se encuentra
     method tareas() = estado.tareas(self)
 }
 class Plato inherits Vajilla {  
+    var property debeEliminarseAlVaciar = false
+
     method colocarseEnMesadaArmado(){
         estado.colocarseEnMesadaArmado(self)
 
@@ -129,9 +133,18 @@ class PlatoArmado inherits Vajilla(estado = platoArmado){
         elementosPlato.forEach({ elem => elem.position(nuevaPos) })
     } 
     
+    override method desaparecerDeBasura(){
+        elementosPlato.forEach({elemento => 
+            if (elemento.debeEliminarseAlVaciar())
+                {game.removeVisual(elemento)
+                elementosPlato.remove(elemento)}                
+            })
+            self.sePuedeAgarrar(true)
+    }
+
     method vaciarElementos() {
     elementosPlato.forEach({ elemento => 
-        if (elemento.elemento() != "plato") {
+        if (elemento.debeEliminarseAlVaciar()) {
             game.removeVisual(elemento)
             elementosPlato.remove(elemento)
         }

@@ -135,17 +135,8 @@ object basura inherits Estacion(
 ){
     override method tareaExtra(objeto){
         objeto.sePuedeAgarrar(false)
+        objeto.desaparecerDeBasura(self)
 
-        if(objeto.elemento() == "plato armado"){ //solo se va a usar en tirar
-            objeto.elementosPlato().forEach({elemento => if (elemento.elemento() != "plato")
-                {game.removeVisual(elemento)
-                objeto.elementosPlato().remove(elemento)}                
-            })
-            objeto.sePuedeAgarrar(true)
-             
-        }else{
-            game.removeVisual(objeto)            
-        }
         self.liberar()
 
     }
