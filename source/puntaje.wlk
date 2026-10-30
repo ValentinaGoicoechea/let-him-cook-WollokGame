@@ -40,19 +40,6 @@ object puntajeEnJuego inherits Puntaje{
     }
 }
 
-class PedidosMalEntregados{ //terminar
-    var position
-    var numeroVida
-
-    method image() = "imagenesFondo/vida.png"
-
-}
-
-const vida1 = new PedidosMalEntregados( //terminar
-    position = game.at(3,2),
-    numeroVida = 1
-)
-
 
 object controladorDePartida {
     //NIVEL BASICON
@@ -88,6 +75,7 @@ object controladorDePartida {
     method continuarJuego() {
         if (nivelActual.siguienteNivel() != null) {
             puntajeEnJuego.valor(0)
+            self.partidaGanada(false)
             generadorDePedidos.terminar(nivelActual) 
             nivelActual = nivelActual.siguienteNivel()
             nivelActual.iniciar()
@@ -103,9 +91,9 @@ object controladorDePartida {
             puntajeFinal.valor(puntajeEnJuego.valor())
             self.otorgarMensajeExtra()
             game.addVisual(pantallaFinal)
+            pantallaFinal.ejecutarPantalla()
             game.addVisual(puntajeFinal)
         })
-        pantallaFinal.ejecutarPantalla()
     }
 
     method otorgarMensajeExtra() {

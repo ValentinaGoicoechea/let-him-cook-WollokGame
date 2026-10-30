@@ -37,8 +37,12 @@ object nivel2 inherits Nivel(
         generadorDePedidos.pedir(0.randomUpTo(1).round()) //Puede salir ojo de bife y pollo con papas
     }
     override method iniciar() {
-        game.addVisual(cajonDePapas)
-        game.addVisual(cajonDePollo)
+        if (!game.allVisuals().contains(cajonDePapas)) {
+            game.addVisual(cajonDePapas)
+        }
+        if (!game.allVisuals().contains(cajonDePollo)) { //ver como cambiar esta logica
+            game.addVisual(cajonDePollo)
+        }
         cajonDePollo.reponerStock()
         cajonDePapas.reponerStock()
         super()      
