@@ -327,6 +327,10 @@ class Cajon {
     }
 
     method reponerStock()
+
+    method reiniciarPorFinDeNivel() {
+        alimentos.clear()
+    }
 }
 
 object cajonDePapas inherits Cajon (

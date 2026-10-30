@@ -109,6 +109,8 @@ object juegoCocinero { //ANTERIOR 'JUEGO' EN PROGRAM.WPGM
 
     method iniciarJuego() { // SE MANTIENE IGUAL PARA TODOS LOS NIVELES
         game.clear()
+        [cajonDePapas, cajonDePollo, cajonDeHuevo, cajonDeBife].forEach({cajon => cajon.reiniciarPorFinDeNivel()})
+        controladorDePartida.reiniciarNivel()
         game.addVisual(horno1)
         game.addVisual(horno2)
         game.addVisual(mesadaEntrega1)
@@ -125,7 +127,6 @@ object juegoCocinero { //ANTERIOR 'JUEGO' EN PROGRAM.WPGM
         game.addVisual(plato2)
         game.addVisual(plato3)
         game.addVisual(puntajeEnJuego)
-        //game.addVisual(vida1)
 
         nivel.iniciar()
 

@@ -9,7 +9,6 @@ import controladorPantallasYNiveles.*
 class Puntaje{
     var property valor = 0
     method text() = "PUNTAJE: " + valor
-    method textColor() = "FFFFFF"
     method position()
 }
 
@@ -100,16 +99,26 @@ object controladorDePartida {
         if(partidaGanada) {puntajeFinal.mensajeExtra("Felicidades!")}
         else {puntajeFinal.mensajeExtra("Casi...")}
     }
+
+    method reiniciarNivel() {
+        nivelActual = nivel1
+        pedidosPerdidos = 0
+        partidaTerminada = false
+        partidaGanada = false
+        puntajeEnJuego.valor(0)
+    }
 }
 
 object puntajeFinal inherits Puntaje{
     var mensajeExtra = ""
 
+    method textColor() = "FFFFFF"
+
     method mensajeExtra(mensj) {
       mensajeExtra = mensj
     }
 
-    override method position() = game.at(2,10)
+    override method position() = game.at(10,8)
     
     override method text() {
         return mensajeExtra + super() //porfin encontre donde usar super !! :')
