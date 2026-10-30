@@ -73,9 +73,6 @@ object controladorDePartida {
         pedidosPerdidos += 1
     }
 
-    method controlarVidas(){ //terminar
-        
-    }
 
     method controlarProgresoPartida() {
         if(!partidaTerminada){
