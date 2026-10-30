@@ -1,6 +1,11 @@
 import source.ambiente.*
 import wollok.game.*
 import estados.*
+import personajeprincipal.* 
+import puntaje.*
+import pedidos.*
+
+//Ver si tiene sentido lo ultimo de que el plato armado sepa entregarse (por eso se agregan los ultimos 3 imports)
 
 // COMIDAS Y VAJILLA (CLASES Y OBJETOS)
 
@@ -17,8 +22,9 @@ class Comida{
     }
     
     method vaciarElementos() {}
+    method entregarEnMesaEntrega(){}
 
-    method desaparecerDeBasura() {
+    method desaparecer() {
         game.removeVisual(self)
     }
 
@@ -93,7 +99,9 @@ class Vajilla {
     method nuevaPosicion(posicion){
         self.position(posicion)
     }
-    method desaparecerDeBasura(){} //plato no hace nada
+    method desaparecer(){} //plato no hace nada
+
+    method entregarEnMesaEntrega(){}
 
     method image() {estado.image(self)} //la imagen se activa segun el estado en el que se encuentra
     method tareas() = estado.tareas(self)
@@ -133,13 +141,9 @@ class PlatoArmado inherits Vajilla(estado = platoArmado){
         elementosPlato.forEach({ elem => elem.position(nuevaPos) })
     } 
     
-    override method desaparecerDeBasura(){
-        elementosPlato.forEach({elemento => 
-            if (elemento.debeEliminarseAlVaciar())
-                {game.removeVisual(elemento)
-                elementosPlato.remove(elemento)}                
-            })
-            self.sePuedeAgarrar(true)
+    override method desaparecer(){
+        self.vaciarElementos()
+        self.sePuedeAgarrar(true)
     }
 
     method vaciarElementos() {
@@ -149,5 +153,16 @@ class PlatoArmado inherits Vajilla(estado = platoArmado){
             elementosPlato.remove(elemento)
         }
     })
+    }
+
+    override method entregarEnMesaEntrega(){ //Ver si tiene sentido que este aca
+        const pedido = selectorPedidos.eleccionDePedido(elementosPlato) 
+            personajePrincipal.agarrarOSoltar()
+            if (pedido == null) { 
+                puntajeEnJuego.restar(100)  
+                MesadaEntrega.tomarPlato(self)
+            } else{
+                MesadaEntrega.procesoPlato(pedido, self)
+            }
     }
 }

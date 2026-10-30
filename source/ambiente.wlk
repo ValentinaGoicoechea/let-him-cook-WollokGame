@@ -5,6 +5,7 @@ import comida.*
 import puntaje.*
 import estados.*
 
+
 //MANEJO DE ESTACIONES DE LA COCINA + STOCK DEL DEPOSTIO + ENTREGAS
 
 class Estacion{
@@ -20,7 +21,7 @@ class Estacion{
     const property numeroEstacion
 
     method sePuedeAgarrar() = false
-    method elemento() = "estacion"
+    method elemento() = "estacion" //VER DE AGREGAR UN ESTADO ESTACION 
 
     method image(){
         if(prendido){
@@ -108,8 +109,8 @@ const horno1 = new Horno(
     tiempoTarea = 7000,
     imagen1 = "imagenesEstaciones/hornoprendido.png",
     imagen2 = "imagenesEstaciones/hornoapagado.png",
-    valorOtorgado = "cocinado",
-    debeValidar = "cocinar",
+    valorOtorgado = cocinada,
+    debeValidar = "cocinar", //CAMBIAR ESTO DE TAREAS
     numeroEstacion = 1
 )
 
@@ -119,7 +120,7 @@ const horno2 = new Horno(
     tiempoTarea = 7000,
     imagen1 = "imagenesEstaciones/hornoprendido.png",
     imagen2 = "imagenesEstaciones/hornoapagado.png",
-    valorOtorgado = "cocinado",
+    valorOtorgado = cocinada,
     debeValidar = "cocinar",
     numeroEstacion = 2
 )
@@ -129,26 +130,25 @@ object basura inherits Estacion(
     tiempoTarea = 500,
     imagen1 = "imagenesEstaciones/basuraAbierta.png",
     imagen2 = "imagenesEstaciones/basura.png",
-    valorOtorgado = "tirado",
+    valorOtorgado = tirada, //ver si es mejor borrarlo y listo
     debeValidar = "tirar",
     numeroEstacion = 1
 ){
     override method tareaExtra(objeto){
         objeto.sePuedeAgarrar(false)
-        objeto.desaparecerDeBasura(self)
+        objeto.desaparecer()
 
         self.liberar()
 
     }
 }
 
-
 const bacha = new Estacion(
     position = game.at(4,6),
     tiempoTarea = 3000,
     imagen1 = "imagenesEstaciones/vacio.png", //ESPUMA O AGUA
     imagen2 = "imagenesEstaciones/vacio.png",
-    valorOtorgado = "limpio",
+    valorOtorgado = limpio,
     debeValidar = "limpiar",
     numeroEstacion = 1
 )
@@ -158,7 +158,7 @@ const tablaDeCortar = new Estacion(
     tiempoTarea = 4500,
     imagen1 = "imagenesEstaciones/tablaDeCortar.png", 
     imagen2 = "imagenesEstaciones/tablaDeCortar.png", // hacer cambio (para notar que esta en uso)
-    valorOtorgado = "cortada",
+    valorOtorgado = cortada,
     debeValidar = "cortar",
     numeroEstacion = 1
 )
@@ -174,22 +174,22 @@ class Mesada{
 
 class MesadaEntrega inherits Mesada{
     var property contador = 0 
-    const property esMesadaArmado = false
+    const property esMesadaArmado = false //CAMBIAR ESTO 
 
     method devolverPlatoSucio(plato){
         plato.position(game.at(4,5))
-        plato.modificado("sucio")
+        plato.estado(sucio)
         plato.estaEnPlato(false)
     }
 
     method resetearPlatoArmado(plato){
-        plato.elementosPlato().forEach({elemento => if (elemento.elemento() != "plato"){game.removeVisual(elemento)}}) //cambiar aca
+        plato.vaciarElementos()
         plato.elementosPlato().clear() 
         game.removeVisual(plato)
     }
     
     method tomarPlato(plato){
-        const platoUsado = plato.elementosPlato().findOrDefault({elemento => elemento.elementoYEstado() == "plato"}, null) //cambiar aca
+        const platoUsado = plato.elementosPlato().findOrDefault({elemento => !elemento.debeEliminarseAlVaciar()}, null)
         if(platoUsado != null){
             self.resetearPlatoArmado(plato)
             self.devolverPlatoSucio(platoUsado)
@@ -204,21 +204,10 @@ class MesadaEntrega inherits Mesada{
         self.tomarPlato(plato)
     }
 
-    override method tareaDeEstacion(platoArmado){
-        if(platoArmado.elemento() == "plato armado"){ //cambiar aca
-            const pedido = selectorPedidos.eleccionDePedido(platoArmado.elementosPlato()) 
-            personajePrincipal.agarrarOSoltar()
-            if (pedido == null) { 
-                puntajeEnJuego.restar(100)  
-                self.tomarPlato(platoArmado)
-            } else{
-                self.procesoPlato(pedido, platoArmado)
-            }
-            
-        }
+    override method tareaDeEstacion(objeto){
+        objeto.entregarEnMesaEntrega()
     }
 }
-
 
 const mesadaEntrega1 = new MesadaEntrega(
     position = game.at(14,11),
