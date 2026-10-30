@@ -92,7 +92,7 @@ object pantallaFinal inherits Pantalla (
 class PantallaNivel inherits Pantalla{
     method mostrarInfoNivel() {
         game.addVisual(self)
-        game.schedule(2000, { game.removeVisual(self) })
+        game.schedule(3500, { game.removeVisual(self) })
     }
 }
 

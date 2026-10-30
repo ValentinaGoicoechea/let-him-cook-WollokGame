@@ -22,9 +22,9 @@ class Nivel{
         cajonDeHuevo.reponerStock()
         cajonDeBife.reponerStock()
         pantalla.mostrarInfoNivel()
-        controladorDePartida.puntosSegunNivel()
-        generadorDePedidos.empezar(self) 
-
+        game.schedule(5200, {
+            controladorDePartida.puntosSegunNivel()
+            generadorDePedidos.empezar(self) })
     }
 }
 
