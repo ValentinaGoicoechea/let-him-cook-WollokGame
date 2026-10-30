@@ -66,10 +66,12 @@ object pantallaSeleccionPersonaje inherits Pantalla(
 }
 
 object pantallaFinal inherits Pantalla (
-    image= {
-        if(controladorDePartida.partidaGanada()) return "imagenesFondos/finalGanaste.png" 
-        else return "imagenesFondos/finalPerdiste.png"}
-    ){ 
+    image = "imagenesEstaciones/vacio.png"
+    ){
+    override method image(){
+        if (controladorDePartida.partidaGanada()) return "imagenesFondos/finalGanaste.png"
+        else return "imagenesFondos/finalPerdiste.png"
+    }
     override method ejecutarPantalla() {
         super()  
         keyboard.z().onPressDo({
