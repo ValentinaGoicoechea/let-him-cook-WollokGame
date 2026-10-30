@@ -89,6 +89,20 @@ object pantallaFinal inherits Pantalla (
     }
 }
 
+class PantallaNivel inherits Pantalla{
+    method mostrarInfoNivel() {
+        game.addVisual(self)
+        game.schedule(2000, { game.removeVisual(self) })
+    }
+}
+
+const pantallaNivel1 = new PantallaNivel(
+    image = "imagenesFondos/nivelUno.png"
+)
+
+const pantallaNivel2 = new PantallaNivel(
+    image = "imagenesFondos/nivelDos.png"
+)
 object juegoCocinero { //ANTERIOR 'JUEGO' EN PROGRAM.WPGM
 
     var nivel = nivel1
