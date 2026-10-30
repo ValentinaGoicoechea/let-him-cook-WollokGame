@@ -136,7 +136,5 @@ class PlatoArmado inherits Vajilla(estado = platoArmado){
             elementosPlato.remove(elemento)
         }
     })
-   
-}
-
+    }
 }

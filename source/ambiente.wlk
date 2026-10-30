@@ -3,6 +3,7 @@ import pedidos.*
 import personajeprincipal.*
 import comida.*
 import puntaje.*
+import estados.*
 
 //MANEJO DE ESTACIONES DE LA COCINA + STOCK DEL DEPOSTIO + ENTREGAS
 
@@ -30,13 +31,13 @@ class Estacion{
     }
 
     method tareaDeEstacion(objeto) {
-        if(objeto.tareas().contains(debeValidar) && !estaOcupado){ //plato armado solo va a responder a tirar porque es lo unico que puede hacer
+        if(objeto.estado().tareas().contains(debeValidar) && !estaOcupado){
             prendido = true
             estaOcupado = true
             personajePrincipal.agarrarOSoltar() //el personaje principal suelta el objeto
             objeto.sePuedeAgarrar(false)
             game.schedule(tiempoTarea, { 
-                    objeto.modificado(valorOtorgado)
+                    objeto.estado(valorOtorgado)
                     objeto.sePuedeAgarrar(true)
                     self.tareaExtra(objeto)
             }
@@ -55,7 +56,7 @@ class Estacion{
     }
 }
 
-class CartelPrecaucion {
+class CartelPrecaucion { //ver donde lo movemos
     var property position
     method image() = "cartelPrecaucion.png"
 }
@@ -66,14 +67,14 @@ class Horno inherits Estacion{
     method controlarQuemado(objeto){
         var tiempoHastaQuemarse = 10 //si está mas de 10 segundos despues de cocinarse se quema
         var nombreTick
-        if(numeroEstacion == 1) nombreTick = "controlarQuemado1"
+        if(numeroEstacion == 1) nombreTick = "controlarQuemado1" //Ver como cambiar esto
         if(numeroEstacion == 2) nombreTick = "controlarQuemado2"
 
         self.crearCartelPrecaucion()
         game.onTick(500, nombreTick, { //controla cada medio segundo
             if(tiempoHastaQuemarse == 0){ //no me importa la posicion, si llego a 0 se quemó
                 self.liberar()
-                objeto.modificado("quemado")
+                objeto.estado(quemada)
                 game.removeTickEvent(nombreTick)
                 game.removeVisual(precaucion)
             } else if (tiempoHastaQuemarse == 5) {
@@ -187,19 +188,17 @@ class MesadaEntrega inherits Mesada{
     method devolverPlatoSucio(plato){
         plato.position(game.at(4,5))
         plato.modificado("sucio")
-        plato.estaEnPlato(false) //lo saco de plato
+        plato.estaEnPlato(false)
     }
 
     method resetearPlatoArmado(plato){
-        plato.elementosPlato().forEach({elemento => if (elemento.elemento() != "plato"){game.removeVisual(elemento)}}) //borro todos los ingredientes de plato armado que no sea "plato"
-        plato.elementosPlato().clear() //libero la lista de elementos del objeto PlatoArmado
+        plato.elementosPlato().forEach({elemento => if (elemento.elemento() != "plato"){game.removeVisual(elemento)}}) //cambiar aca
+        plato.elementosPlato().clear() 
         game.removeVisual(plato)
     }
-
-    //Debería aparecer un plato sucio y volver a estar donde estaba el platoArmado
     
     method tomarPlato(plato){
-        const platoUsado = plato.elementosPlato().findOrDefault({elemento => elemento.elementoYEstado() == "plato"}, null) //obtengo el plato que usaba el platoArmado
+        const platoUsado = plato.elementosPlato().findOrDefault({elemento => elemento.elementoYEstado() == "plato"}, null) //cambiar aca
         if(platoUsado != null){
             self.resetearPlatoArmado(plato)
             self.devolverPlatoSucio(platoUsado)
@@ -215,10 +214,10 @@ class MesadaEntrega inherits Mesada{
     }
 
     override method tareaDeEstacion(platoArmado){
-        if(platoArmado.elemento() == "plato armado"){
-            const pedido = selectorPedidos.eleccionDePedido(platoArmado.elementosPlato()) //elije el pedido que coincida con los elementos de la receta y la que tenga mas prioridad
-            personajePrincipal.agarrarOSoltar() //suelta el plato armado
-            if (pedido == null) { //Si el plato no coincide con ningun pedido
+        if(platoArmado.elemento() == "plato armado"){ //cambiar aca
+            const pedido = selectorPedidos.eleccionDePedido(platoArmado.elementosPlato()) 
+            personajePrincipal.agarrarOSoltar()
+            if (pedido == null) { 
                 puntajeEnJuego.restar(100)  
                 self.tomarPlato(platoArmado)
             } else{
@@ -252,16 +251,16 @@ class MesadaArmado inherits Mesada{
     var property hayPlatoParaArmar = false
 
     method crearPlatoArmado(){
-      platoEnArmado = new PlatoArmado(position = position) //Creo un nuevo PlatoArmado
+      platoEnArmado = new PlatoArmado(position = position) 
     }
 
     method recibirPlatoLimpio(objeto){
-        if(platoEnArmado == null){ //si no hay plato armado => no hay plato en la mesa
+        if(platoEnArmado == null){
             self.crearPlatoArmado()
             game.addVisual(platoEnArmado)               
-            platoEnArmado.elementosPlato().add(objeto) //agrego el plato
-            objeto.estaEnPlato(true)  //agrego plato a PlatoArmado
-            personajePrincipal.agarrarOSoltar() //el personaje suelta el plato
+            platoEnArmado.elementosPlato().add(objeto) 
+            objeto.estaEnPlato(true)  
+            personajePrincipal.agarrarOSoltar() 
             hayPlatoParaArmar = true
                 
         } 
@@ -270,7 +269,7 @@ class MesadaArmado inherits Mesada{
     method recibirPlatoArmado(objeto){
         if(platoEnArmado == null){
             hayPlatoParaArmar = true
-            platoEnArmado = objeto //actualizo el nuevo plato en armado
+            platoEnArmado = objeto 
             personajePrincipal.agarrarOSoltar()
         }
     }
@@ -289,9 +288,9 @@ class MesadaArmado inherits Mesada{
     }
 
     method agarrarPlatoArmado() {
-        if( platoEnArmado != null && platoEnArmado.sePuedeAgarrar()){ //si tiene el plato y algun elemento
+        if( platoEnArmado != null && platoEnArmado.sePuedeAgarrar()){
             hayPlatoParaArmar = false
-            platoEnArmado = null //no hay plato en armado, está dando vueltas 
+            platoEnArmado = null 
         }
     }
 }
