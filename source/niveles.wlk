@@ -30,7 +30,6 @@ class Nivel{
 
 object nivel2 inherits Nivel(
     puntosParaGanar = 850,
-    siguienteNivel = null,
     pantalla = pantallaNivel2
     ){
     override method nuevoPedido() {
@@ -40,7 +39,7 @@ object nivel2 inherits Nivel(
         if (!game.allVisuals().contains(cajonDePapas)) {
             game.addVisual(cajonDePapas)
         }
-        if (!game.allVisuals().contains(cajonDePollo)) { //ver como cambiar esta logica
+        if (!game.allVisuals().contains(cajonDePollo)) {
             game.addVisual(cajonDePollo)
         }
         cajonDePollo.reponerStock()
