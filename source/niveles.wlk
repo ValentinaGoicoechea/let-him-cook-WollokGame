@@ -3,12 +3,12 @@ import ambiente.*
 import controladorPantallasYNiveles.*
 import puntaje.*
 
+class Nivel{
+    var property puntosParaGanar 
+    var property siguienteNivel 
 
-object nivel1 {
-    var property puntosParaGanar = 750
-    var property siguienteNivel = nivel2
     method nuevoPedido() {
-        generadorDePedidos.pedir(1)  //Solo ojo de bife con huevo
+        //segun el nivel se crean distinto pedidos
     }
 
     method iniciar() {
@@ -21,31 +21,26 @@ object nivel1 {
 
     }
 }
-object nivel2 {
-    var property puntosParaGanar = 850
-    var property siguienteNivel = nivel3
-    method nuevoPedido() {
+object nivel1 inherits Nivel(
+    puntosParaGanar = 750,
+    siguienteNivel = nivel2
+    ){
+    override method nuevoPedido() {
+        generadorDePedidos.pedir(1)  //Solo ojo de bife con huevo
+    }
+}
+object nivel2 inherits Nivel(
+    puntosParaGanar = 850,
+    siguienteNivel = null
+    ){
+    override method nuevoPedido() {
         generadorDePedidos.pedir(0.randomUpTo(1).round()) //Puede salir ojo de bife y pollo con papas
     }
-    method iniciar() {
-        nivel1.iniciar()
+    override method iniciar() {
         game.addVisual(cajonDePapas)
         game.addVisual(cajonDePollo)
         cajonDePollo.reponerStock()
         cajonDePapas.reponerStock()
-        controladorDePartida.puntosSegunNivel()
-        generadorDePedidos.empezar(self)         
-    }
-}
-object nivel3 {
-    var property puntosParaGanar = 1000
-    var property siguienteNivel = null
-    method nuevoPedido() {
-        generadorDePedidos.pedir(0.randomUpTo(2).round()) //Se agrega el fernet u otra cosa
-    }
-    method iniciar() {
-        nivel2.iniciar()
-        controladorDePartida.puntosSegunNivel()
-        generadorDePedidos.empezar(self)   
+        super()      
     }
 }
