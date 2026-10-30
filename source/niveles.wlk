@@ -6,10 +6,7 @@ import puntaje.*
 class Nivel{
     var property puntosParaGanar 
     var property siguienteNivel 
-}
-object nivel1 {
-    var property puntosParaGanar = 100
-    var property siguienteNivel = nivel2
+
     method nuevoPedido() {
         //segun el nivel se crean distinto pedidos
     }
@@ -24,16 +21,26 @@ object nivel1 {
 
     }
 }
-object nivel2 {
-    var property puntosParaGanar = 100
-    var property siguienteNivel = null
-    method nuevoPedido() {
+object nivel1 inherits Nivel(
+    puntosParaGanar = 750,
+    siguienteNivel = nivel2
+    ){
+    override method nuevoPedido() {
+        generadorDePedidos.pedir(1)  //Solo ojo de bife con huevo
+    }
+}
+object nivel2 inherits Nivel(
+    puntosParaGanar = 850,
+    siguienteNivel = null
+    ){
+    override method nuevoPedido() {
         generadorDePedidos.pedir(0.randomUpTo(1).round()) //Puede salir ojo de bife y pollo con papas
     }
-    method iniciar() {
+    override method iniciar() {
         game.addVisual(cajonDePapas)
         game.addVisual(cajonDePollo)
         cajonDePollo.reponerStock()
-        cajonDePapas.reponerStock()     
+        cajonDePapas.reponerStock()
+        super()      
     }
 }
