@@ -76,15 +76,8 @@ object personajePrincipal{
 
     method accionarCajon() {
         const cajon = self.elementoEn(self.posicionDondeMiro(), "stock")
-        if (cajon != null) cajon.reponerStock()
+        if (cajon != null) {
+        cajon.reponerStock()
+        }
     }
 }
-/* Creo que no es necesario
-object cocinero {
-    method idImagen() = "imagenesPersonajes/cocinero" 
-}
-
-object parrillero { //Después vemos el nombre
-    method idImagen() = "imagenesPersonajes/parrillero" 
-}
-*/

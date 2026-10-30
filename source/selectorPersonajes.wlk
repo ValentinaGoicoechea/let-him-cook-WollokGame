@@ -9,16 +9,18 @@ object selectorPersonajes { //highlight alrededor de personaje
     const personajesDisponibles = [ropaCocinero, ropaOtro] //cambiar nombres a futuro
     var personajeActual = null //el personaje actualmente seleccionado
     var personajeElegido = null // el personaje confirmado tras seleccion
-    method image() = "imagenesFondos/selectorPersonajes.png"
+    method image() {if(personajeActual == null ) return "imagenesEstaciones/vacio.png"
+                    else return "imagenesFondos/selectorPersonajes.png"}
 
 
     method seleccionarPersonaje(numero){
         personajeActual = personajesDisponibles.find({personaje => personaje.numero() == numero})
         if(personajeActual != null){
-            position = personajeActual.position()
+            position = personajeActual.posicionSelector()
             teclado.confirmarPersonaje()
         }
         
+    
     }
 
     method confirmarSeleccion(){ //solo se va a activar cuando ya tenga un personaje actual
@@ -37,19 +39,16 @@ object selectorPersonajes { //highlight alrededor de personaje
 class Personajes{
     var property tipo
     var property numero
-    var property position
-    var property image
+    const property posicionSelector
 }
 
 const ropaCocinero = new Personajes(
     tipo = "cocinero",
     numero = 1,
-    position = game.at(15, 8),
-    image = "ropaCocinero.png"
+    posicionSelector = game.at(4, 8) 
 )
 const ropaOtro = new Personajes(    //PRUEBA, después hacemos otro tipo de personaje
     tipo = "parrillero",
-    numero =2 ,
-    position = game.at(17, 8),
-    image= "ropaOtro.png"
+    numero =2,
+    posicionSelector = game.at(7, 8) 
 )

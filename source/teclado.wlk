@@ -50,9 +50,6 @@ object teclado{
     }
 
 
-    method iniciarJuego() { 
-        keyboard.enter().onPressDo({pantallaInicio.saltarPantallaInicio()})
-    }
 
    
 }

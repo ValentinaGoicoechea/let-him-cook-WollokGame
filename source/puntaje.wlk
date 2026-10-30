@@ -1,6 +1,8 @@
 import wollok.game.*
 import pedidos.*
 import niveles.*
+import controladorPantallasYNiveles.*
+
 
 //PUNTAJE: CONTEO-SUMA-RESTA-CALCULAR FRENTE A PEDIDOS
 
@@ -87,7 +89,7 @@ object controladorDePartida {
             game.addVisual(pantallaFinal)
             game.addVisual(puntajeFinal)
         })
-        //aca iria una linea para preguntar si terminar (game.stop) o volver al menu...
+        pantallaFinal.ejecutarPantalla()
     }
 
     method otorgarMensajeExtra() {
@@ -109,13 +111,4 @@ object puntajeFinal inherits Puntaje{
         return mensajeExtra + super() //porfin encontre donde usar super !! :')
     }
 }
-object pantallaFinal {
-    const property position = game.at(0, 0)
-    /*
-    method image(){
-        if(controladorDePartida.partidaGanada()) return "" 
-        else ""}
-    FALTA LAS PANTALLASS, TERMINO DE DISEÑARLAS...*/
 
-    //aca volveria a la pantalla de menu de seleccion de p
-}
