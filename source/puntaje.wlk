@@ -86,11 +86,11 @@ object controladorDePartida {
 
     method terminarPartida() {
         partidaTerminada = true
+        generadorDePedidos.terminar(nivelActual)
         game.schedule(100, {
             game.clear()
             puntajeFinal.valor(puntajeEnJuego.valor())
             self.otorgarMensajeExtra()
-            game.addVisual(pantallaFinal)
             pantallaFinal.ejecutarPantalla()
             game.addVisual(puntajeFinal)
         })

@@ -11,17 +11,24 @@ class Pedido{
     var property position //van apareciendo a la derecha y "caen"
     var property estado = nuevo //Pruebo que estado tenga asignado un objeto
     var property seEntrego = false
+    var property cancelado = false
+
 
     method ingredientes() = receta.ingredientes()
 
     method image() = receta.imagenSegun(estado)
 
+    method cancelarPorCambioDeNivel() {
+        cancelado = true
+        if(game.allVisuals().contains(self)) game.removeVisual(self)
+    }
+
     method estadoDelPedido() {
         game.addVisual(self)
-        game.schedule(20000,  { estado = espera1 })
-        game.schedule(30000, { estado = espera2 })
+        game.schedule(20000,  {if (!cancelado) estado = espera1 })
+        game.schedule(30000, {if (!cancelado) estado = espera2 })
         game.schedule(40000, { 
-            if (!seEntrego) {
+            if (!seEntrego && !cancelado) {
                 estado = perdido 
                 puntajeEnJuego.restar(100)
                 controladorDePartida.pedidoPerdido()
@@ -115,26 +122,16 @@ object generadorDePedidos {
     }
 
     method empezar(nivel) {
-        //try {
-          //  game.removeTickEvent("generarPedido")
-       // } catch e {
-       // }
         self.nuevoPedido(nivel)                                     
         game.onTick(20000, "generarPedido", { self.cambiarPosicionPedidosActivos()
         self.nuevoPedido(nivel) }) //Creacion de pedidos cda 40 sec
     }
 
     method terminar(nivel){
-        listapedidos.forEach({pedido => game.removeVisual(pedido)}) //los pone como perdidos y resta puntos y vida (esta mal)
+        listapedidos.forEach({pedido => pedido.cancelarPorCambioDeNivel()}) //los pone como perdidos y resta puntos y vida (esta mal)
         listapedidos.clear()
-        //try {
-        //    game.removeTickEvent("generarPedido")
-        //} catch e {
-            
-        //}
-
     }
-    //esta parte se modificaria segun el nivel
+    
 }
 
 object selectorPedidos{
