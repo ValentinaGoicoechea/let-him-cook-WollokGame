@@ -37,6 +37,19 @@ object puntajeEnJuego inherits Puntaje{
     }
 }
 
+class PedidosMalEntregados{
+    var position
+    var numeroVida
+
+    method image() = "imagenesFondo/vida.png"
+
+}
+
+const vida1 = new PedidosMalEntregados(
+    position = game.at(3,2),
+    numeroVida = 1
+)
+
 
 object controladorDePartida {
     //NIVEL BASICON
@@ -53,6 +66,10 @@ object controladorDePartida {
 
     method pedidoPerdido() {
         pedidosPerdidos += 1
+    }
+
+    method controlarVidas(){
+        
     }
 
     method controlarProgresoPartida() {
