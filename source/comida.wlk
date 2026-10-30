@@ -11,157 +11,99 @@ class Comida{
     var property estaEnPlato = false
     var property sePuedeAgarrar = true 
 
-
-    //var property modificado = ""
-    //method elemento() = "comida"
-
-    method esPlato() = false //raro, cambiar
-
-    
     method nuevaPosicion(posicion){
         self.position(posicion)
     }
-
-    //INTERACCIONES CON ESTACIONES
     
     method vaciarElementos() {}
 
     method desaparecerDeBasura() {
         game.removeVisual(self)
     }
-    method procesarEnMesadaEntrega(mesadaEntrega) { //no suelta nada en la mesa de entrega, no hace nada
-    }
+
+    method procesarEnMesadaEntrega(mesadaEntrega) {} //no suelta nada en la mesa de entrega, no hace nada
 
     method colocarseEnMesadaArmado(){
         MesadaArmado.recibirComida(self)
     }
 
-    method elementoYEstado()
-    method image()
-    method tareas() { //CAMBIAR
-        if(self.modificado() ==  "cocinado") return ["tirar"]
-        if(self.modificado() == "tirado") return [] 
-        return ["cocinar", "tirar"]
-    }
+    method tareasCruda() = ["cocinar", "tirar"]
+    method tareasCortada() = [] //solo papa 
+    method image() {estado.image(self)} //la imagen se activa segun el estado en el que se encuentra
+    method tareas() = estado.tareas(self)
+
 }
 
 
 class PechugaDePollo inherits Comida{
+    method nombreCruda() = "pechugaDePollo"
+    method nombreCocinada() = "pechugacocinada"
+    method nombreQuemada() = "pechugaQuemada"
 
-    override method elementoYEstado(){
-        if(self.modificado() == "cocinado") return "pechugaCocinada"
-        else return "pechugaDePollo"
-    }
-    
-    
-    override method image(){
-        if(self.modificado() ==  "cocinado") { return "imagenesComida-Vajilla/pechugacocinada.png"}
-        
-        if(self.modificado() == "tirado") return "vacio.png"
-
-        if(self.modificado() == "quemado") return "imagenesComida-Vajilla/pechugaquemada.png"
-
-        
-        return "imagenesComida-Vajilla/pechuga.png"
-    }
+    method imagenCruda() = "imagenesComida-Vajilla/pechuga.png"
+    method imagenCocinada() = "imagenesComida-Vajilla/pechugacocinada.png"
+    method imagenQuemada() = "imagenesComida-Vajilla/pechugaquemada.png"
     
 }
 
 class Papa inherits Comida{
-    
-    override method elementoYEstado(){
-        if(self.modificado() == "cocinado") return "papasFritas"
-        else if(self.modificado() == "cortada") return "papaCortada"
-        else return "papaCruda"
-    }
 
-    
-    override method image(){
-        if(self.modificado() == "cocinado") { return "imagenesComida-Vajilla/papaFrita.png"}
-        
-        if(self.modificado() == "cortada") { return "imagenesComida-Vajilla/papaCortada.png"}
+    method nombreCruda() = "papaCruda"
+    method nombreCortada() = "papaCortada"
+    method nombreCocinada() = "papasFritas"
+    method nombreQuemada() = "papaFritaQuemada"
 
-        if(self.modificado() == "tirado") return "vacio.png"
+    method imagenCruda() = "imagenesComida-Vajilla/papaCruda.png"
+    method imagenCortada() = "imagenesComida-Vajilla/papaCortada.png"
+    method imagenCocinada() = "imagenesComida-Vajilla/papaFrita.png"
+    method imagenQuemada() = "imagenesComida-Vajilla/papaFritaQuemada.png"
 
-        if(self.modificado() == "quemado") return "imagenesComida-Vajilla/papaFritaQuemada.png"
-        
-        return "imagenesComida-Vajilla/papaCruda.png"
-        
-    }
+    override method tareasCruda() = ["cortar", "tirar"] //es el unico que puede (y debe) cortarse antes de cocinarse
+    override method tareasCortada() = ["cocinar", "tirar"]
 
-    override method tareas() {
-        if(self.modificado() ==  "cortada") return ["cocinar", "tirar"]
-        if(self.modificado() == "cocinado") return ["tirar"]
-        if(self.modificado() == "tirado") return [] 
-        return ["cortar", "tirar"]
-    }
 }
 
 class OjoDeBife inherits Comida {
+    method nombreCruda() = "ojoBife"
+    method nombreCocinada() = "ojoBifeCocinado"
+    method nombreQuemada() = "ojoBifeQuemado"
 
-    override method elementoYEstado() {
-        if (self.modificado() == "cocinado") return "ojoBifeCocinado"
-        else return "ojoBife"
-    }
-
-    override method image() {
-        if (self.modificado() == "cocinado") return "imagenesComida-Vajilla/ojoBifeCocinado.png"
-
-        else if(self.modificado() == "quemado") return "imagenesComida-Vajilla/ojoBifeQuemado.png"
-
-        else return "imagenesComida-Vajilla/ojoBife.png"
-    }
+    method imagenCruda() = "imagenesComida-Vajilla/ojoBife.png"
+    method imagenCocinada() = "imagenesComida-Vajilla/ojoBifeCocinado.png"
+    method imagenQuemada() = "imagenesComida-Vajilla/ojoBifeQuemado.png"
 }
 
 class Huevo inherits Comida {
+    method nombreCruda() = "huevo"
+    method nombreCocinada() = "huevoFrito"
+    method nombreQuemada() = "huevoFritoQuemado"
 
-    override method elementoYEstado() {
-        if (self.modificado() == "cocinado") return "huevoFrito"
-        else return "huevo"
-    }
-
-    override method image() {
-        if (self.modificado() == "cocinado") return "imagenesComida-Vajilla/huevoFrito.png"
-        else if (self.modificado() == "quemado") return "imagenesComida-Vajilla/huevoFritoQuemado.png"
-        else return "imagenesComida-Vajilla/huevo.png"
-    }
+    method imagenCruda() = "imagenesComida-Vajilla/huevo.png"
+    method imagenCocinada() = "imagenesComida-Vajilla/huevoFrito.png"
+    method imagenQuemada() = "imagenesComida-Vajilla/huevoFritoQuemado.png"
 }
 
 class Vajilla {
     var property position
     var property estaEnPlato = false
     var property sePuedeAgarrar = true
-    //var property modificado
-
-
-    method tareas() 
-    method elemento()
+    var property estado
 
     method nuevaPosicion(posicion){
         self.position(posicion)
     }
+
+    method image() {estado.image(self)} //la imagen se activa segun el estado en el que se encuentra
+    method tareas() = estado.tareas(self)
 }
-class Plato inherits Vajilla() {  
-    var property estado  
-
+class Plato inherits Vajilla {  
     method colocarseEnMesadaArmado(){
-        if(modificado == "limpio"){
-            MesadaArmado.recibirPlatoLimpio(self)
-        }
+        estado.colocarseEnMesadaArmado(self)
+
     }
 
-    method image(){
-        if(self.modificado() == "limpio") return "imagenesComida-Vajilla/plato.png"
-        else return "imagenesComida-Vajilla/platoSucio.png"
-    }
-    override method tareas() {
-        if(self.modificado() == "limpio") return []
-        else return ["limpiar"]
-    }
-    override method elemento() = "plato"
-    
-    method elementoYEstado() = "plato"
-
+    method imagenLimpio() = "imagenesComida-Vajilla/plato.png"
+    method imagenSucio() = "imagenesComida-Vajilla/platoSucio.png"
 }
 
 const plato1 = new Plato(
@@ -179,11 +121,7 @@ const plato3 = new Plato(
     estado = limpio
 )
 
-class PlatoArmado inherits Vajilla(){
-    
-    override method tareas() = ["tirar"]
-    override method elemento() = "plato armado"
-
+class PlatoArmado inherits Vajilla(estado = platoArmado){
     var property elementosPlato = []
     
     override method nuevaPosicion(nuevaPos) {
@@ -191,19 +129,14 @@ class PlatoArmado inherits Vajilla(){
         elementosPlato.forEach({ elem => elem.position(nuevaPos) })
     } 
     
-    method colocarseEnMesadaArmado(){
-        MesadaArmado.recibirPlatoArmado(self)
-    }
-
     method vaciarElementos() {
-    self.categoria().sePuedeAgarrar(false)
     elementosPlato.forEach({ elemento => 
         if (elemento.elemento() != "plato") {
             game.removeVisual(elemento)
             elementosPlato.remove(elemento)
         }
     })
-    self.categoria().sePuedeAgarrar(true)
+   
 }
 
 }
