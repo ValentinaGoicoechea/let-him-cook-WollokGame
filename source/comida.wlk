@@ -1,26 +1,35 @@
 import source.ambiente.*
 import wollok.game.*
+import estados.*
 
 // COMIDAS Y VAJILLA (CLASES Y OBJETOS)
 
 
 class Comida{
     var property position 
-    var property modificado = ""
+    var property estado = cruda //asi comienzan todas las comidas
     var property estaEnPlato = false
     var property sePuedeAgarrar = true 
+
+
+    //var property modificado = ""
     //method elemento() = "comida"
 
-    method esPlato() = false
+    method esPlato() = false //raro, cambiar
+
+    
+    method nuevaPosicion(posicion){
+        self.position(posicion)
+    }
+
+    //INTERACCIONES CON ESTACIONES
     
     method vaciarElementos() {}
 
     method desaparecerDeBasura() {
         game.removeVisual(self)
     }
-
-    method procesarEnMesadaEntrega(mesadaEntrega) {
-        // Por defecto, los alimentos sueltos no se pueden entregar en la mesada de entrega
+    method procesarEnMesadaEntrega(mesadaEntrega) { //no suelta nada en la mesa de entrega, no hace nada
     }
 
     method colocarseEnMesadaArmado(){
@@ -29,13 +38,10 @@ class Comida{
 
     method elementoYEstado()
     method image()
-    method tareas() {
+    method tareas() { //CAMBIAR
         if(self.modificado() ==  "cocinado") return ["tirar"]
         if(self.modificado() == "tirado") return [] 
         return ["cocinar", "tirar"]
-    }
-    method nuevaPosicion(posicion){
-        self.position(posicion)
     }
 }
 
@@ -125,7 +131,7 @@ class Vajilla {
     var property position
     var property estaEnPlato = false
     var property sePuedeAgarrar = true
-    var property modificado
+    //var property modificado
 
 
     method tareas() 
@@ -136,7 +142,8 @@ class Vajilla {
     }
 }
 class Plato inherits Vajilla() {  
-    
+    var property estado  
+
     method colocarseEnMesadaArmado(){
         if(modificado == "limpio"){
             MesadaArmado.recibirPlatoLimpio(self)
@@ -159,20 +166,20 @@ class Plato inherits Vajilla() {
 
 const plato1 = new Plato(
     position = game.at(16,3),
-    modificado = "limpio"
+    estado = limpio
 )
 
 const plato2 = new Plato(
     position = game.at(16,3),
-    modificado = "limpio"
+    estado = limpio
 )
 
 const plato3 = new Plato(
     position = game.at(16,3),
-    modificado = "limpio"
+    estado = limpio
 )
 
-class PlatoArmado inherits Vajilla(modificado = null){
+class PlatoArmado inherits Vajilla(){
     
     override method tareas() = ["tirar"]
     override method elemento() = "plato armado"
