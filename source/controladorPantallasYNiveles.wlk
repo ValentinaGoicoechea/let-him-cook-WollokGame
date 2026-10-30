@@ -29,6 +29,14 @@ class Pantalla{
 }
 object pantallaInicio inherits Pantalla(
     image = "imagenesFondos/menuInicio.png"
+){
+    override method pasarASiguiente(){
+        pantallaHistoria.ejecutarPantalla()
+    }
+}
+
+object pantallaHistoria inherits Pantalla(
+    image = "imagenesFondos/juegoHistoria.png"
     ){
     override method pasarASiguiente(){
         pantallaTeclas.ejecutarPantalla()

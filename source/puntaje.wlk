@@ -9,6 +9,7 @@ import controladorPantallasYNiveles.*
 class Puntaje{
     var property valor = 0
     method text() = "PUNTAJE: " + valor
+    method textColor() = "FFFFFF"
     method position()
 }
 

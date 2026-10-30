@@ -3,12 +3,15 @@ import ambiente.*
 import controladorPantallasYNiveles.*
 import puntaje.*
 
-
+class Nivel{
+    var property puntosParaGanar 
+    var property siguienteNivel 
+}
 object nivel1 {
     var property puntosParaGanar = 100
     var property siguienteNivel = nivel2
     method nuevoPedido() {
-        generadorDePedidos.pedir(1)  //Solo ojo de bife con huevo
+        //segun el nivel se crean distinto pedidos
     }
 
     method iniciar() {
@@ -31,20 +34,6 @@ object nivel2 {
         game.addVisual(cajonDePapas)
         game.addVisual(cajonDePollo)
         cajonDePollo.reponerStock()
-        cajonDePapas.reponerStock()
-        controladorDePartida.puntosSegunNivel()
-        generadorDePedidos.empezar(self)         
-    }
-}
-object nivel3 {
-    var property puntosParaGanar = 1000
-    var property siguienteNivel = null
-    method nuevoPedido() {
-        generadorDePedidos.pedir(0.randomUpTo(2).round()) //Se agrega el fernet u otra cosa
-    }
-    method iniciar() {
-        nivel2.iniciar()
-        controladorDePartida.puntosSegunNivel()
-        generadorDePedidos.empezar(self)   
+        cajonDePapas.reponerStock()     
     }
 }
