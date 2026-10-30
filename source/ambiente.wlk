@@ -7,6 +7,11 @@ import estados.*
 
 
 //MANEJO DE ESTACIONES DE LA COCINA + STOCK DEL DEPOSTIO + ENTREGAS
+//COSAS A CAMBIAR 
+//Usar los estados de los elementos y delegar ahi 
+//Cambiar el elemento estacion y el elemento stock
+
+
 
 class Estacion{
     const property position
