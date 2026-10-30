@@ -29,16 +29,19 @@ class Nivel{
 }
 
 object nivel2 inherits Nivel(
-    puntosParaGanar = 850,
-    siguienteNivel = null,
+    puntosParaGanar = 100,
     pantalla = pantallaNivel2
     ){
     override method nuevoPedido() {
         generadorDePedidos.pedir(0.randomUpTo(1).round()) //Puede salir ojo de bife y pollo con papas
     }
     override method iniciar() {
-        game.addVisual(cajonDePapas)
-        game.addVisual(cajonDePollo)
+        if (!game.allVisuals().contains(cajonDePapas)) {
+            game.addVisual(cajonDePapas)
+        }
+        if (!game.allVisuals().contains(cajonDePollo)) {
+            game.addVisual(cajonDePollo)
+        }
         cajonDePollo.reponerStock()
         cajonDePapas.reponerStock()
         super()      
@@ -46,7 +49,7 @@ object nivel2 inherits Nivel(
 }
 
 object nivel1 inherits Nivel(
-    puntosParaGanar = 750,
+    puntosParaGanar = 100,
     siguienteNivel = nivel2,
     pantalla = pantallaNivel1
     ){
