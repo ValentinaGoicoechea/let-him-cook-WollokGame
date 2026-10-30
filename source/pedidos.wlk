@@ -1,6 +1,7 @@
 import source.comida.*
 import wollok.game.*
 import puntaje.*
+import niveles.*
 
 //PEDIDOS(CLASES Y OBJETOS) + GENERADOR + SELECTOR DE PEDIDOS
 
@@ -134,18 +135,3 @@ object selectorPedidos{
     })
 }
 
-object nivel1 {
-    method nuevoPedido() {
-        generadorDePedidos.pedir(1)  //Solo ojo de bife con huevo
-    }
-}
-object nivel2 {
-    method nuevoPedido() {
-        generadorDePedidos.pedir(0.randomUpTo(1).round()) //Puede salir ojo de bife y pollo con papas
-    }
-}
-object nivel3 {
-    method nuevoPedido() {
-        generadorDePedidos.pedir(0.randomUpTo(2).round()) //Se agrega el fernet u otra cosa
-    }
-}

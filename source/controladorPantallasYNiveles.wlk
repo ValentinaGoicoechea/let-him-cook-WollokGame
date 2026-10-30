@@ -6,6 +6,7 @@ import comida.*
 import pedidos.*
 import puntaje.*
 import selectorPersonajes.*
+import niveles.*
 
 //CAMBIO DE PANTALLAS (INICIO, MENU DE PERSONAJES, NIVELES)
 
@@ -78,7 +79,9 @@ object juegoCocinero { //ANTERIOR 'JUEGO' EN PROGRAM.WPGM
         teclado.realizarAccion()
         teclado.interactuarConCajon()
         game.onTick(100, "moverCocinero", { personajePrincipal.darPaso() }) 
-        
+
+
+        controladorDePartida.puntosSegun(nivel)
         generadorDePedidos.empezar(nivel) //LINEA QUE PODRIA LLEGAR A CAMBIAR CON LA IMPLEMENTACION DE NIVELES
 
 
