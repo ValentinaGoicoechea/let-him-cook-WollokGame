@@ -58,8 +58,6 @@ object pantallaSeleccionPersonaje inherits Pantalla(
     override method ejecutarPantalla() {
         super()  
         game.addVisual(selectorPersonajes)
-        game.addVisual(ropaCocinero)
-        game.addVisual(ropaOtro)
         teclado.seleccion()
     }
 
