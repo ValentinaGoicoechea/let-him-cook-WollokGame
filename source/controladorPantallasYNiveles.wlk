@@ -9,30 +9,57 @@ import selectorPersonajes.*
 
 //CAMBIO DE PANTALLAS (INICIO, MENU DE PERSONAJES, NIVELES)
 
-object pantallaInicio {
+class Pantalla{
     const property position = game.at(0, 0)
-    method image() = "imagenesFondos/menuInicio.png"
+    const property image
 
-    method saltarPantallaInicio() {
+    method ejecutarPantalla() {
+        game.clear()
+        game.addVisual(self)
         keyboard.enter().onPressDo({
-            pantallaSeleccionPersonaje.iniciarSeleccionPersonajes() //funcionando
-            pantallaSeleccionPersonaje.iniciarSeleccionPersonajes()
+            self.pasarASiguiente()
         })
+    }
+
+    method pasarASiguiente(){
+      //ABSTRACTO: depende de cada pantalla
+    }
+
+}
+object pantallaInicio inherits Pantalla(
+    image = "imagenesFondos/menuInicio.png"
+    ){
+    override method pasarASiguiente(){
+        pantallaTeclas.ejecutarPantalla()
     }
 }
 
-object pantallaSeleccionPersonaje {
-    var property position = game.at(10, 5)
-    method image() = "imagenesFondos/fondoSeleccionPersonajes.png"
+object pantallaTeclas inherits Pantalla(
+    image = "imagenesFondos/juegoReglas.png"
+    ){
+    override method pasarASiguiente(){
+        pantallaEstaciones.ejecutarPantalla()
+    }
+    
+}
 
-    method iniciarSeleccionPersonajes() {
-        game.clear()
-        game.addVisual(self)
+object pantallaEstaciones inherits Pantalla(
+    image = "imagenesFondos/juegoEstaciones.png"
+    ){
+    override method pasarASiguiente(){
+        pantallaSeleccionPersonaje.ejecutarPantalla()
+    }
+    
+}
+object pantallaSeleccionPersonaje inherits Pantalla(
+    image = "imagenesFondos/seleccionDePersonajes.png"
+    ){
+    override method ejecutarPantalla() {
+        super()  
         game.addVisual(selectorPersonajes)
-        game.addVisual(ropaCocinero) //PRUEBA
-        game.addVisual(ropaOtro) //PRUEBA
+        game.addVisual(ropaCocinero)
+        game.addVisual(ropaOtro)
         teclado.seleccion()
-       
     }
 
 }
