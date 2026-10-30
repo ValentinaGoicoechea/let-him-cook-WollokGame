@@ -65,6 +65,22 @@ object pantallaSeleccionPersonaje inherits Pantalla(
 
 }
 
+object pantallaFinal inherits Pantalla (
+    image= {
+        if(controladorDePartida.partidaGanada()) return "imagenesFondos/finalGanaste.png" 
+        else return "imagenesFondos/finalPerdiste.png"}
+    ){ 
+    override method ejecutarPantalla() {
+        super()  
+        keyboard.z().onPressDo({
+            game.stop()})
+        
+    }
+    override method pasarASiguiente(){
+        pantallaSeleccionPersonaje.ejecutarPantalla() //seria en la de nivel
+    }
+}
+
 object juegoCocinero { //ANTERIOR 'JUEGO' EN PROGRAM.WPGM
 
     var nivel = nivel1
@@ -75,7 +91,6 @@ object juegoCocinero { //ANTERIOR 'JUEGO' EN PROGRAM.WPGM
 
     method iniciarJuego() { // SE MANTIENE IGUAL PARA TODOS LOS NIVELES
         game.clear()
-        game.removeVisual(pantallaSeleccionPersonaje)
         game.addVisual(horno1)
         game.addVisual(horno2)
         game.addVisual(mesadaEntrega1)
