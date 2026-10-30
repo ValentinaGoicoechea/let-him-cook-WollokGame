@@ -14,8 +14,7 @@ program juego{
     game.title("LET HIM COOK")
     game.boardGround("imagenesFondos/fondoCocina.png")
     
-    game.addVisual(pantallaInicio)
-    pantallaInicio.saltarPantallaInicio()
+    pantallaInicio.ejecutarPantalla()
 
     game.start()
    

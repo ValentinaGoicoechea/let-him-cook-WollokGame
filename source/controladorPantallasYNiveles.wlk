@@ -10,44 +10,83 @@ import niveles.*
 
 //CAMBIO DE PANTALLAS (INICIO, MENU DE PERSONAJES, NIVELES)
 
-object pantallaInicio {
+class Pantalla{
     const property position = game.at(0, 0)
-    method image() = "imagenesFondos/menuInicio.png"
+    const property image
 
-    method saltarPantallaInicio() {
+    method ejecutarPantalla() {
+        game.clear()
+        game.addVisual(self)
         keyboard.enter().onPressDo({
-            pantallaSeleccionPersonaje.iniciarSeleccionPersonajes() //funcionando
+            self.pasarASiguiente()
         })
+    }
+
+    method pasarASiguiente(){
+      //ABSTRACTO: depende de cada pantalla
+    }
+
+}
+object pantallaInicio inherits Pantalla(
+    image = "imagenesFondos/menuInicio.png"
+    ){
+    override method pasarASiguiente(){
+        pantallaTeclas.ejecutarPantalla()
     }
 }
 
-object pantallaSeleccionPersonaje {
-    var property position = game.at(10, 5)
-    method image() = "imagenesFondos/fondoSeleccionPersonajes.png"
+object pantallaTeclas inherits Pantalla(
+    image = "imagenesFondos/juegoReglas.png"
+    ){
+    override method pasarASiguiente(){
+        pantallaEstaciones.ejecutarPantalla()
+    }
+    
+}
 
-    method iniciarSeleccionPersonajes() {
-        game.clear()
-        game.addVisual(self)
+object pantallaEstaciones inherits Pantalla(
+    image = "imagenesFondos/juegoEstaciones.png"
+    ){
+    override method pasarASiguiente(){
+        pantallaSeleccionPersonaje.ejecutarPantalla()
+    }
+    
+}
+object pantallaSeleccionPersonaje inherits Pantalla(
+    image = "imagenesFondos/seleccionDePersonajes.png"
+    ){
+    override method ejecutarPantalla() {
+        super()  
         game.addVisual(selectorPersonajes)
-        game.addVisual(ropaCocinero) //PRUEBA
-        game.addVisual(ropaOtro) //PRUEBA
         teclado.seleccion()
-       
     }
 
+}
+
+object pantallaFinal inherits Pantalla (
+    image = "imagenesEstaciones/vacio.png"
+    ){
+    override method image(){
+        if (controladorDePartida.partidaGanada()) return "imagenesFondos/finalGanaste.png"
+        else return "imagenesFondos/finalPerdiste.png"
+    }
+    override method ejecutarPantalla() {
+        super()  
+        keyboard.z().onPressDo({
+            game.stop()})
+        
+    }
+    override method pasarASiguiente(){
+        pantallaSeleccionPersonaje.ejecutarPantalla() //seria en la de nivel
+    }
 }
 
 object juegoCocinero { //ANTERIOR 'JUEGO' EN PROGRAM.WPGM
 
     var nivel = nivel1
 
-    method asignarNivel(nuevoNivel) {
-        nivel = nuevoNivel
-    }
-
     method iniciarJuego() { // SE MANTIENE IGUAL PARA TODOS LOS NIVELES
         game.clear()
-        game.removeVisual(pantallaSeleccionPersonaje)
         game.addVisual(horno1)
         game.addVisual(horno2)
         game.addVisual(mesadaEntrega1)
@@ -59,10 +98,6 @@ object juegoCocinero { //ANTERIOR 'JUEGO' EN PROGRAM.WPGM
         game.addVisual(tablaDeCortar)
         game.addVisual(basura)
         game.addVisual(bacha)
-        game.addVisual(cajonDePapas)
-        game.addVisual(cajonDePollo)
-        game.addVisual(cajonDeHuevo)
-        game.addVisual(cajonDeBife)
         game.addVisual(personajePrincipal)
         game.addVisual(plato1)
         game.addVisual(plato2)
@@ -70,22 +105,13 @@ object juegoCocinero { //ANTERIOR 'JUEGO' EN PROGRAM.WPGM
         game.addVisual(puntajeEnJuego)
         //game.addVisual(vida1)
 
-        cajonDePollo.reponerStock()
-        cajonDePapas.reponerStock()
-        cajonDeHuevo.reponerStock()
-        cajonDeBife.reponerStock()
+        nivel.iniciar()
 
         teclado.movimiento()
         teclado.agarrarOSoltarObjeto()
         teclado.realizarAccion()
         teclado.interactuarConCajon()
         game.onTick(100, "moverCocinero", { personajePrincipal.darPaso() }) 
-
-
-        controladorDePartida.puntosSegun(nivel)
-        generadorDePedidos.empezar(nivel) //LINEA QUE PODRIA LLEGAR A CAMBIAR CON LA IMPLEMENTACION DE NIVELES
-
-
         game.onTick(200, "controlarPartida", {controladorDePartida.controlarProgresoPartida()})
     }
 }
