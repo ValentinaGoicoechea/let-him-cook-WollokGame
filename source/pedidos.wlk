@@ -1,6 +1,7 @@
 import source.comida.*
 import wollok.game.*
 import puntaje.*
+import niveles.*
 
 //PEDIDOS(CLASES Y OBJETOS) + GENERADOR + SELECTOR DE PEDIDOS
 
@@ -75,10 +76,11 @@ object generadorDePedidos {
 
     method listaPedidos() = listapedidos
     
-    method nuevoPedido() {
+    method nuevoPedido(nivel) {
         contadorDePedidos += 1
         posicionSegunFila = contadorDePedidos % 4 // el primer pedido es 1, el segundo 2, el tercero 3, el 4 0
-        self.pedir(0.randomUpTo(1).round())
+        //self.pedir(0.randomUpTo(1).round())
+        nivel.nuevoPedido() //Se manejan los pedidos dependiendo del nivel en el que estemos
     }
 
     //posicion en Y va del 3 al 14, creo que cada pedido ocupa 3
@@ -112,10 +114,10 @@ object generadorDePedidos {
         self.agregarNuevoPedido(pedidoX)
     }
 
-    method empezar() {
-        self.nuevoPedido()                                     
+    method empezar(nivel) {
+        self.nuevoPedido(nivel)                                     
         game.onTick(20000, "generarPedido", { self.cambiarPosicionPedidosActivos()
-        self.nuevoPedido() }) //Creacion de pedidos cda 40 sec
+        self.nuevoPedido(nivel) }) //Creacion de pedidos cda 40 sec
     }
     //esta parte se modificaria segun el nivel
 }
@@ -132,3 +134,4 @@ object selectorPedidos{
         elementosPlato.all({elemento => pedido.ingredientes().contains(elemento.elementoYEstado()) 
     })
 }
+

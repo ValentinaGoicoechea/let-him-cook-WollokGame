@@ -1,5 +1,6 @@
 import wollok.game.*
 import pedidos.*
+import niveles.*
 
 //PUNTAJE: CONTEO-SUMA-RESTA-CALCULAR FRENTE A PEDIDOS
 
@@ -39,12 +40,16 @@ object puntajeEnJuego inherits Puntaje{
 
 object controladorDePartida {
     //NIVEL BASICON
-    const puntosParaGanar = 750 // creo variables asi no hay num magicos (evaluar)
-    const maxPedidosPerdidos = 5
+    var puntosParaGanar = 750 // creo variables asi no hay num magicos (evaluar)
+    var maxPedidosPerdidos = 5
 
     var pedidosPerdidos = 0
     var partidaTerminada = false
     var property partidaGanada = false
+
+    method puntosSegun(nivel) {
+        nivel.puntosParaGanar()
+    }
 
     method pedidoPerdido() {
         pedidosPerdidos += 1
@@ -56,8 +61,15 @@ object controladorDePartida {
                 self.terminarPartida()
             else if (puntajeEnJuego.valor() >= puntosParaGanar){
                 partidaGanada = true
+
+                self.pasarASiguienteNivel()
+
                 self.terminarPartida()}
         }
+    }
+
+    method pasarASiguienteNivel() {
+        
     }
 
     method terminarPartida() {
