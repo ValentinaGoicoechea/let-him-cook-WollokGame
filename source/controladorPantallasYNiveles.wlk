@@ -41,10 +41,6 @@ object juegoCocinero { //ANTERIOR 'JUEGO' EN PROGRAM.WPGM
 
     var nivel = nivel1
 
-    method asignarNivel(nuevoNivel) {
-        nivel = nuevoNivel
-    }
-
     method iniciarJuego() { // SE MANTIENE IGUAL PARA TODOS LOS NIVELES
         game.clear()
         game.removeVisual(pantallaSeleccionPersonaje)
@@ -59,32 +55,19 @@ object juegoCocinero { //ANTERIOR 'JUEGO' EN PROGRAM.WPGM
         game.addVisual(tablaDeCortar)
         game.addVisual(basura)
         game.addVisual(bacha)
-        game.addVisual(cajonDePapas)
-        game.addVisual(cajonDePollo)
-        game.addVisual(cajonDeHuevo)
-        game.addVisual(cajonDeBife)
         game.addVisual(personajePrincipal)
         game.addVisual(plato1)
         game.addVisual(plato2)
         game.addVisual(plato3)
         game.addVisual(puntajeEnJuego)
 
-        cajonDePollo.reponerStock()
-        cajonDePapas.reponerStock()
-        cajonDeHuevo.reponerStock()
-        cajonDeBife.reponerStock()
+        nivel.iniciar()
 
         teclado.movimiento()
         teclado.agarrarOSoltarObjeto()
         teclado.realizarAccion()
         teclado.interactuarConCajon()
         game.onTick(100, "moverCocinero", { personajePrincipal.darPaso() }) 
-
-
-        controladorDePartida.puntosSegun(nivel)
-        generadorDePedidos.empezar(nivel) //LINEA QUE PODRIA LLEGAR A CAMBIAR CON LA IMPLEMENTACION DE NIVELES
-
-
         game.onTick(200, "controlarPartida", {controladorDePartida.controlarProgresoPartida()})
     }
 }

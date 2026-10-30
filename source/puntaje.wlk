@@ -43,12 +43,14 @@ object controladorDePartida {
     var puntosParaGanar = 750 // creo variables asi no hay num magicos (evaluar)
     var maxPedidosPerdidos = 5
 
+    var nivelActual = nivel1
+
     var pedidosPerdidos = 0
     var partidaTerminada = false
     var property partidaGanada = false
 
-    method puntosSegun(nivel) {
-        nivel.puntosParaGanar()
+    method puntosSegunNivel() {
+        puntosParaGanar = nivelActual.puntosParaGanar()
     }
 
     method pedidoPerdido() {
@@ -61,15 +63,19 @@ object controladorDePartida {
                 self.terminarPartida()
             else if (puntajeEnJuego.valor() >= puntosParaGanar){
                 partidaGanada = true
-
-                self.pasarASiguienteNivel()
-
-                self.terminarPartida()}
+                self.pasarASiguienteNivel()  
+                //self.terminarPartida()}
+            }
         }
     }
 
     method pasarASiguienteNivel() {
-        
+        if (nivelActual != null) {
+            nivelActual = nivelActual.siguienteNivel()
+            nivelActual.iniciar()
+        } else {
+            self.terminarPartida()
+        }
     }
 
     method terminarPartida() {
