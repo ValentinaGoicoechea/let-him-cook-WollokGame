@@ -9,7 +9,6 @@ import tareas.*
 
 //MANEJO DE ESTACIONES DE LA COCINA + STOCK DEL DEPOSTIO + ENTREGAS
 //COSAS A CAMBIAR 
-//Usar los estados de los elementos y delegar ahi 
 //Cambiar el elemento estacion y el elemento stock
 
 
@@ -110,6 +109,7 @@ class Horno inherits Estacion( tiempoTarea = 7000, imagen1 = "imagenesEstaciones
     }
 }
 
+//INSTANCIANDO TODAS LAS ESTACIONES 
 const horno1 = new Horno(
     position = game.at(6,11),
     numeroEstacion = 1
@@ -150,8 +150,6 @@ const tablaDeCortar = new Estacion(
 class Mesada{
     const property position
     const property image
-
-    method elemento() = "estacion"
     method sePuedeAgarrar() = false
     method tareaDeEstacion(objeto)
 }
@@ -215,7 +213,7 @@ class MesadaArmado inherits Mesada{
     var property hayPlatoParaArmar = false
 
     method crearPlatoArmado(){
-      platoEnArmado = new PlatoArmado(position = position) 
+      platoEnArmado = new PlatoArmado(mesadaActual = self,position = position) 
     }
 
     method recibirPlatoLimpio(objeto){
@@ -234,6 +232,7 @@ class MesadaArmado inherits Mesada{
         if(platoEnArmado == null){
             hayPlatoParaArmar = true
             platoEnArmado = objeto 
+            objeto.mesadaActual(self)
             personajePrincipal.agarrarOSoltar()
         }
     }
@@ -289,7 +288,6 @@ class Cajon {
     method sePuedeAgarrar() = false
     method estaEnPlato() = false
     method image() = imagenCajon
-    method elemento() = "stock" //CAMBIAR, ES LO MISMO QUE LO DE ESTACION
 
     method cantidadEnStock() {
         return alimentos.count({alimento => alimento.position() == posicionAlimento })

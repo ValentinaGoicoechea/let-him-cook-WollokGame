@@ -29,10 +29,16 @@ class Comida{
         game.removeVisual(self)
     }
 
-    method procesarEnMesadaEntrega(mesadaEntrega) {}
-
     method colocarseEnMesadaArmado(){
         MesadaArmado.recibirComida(self)
+    }
+
+    method agarrar(personaje){
+        personaje.agarroObjeto(self)
+    }
+
+    method soltar(personaje){
+        personaje.sueltoObjeto(self)
     }
 
     method clase() = self.className() //ver si cambiamos esto
@@ -91,7 +97,16 @@ class Vajilla {
     method desaparecer(){} //plato no hace nada
 
     method entregarEnMesaEntrega(){}
+    
+    method agarrar(personaje){
+        personaje.agarroObjeto(self)
+    }
 
+    method soltar(personaje){
+        personaje.sueltoObjeto(self)
+    }
+
+    
     method clase() = self.className()
 
     method image() {estado.image(self)} //la imagen se activa segun el estado en el que se encuentra
@@ -126,6 +141,7 @@ const plato3 = new Plato(
 
 class PlatoArmado inherits Vajilla(estado = platoArmado){
     var property elementosPlato = []
+    var property mesadaActual 
     
     override method nuevaPosicion(nuevaPos) {
         position = nuevaPos
@@ -136,6 +152,13 @@ class PlatoArmado inherits Vajilla(estado = platoArmado){
         self.vaciarElementos()
         self.sePuedeAgarrar(true)
     }
+
+    override method agarrar(personaje){
+        mesadaActual.agarrarPlatoArmado() //le avisa a la mesada que no esta mas el plato
+        mesadaActual = null
+        personaje.agarroObjeto(self)
+    }
+
 
     method vaciarElementos() {
     elementosPlato.forEach({ elemento => 

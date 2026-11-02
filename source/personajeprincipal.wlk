@@ -35,35 +35,25 @@ object personajePrincipal{
         }
     }
 
-    method agarrableEn(posicion){ //para objetos que necesito agarrar
-        return game.getObjectsIn(posicion).findOrDefault({ objeto => objeto.sePuedeAgarrar() && not(objeto.estaEnPlato()) }, null)
+    method agarroObjeto(objeto){
+        objetoEnMano = objeto
+        objetoEnMano.nuevaPosicion(position)
+         manoOcupada = true
     }
 
-    method elementoEn(posicion, tipo) { 
-        return game.getObjectsIn(posicion).findOrDefault({objeto => objeto.elemento() == tipo }, null)
-    }
+    method sueltoObjeto(objeto){
+        objetoEnMano.position(self.proximaPosicion())
+        objetoEnMano = null
+        manoOcupada = false
 
-    method posicionDondeMiro() = ultimadireccion.siguiente(position)
+    }
 
     method agarrarOSoltar() {
-        const elementoQueMiro = self.elementoEn(self.posicionDondeMiro(), "estacion")
+        const elementosDondeMiro = game.getObjectsIn(self.proximaPosicion())
         if (!manoOcupada) {
-            var objetoAAgarrar = null
-            objetoAAgarrar = self.agarrableEn(self.posicionDondeMiro())
-
-            if (objetoAAgarrar != null){
-                if(objetoAAgarrar.elemento() == "plato armado" && elementoQueMiro != null && elementoQueMiro.esMesadaArmado()){ //si es plato armado y está en la mesada
-                    elementoQueMiro.agarrarPlatoArmado() //Avisa que ya no tiene un plato en armado a la mesada
-                }
-                objetoEnMano = objetoAAgarrar
-                objetoEnMano.nuevaPosicion(position)
-                manoOcupada = true
-                
-            } 
+            elementosDondeMiro.forEach({elem => elem.agarrar(self)}) 
         } else {
-            objetoEnMano.position(self.posicionDondeMiro())
-            objetoEnMano = null
-            manoOcupada = false
+            elementosDondeMiro.forEach({elem=> elem.soltar(self)})
         }
     }
 
