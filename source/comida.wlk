@@ -49,10 +49,6 @@ class Comida{
 
 
 class PechugaDePollo inherits Comida{
-    method nombreCruda() = "pechugaDePollo"
-    method nombreCocinada() = "pechugacocinada"
-    method nombreQuemada() = "pechugaQuemada"
-
     method imagenCruda() = "imagenesComida-Vajilla/pechuga.png"
     method imagenCocinada() = "imagenesComida-Vajilla/pechugacocinada.png"
     method imagenQuemada() = "imagenesComida-Vajilla/pechugaquemada.png"
@@ -60,12 +56,6 @@ class PechugaDePollo inherits Comida{
 }
 
 class Papa inherits Comida{
-
-    method nombreCruda() = "papaCruda"
-    method nombreCortada() = "papaCortada"
-    method nombreCocinada() = "papasFritas"
-    method nombreQuemada() = "papaFritaQuemada"
-
     method imagenCruda() = "imagenesComida-Vajilla/papaCruda.png"
     method imagenCortada() = "imagenesComida-Vajilla/papaCortada.png"
     method imagenCocinada() = "imagenesComida-Vajilla/papaFrita.png"
@@ -77,20 +67,12 @@ class Papa inherits Comida{
 }
 
 class OjoDeBife inherits Comida {
-    method nombreCruda() = "ojoBife"
-    method nombreCocinada() = "ojoBifeCocinado"
-    method nombreQuemada() = "ojoBifeQuemado"
-
     method imagenCruda() = "imagenesComida-Vajilla/ojoBife.png"
     method imagenCocinada() = "imagenesComida-Vajilla/ojoBifeCocinado.png"
     method imagenQuemada() = "imagenesComida-Vajilla/ojoBifeQuemado.png"
 }
 
 class Huevo inherits Comida {
-    method nombreCruda() = "huevo"
-    method nombreCocinada() = "huevoFrito"
-    method nombreQuemada() = "huevoFritoQuemado"
-
     method imagenCruda() = "imagenesComida-Vajilla/huevo.png"
     method imagenCocinada() = "imagenesComida-Vajilla/huevoFrito.png"
     method imagenQuemada() = "imagenesComida-Vajilla/huevoFritoQuemado.png"

@@ -2,14 +2,15 @@ import source.comida.*
 import wollok.game.*
 import puntaje.*
 import niveles.*
+import estados.*
 
 //PEDIDOS(CLASES Y OBJETOS) + GENERADOR + SELECTOR DE PEDIDOS
 
 class Pedido{
 
     var receta //pollo con papas u ojo de bife con huevo
-    var property position //van apareciendo a la derecha y "caen"
-    var property estado = nuevo //Pruebo que estado tenga asignado un objeto
+    var property position 
+    var property estado = nuevo 
     var property seEntrego = false
     var property cancelado = false
 
@@ -65,16 +66,30 @@ object perdido {
     method imagenOjoDeBife() = "imagenesPedidos/pedidoOjoBifePerdido.png"
 }
 
+
+class RequerimientoIngrediente {
+    const claseEsperada
+    const estadoEsperado
+
+    method esSatisfechoPor(comida) = comida.cumpleRequerimiento(claseEsperada, estadoEsperado)
+}
+
+
 object polloConPapas {
     method imagenSegun(estado) = estado.imagenPollo()
-    method ingredientes() = ["plato", "pechugaCocinada", "papasFritas"]
+    method ingredientes() = [
+        new RequerimientoIngrediente(claseEsperada = PechugaDePollo, estadoEsperado = cocinada),
+        new RequerimientoIngrediente(claseEsperada = Papa, estadoEsperado = cocinada)
+    ]
 }
 
 object ojoDeBifeConHuevo {
     method imagenSegun(estado) = estado.imagenOjoDeBife()
-    method ingredientes() = ["plato", "ojoBifeCocinado", "huevoFrito"]
+    method ingredientes() = [
+        new RequerimientoIngrediente(claseEsperada = OjoDeBife, estadoEsperado = cocinada),
+        new RequerimientoIngrediente(claseEsperada = Huevo, estadoEsperado = cocinada)
+    ]
 }
-
 
 object generadorDePedidos {
     var contadorDePedidos = 0
@@ -134,16 +149,30 @@ object generadorDePedidos {
     
 }
 
+
 object selectorPedidos{
     method eleccionDePedido(elementosPlato) { //pedido con la receta mas urgente
-        const candidatos = generadorDePedidos.listaPedidos().filter({pedido => self.coincide(pedido, elementosPlato)})
+        const candidatos = generadorDePedidos.listaPedidos().filter({pedido => self.coincide(pedido, elementosPlato)}) 
         if (candidatos.isEmpty()) return null 
         else return candidatos.max({pedido => pedido.prioridad()})
     }
 
-    method coincide(pedido, elementosPlato) = (!pedido.seEntrego() && pedido.prioridad() != 0) &&
-        elementosPlato.size() == pedido.ingredientes().size() && 
-        elementosPlato.all({elemento => pedido.ingredientes().contains(elemento.elementoYEstado()) 
-    })
+    method coincide(pedido, elementosPlato) {
+        if(pedido.seEntrego() || pedido.prioridad() == 0) return false //ver como hacer para poner estado = perdido?
+        if (elementosPlato.size() != pedido.ingredientes().size()) return false
+
+        const disponibles = elementosPlato.map({ e => e }) // copia de la lista de elementosPlato
+
+        return pedido.ingredientes().all({ req => //Busca requerimientos del pedido
+            const encontrado = disponibles.find({ elemento => req.esSatisfechoPor(elemento) }) //busca elemento del plato que cumpla requerimiento
+            if (encontrado != null) {
+                disponibles.remove(encontrado)
+                true
+            } else {
+                false
+            }
+        })
+    }
+
 }
 
