@@ -45,9 +45,11 @@ object teclado{
         keyboard.q().onPressDo({personajePrincipal.accionar()})
     }
 
-    method interactuarConCajon() {
+    //PODEMOS CAMBIARLO A QUE AL INTERACTUAR CON LA 1 SE REPONGA STOCK
+    /*method interactuarConCajon() {
         keyboard.num1().onPressDo({personajePrincipal.accionarCajon()})
     }
+    */
 
 
 

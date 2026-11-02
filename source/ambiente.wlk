@@ -299,6 +299,8 @@ class Cajon {
 
     method crearAlimento(){}
 
+    method tareaEstacion(){self.reponerStock()}
+
     method reponerStock() {
         if (self.cantidadEnStock() == 0) { 
             stockMaximo.times({ _ => 

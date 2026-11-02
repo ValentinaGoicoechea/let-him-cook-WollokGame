@@ -59,15 +59,17 @@ object personajePrincipal{
 
 
     method accionar(){
-        const elementoQueMiro = self.elementoEn(self.posicionDondeMiro(), "estacion")
-            if(elementoQueMiro != null && manoOcupada)
-                elementoQueMiro.tareaDeEstacion(objetoEnMano)
+        if(manoOcupada){
+            game.getObjectsIn(self.proximaPosicion()).forEach({elem => elem.tareaDeEstacion(objetoEnMano)})
+        }
     }
 
+    /* VER DE ACCIONARLO CON LA Q
     method accionarCajon() {
         const cajon = self.elementoEn(self.posicionDondeMiro(), "stock")
         if (cajon != null) {
         cajon.reponerStock()
         }
     }
+    */
 }

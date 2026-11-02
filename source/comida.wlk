@@ -24,6 +24,7 @@ class Comida{
     
     method vaciarElementos() {}
     method entregarEnMesaEntrega(){}
+    method tareaDeEstacion(){} //PARA NO ROMPER EL POLIMORFISMO CON LAS ESTACIONES
 
     method desaparecer() {
         game.removeVisual(self)
@@ -95,6 +96,7 @@ class Vajilla {
         self.position(posicion)
     }
     method desaparecer(){} //plato no hace nada
+    method tareaDeEstacion(){} //PARA NO ROMPER EL POLIMORFISMO CON LAS ESTACIONES
 
     method entregarEnMesaEntrega(){}
     
