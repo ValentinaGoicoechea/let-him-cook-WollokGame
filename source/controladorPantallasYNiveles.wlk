@@ -133,7 +133,7 @@ object juegoCocinero { //ANTERIOR 'JUEGO' EN PROGRAM.WPGM
         teclado.movimiento()
         teclado.agarrarOSoltarObjeto()
         teclado.realizarAccion()
-        teclado.interactuarConCajon()
+        //teclado.interactuarConCajon()
         game.onTick(100, "moverCocinero", { personajePrincipal.darPaso() }) 
         game.onTick(200, "controlarPartida", {controladorDePartida.controlarProgresoPartida()})
     }

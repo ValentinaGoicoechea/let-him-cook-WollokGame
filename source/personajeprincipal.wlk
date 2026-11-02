@@ -59,9 +59,8 @@ object personajePrincipal{
 
 
     method accionar(){
-        if(manoOcupada){
-            game.getObjectsIn(self.proximaPosicion()).forEach({elem => elem.tareaDeEstacion(objetoEnMano)})
-        }
+        game.getObjectsIn(self.proximaPosicion()).forEach({elem => elem.tareaDeEstacion(objetoEnMano)}) // el objeto ve si le mando algo o null, no el personaje
+        
     }
 
     /* VER DE ACCIONARLO CON LA Q

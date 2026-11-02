@@ -34,18 +34,19 @@ class Estacion{
     }
 
     method tareaDeEstacion(objeto) {
-        if(objeto.estado().tareas().contains(tareaAsociada) && !estaOcupado){
-            prendido = true
-            estaOcupado = true
-            personajePrincipal.agarrarOSoltar() //el personaje principal suelta el objeto
-            objeto.sePuedeAgarrar(false)
-            game.schedule(tiempoTarea, { 
-                    tareaAsociada.ejecutar(objeto)
-                    objeto.sePuedeAgarrar(true)
-                    self.tareaExtra(objeto)
+        if(objeto != null){
+            if(objeto.estado().tareas().contains(tareaAsociada) && !estaOcupado){
+                prendido = true
+                estaOcupado = true
+                personajePrincipal.agarrarOSoltar() //el personaje principal suelta el objeto
+                objeto.sePuedeAgarrar(false)
+                game.schedule(tiempoTarea, { 
+                        tareaAsociada.ejecutar(objeto)
+                        objeto.sePuedeAgarrar(true)
+                        self.tareaExtra(objeto)
+                }
+                )
             }
-            )
-            
         }
     }
 
@@ -189,7 +190,7 @@ class MesadaEntrega inherits Mesada{
     }
 
     override method tareaDeEstacion(objeto){
-        objeto.entregarEnMesaEntrega()
+        if(objeto != null){objeto.entregarEnMesaEntrega()}
     }
 }
 
@@ -249,7 +250,7 @@ class MesadaArmado inherits Mesada{
 
 
     override method tareaDeEstacion(objeto){
-         objeto.colocarseEnMesadaArmado()      
+        if(objeto != null){ objeto.colocarseEnMesadaArmado()}
     }
 
     method agarrarPlatoArmado() {
@@ -298,9 +299,7 @@ class Cajon {
     }
 
     method crearAlimento(){}
-
-    method tareaEstacion(){self.reponerStock()}
-
+    
     method reponerStock() {
         if (self.cantidadEnStock() == 0) { 
             stockMaximo.times({ _ => 
@@ -310,6 +309,9 @@ class Cajon {
             })
         }
     }
+
+    method tareaDeEstacion(objeto){if(objeto == null) self.reponerStock()}
+
     
 
     method reiniciarPorFinDeNivel() {
