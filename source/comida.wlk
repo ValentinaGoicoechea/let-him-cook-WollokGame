@@ -12,7 +12,7 @@ import pedidos.*
 
 class Comida{
     var property position 
-    var property estado = cruda //asi comienzan todas las comidas
+    var property estado //asi comienzan todas las comidas
     var property estaEnPlato = false
     var property sePuedeAgarrar = true 
     var property debeEliminarseAlVaciar = true //util para saber si al estar en un plato armado debo sacarlos o no
@@ -22,7 +22,7 @@ class Comida{
     }
     
     method vaciarElementos() {}
-    method entregarEnMesaEntrega(){}
+    method entregarEnMesaEntrega(){} //no puede entregarse
 
     method desaparecer() {
         game.removeVisual(self)
@@ -32,6 +32,12 @@ class Comida{
 
     method colocarseEnMesadaArmado(){
         MesadaArmado.recibirComida(self)
+    }
+
+    method clase() = self.className() //ver si cambiamos esto
+
+    method cumpleRequerimiento(tipoComida, estadoEsperado){
+        return (self.clase() == tipoComida && self.estado() == estadoEsperado)
     }
 
     method tareasCruda() = ["cocinar", "tirar"]
@@ -103,6 +109,8 @@ class Vajilla {
 
     method entregarEnMesaEntrega(){}
 
+    method clase() = self.className()
+
     method image() {estado.image(self)} //la imagen se activa segun el estado en el que se encuentra
     method tareas() = estado.tareas(self)
 }
@@ -156,7 +164,7 @@ class PlatoArmado inherits Vajilla(estado = platoArmado){
     }
 
     override method entregarEnMesaEntrega(){ //Ver si tiene sentido que este aca
-        const pedido = selectorPedidos.eleccionDePedido(elementosPlato) 
+        const pedido = selectorPedidos.eleccionDePedido(elementosPlato)
             personajePrincipal.agarrarOSoltar()
             if (pedido == null) { 
                 puntajeEnJuego.restar(100)  
