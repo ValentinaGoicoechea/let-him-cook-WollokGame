@@ -17,16 +17,21 @@ object selectorPersonajes { //highlight alrededor de personaje
         personajeActual = personajesDisponibles.find({personaje => personaje.numero() == numero})
         if(personajeActual != null){
             position = personajeActual.posicionSelector()
-            teclado.confirmarPersonaje()
         }
         
     
     }
 
     method confirmarSeleccion(){ //solo se va a activar cuando ya tenga un personaje actual
-        personajeElegido = personajeActual
-        self.elegirPersonaje() //le asigno el tipo al personaje principal para ver el buff
-        juegoCocinero.iniciarJuego()
+        if (personajeActual != null) {
+            personajeElegido = personajeActual
+            self.elegirPersonaje() 
+           
+            game.schedule(1, {
+                juegoCocinero.iniciarJuego()
+            })
+        }
+        
         
     }
 

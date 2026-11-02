@@ -69,6 +69,10 @@ object pantallaSeleccionPersonaje inherits Pantalla(
         teclado.seleccion()
     }
 
+    override method pasarASiguiente() {
+        selectorPersonajes.confirmarSeleccion()
+    }
+
 }
 
 object pantallaFinal inherits Pantalla (
@@ -103,14 +107,23 @@ const pantallaNivel1 = new PantallaNivel(
 const pantallaNivel2 = new PantallaNivel(
     image = "imagenesFondos/nivelDos.png"
 )
-object juegoCocinero { //ANTERIOR 'JUEGO' EN PROGRAM.WPGM
+       
+object juegoCocinero { 
 
     var nivel = nivel1
 
-    method iniciarJuego() { // SE MANTIENE IGUAL PARA TODOS LOS NIVELES
-        game.clear()
+    method iniciarJuego() { 
+        console.println("--- 1. Entró a iniciarJuego ---")
+        //game.clear()
+
+        try { game.removeVisual(pantallaSeleccionPersonaje) } catch e {}
+        try { game.removeVisual(selectorPersonajes) } catch e {}
+        
+        console.println("--- 2. Reiniciando cajones y partida ---")
         [cajonDePapas, cajonDePollo, cajonDeHuevo, cajonDeBife].forEach({cajon => cajon.reiniciarPorFinDeNivel()})
         controladorDePartida.reiniciarNivel()
+        
+        console.println("--- 3. Agregando estaciones y entorno ---")
         game.addVisual(horno1)
         game.addVisual(horno2)
         game.addVisual(mesadaEntrega1)
@@ -122,20 +135,27 @@ object juegoCocinero { //ANTERIOR 'JUEGO' EN PROGRAM.WPGM
         game.addVisual(tablaDeCortar)
         game.addVisual(basura)
         game.addVisual(bacha)
+        
+        console.println("--- 4. Agregando personaje y platos ---")
         game.addVisual(personajePrincipal)
         game.addVisual(plato1)
         game.addVisual(plato2)
         game.addVisual(plato3)
         game.addVisual(puntajeEnJuego)
 
+        console.println("--- 5. Por ejecutar nivel.iniciar() ---")
         nivel.iniciar()
 
+        console.println("--- 6. Configurando teclado y ticks ---")
         teclado.movimiento()
         teclado.agarrarOSoltarObjeto()
         teclado.realizarAccion()
-        //teclado.interactuarConCajon()
+        
         game.onTick(100, "moverCocinero", { personajePrincipal.darPaso() }) 
         game.onTick(200, "controlarPartida", {controladorDePartida.controlarProgresoPartida()})
+        
+        console.println("--- 7. ¡Fin de iniciarJuego con éxito! ---")
     }
 }
+
 

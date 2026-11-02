@@ -24,7 +24,7 @@ class Comida{
     
     method vaciarElementos() {}
     method entregarEnMesaEntrega(){}
-    method tareaDeEstacion(){} //PARA NO ROMPER EL POLIMORFISMO CON LAS ESTACIONES
+    method tareaDeEstacion(objeto){} //PARA NO ROMPER EL POLIMORFISMO CON LAS ESTACIONES
 
     method desaparecer() {
         game.removeVisual(self)
@@ -51,7 +51,7 @@ class Comida{
     method tareasCruda() = [tareaCocinar, tareaTirar] //ahora son objetos 
     method tareasCortada() = [] //solo papa 
    
-    method image() {estado.image(self)} //la imagen se activa segun el estado en el que se encuentra
+    method image() = estado.image(self) //la imagen se activa segun el estado en el que se encuentra
 }
 
 
@@ -111,7 +111,7 @@ class Vajilla {
     
     method clase() = self.className()
 
-    method image() {estado.image(self)} //la imagen se activa segun el estado en el que se encuentra
+    method image() = estado.image(self) //la imagen se activa segun el estado en el que se encuentra
     method tareas() = estado.tareas(self)
 }
 class Plato inherits Vajilla {  

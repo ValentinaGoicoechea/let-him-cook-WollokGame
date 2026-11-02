@@ -33,9 +33,9 @@ object teclado{
         tecla.onPressDo({selectorPersonajes.seleccionarPersonaje(numero)})        
     }
 
-    method confirmarPersonaje(){
-        keyboard.enter().onPressDo({selectorPersonajes.confirmarSeleccion()})
-    }
+    //method confirmarPersonaje(){
+       // keyboard.enter().onPressDo({selectorPersonajes.confirmarSeleccion()})
+    //}
 
     method agarrarOSoltarObjeto(){
         keyboard.e().onPressDo({personajePrincipal.agarrarOSoltar()}) 
