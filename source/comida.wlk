@@ -4,6 +4,7 @@ import estados.*
 import personajeprincipal.* 
 import puntaje.*
 import pedidos.*
+import tareas.*
 
 //Ver si tiene sentido lo ultimo de que el plato armado sepa entregarse (por eso se agregan los ultimos 3 imports)
 
@@ -12,7 +13,7 @@ import pedidos.*
 
 class Comida{
     var property position 
-    var property estado //asi comienzan todas las comidas
+    var property estado = cruda //asi comienzan todas las comidas
     var property estaEnPlato = false
     var property sePuedeAgarrar = true 
     var property debeEliminarseAlVaciar = true //util para saber si al estar en un plato armado debo sacarlos o no
@@ -22,13 +23,13 @@ class Comida{
     }
     
     method vaciarElementos() {}
-    method entregarEnMesaEntrega(){} //no puede entregarse
+    method entregarEnMesaEntrega(){}
 
     method desaparecer() {
         game.removeVisual(self)
     }
 
-    method procesarEnMesadaEntrega(mesadaEntrega) {} //no suelta nada en la mesa de entrega, no hace nada
+    method procesarEnMesadaEntrega(mesadaEntrega) {}
 
     method colocarseEnMesadaArmado(){
         MesadaArmado.recibirComida(self)
@@ -40,15 +41,15 @@ class Comida{
         return (self.clase() == tipoComida && self.estado() == estadoEsperado)
     }
 
-    method tareasCruda() = ["cocinar", "tirar"]
+    method tareasCruda() = [tareaCocinar, tareaTirar] //ahora son objetos 
     method tareasCortada() = [] //solo papa 
+   
     method image() {estado.image(self)} //la imagen se activa segun el estado en el que se encuentra
-    method tareas() = estado.tareas(self)
-
 }
 
 
 class PechugaDePollo inherits Comida{
+
     method imagenCruda() = "imagenesComida-Vajilla/pechuga.png"
     method imagenCocinada() = "imagenesComida-Vajilla/pechugacocinada.png"
     method imagenQuemada() = "imagenesComida-Vajilla/pechugaquemada.png"
@@ -61,8 +62,8 @@ class Papa inherits Comida{
     method imagenCocinada() = "imagenesComida-Vajilla/papaFrita.png"
     method imagenQuemada() = "imagenesComida-Vajilla/papaFritaQuemada.png"
 
-    override method tareasCruda() = ["cortar", "tirar"] //es el unico que puede (y debe) cortarse antes de cocinarse
-    override method tareasCortada() = ["cocinar", "tirar"]
+    override method tareasCruda() = [tareaCortar, tareaTirar] //es el unico que puede (y debe) cortarse antes de cocinarse
+    override method tareasCortada() = [tareaCocinar, tareaTirar]
 
 }
 

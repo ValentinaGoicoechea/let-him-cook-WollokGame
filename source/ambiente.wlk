@@ -4,6 +4,7 @@ import personajeprincipal.*
 import comida.*
 import puntaje.*
 import estados.*
+import tareas.*
 
 
 //MANEJO DE ESTACIONES DE LA COCINA + STOCK DEL DEPOSTIO + ENTREGAS
@@ -20,10 +21,10 @@ class Estacion{
     const tiempoTarea
     const imagen1
     const imagen2
-    const valorOtorgado
-    const debeValidar
-    const property esMesadaArmado = false //ver si modificamos esto
+    const tareaAsociada
     const property numeroEstacion
+   
+    const property esMesadaArmado = false //ver si modificamos esto
 
     method sePuedeAgarrar() = false
     method elemento() = "estacion" //VER DE AGREGAR UN ESTADO ESTACION 
@@ -37,13 +38,13 @@ class Estacion{
     }
 
     method tareaDeEstacion(objeto) {
-        if(objeto.estado().tareas().contains(debeValidar) && !estaOcupado){
+        if(objeto.estado().tareas().contains(tareaAsociada) && !estaOcupado){
             prendido = true
             estaOcupado = true
             personajePrincipal.agarrarOSoltar() //el personaje principal suelta el objeto
             objeto.sePuedeAgarrar(false)
             game.schedule(tiempoTarea, { 
-                    objeto.estado(valorOtorgado)
+                    tareaAsociada.ejecutar(objeto)
                     objeto.sePuedeAgarrar(true)
                     self.tareaExtra(objeto)
             }
@@ -67,7 +68,7 @@ class CartelPrecaucion { //ver donde lo movemos
     method image() = "cartelPrecaucion.png"
 }
 
-class Horno inherits Estacion{
+class Horno inherits Estacion( tiempoTarea = 7000, imagen1 = "imagenesEstaciones/hornoprendido.png", imagen2 = "imagenesEstaciones/hornoapagado.png",tareaAsociada = tareaCocinar){
     var precaucion = null
 
     method controlarQuemado(objeto){
@@ -80,7 +81,7 @@ class Horno inherits Estacion{
         game.onTick(500, nombreTick, { //controla cada medio segundo
             if(tiempoHastaQuemarse == 0){ //no me importa la posicion, si llego a 0 se quemó
                 self.liberar()
-                objeto.estado(quemada)
+                tareaQuemar.ejecutar(objeto)
                 game.removeTickEvent(nombreTick)
                 game.removeVisual(precaucion)
             } else if (tiempoHastaQuemarse == 5) {
@@ -111,50 +112,29 @@ class Horno inherits Estacion{
 
 const horno1 = new Horno(
     position = game.at(6,11),
-    tiempoTarea = 7000,
-    imagen1 = "imagenesEstaciones/hornoprendido.png",
-    imagen2 = "imagenesEstaciones/hornoapagado.png",
-    valorOtorgado = cocinada,
-    debeValidar = "cocinar", //CAMBIAR ESTO DE TAREAS
     numeroEstacion = 1
 )
 
-
 const horno2 = new Horno(
     position = game.at(8,11),
-    tiempoTarea = 7000,
-    imagen1 = "imagenesEstaciones/hornoprendido.png",
-    imagen2 = "imagenesEstaciones/hornoapagado.png",
-    valorOtorgado = cocinada,
-    debeValidar = "cocinar",
     numeroEstacion = 2
 )
 
-object basura inherits Estacion(
+const basura = new Estacion(
     position = game.at(20,7),
     tiempoTarea = 500,
     imagen1 = "imagenesEstaciones/basuraAbierta.png",
     imagen2 = "imagenesEstaciones/basura.png",
-    valorOtorgado = tirada, //ver si es mejor borrarlo y listo
-    debeValidar = "tirar",
+    tareaAsociada = tareaTirar,
     numeroEstacion = 1
-){
-    override method tareaExtra(objeto){
-        objeto.sePuedeAgarrar(false)
-        objeto.desaparecer()
-
-        self.liberar()
-
-    }
-}
+)
 
 const bacha = new Estacion(
     position = game.at(4,6),
     tiempoTarea = 3000,
     imagen1 = "imagenesEstaciones/vacio.png", //ESPUMA O AGUA
     imagen2 = "imagenesEstaciones/vacio.png",
-    valorOtorgado = limpio,
-    debeValidar = "limpiar",
+    tareaAsociada = tareaLimpiar,
     numeroEstacion = 1
 )
 
@@ -163,8 +143,7 @@ const tablaDeCortar = new Estacion(
     tiempoTarea = 4500,
     imagen1 = "imagenesEstaciones/tablaDeCortar.png", 
     imagen2 = "imagenesEstaciones/tablaDeCortar.png", // hacer cambio (para notar que esta en uso)
-    valorOtorgado = cortada,
-    debeValidar = "cortar",
+    tareaAsociada = tareaCortar,
     numeroEstacion = 1
 )
 
@@ -338,27 +317,27 @@ object cajonDePapas inherits Cajon (
     position = game.at(22,6),
     posicionAlimento = game.at(9,3),
     imagenCajon = "imagenesCajones/cajonDePapas.png"){
-    override method crearAlimento() = new Papa(estado = cruda, position = posicionAlimento)
+    override method crearAlimento() = new Papa(position = posicionAlimento)
 }
 
 object cajonDePollo inherits Cajon (
     position = game.at(20,6),
     posicionAlimento = game.at(6,3),
     imagenCajon = "imagenesCajones/cajonDePollo.png"){
-    override method crearAlimento() = new PechugaDePollo(estado = cruda, position = posicionAlimento)
+    override method crearAlimento() = new PechugaDePollo(position = posicionAlimento)
 }
 
 object cajonDeHuevo inherits Cajon (
     position = game.at(24,6),
     posicionAlimento = game.at(11,3),
     imagenCajon = "imagenesCajones/cajonDeHuevos.png"){ 
-    override method crearAlimento() = new Huevo(estado = cruda, position = posicionAlimento)
+    override method crearAlimento() = new Huevo(position = posicionAlimento)
 }
 
 object cajonDeBife inherits Cajon (
     position = game.at(20,3),
     posicionAlimento = game.at(13,3),
     imagenCajon = "imagenesCajones/cajonDeOjoDeBife.png"){ 
-    override method crearAlimento() = new OjoDeBife(estado = cruda, position = posicionAlimento)
+    override method crearAlimento() = new OjoDeBife(position = posicionAlimento)
 }
 
