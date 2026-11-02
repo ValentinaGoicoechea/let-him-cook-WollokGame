@@ -25,9 +25,6 @@ class Estacion{
    
     const property esMesadaArmado = false //ver si modificamos esto
 
-    method sePuedeAgarrar() = false
-    method elemento() = "estacion" //VER DE AGREGAR UN ESTADO ESTACION 
-
     method image(){
         if(prendido){
             return imagen1
@@ -51,6 +48,9 @@ class Estacion{
             
         }
     }
+
+    method agarrar(personaje){}
+    method soltar(personaje){}
         
     method tareaExtra(objeto) {
         self.liberar()
@@ -150,8 +150,10 @@ const tablaDeCortar = new Estacion(
 class Mesada{
     const property position
     const property image
-    method sePuedeAgarrar() = false
     method tareaDeEstacion(objeto)
+    
+    method agarrar(personaje){}
+    method soltar(personaje){}
 }
 
 class MesadaEntrega inherits Mesada{
@@ -285,9 +287,11 @@ class Cajon {
     const imagenCajon
     const property esMesadaArmado = false
 
-    method sePuedeAgarrar() = false
     method estaEnPlato() = false
     method image() = imagenCajon
+
+    method agarrar(personaje){}
+    method soltar(personaje){}
 
     method cantidadEnStock() {
         return alimentos.count({alimento => alimento.position() == posicionAlimento })
