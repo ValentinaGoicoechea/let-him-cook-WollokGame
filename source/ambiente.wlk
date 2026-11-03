@@ -263,19 +263,19 @@ class MesadaArmado inherits Mesada{
 
 
 const mesadaArmado1 = new MesadaArmado(
-    position = game.at(24.5,7),
+    position = game.at(25,7),
     image = "imagenesEstaciones/mesadaArmado.png"
 )
 
 
 const mesadaArmado2 = new MesadaArmado(
-    position = game.at(24.5,9),
+    position = game.at(25,9),
     image = "imagenesEstaciones/vacio.png"
 )
 
 
 const mesadaArmado3 = new MesadaArmado(
-    position = game.at(24.5,11),
+    position = game.at(25,11),
     image = "imagenesEstaciones/vacio.png"
 )
 
