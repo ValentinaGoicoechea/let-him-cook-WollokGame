@@ -18,7 +18,7 @@ class TipoDeComida{
 }
 const tipoBife = new TipoDeComida(nombre = "ojoBife")
 const tipoHuevo = new TipoDeComida(nombre = "huevo")
-const tipoPollo = new TipoDeComida(nombre = "pollo")
+const tipoPollo = new TipoDeComida(nombre = "pechuga")
 object tipoPapa inherits TipoDeComida(nombre = "papa"){
     override method tareasCruda() = [tareaCortar, tareaTirar]
     override method tareasCortada() = [tareaCocinar, tareaTirar]
@@ -87,6 +87,13 @@ class Vajilla {
 
     method image() = estado.image(self) //la imagen se activa segun el estado en el que se encuentra
     method tareas() = estado.tareas(self)
+
+    method reiniciar() {
+        position = game.at(16, 3) 
+        estado = limpio          
+        estaEnPlato = false
+        sePuedeAgarrar = true
+    }
 }
 class Plato inherits Vajilla {  
     var property debeEliminarseAlVaciar = false

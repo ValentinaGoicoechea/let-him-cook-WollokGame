@@ -4,6 +4,9 @@ import pedidos.*
 import niveles.*
 import controladorPantallasYNiveles.*
 import vidas.*
+import ambiente.*
+import comida.*
+import personajeprincipal.*
 
 
 
@@ -83,6 +86,7 @@ object controladorDePartida {
             generadorDePedidos.terminar(nivelActual) 
             pedidosPerdidos = 0
             vidas.reiniciar()
+            self.reiniciarCocina()
             nivelActual = nivelActual.siguienteNivel()
             nivelActual.iniciar()
         } else {
@@ -116,9 +120,17 @@ object controladorDePartida {
         nivelActual = nivel1
         pedidosPerdidos = 0
         vidas.reiniciar()
+        self.reiniciarCocina()
         partidaTerminada = false
         partidaGanada = false
         puntajeEnJuego.valor(0)
+    }
+
+    method reiniciarCocina() {
+        [plato1, plato2, plato3].forEach({ p => p.reiniciar() })
+        [cajonDePapas, cajonDePollo, cajonDeHuevo, cajonDeBife].forEach({ c => c.reiniciarPorFinDeNivel() })
+        [mesadaArmado1, mesadaArmado2, mesadaArmado3].forEach({ m => m.reiniciar() })
+        personajePrincipal.reiniciar()
     }
 }
 

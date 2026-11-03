@@ -259,6 +259,16 @@ class MesadaArmado inherits Mesada{
             platoEnArmado = null 
         }
     }
+
+    method reiniciar() { //Método para reiniciar cuando cambio el nivel si habia algun plato armado en la mesa
+        if (platoEnArmado != null) {
+            if (game.allVisuals().contains(platoEnArmado)) {
+                game.removeVisual(platoEnArmado)
+            }
+            platoEnArmado = null
+        }
+        hayPlatoParaArmar = false
+    }
 }
 
 
@@ -315,6 +325,11 @@ class Cajon {
     
 
     method reiniciarPorFinDeNivel() {
+        alimentos.forEach({ alimento => 
+            if (game.allVisuals().contains(alimento)) {
+                game.removeVisual(alimento)
+            }
+        })
         alimentos.clear()
     }
 }

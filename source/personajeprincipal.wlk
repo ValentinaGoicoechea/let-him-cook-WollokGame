@@ -73,13 +73,4 @@ object personajePrincipal{
         manoOcupada = false
         objetoEnMano = null
     }
-
-    /* VER DE ACCIONARLO CON LA Q
-    method accionarCajon() {
-        const cajon = self.elementoEn(self.posicionDondeMiro(), "stock")
-        if (cajon != null) {
-        cajon.reponerStock()
-        }
-    }
-    */
 }

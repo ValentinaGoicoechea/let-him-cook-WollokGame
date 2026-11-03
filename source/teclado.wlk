@@ -33,25 +33,11 @@ object teclado{
         tecla.onPressDo({selectorPersonajes.seleccionarPersonaje(numero)})        
     }
 
-    //method confirmarPersonaje(){
-       // keyboard.enter().onPressDo({selectorPersonajes.confirmarSeleccion()})
-    //}
-
     method agarrarOSoltarObjeto(){
         keyboard.e().onPressDo({personajePrincipal.agarrarOSoltar()}) 
     }
 
     method realizarAccion() {
         keyboard.q().onPressDo({personajePrincipal.accionar()})
-    }
-
-    //PODEMOS CAMBIARLO A QUE AL INTERACTUAR CON LA 1 SE REPONGA STOCK
-    /*method interactuarConCajon() {
-        keyboard.num1().onPressDo({personajePrincipal.accionarCajon()})
-    }
-    */
-
-
-
-   
+    }   
 }
