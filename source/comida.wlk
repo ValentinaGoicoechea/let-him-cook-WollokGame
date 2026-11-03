@@ -11,44 +11,18 @@ import tareas.*
 // COMIDAS Y VAJILLA (CLASES Y OBJETOS)
 
 class TipoDeComida{
+    const property nombre
     method tareasCruda() = [tareaCocinar, tareaTirar] //Cambia en las papas
     method tareasCortada() = []
 
-    method imagenCruda()
-    method imagenCocinada()
-    method imagenQuemada()
-    method imagenCortada() = "" //solo la papa
 }
-
-object tipoBife inherits TipoDeComida (){
-    override method imagenCruda() = "imagenesComida-Vajilla/ojoBife.png"
-    override method imagenCocinada() = "imagenesComida-Vajilla/ojoBifeCocinado.png"
-    override method imagenQuemada() = "imagenesComida-Vajilla/ojoBifeQuemado.png"
-}
-
-object tipoHuevo inherits TipoDeComida{
-    override method imagenCruda() = "imagenesComida-Vajilla/huevo.png"
-    override method imagenCocinada() = "imagenesComida-Vajilla/huevoFrito.png"
-    override method imagenQuemada() = "imagenesComida-Vajilla/huevoFritoQuemado.png"
-}
-
-object tipoPollo inherits TipoDeComida {
-    override method imagenCruda() = "imagenesComida-Vajilla/pechuga.png"
-    override method imagenCocinada() = "imagenesComida-Vajilla/pechugacocinada.png"
-    override method imagenQuemada() = "imagenesComida-Vajilla/pechugaquemada.png"
-}
-
-object tipoPapa inherits TipoDeComida {
-    override method imagenCruda() = "imagenesComida-Vajilla/papaCruda.png"
-    override method imagenCortada() = "imagenesComida-Vajilla/papaCortada.png"
-    override method imagenCocinada() = "imagenesComida-Vajilla/papaFrita.png"
-    override method imagenQuemada() = "imagenesComida-Vajilla/papaFritaQuemada.png"
-   
-
+const tipoBife = new TipoDeComida(nombre = "ojoBife")
+const tipoHuevo = new TipoDeComida(nombre = "huevo")
+const tipoPollo = new TipoDeComida(nombre = "pollo")
+object tipoPapa inherits TipoDeComida(nombre = "papa"){
     override method tareasCruda() = [tareaCortar, tareaTirar]
     override method tareasCortada() = [tareaCocinar, tareaTirar]
 }
-
 
 class Comida{
     const property tipo
@@ -58,7 +32,7 @@ class Comida{
     var property sePuedeAgarrar = true 
     var property debeEliminarseAlVaciar = true //util para saber si al estar en un plato armado debo sacarlos o no
 
-    method image() = estado.image(tipo) //la imagen se activa segun el estado en el que se encuentra
+    method image() = "imagenesComida-Vajilla/" + tipo.nombre() + estado.nombre() + ".png"
     method tareas() = estado.tareas(tipo)
 
     method cumpleRequerimiento(tipoEsperado, estadoEsperado) {

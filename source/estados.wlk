@@ -10,23 +10,23 @@ import tareas.*
 
 
 object cruda {
-    method image(tipo) = tipo.imagenCruda()
+    method nombre() = "Cruda"
     method tareas(tipo) = tipo.tareasCruda()
 }
 
 object cortada {
-    method image(tipo) = tipo.imagenCortada()
+    method nombre() = "Cortada"
     method tareas(tipo) = tipo.tareasCortada()
 }
 
 object cocinada {
-    method image(tipo) = tipo.imagenCocinada()
+    method nombre() = "Cocinada"
     method tareas(tipo) = [tareaTirar]
    
 }
 
 object quemada {
-    method image(tipo) = tipo.imagenQuemada()
+    method nombre() = "Quemada"
     method tareas(tipo) = [tareaTirar]
 }
 
