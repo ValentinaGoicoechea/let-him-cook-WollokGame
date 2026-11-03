@@ -68,26 +68,26 @@ object perdido {
 
 
 class RequerimientoIngrediente {
-    const claseEsperada
+    const tipoEsperado
     const estadoEsperado
 
-    method esSatisfechoPor(comida) = comida.cumpleRequerimiento(claseEsperada, estadoEsperado)
+    method esSatisfechoPor(comida) = comida.cumpleRequerimiento(tipoEsperado, estadoEsperado)
 }
 
 
 object polloConPapas {
     method imagenSegun(estado) = estado.imagenPollo()
     method ingredientes() = [
-        new RequerimientoIngrediente(claseEsperada = PechugaDePollo, estadoEsperado = cocinada),
-        new RequerimientoIngrediente(claseEsperada = Papa, estadoEsperado = cocinada)
+        new RequerimientoIngrediente(tipoEsperado = tipoPollo, estadoEsperado = cocinada),
+        new RequerimientoIngrediente(tipoEsperado = tipoPapa, estadoEsperado = cocinada)
     ]
 }
 
 object ojoDeBifeConHuevo {
     method imagenSegun(estado) = estado.imagenOjoDeBife()
     method ingredientes() = [
-        new RequerimientoIngrediente(claseEsperada = OjoDeBife, estadoEsperado = cocinada),
-        new RequerimientoIngrediente(claseEsperada = Huevo, estadoEsperado = cocinada)
+        new RequerimientoIngrediente(tipoEsperado = tipoBife, estadoEsperado = cocinada),
+        new RequerimientoIngrediente(tipoEsperado = tipoHuevo, estadoEsperado = cocinada)
     ]
 }
 

@@ -190,7 +190,7 @@ class MesadaEntrega inherits Mesada{
     }
 
     override method tareaDeEstacion(objeto){
-        if(objeto != null){objeto.entregarEnMesaEntrega()}
+        if(objeto != null){objeto.entregarEnMesaEntrega(self)}
     }
 }
 
@@ -323,27 +323,27 @@ object cajonDePapas inherits Cajon (
     position = game.at(22,6),
     posicionAlimento = game.at(9,3),
     imagenCajon = "imagenesCajones/cajonDePapas.png"){
-    override method crearAlimento() = new Papa(position = posicionAlimento)
+    override method crearAlimento() = new Comida(tipo = tipoPapa, position = posicionAlimento)
 }
 
 object cajonDePollo inherits Cajon (
     position = game.at(20,6),
     posicionAlimento = game.at(6,3),
     imagenCajon = "imagenesCajones/cajonDePollo.png"){
-    override method crearAlimento() = new PechugaDePollo(position = posicionAlimento)
+    override method crearAlimento() = new Comida(tipo = tipoPollo, position = posicionAlimento)
 }
 
 object cajonDeHuevo inherits Cajon (
     position = game.at(24,6),
     posicionAlimento = game.at(11,3),
     imagenCajon = "imagenesCajones/cajonDeHuevos.png"){ 
-    override method crearAlimento() = new Huevo(position = posicionAlimento)
+    override method crearAlimento() = new Comida(tipo= tipoHuevo,position = posicionAlimento)
 }
 
 object cajonDeBife inherits Cajon (
     position = game.at(20,3),
     posicionAlimento = game.at(13,3),
     imagenCajon = "imagenesCajones/cajonDeOjoDeBife.png"){ 
-    override method crearAlimento() = new OjoDeBife(position = posicionAlimento)
+    override method crearAlimento() = new Comida(tipo = tipoBife,position = posicionAlimento)
 }
 

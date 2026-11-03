@@ -10,31 +10,25 @@ import tareas.*
 
 
 object cruda {
-    method image(comida) = comida.imagenCruda()
-
-    method tareas(comida) = comida.tareasCruda()
-
+    method image(tipo) = tipo.imagenCruda()
+    method tareas(tipo) = tipo.tareasCruda()
 }
 
 object cortada {
-    method image(comida) = comida.imagenCortada()
-
-    method tareas(comida) = comida.tareasCortada()
-
+    method image(tipo) = tipo.imagenCortada()
+    method tareas(tipo) = tipo.tareasCortada()
 }
 
 object cocinada {
-    method image(comida) = comida.imagenCocinada()
-    method tareas(comida) = [tareaTirar]
+    method image(tipo) = tipo.imagenCocinada()
+    method tareas(tipo) = [tareaTirar]
    
 }
 
 object quemada {
-    method image(comida) = comida.imagenQuemada()
-    method tareas(comida) = [tareaTirar]
-    
+    method image(tipo) = tipo.imagenQuemada()
+    method tareas(tipo) = [tareaTirar]
 }
-
 
 // Estados para el plato
 object limpio {

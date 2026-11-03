@@ -10,29 +10,64 @@ import tareas.*
 
 // COMIDAS Y VAJILLA (CLASES Y OBJETOS)
 
+class TipoDeComida{
+    method tareasCruda() = [tareaCocinar, tareaTirar] //Cambia en las papas
+    method tareasCortada() = []
+
+    method imagenCruda()
+    method imagenCocinada()
+    method imagenQuemada()
+    method imagenCortada() = "" //solo la papa
+}
+
+object tipoBife inherits TipoDeComida (){
+    override method imagenCruda() = "imagenesComida-Vajilla/ojoBife.png"
+    override method imagenCocinada() = "imagenesComida-Vajilla/ojoBifeCocinado.png"
+    override method imagenQuemada() = "imagenesComida-Vajilla/ojoBifeQuemado.png"
+}
+
+object tipoHuevo inherits TipoDeComida{
+    override method imagenCruda() = "imagenesComida-Vajilla/huevo.png"
+    override method imagenCocinada() = "imagenesComida-Vajilla/huevoFrito.png"
+    override method imagenQuemada() = "imagenesComida-Vajilla/huevoFritoQuemado.png"
+}
+
+object tipoPollo inherits TipoDeComida {
+    override method imagenCruda() = "imagenesComida-Vajilla/pechuga.png"
+    override method imagenCocinada() = "imagenesComida-Vajilla/pechugacocinada.png"
+    override method imagenQuemada() = "imagenesComida-Vajilla/pechugaquemada.png"
+}
+
+object tipoPapa inherits TipoDeComida {
+    override method imagenCruda() = "imagenesComida-Vajilla/papaCruda.png"
+    override method imagenCortada() = "imagenesComida-Vajilla/papaCortada.png"
+    override method imagenCocinada() = "imagenesComida-Vajilla/papaFrita.png"
+    override method imagenQuemada() = "imagenesComida-Vajilla/papaFritaQuemada.png"
+   
+
+    override method tareasCruda() = [tareaCortar, tareaTirar]
+    override method tareasCortada() = [tareaCocinar, tareaTirar]
+}
+
 
 class Comida{
+    const property tipo
     var property position 
     var property estado = cruda //asi comienzan todas las comidas
     var property estaEnPlato = false
     var property sePuedeAgarrar = true 
     var property debeEliminarseAlVaciar = true //util para saber si al estar en un plato armado debo sacarlos o no
 
-    method nuevaPosicion(posicion){
-        self.position(posicion)
+    method image() = estado.image(tipo) //la imagen se activa segun el estado en el que se encuentra
+    method tareas() = estado.tareas(tipo)
+
+    method cumpleRequerimiento(tipoEsperado, estadoEsperado) {
+        return tipo == tipoEsperado && estado == estadoEsperado
     }
     
-    method vaciarElementos() {}
-    method entregarEnMesaEntrega(){}
-    method tareaDeEstacion(objeto){} //PARA NO ROMPER EL POLIMORFISMO CON LAS ESTACIONES
-
-    method desaparecer() {
-        game.removeVisual(self)
-    }
-
-    method colocarseEnMesadaArmado(mesadaArmado){
-        mesadaArmado.recibirComida(self)
-    }
+    method nuevaPosicion(posicion){self.position(posicion)}
+    method desaparecer() {game.removeVisual(self)}
+    method colocarseEnMesadaArmado(mesadaArmado){mesadaArmado.recibirComida(self)}
 
     method agarrar(personaje){
         if (sePuedeAgarrar && !estaEnPlato) {
@@ -40,54 +75,10 @@ class Comida{
         }
     }
 
-    method soltar(personaje){
-        personaje.sueltoObjeto(self)
-    }
-
-    method clase() = self.className() //ver si cambiamos esto
-
-    method cumpleRequerimiento(tipoComida, estadoEsperado){
-        return (self.clase() == tipoComida && self.estado() == estadoEsperado)
-    }
-
-    method tareas() = estado.tareas(self)
-
-    method tareasCruda() = [tareaCocinar, tareaTirar] //ahora son objetos 
-    method tareasCortada() = [] //solo papa 
-   
-    method image() = estado.image(self) //la imagen se activa segun el estado en el que se encuentra
-}
-
-
-class PechugaDePollo inherits Comida{
-
-    method imagenCruda() = "imagenesComida-Vajilla/pechuga.png"
-    method imagenCocinada() = "imagenesComida-Vajilla/pechugacocinada.png"
-    method imagenQuemada() = "imagenesComida-Vajilla/pechugaquemada.png"
-    
-}
-
-class Papa inherits Comida{
-    method imagenCruda() = "imagenesComida-Vajilla/papaCruda.png"
-    method imagenCortada() = "imagenesComida-Vajilla/papaCortada.png"
-    method imagenCocinada() = "imagenesComida-Vajilla/papaFrita.png"
-    method imagenQuemada() = "imagenesComida-Vajilla/papaFritaQuemada.png"
-
-    override method tareasCruda() = [tareaCortar, tareaTirar] //es el unico que puede (y debe) cortarse antes de cocinarse
-    override method tareasCortada() = [tareaCocinar, tareaTirar]
-
-}
-
-class OjoDeBife inherits Comida {
-    method imagenCruda() = "imagenesComida-Vajilla/ojoBife.png"
-    method imagenCocinada() = "imagenesComida-Vajilla/ojoBifeCocinado.png"
-    method imagenQuemada() = "imagenesComida-Vajilla/ojoBifeQuemado.png"
-}
-
-class Huevo inherits Comida {
-    method imagenCruda() = "imagenesComida-Vajilla/huevo.png"
-    method imagenCocinada() = "imagenesComida-Vajilla/huevoFrito.png"
-    method imagenQuemada() = "imagenesComida-Vajilla/huevoFritoQuemado.png"
+    method soltar(personaje){personaje.sueltoObjeto(self)}
+    method vaciarElementos() {}
+    method entregarEnMesaEntrega(mesadaEntrega){}
+    method tareaDeEstacion(objeto){} //PARA NO ROMPER EL POLIMORFISMO CON LAS ESTACIONES   
 }
 
 class Vajilla {
@@ -102,7 +93,7 @@ class Vajilla {
     method desaparecer(){} //plato no hace nada
     method tareaDeEstacion(objeto){} //PARA NO ROMPER EL POLIMORFISMO CON LAS ESTACIONES
 
-    method entregarEnMesaEntrega(){}
+    method entregarEnMesaEntrega(mesadaEntrega){}
     
     method agarrar(personaje){
         if (sePuedeAgarrar && !estaEnPlato) {
@@ -178,14 +169,16 @@ class PlatoArmado inherits Vajilla(estado = platoArmado){
     })
     }
 
-    override method entregarEnMesaEntrega(){ //Ver si tiene sentido que este aca
-        const pedido = selectorPedidos.eleccionDePedido(elementosPlato)
-            personajePrincipal.agarrarOSoltar()
-            if (pedido == null) { 
-                puntajeEnJuego.restar(100)  
-                MesadaEntrega.tomarPlato(self)
-            } else{
-                MesadaEntrega.procesoPlato(pedido, self)
-            }
+    override method entregarEnMesaEntrega(mesadaEntrega){ //Ver si tiene sentido que este aca
+        const comidas = elementosPlato.filter({elem => elem.debeEliminarseAlVaciar()})
+        const pedido = selectorPedidos.eleccionDePedido(comidas) //No compara el plato
+
+        personajePrincipal.agarrarOSoltar()
+        if (pedido == null) { 
+            puntajeEnJuego.restar(100)  
+            mesadaEntrega.tomarPlato(self)
+        } else{
+            mesadaEntrega.procesoPlato(pedido, self)
+        }
     }
 }

@@ -1,10 +1,13 @@
+import source.estados.*
 import wollok.game.*
 import pedidos.*
 import niveles.*
 import controladorPantallasYNiveles.*
 
 
+
 //PUNTAJE: CONTEO-SUMA-RESTA-CALCULAR FRENTE A PEDIDOS
+//IMPLEMENTAR POLIMORFISMO DONDE ESTA MARCADO
 
 class Puntaje{
     var property valor = 0
@@ -31,7 +34,7 @@ object puntajeEnJuego inherits Puntaje{
     method puntosAlEntregar(pedido) = 200 + self.puntosPorEspera(pedido)
 
     method asignarPuntos(pedido, plato){
-        if(plato.elementosPlato().any{ingrediente => ingrediente.modificado() == "quemado"}) {
+        if(plato.elementosPlato().any{ingrediente => ingrediente.estado() == quemada}) { //VER COMO IMPLEMENTAR POLIMORFISMO ACA
             self.restar(250)
             return 0
         }
