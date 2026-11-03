@@ -3,6 +3,7 @@ import wollok.game.*
 import pedidos.*
 import niveles.*
 import controladorPantallasYNiveles.*
+import vidas.*
 
 
 
@@ -60,6 +61,7 @@ object controladorDePartida {
 
     method pedidoPerdido() {
         pedidosPerdidos += 1
+        vidas.perderVida()
     }
 
 
@@ -79,6 +81,8 @@ object controladorDePartida {
             puntajeEnJuego.valor(0)
             self.partidaGanada(false)
             generadorDePedidos.terminar(nivelActual) 
+            pedidosPerdidos = 0
+            vidas.reiniciar()
             nivelActual = nivelActual.siguienteNivel()
             nivelActual.iniciar()
         } else {
@@ -89,6 +93,7 @@ object controladorDePartida {
     method terminarPartida() {
         partidaTerminada = true
         generadorDePedidos.terminar(nivelActual)
+        vidas.limpiar()
 
         try { game.removeTickEvent("moverCocinero") } catch e {} //NUEVO
         try { game.removeTickEvent("controlarPartida") } catch e {}
@@ -110,6 +115,7 @@ object controladorDePartida {
     method reiniciarNivel() {
         nivelActual = nivel1
         pedidosPerdidos = 0
+        vidas.reiniciar()
         partidaTerminada = false
         partidaGanada = false
         puntajeEnJuego.valor(0)
