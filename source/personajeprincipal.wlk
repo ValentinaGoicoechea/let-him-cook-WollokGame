@@ -24,6 +24,8 @@ object personajePrincipal{
     method image() = "imagenesPersonajes/" + personajeSeleccionado.tipo() + ultimadireccion.direccionImagen() + ".png"
     method proximaPosicion() = direccion.siguiente(position)
 
+    method posicionDondeMiro() = ultimadireccion.siguiente(position)
+
     method darPaso(){
         const nuevaPosicion=self.proximaPosicion()
 
@@ -38,28 +40,29 @@ object personajePrincipal{
     method agarroObjeto(objeto){
         objetoEnMano = objeto
         objetoEnMano.nuevaPosicion(position)
-         manoOcupada = true
+        manoOcupada = true
     }
 
     method sueltoObjeto(objeto){
-        objetoEnMano.position(self.proximaPosicion())
-        objetoEnMano = null
-        manoOcupada = false
-
+        if (objetoEnMano != null) {
+            objetoEnMano.nuevaPosicion(self.posicionDondeMiro())
+            objetoEnMano = null
+            manoOcupada = false
+        }
     }
 
     method agarrarOSoltar() {
-        const elementosDondeMiro = game.getObjectsIn(self.proximaPosicion())
+        const elementosDondeMiro = game.getObjectsIn(self.posicionDondeMiro())
         if (!manoOcupada) {
-            elementosDondeMiro.forEach({elem => elem.agarrar(self)}) 
+            elementosDondeMiro.forEach({elem => if (!manoOcupada) elem.agarrar(self)}) 
         } else {
-            elementosDondeMiro.forEach({elem=> elem.soltar(self)})
+            self.sueltoObjeto(objetoEnMano)
         }
     }
 
 
     method accionar(){
-        game.getObjectsIn(self.proximaPosicion()).forEach({elem => elem.tareaDeEstacion(objetoEnMano)}) // el objeto ve si le mando algo o null, no el personaje
+        game.getObjectsIn(self.posicionDondeMiro()).forEach({elem => elem.tareaDeEstacion(objetoEnMano)}) // el objeto ve si le mando algo o null, no el personaje
         
     }
 

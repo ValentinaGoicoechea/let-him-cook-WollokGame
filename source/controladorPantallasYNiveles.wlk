@@ -113,17 +113,14 @@ object juegoCocinero {
     var nivel = nivel1
 
     method iniciarJuego() { 
-        console.println("--- 1. Entró a iniciarJuego ---")
         //game.clear()
 
         try { game.removeVisual(pantallaSeleccionPersonaje) } catch e {}
         try { game.removeVisual(selectorPersonajes) } catch e {}
         
-        console.println("--- 2. Reiniciando cajones y partida ---")
         [cajonDePapas, cajonDePollo, cajonDeHuevo, cajonDeBife].forEach({cajon => cajon.reiniciarPorFinDeNivel()})
         controladorDePartida.reiniciarNivel()
         
-        console.println("--- 3. Agregando estaciones y entorno ---")
         game.addVisual(horno1)
         game.addVisual(horno2)
         game.addVisual(mesadaEntrega1)
@@ -136,17 +133,14 @@ object juegoCocinero {
         game.addVisual(basura)
         game.addVisual(bacha)
         
-        console.println("--- 4. Agregando personaje y platos ---")
         game.addVisual(personajePrincipal)
         game.addVisual(plato1)
         game.addVisual(plato2)
         game.addVisual(plato3)
         game.addVisual(puntajeEnJuego)
 
-        console.println("--- 5. Por ejecutar nivel.iniciar() ---")
         nivel.iniciar()
 
-        console.println("--- 6. Configurando teclado y ticks ---")
         teclado.movimiento()
         teclado.agarrarOSoltarObjeto()
         teclado.realizarAccion()
@@ -154,7 +148,6 @@ object juegoCocinero {
         game.onTick(100, "moverCocinero", { personajePrincipal.darPaso() }) 
         game.onTick(200, "controlarPartida", {controladorDePartida.controlarProgresoPartida()})
         
-        console.println("--- 7. ¡Fin de iniciarJuego con éxito! ---")
     }
 }
 

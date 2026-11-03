@@ -41,7 +41,7 @@ object limpio {
     method image(plato) = plato.imagenLimpio()
     method tareas(plato) = []
 
-    method colocarseEnMesadaArmado(plato) { MesadaArmado.recibirPlatoLimpio(plato) }
+    method colocarseEnMesadaArmado(plato, mesada) { mesada.recibirPlatoLimpio(plato) }
     
 }
 
@@ -49,15 +49,15 @@ object sucio {
     method image(plato) = plato.imagenSucio()
     method tareas(plato) = [tareaLimpiar]
 
-    method colocarseEnMesadaArmado(plato) {}
+    method colocarseEnMesadaArmado(plato, mesada) {}
     
 }
 
 object platoArmado{
-    method image(plato) = "vacio.png"
+    method image(plato) = "imagenesEstaciones/vacio.png"
     method tareas(plato) = [tareaTirar]
 
-    method colocarseEnMesadaArmado(){ MesadaArmado.recibirPlatoArmado(self)}
+    method colocarseEnMesadaArmado(plato, mesada){ mesada.recibirPlatoArmado(plato)}
 
 }
 

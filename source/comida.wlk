@@ -30,12 +30,14 @@ class Comida{
         game.removeVisual(self)
     }
 
-    method colocarseEnMesadaArmado(){
-        MesadaArmado.recibirComida(self)
+    method colocarseEnMesadaArmado(mesadaArmado){
+        mesadaArmado.recibirComida(self)
     }
 
     method agarrar(personaje){
-        personaje.agarroObjeto(self)
+        if (sePuedeAgarrar && !estaEnPlato) {
+            personaje.agarroObjeto(self)
+        }
     }
 
     method soltar(personaje){
@@ -47,6 +49,8 @@ class Comida{
     method cumpleRequerimiento(tipoComida, estadoEsperado){
         return (self.clase() == tipoComida && self.estado() == estadoEsperado)
     }
+
+    method tareas() = estado.tareas(self)
 
     method tareasCruda() = [tareaCocinar, tareaTirar] //ahora son objetos 
     method tareasCortada() = [] //solo papa 
@@ -101,13 +105,18 @@ class Vajilla {
     method entregarEnMesaEntrega(){}
     
     method agarrar(personaje){
-        personaje.agarroObjeto(self)
+        if (sePuedeAgarrar && !estaEnPlato) {
+            personaje.agarroObjeto(self)
+        }
     }
 
     method soltar(personaje){
         personaje.sueltoObjeto(self)
     }
 
+    method colocarseEnMesadaArmado(mesada){
+        estado.colocarseEnMesadaArmado(self, mesada)
+    }
     
     method clase() = self.className()
 
@@ -116,11 +125,6 @@ class Vajilla {
 }
 class Plato inherits Vajilla {  
     var property debeEliminarseAlVaciar = false
-
-    method colocarseEnMesadaArmado(){
-        estado.colocarseEnMesadaArmado(self)
-
-    }
 
     method imagenLimpio() = "imagenesComida-Vajilla/plato.png"
     method imagenSucio() = "imagenesComida-Vajilla/platoSucio.png"
@@ -152,7 +156,7 @@ class PlatoArmado inherits Vajilla(estado = platoArmado){
     
     override method desaparecer(){
         self.vaciarElementos()
-        self.sePuedeAgarrar(true)
+        game.removeVisual(self) //NUEVO CAMBIO
     }
 
     override method agarrar(personaje){
@@ -167,6 +171,9 @@ class PlatoArmado inherits Vajilla(estado = platoArmado){
         if (elemento.debeEliminarseAlVaciar()) {
             game.removeVisual(elemento)
             elementosPlato.remove(elemento)
+        }else{
+            elemento.estaEnPlato(false)
+            elemento.sePuedeAgarrar(true)
         }
     })
     }

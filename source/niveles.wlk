@@ -13,26 +13,21 @@ class Nivel{
     }
 
     method iniciar() {
-        console.println("--- DEBUG Nivel.iniciar(): Entró al método iniciar ---")
         if (!game.allVisuals().contains(cajonDeHuevo)) {
-            console.println("--- DEBUG Nivel.iniciar(): Va a agregar cajonDeHuevo ---")
             game.addVisual(cajonDeHuevo)
         }
         if (!game.allVisuals().contains(cajonDeBife)) { 
-            console.println("--- DEBUG Nivel.iniciar(): Va a agregar cajonDeBife ---")
             game.addVisual(cajonDeBife)
         }
-        console.println("--- DEBUG Nivel.iniciar(): Repone stock huevo y bife ---")
         cajonDeHuevo.reponerStock()
         cajonDeBife.reponerStock()
-        console.println("--- DEBUG Nivel.iniciar(): Muestra info nivel ---")
+
         pantalla.mostrarInfoNivel()
-        console.println("--- DEBUG Nivel.iniciar(): Programa el schedule ---")
+
         game.schedule(5200, {
             controladorDePartida.puntosSegunNivel()
             generadorDePedidos.empezar(self) 
         })
-        console.println("--- DEBUG Nivel.iniciar(): Terminó todo el iniciar de Nivel ---")
     }
 }
 

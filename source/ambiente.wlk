@@ -35,7 +35,7 @@ class Estacion{
 
     method tareaDeEstacion(objeto) {
         if(objeto != null){
-            if(objeto.estado().tareas().contains(tareaAsociada) && !estaOcupado){
+            if(objeto.tareas().contains(tareaAsociada) && !estaOcupado){
                 prendido = true
                 estaOcupado = true
                 personajePrincipal.agarrarOSoltar() //el personaje principal suelta el objeto
@@ -250,7 +250,7 @@ class MesadaArmado inherits Mesada{
 
 
     override method tareaDeEstacion(objeto){
-        if(objeto != null){ objeto.colocarseEnMesadaArmado()}
+        if(objeto != null){ objeto.colocarseEnMesadaArmado(self)} //le mando la mesadaDeArmado por parametro
     }
 
     method agarrarPlatoArmado() {
