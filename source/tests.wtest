@@ -4,28 +4,26 @@ import ambiente.*
 import personajeprincipal.*
 import pedidos.*
 import puntaje.*
+import estados.*
+import tareas.*
 
 
 describe "Tests preliminares TPGame-Overcooked" {
 
     test "Al cortarse una papa, esta cambia su estado, su tipo e imagen." {
-        const papa = new Papa(position = game.at(4,9),
-                              modificado = "")
+        const papa = new Comida(tipo = tipoPapa, position = game.at(4,9))
 
-        papa.modificado("cortada")
+        tareaCortar.ejecutar(papa)
 
-        assert.equals("cortada", papa.modificado())
-        assert.equals("papaCortada", papa.elementoYEstado())
-        assert.equals("papaCortada.png", papa.image())
-
+        assert.equals(cortada, papa.estado())
+        assert.equals("imagenesComida-Vajilla/papaCortada.png", papa.image())
     }
 
     test "Una pechuga cruda se puede cocinar o tirar." {
-        const pechuga = new PechugaDePollo(position = game.at(10, 10),
-                                           modificado = "")
+        const pechuga = new Comida(tipo=tipoPollo, position = game.at(10, 10))
 
-        assert.equals(true, pechuga.tareas().contains("cocinar"))
-        assert.equals(true, pechuga.tareas().contains("tirar"))
+        assert.equals(true, pechuga.tareas().contains(tareaCocinar))
+        assert.equals(true, pechuga.tareas().contains(tareaTirar))
     }
 
     test "El stock inicial de pechugas y de papas es de 5 (cada uno)." {
@@ -36,27 +34,13 @@ describe "Tests preliminares TPGame-Overcooked" {
         assert.equals(5, cajonDePollo.cantidadEnStock())
     }
 
-    test "Cuando se tira una pechuga al tacho de basura, esta desaparece." { //Seguramente haya que
-                                                                            //modificar esto porque la 
-                                                                            //basura tarda 500ms en tirar cosas
-        const pechuga1 = new PechugaDePollo(position = game.at(6,3),
-                                           modificado = "")
-        const basura1 = new Estacion(
-            position = game.at(25,7),
-            prendido = false,
-            estaOcupado = false,
-            tiempoTarea = 0,
-            imagen1 = "basuraAbierta.png",
-            imagen2 = "basura.png",
-            valorOtorgado = "tirado",
-            debeValidar = "tirar",
-            numeroEstacion = 1
-        )
+    test "Cuando se tira una pechuga al tacho de basura, esta desaparece." {
+        const pechuga1 = new Comida(tipo = tipoPollo, position = game.at(6,3)) 
+        game.addVisual(pechuga1)       
         
-        basura1.tareaDeEstacion(pechuga1)
+        tareaTirar.ejecutar(pechuga1) 
 
-        assert.equals("tirado", pechuga1.modificado())
-        assert.equals("vacio.png", pechuga1.image())
+        assert.equals(false, game.allVisuals().contains(pechuga1))
 
     }
 
@@ -72,13 +56,21 @@ describe "Tests preliminares TPGame-Overcooked" {
     test "Un plato armado con más de un elemento se puede agarrar." {
         const plato = new Plato(
             position = game.at(10, 10),
-            modificado = "limpio")
+            estado = limpio)
 
-        const papa = new Papa(
+        const papa = new Comida(
+            tipo = tipoPapa,
             position = game.at(10, 10),
-            modificado = "cocinado")
+            estado = cocinada)
+
+                
+        const mesadaArmado1 = new MesadaArmado(
+            position = game.at(25,7),
+            image = "imagenesEstaciones/mesadaArmado.png"
+        )
 
         const platoArmado = new PlatoArmado(
+            mesadaActual = mesadaArmado1,
             position = game.at(10, 10),
             elementosPlato = [plato, papa])
 
@@ -94,14 +86,13 @@ describe "Tests preliminares TPGame-Overcooked" {
         )
         generadorDePedidos.agregarNuevoPedido(pedido)
 
-        const plato = new Plato(position= game.at(24, 7), modificado = "limpio")
-        const pechuga = new PechugaDePollo(position = game.at(24, 7), modificado = "cocinado") 
-        //uso "cocinado" ya que no me importa si las demas estaciones funcionan, solo evaluo la entrega
-        const papa = new Papa(position = game.at(24, 7), modificado= "cocinado")
-        const platoArmado = new PlatoArmado(position = game.at(24, 7), elementosPlato = [plato, pechuga, papa])
-        const mesadaEntrega = new MesadaEntrega(position = game.at(14, 11), image = "mesada.png")
-
-        mesadaEntrega.tareaDeEstacion(platoArmado)
+        const plato = new Plato(position = game.at(10, 10),estado = limpio) 
+        const papa = new Comida(tipo = tipoPapa,position = game.at(10, 10),estado = cocinada)
+        const pechuga = new Comida(tipo=tipoPollo, position = game.at(10, 10), estado = cocinada)     
+        const mesadaArmado1 = new MesadaArmado(position = game.at(25,7),image = "imagenesEstaciones/mesadaArmado.png")
+        const platoArmado = new PlatoArmado(mesadaActual = mesadaArmado1,position = game.at(10, 10),elementosPlato = [plato, papa, pechuga])      
+        const mesadaEntrega1 = new MesadaEntrega(position = game.at(14,11),image = "imagenesEstaciones/mesada.png")
+        mesadaEntrega1.tareaDeEstacion(platoArmado)
 
         assert.equals(true, pedido.seEntrego())
         assert.equals(false, generadorDePedidos.listaPedidos().contains(pedido))
@@ -116,16 +107,16 @@ describe "Tests preliminares TPGame-Overcooked" {
         )
         generadorDePedidos.agregarNuevoPedido(pedido)
 
-        const plato = new Plato(position= game.at(24, 7), modificado = "limpio")
-        const pechuga = new PechugaDePollo(position = game.at(24, 7), modificado = "cocinado") 
-        //uso "cocinado" ya que no me importa si las demas estaciones funcionan, solo evaluo la entrega
-        const papa = new Papa(position = game.at(24, 7), modificado= "cocinado")
-        const platoArmado = new PlatoArmado(position = game.at(24, 7), elementosPlato = [plato, pechuga, papa])
+        const plato = new Plato(position= game.at(24, 7), estado = limpio)
+        const pechuga = new Comida(tipo = tipoPollo,position = game.at(24, 7), estado = cocinada) 
+        const papa = new Comida(tipo = tipoPapa, position = game.at(24, 7), estado = cocinada)
+        const mesadaArmado1 = new MesadaArmado(position = game.at(25,7),image = "imagenesEstaciones/mesadaArmado.png")
+        const platoArmado = new PlatoArmado(mesadaActual = mesadaArmado1,position = game.at(10, 10),elementosPlato = [plato, papa, pechuga])      
         const mesadaEntrega = new MesadaEntrega(position = game.at(14, 11), image = "mesada.png")
 
         mesadaEntrega.tareaDeEstacion(platoArmado)
 
-        assert.equals("sucio", plato.modificado())
+        assert.equals(sucio, plato.estado())
     }
 
     test "Al entregar un plato que no coincide con ninguna receta, resta 100 puntos"{
@@ -139,10 +130,10 @@ describe "Tests preliminares TPGame-Overcooked" {
         )
         generadorDePedidos.agregarNuevoPedido(pedido)
 
-        
-        const plato = new Plato(position= game.at(24, 7), modificado = "limpio")
-        const pechuga = new PechugaDePollo(position = game.at(24, 7), modificado = "cocinado") 
-        const platoArmado = new PlatoArmado(position = game.at(24, 7), elementosPlato = [plato, pechuga])
+        const plato = new Plato(position= game.at(24, 7), estado = limpio)
+        const pechuga = new Comida(tipo = tipoPollo,position = game.at(24, 7), estado = cocinada) 
+        const mesadaArmado1 = new MesadaArmado(position = game.at(25,7),image = "imagenesEstaciones/mesadaArmado.png")
+        const platoArmado = new PlatoArmado(mesadaActual = mesadaArmado1,position = game.at(10, 10),elementosPlato = [plato, pechuga])   
         const mesadaEntrega = new MesadaEntrega(position = game.at(14, 11), image = "mesada.png")
 
         mesadaEntrega.tareaDeEstacion(platoArmado)
@@ -151,17 +142,12 @@ describe "Tests preliminares TPGame-Overcooked" {
     }
 
     test "Es posible ir con un plato ya con comida y seguir agregando ingredientes"{
-        const plato = new Plato(position= game.at(24, 7), modificado = "limpio")
-        const pechuga = new PechugaDePollo(position = game.at(24, 7), modificado = "cocinado") 
-        const papa = new Papa(position = game.at(24, 7), modificado= "cocinado")
-        const platoArmado = new PlatoArmado(position = game.at(24, 7), elementosPlato = [plato, papa]) //inicio con el platoArmado con plato y papa
+        const plato = new Plato(position= game.at(24, 7), estado = limpio)
+        const pechuga = new Comida(tipo = tipoPollo,position = game.at(24, 7), estado = cocinada) 
+        const papa = new Comida(tipo = tipoPapa, position = game.at(24, 7), estado = cocinada)
+        const mesadaArmado1 = new MesadaArmado(position = game.at(25,7),image = "imagenesEstaciones/mesadaArmado.png")
+        const platoArmado = new PlatoArmado(mesadaActual = mesadaArmado1,position = game.at(10, 10),elementosPlato = [plato, papa])   
         const mesadaEntrega = new MesadaEntrega(position = game.at(14, 11), image = "mesada.png")
-
-        
-        const mesadaArmado1 = new MesadaArmado(
-            position = game.at(24.5,7),
-            image = "mesadaArmado.png"
-        )
 
         mesadaArmado1.tareaDeEstacion(platoArmado)
         mesadaArmado1.tareaDeEstacion(pechuga)
