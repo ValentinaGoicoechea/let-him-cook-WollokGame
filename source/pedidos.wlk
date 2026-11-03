@@ -164,7 +164,7 @@ object selectorPedidos{
         const disponibles = elementosPlato.map({ e => e }) // copia de la lista de elementosPlato
 
         return pedido.ingredientes().all({ req => //Busca requerimientos del pedido
-            const encontrado = disponibles.find({ elemento => req.esSatisfechoPor(elemento) }) //busca elemento del plato que cumpla requerimiento
+            const encontrado = disponibles.findOrDefault({ elemento => req.esSatisfechoPor(elemento) }, null) //busca elemento del plato que cumpla requerimiento
             if (encontrado != null) {
                 disponibles.remove(encontrado)
                 true
