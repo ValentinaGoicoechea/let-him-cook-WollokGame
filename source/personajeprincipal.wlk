@@ -66,6 +66,14 @@ object personajePrincipal{
         
     }
 
+    method reiniciar() {
+        position = game.at(10, 10)
+        direccion = ninguna
+        ultimadireccion = ninguna
+        manoOcupada = false
+        objetoEnMano = null
+    }
+
     /* VER DE ACCIONARLO CON LA Q
     method accionarCajon() {
         const cajon = self.elementoEn(self.posicionDondeMiro(), "stock")

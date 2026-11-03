@@ -113,11 +113,12 @@ object juegoCocinero {
     var nivel = nivel1
 
     method iniciarJuego() { 
-        //game.clear()
-
+        
+        try { game.removeTickEvent("moverCocinero") } catch e {}
+        try { game.removeTickEvent("controlarPartida") } catch e {}
         try { game.removeVisual(pantallaSeleccionPersonaje) } catch e {}
         try { game.removeVisual(selectorPersonajes) } catch e {}
-        
+    
         [cajonDePapas, cajonDePollo, cajonDeHuevo, cajonDeBife].forEach({cajon => cajon.reiniciarPorFinDeNivel()})
         controladorDePartida.reiniciarNivel()
         
@@ -144,6 +145,7 @@ object juegoCocinero {
         teclado.movimiento()
         teclado.agarrarOSoltarObjeto()
         teclado.realizarAccion()
+        personajePrincipal.reiniciar()
         
         game.onTick(100, "moverCocinero", { personajePrincipal.darPaso() }) 
         game.onTick(200, "controlarPartida", {controladorDePartida.controlarProgresoPartida()})

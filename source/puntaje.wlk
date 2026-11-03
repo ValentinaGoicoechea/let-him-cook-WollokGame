@@ -89,6 +89,10 @@ object controladorDePartida {
     method terminarPartida() {
         partidaTerminada = true
         generadorDePedidos.terminar(nivelActual)
+
+        try { game.removeTickEvent("moverCocinero") } catch e {} //NUEVO
+        try { game.removeTickEvent("controlarPartida") } catch e {}
+
         game.schedule(100, {
             game.clear()
             puntajeFinal.valor(puntajeEnJuego.valor())

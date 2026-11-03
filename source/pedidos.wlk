@@ -143,6 +143,7 @@ object generadorDePedidos {
     }
 
     method terminar(nivel){
+        try { game.removeTickEvent("generarPedido") } catch e {} //NUEVO
         listapedidos.forEach({pedido => pedido.cancelarPorCambioDeNivel()}) //los pone como perdidos y resta puntos y vida (esta mal)
         listapedidos.clear()
     }
