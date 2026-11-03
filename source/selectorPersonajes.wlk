@@ -5,7 +5,7 @@ import controladorPantallasYNiveles.*
 //SELECCION DE PERSONAJES (?)
 
 object selectorPersonajes { //highlight alrededor de personaje
-    var property position = game.at(15, 8)
+    var property position = game.at(8, 5)
     const personajesDisponibles = [ropaCocinero, ropaOtro] //cambiar nombres a futuro
     var personajeActual = null //el personaje actualmente seleccionado
     var personajeElegido = null // el personaje confirmado tras seleccion
@@ -50,10 +50,10 @@ class Personajes{
 const ropaCocinero = new Personajes(
     tipo = "cocinero",
     numero = 1,
-    posicionSelector = game.at(4, 8) 
+    posicionSelector = game.at(8, 5) 
 )
 const ropaOtro = new Personajes(    //PRUEBA, después hacemos otro tipo de personaje
     tipo = "parrillero",
     numero =2,
-    posicionSelector = game.at(7, 8) 
+    posicionSelector = game.at(16, 5) 
 )
