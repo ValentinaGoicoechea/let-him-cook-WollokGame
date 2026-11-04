@@ -55,3 +55,9 @@ object platoArmado{
 
 }
 
+object lleno{//Para llenar el vaso con fernet, cambia la foto en este estado
+    method image(vaso) = vaso.imagenLleno()
+      
+}
+
+

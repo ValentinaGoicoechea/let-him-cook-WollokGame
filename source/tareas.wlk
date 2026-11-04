@@ -21,3 +21,7 @@ object tareaLimpiar{
 object tareaQuemar{
     method ejecutar(objeto){objeto.estado(quemada)}
 }
+
+object tareaLlenar{
+    method ejecutar(objeto){objeto.estado(lleno)}
+}

@@ -19,6 +19,7 @@ class TipoDeComida{
 const tipoBife = new TipoDeComida(nombre = "ojoBife")
 const tipoHuevo = new TipoDeComida(nombre = "huevo")
 const tipoPollo = new TipoDeComida(nombre = "pechuga")
+const tipoVaso = new TipoDeComida(nombre = "vaso")
 object tipoPapa inherits TipoDeComida(nombre = "papa"){
     override method tareasCruda() = [tareaCortar, tareaTirar]
     override method tareasCortada() = [tareaCocinar, tareaTirar]
@@ -95,6 +96,28 @@ class Vajilla {
         sePuedeAgarrar = true
     }
 }
+class Vaso inherits Vajilla(position = game.at(4,8)){
+    const property tipo = tipoVaso
+    method imagenLimpio() = "imagenesComida-Vajilla/vaso.png"
+    method imagenLleno() = "imagenesComida-Vajilla/vasoFernet.png"
+    
+    method cumpleRequerimiento(tipoEsperado, estadoEsperado) {
+        return tipo == tipoEsperado && estado == estadoEsperado
+    }
+    
+    override method colocarseEnMesadaArmado(mesada){} //no hace nada
+    override method tareas() = [tareaLlenar]
+
+    override method reiniciar(){
+        position = game.at(4, 8)
+        estado = limpio
+        sePuedeAgarrar = true
+    }
+}
+
+const vaso1 = new Vaso(estado=limpio)
+const vaso2 = new Vaso(estado=limpio)
+const vaso3 = new Vaso(estado=limpio)
 class Plato inherits Vajilla {  
     var property debeEliminarseAlVaciar = false
 
@@ -102,20 +125,9 @@ class Plato inherits Vajilla {
     method imagenSucio() = "imagenesComida-Vajilla/platoSucio.png"
 }
 
-const plato1 = new Plato(
-    position = game.at(16,3),
-    estado = limpio
-)
-
-const plato2 = new Plato(
-    position = game.at(16,3),
-    estado = limpio
-)
-
-const plato3 = new Plato(
-    position = game.at(16,3),
-    estado = limpio
-)
+const plato1 = new Plato(position = game.at(16,3),estado = limpio)
+const plato2 = new Plato(position = game.at(16,3),estado = limpio)
+const plato3 = new Plato(position = game.at(16,3),estado = limpio)
 
 class PlatoArmado inherits Vajilla(estado = platoArmado){
     var property elementosPlato = []

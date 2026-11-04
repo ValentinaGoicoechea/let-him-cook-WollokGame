@@ -63,6 +63,32 @@ class Estacion{
     }
 }
 
+const mesaFernet1 = new Estacion(
+    position = game.at(19,11),
+    tiempoTarea = 4000, 
+    imagen1 = "imagenesEstaciones/mesadaFernet.png", 
+    imagen2 = "imagenesEstaciones/mesadaFernet.png", 
+    tareaAsociada = tareaLlenar,
+    numeroEstacion = 1)
+
+
+const mesaFernet2 = new Estacion(
+    position = game.at(20,11),
+    tiempoTarea = 4000, 
+    imagen1 = "imagenesEstaciones/vacio.png", 
+    imagen2 = "imagenesEstaciones/vacio.png", 
+    tareaAsociada = tareaLlenar,
+    numeroEstacion = 2)
+
+
+const mesaFernet3 = new Estacion(
+    position = game.at(21,11),
+    tiempoTarea = 4000, 
+    imagen1 = "imagenesEstaciones/vacio.png", 
+    imagen2 = "imagenesEstaciones/vacio.png", 
+    tareaAsociada = tareaLlenar,
+    numeroEstacion = 3)
+
 class CartelPrecaucion { //ver donde lo movemos
     var property position
     method image() = "cartelPrecaucion.png"

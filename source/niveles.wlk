@@ -36,7 +36,7 @@ object nivel2 inherits Nivel(
     pantalla = pantallaNivel2
     ){
     override method nuevoPedido() {
-        generadorDePedidos.pedir(0.randomUpTo(1).round()) //Puede salir ojo de bife y pollo con papas
+        generadorDePedidos.pedir(0.randomUpTo(2).round()) //Puede salir ojo de bife y pollo con papas
     }
     override method iniciar() {
         if (!game.allVisuals().contains(cajonDePapas)) {
@@ -57,6 +57,7 @@ object nivel1 inherits Nivel(
     pantalla = pantallaNivel1
     ){
     override method nuevoPedido() {
-        generadorDePedidos.pedir(1)  //Solo ojo de bife con huevo
+        generadorDePedidos.pedir(0.randomUpTo(1).round())
+        //generadorDePedidos.pedir(1)  //Solo ojo de bife con huevo
     }
 }

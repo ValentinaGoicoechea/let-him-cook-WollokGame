@@ -49,11 +49,13 @@ object nuevo {
 
     method imagenPollo() = "imagenesPedidos/pedidoPolloNuevo.png"
     method imagenOjoDeBife() = "imagenesPedidos/pedidoOjoBifeNuevo.png"
+    method imagenFernet() = "imagenesPedidos/pedidoFernetConCocaNuevo.png"
 }
 object espera1 {
     var property prioridad = 2
     method imagenPollo() = "imagenesPedidos/pedidoPolloEspera1.png"
     method imagenOjoDeBife() = "imagenesPedidos/pedidoOjoBifeEspera1.png"
+    method imagenFernet() = "imagenesPedidos/pedidoFernetConCocaEspera1.png"
 }
 object espera2 {
     var property prioridad = 3
@@ -88,6 +90,13 @@ object ojoDeBifeConHuevo {
     method ingredientes() = [
         new RequerimientoIngrediente(tipoEsperado = tipoBife, estadoEsperado = cocinada),
         new RequerimientoIngrediente(tipoEsperado = tipoHuevo, estadoEsperado = cocinada)
+    ]
+}
+
+object fernetConCoca{
+    method imagenSegun(estado) = estado.imagenFernet()
+    method ingredientes() = [
+        new RequerimientoIngrediente(tipoEsperado = tipoVaso, estadoEsperado = lleno)
     ]
 }
 

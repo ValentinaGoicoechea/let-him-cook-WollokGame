@@ -133,11 +133,17 @@ object juegoCocinero {
         game.addVisual(tablaDeCortar)
         game.addVisual(basura)
         game.addVisual(bacha)
+        game.addVisual(mesaFernet1)
+        game.addVisual(mesaFernet2)
+        game.addVisual(mesaFernet3)
         
         game.addVisual(personajePrincipal)
         game.addVisual(plato1)
         game.addVisual(plato2)
         game.addVisual(plato3)
+        game.addVisual(vaso1)
+        game.addVisual(vaso2)
+        game.addVisual(vaso3)
         game.addVisual(puntajeEnJuego)
 
         nivel.iniciar()
