@@ -28,7 +28,7 @@ object escenario {
         const y= pos.y()    
 
         if (x == 20 && y == 7) return false //la basura
-        else return  (y == 11 && (x.between(9, 13) || x.between(17, 24))) || 
+        else return  (y == 11 && (x.between(9, 13) || x.between(17, 18) || x.between(22, 24))) || 
                 (y.between(7, 10) && x.between(5, 24)) ||
                 (y == 6 && x.between(5, 18)) || 
                 (y.between(4, 5)  && x.between(5, 25))||

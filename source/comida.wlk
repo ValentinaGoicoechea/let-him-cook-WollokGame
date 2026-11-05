@@ -98,6 +98,7 @@ class Vajilla {
 }
 class Vaso inherits Vajilla(position = game.at(4,8)){
     const property tipo = tipoVaso
+    method elementosPlato() = [] 
     method imagenLimpio() = "imagenesComida-Vajilla/vaso.png"
     method imagenLleno() = "imagenesComida-Vajilla/vasoFernet.png"
     
@@ -113,7 +114,20 @@ class Vaso inherits Vajilla(position = game.at(4,8)){
         estado = limpio
         sePuedeAgarrar = true
     }
+
+    override method entregarEnMesaEntrega(mesadaEntrega){
+        const pedido = selectorPedidos.eleccionDePedido([self]) 
+        personajePrincipal.agarrarOSoltar()
+
+        if (pedido == null) { 
+            puntajeEnJuego.restar(100)  
+        } else{
+            mesadaEntrega.procesoPlato(pedido, self)
+        }
+        self.reiniciar()
+    }
 }
+
 
 const vaso1 = new Vaso(estado=limpio)
 const vaso2 = new Vaso(estado=limpio)
