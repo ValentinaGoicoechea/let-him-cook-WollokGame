@@ -57,7 +57,7 @@ object nivel1 inherits Nivel(
     pantalla = pantallaNivel1
     ){
     override method nuevoPedido() {
-        generadorDePedidos.pedir(0.randomUpTo(1).round())
+        generadorDePedidos.pedir(0.randomUpTo(1).round()) //pide ojo de bife y fernet
         //generadorDePedidos.pedir(1)  //Solo ojo de bife con huevo
     }
 }

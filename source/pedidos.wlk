@@ -61,11 +61,13 @@ object espera2 {
     var property prioridad = 3
     method imagenPollo() = "imagenesPedidos/pedidoPolloEspera2.png"
     method imagenOjoDeBife() = "imagenesPedidos/pedidoOjoBifeEspera2.png"
+     method imagenFernet() = "imagenesPedidos/pedidoFernetConCocaEspera2.png"
 }
 object perdido {
     var property prioridad = 0
     method imagenPollo() = "imagenesPedidos/pedidoPolloPerdido.png"
     method imagenOjoDeBife() = "imagenesPedidos/pedidoOjoBifePerdido.png"
+     method imagenFernet() = "imagenesPedidos/pedidoFernetConCocaPerdido.png"
 }
 
 
@@ -129,12 +131,18 @@ object generadorDePedidos {
 
     method pedir(numeroDePedido) {
         var pedidoX
-        if(numeroDePedido == 0){
+        if(numeroDePedido == 2){
             pedidoX = new Pedido (
                     position = game.at(27, 12), //Hice cambios en las posiciones!
                     // X se mantiebe igual, voy a hacer que por ahora haya 4 en pantalla
                     receta = polloConPapas
                 )
+        }
+        else if(numeroDePedido ==1){
+            pedidoX = new Pedido(
+                position = game.at(27,12),
+                receta = fernetConCoca
+            )
         }
         else{
             pedidoX = new Pedido ( 
