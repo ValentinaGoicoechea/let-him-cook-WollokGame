@@ -12,7 +12,7 @@ program juego{
     game.height(16)
     game.cellSize(50)
     game.title("LET HIM COOK")
-    game.boardGround("imagenesFondos/fondoCocina2.png")
+    game.boardGround("imagenesFondos/fondoCocina.png")
     
     pantallaInicio.ejecutarPantalla()
 

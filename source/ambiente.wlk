@@ -5,24 +5,23 @@ import comida.*
 import puntaje.*
 import estados.*
 import tareas.*
+import niveles.*
+
 
 
 //MANEJO DE ESTACIONES DE LA COCINA + STOCK DEL DEPOSTIO + ENTREGAS
 //COSAS A CAMBIAR 
 //Cambiar el elemento estacion y el elemento stock
 
-
-
 class Estacion{
-    const property position
+    var property position 
     var prendido = false
     var estaOcupado = false
     const tiempoTarea
     const imagen1
     const imagen2
     const tareaAsociada
-    const property numeroEstacion
-   
+    const property numeroEstacion 
     const property esMesadaArmado = false //ver si modificamos esto
 
     method image(){
@@ -175,7 +174,7 @@ const tablaDeCortar = new Estacion(
 )
 
 class Mesada{
-    const property position
+    var property position
     const property image
     method tareaDeEstacion(objeto)
     
@@ -317,8 +316,8 @@ const mesadaArmado3 = new MesadaArmado(
 
 
 class Cajon {
-    const property position 
-    const posicionAlimento
+    var property position 
+    var property posicionAlimento
     const stockMaximo = 5
     const alimentos = [] 
     const imagenCajon
