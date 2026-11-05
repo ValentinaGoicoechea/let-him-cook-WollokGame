@@ -115,7 +115,7 @@ object nivel2 inherits Nivel(
 }
 
 object nivel1 inherits Nivel(
-    puntosParaGanar = 100,
+    puntosParaGanar = 300,
     siguienteNivel = nivel2,
     pantalla = pantallaNivel1
     ){

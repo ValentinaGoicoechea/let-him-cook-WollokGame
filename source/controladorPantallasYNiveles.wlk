@@ -125,7 +125,9 @@ object juegoCocinero {
     
         [cajonDePapas, cajonDePollo, cajonDeHuevo, cajonDeBife].forEach({cajon => cajon.reiniciarPorFinDeNivel()})
         controladorDePartida.reiniciarNivel()
-        
+        game.addVisual(centenas)
+        game.addVisual(decenas)
+        game.addVisual(unidades)
         game.addVisual(horno1)
         game.addVisual(horno2)
         game.addVisual(mesadaEntrega1)
