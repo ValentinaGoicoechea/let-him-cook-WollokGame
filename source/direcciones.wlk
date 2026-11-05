@@ -22,7 +22,7 @@ object ninguna {
     method direccionImagen() = "Frente"
 }
 
-object escenario {
+object escenario { //Para el nivel 1 y 2 
     method esTransitable(pos){ //en base al piso
         const x = pos.x()
         const y= pos.y()    

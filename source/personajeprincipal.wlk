@@ -25,11 +25,15 @@ object personajePrincipal{
     method proximaPosicion() = direccion.siguiente(position)
 
     method posicionDondeMiro() = ultimadireccion.siguiente(position)
+    
+    method puedeAvanzar(posicion) { //mira que no haya nada en la proxima casilla a avanzar
+        return game.getObjectsIn(posicion).all({obj => obj == self || obj == objetoEnMano}) //all para que no se trabe cuando direccion = ninguna
+    }
 
     method darPaso(){
         const nuevaPosicion=self.proximaPosicion()
 
-        if(escenario.esTransitable(nuevaPosicion)){
+        if(escenario.esTransitable(nuevaPosicion) && self.puedeAvanzar(nuevaPosicion)){
             position = nuevaPosicion
             if(objetoEnMano != null){
                 objetoEnMano.nuevaPosicion(nuevaPosicion)
@@ -59,7 +63,6 @@ object personajePrincipal{
             self.sueltoObjeto(objetoEnMano)
         }
     }
-
 
     method accionar(){
         game.getObjectsIn(self.posicionDondeMiro()).forEach({elem => elem.tareaDeEstacion(objetoEnMano)}) // el objeto ve si le mando algo o null, no el personaje
