@@ -2,18 +2,22 @@ import pedidos.*
 import ambiente.*
 import controladorPantallasYNiveles.*
 import puntaje.*
+import direcciones.*
+
 
 class Nivel{
     var property puntosParaGanar 
     var property siguienteNivel = null
     const pantalla
     const fondo
+    const property mapa = mapaNivelBase
 
     method nuevoPedido() {
         //segun el nivel se crean distinto pedidos
     }
 
     method iniciar() {
+        escenario.nivelActual(self)
         fondoJuego.imagen(fondo)
         self.acomodarEscenario()
         self.cajones().forEach({cajon => if(!game.allVisuals().contains(cajon))
@@ -50,34 +54,13 @@ class Nivel{
         cajonDeBife.posicionAlimento(game.at(13, 3))
     }
 
-    method esTransitable(pos){//Para poder alternar el escenario de cada nivel
-        const x = pos.x()
-            const y= pos.y()    
-
-            if (x == 20 && y == 7) return false //la basura
-            else return  (y == 11 && (x.between(9, 13) || x.between(17, 18) || x.between(22, 24))) || 
-                    (y.between(7, 10) && x.between(5, 24)) ||
-                    (y == 6 && x.between(5, 18)) || 
-                    (y.between(4, 5)  && x.between(5, 25))||
-                    (y == 3 && x.between(18, 25))
-            
-            
-            
-            x == 5 && y.between(7,11)||
-                    x.between(9,13) && y == 11||
-                    x.between(21,24) && y == 11||
-                    (x.between(5, 24) && y.between(7,10) || 
-                    x.between(5,18) && y == 6||
-                    x.between(5,25) && y.between(4, 5))||
-                    x.between(18,25) && y == 3
-    }
 }
 
 object nivel3 inherits Nivel(
     puntosParaGanar = 200, //Cambiar
     pantalla = pantallaNivel3, //CAMBIAR
-    fondo = "imagenesFondos/fondoCocinaNivel3.png"
-){   
+    fondo = "imagenesFondos/fondoCocinaNivel3.png",
+    mapa = mapaNivel3){   
     override method cajones() = [cajonDeHuevo, cajonDeBife, cajonDePapas, cajonDePollo]
     
     override method acomodarEscenario() {
@@ -110,8 +93,7 @@ object nivel2 inherits Nivel(
     puntosParaGanar = 100,
     siguienteNivel = nivel3,
     pantalla = pantallaNivel2,
-    fondo = "imagenesFondos/fondoCocina2.png"
-    ){
+    fondo = "imagenesFondos/fondoCocina2.png"){
     override method nuevoPedido() {
         generadorDePedidos.pedir(0.randomUpTo(2).round()) //Puede salir ojo de bife, pollo con papas o fernet
     }
@@ -123,8 +105,7 @@ object nivel1 inherits Nivel(
     puntosParaGanar = 300,
     siguienteNivel = nivel2,
     pantalla = pantallaNivel1,
-    fondo = "imagenesFondos/fondoCocina.png"
-    ){
+    fondo = "imagenesFondos/fondoCocina.png"){
     override method nuevoPedido() {
         generadorDePedidos.pedir(0.randomUpTo(1).round()) //pide ojo de bife y fernet
         //generadorDePedidos.pedir(1)  //Solo ojo de bife con huevo
