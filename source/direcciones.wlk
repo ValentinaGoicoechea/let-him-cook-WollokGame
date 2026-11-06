@@ -27,7 +27,7 @@ object escenario { //Para el nivel 1 y 2
     var property nivelActual = nivel1 //asi inicializa
     method esTransitable(pos) = nivelActual.mapa().esTransitable(pos)
 }
-class ZonaTransitable {
+class Zona {
     const xMin
     const xMax
     const yMin
@@ -46,32 +46,33 @@ class Mapa {
 
 object mapaNivelBase inherits Mapa(
     zonas = [
-        new ZonaTransitable(xMin = 9,  xMax = 13, yMin = 11, yMax = 11),
-        new ZonaTransitable(xMin = 17, xMax = 18, yMin = 11, yMax = 11),
-        new ZonaTransitable(xMin = 22, xMax = 24, yMin = 11, yMax = 11),
-        new ZonaTransitable(xMin = 5,  xMax = 24, yMin = 7,  yMax = 10),
-        new ZonaTransitable(xMin = 5,  xMax = 18, yMin = 6,  yMax = 6),
-        new ZonaTransitable(xMin = 5,  xMax = 25, yMin = 4,  yMax = 5),
-        new ZonaTransitable(xMin = 18, xMax = 25, yMin = 3,  yMax = 3)
+        new Zona(xMin = 9,  xMax = 13, yMin = 11, yMax = 11),
+        new Zona(xMin = 17, xMax = 18, yMin = 11, yMax = 11),
+        new Zona(xMin = 22, xMax = 24, yMin = 11, yMax = 11),
+        new Zona(xMin = 5,  xMax = 24, yMin = 7,  yMax = 10),
+        new Zona(xMin = 5,  xMax = 18, yMin = 6,  yMax = 6),
+        new Zona(xMin = 5,  xMax = 25, yMin = 4,  yMax = 5),
+        new Zona(xMin = 18, xMax = 25, yMin = 3,  yMax = 3)
     ],
-    bloqueados= [new ZonaTransitable(xMin = 20, xMax = 20, yMin = 7,  yMax = 7)] //TACHO DE BASURA
+    bloqueados= [new Zona(xMin = 20, xMax = 20, yMin = 7,  yMax = 7)] //TACHO DE BASURA
 ){}
 
 object mapaNivel3 inherits Mapa(
     zonas = [
-        new ZonaTransitable(xMin = 5,  xMax = 11, yMin = 5, yMax = 6),
-        new ZonaTransitable(xMin = 12,  xMax = 18, yMin = 4, yMax = 7),
-        new ZonaTransitable(xMin = 5,  xMax = 18, yMin = 8, yMax = 11),
-        new ZonaTransitable(xMin = 11,  xMax = 14, yMin = 12, yMax = 12),
-        new ZonaTransitable(xMin = 19,  xMax = 19, yMin = 9, yMax = 11),
-        new ZonaTransitable(xMin = 20,  xMax = 25, yMin = 4, yMax = 11)
+        new Zona(xMin = 4,  xMax = 24, yMin = 7, yMax = 10),   // piso principal
+        new Zona(xMin = 10, xMax = 13, yMin = 11, yMax = 11),  // entre los hornos y el sofá
+        new Zona(xMin = 11, xMax = 17, yMin = 3, yMax = 6),    // piso inferior centro
+        new Zona(xMin = 19, xMax = 24, yMin = 3, yMax = 6),    // piso inferior derecha
+        new Zona(xMin = 25, xMax = 25, yMin = 7, yMax = 9)     // carril entre bacha y tabla
     ],
-    bloqueados= [new ZonaTransitable(xMin = 12, xMax = 12, yMin = 4,  yMax = 4),  //TACHO DE BASURA
-                new ZonaTransitable(xMin = 13, xMax = 14, yMin = 7,  yMax = 7),
-                new ZonaTransitable(xMin = 16, xMax = 17, yMin = 5,  yMax = 6),
-                new ZonaTransitable(xMin = 10, xMax = 10, yMin = 10, yMax = 10),
-                new ZonaTransitable(xMin = 7,  xMax = 8,  yMin = 10, yMax = 11),
-                new ZonaTransitable(xMin = 20, xMax = 21, yMin = 9,  yMax = 10),
-                new ZonaTransitable(xMin = 23, xMax = 23, yMin = 10, yMax = 11)              
-    ] 
+    bloqueados = [
+        new Zona(xMin = 11, xMax = 11, yMin = 3, yMax = 3),    // tacho de basura
+        new Zona(xMin = 12, xMax = 13, yMin = 6, yMax = 6),    // hueco medio
+        new Zona(xMin = 15, xMax = 16, yMin = 4, yMax = 5),    // hueco inferior
+        new Zona(xMin = 9,  xMax = 9,  yMin = 9, yMax = 9),    // hueco chico
+        new Zona(xMin = 6,  xMax = 7,  yMin = 9, yMax = 10),   // hueco arriba izquierda
+        new Zona(xMin = 22, xMax = 22, yMin = 9, yMax = 10),   // hueco arriba derecha
+        new Zona(xMin = 19, xMax = 20, yMin = 8, yMax = 9),    // tablón de comida
+        new Zona(xMin = 18, xMax = 18, yMin = 3, yMax = 8)     // mesada de armado
+    ]
 ){}

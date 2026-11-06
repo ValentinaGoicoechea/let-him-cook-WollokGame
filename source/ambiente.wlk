@@ -93,7 +93,7 @@ class CartelPrecaucion { //ver donde lo movemos
     method image() = "cartelPrecaucion.png"
 }
 
-class Horno inherits Estacion( tiempoTarea = 7000, imagen1 = "imagenesEstaciones/hornoprendido.png", imagen2 = "imagenesEstaciones/hornoapagado.png",tareaAsociada = tareaCocinar){
+class Horno inherits Estacion( tiempoTarea = 7000, imagen1 = "imagenesEstaciones/hornoprendido.gif", imagen2 = "imagenesEstaciones/hornoapagado.png",tareaAsociada = tareaCocinar){
     var precaucion = null
 
     method controlarQuemado(objeto){
@@ -158,7 +158,7 @@ const basura = new Estacion(
 const bacha = new Estacion(
     position = game.at(4,6),
     tiempoTarea = 3000,
-    imagen1 = "imagenesEstaciones/bachaAbierta.png", //ESPUMA O AGUA
+    imagen1 = "imagenesEstaciones/bachaAbierta.gif", 
     imagen2 = "imagenesEstaciones/vacio.png",
     tareaAsociada = tareaLimpiar,
     numeroEstacion = 1
