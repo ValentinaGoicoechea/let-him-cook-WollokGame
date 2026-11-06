@@ -12,21 +12,37 @@ import personajeprincipal.*
 
 //PUNTAJE: CONTEO-SUMA-RESTA-CALCULAR FRENTE A PEDIDOS
 //IMPLEMENTAR POLIMORFISMO DONDE ESTA MARCADO
+class DigitoPuntaje{
+    var property position
+    var property digito = 0 //Inicialmente
+    method image() = "numeros/" + digito.toString() + ".png"
+}
+const centenas = new DigitoPuntaje(position = game.at(7,1))
+const decenas = new DigitoPuntaje(position = game.at(8,1))
+const unidades = new DigitoPuntaje(position = game.at(9,1))
 
 class Puntaje{
     var property valor = 0
-    method text() = "PUNTAJE: " + valor
+    method image() = "imagenesFondos/PUNTOS.png"
     method position()
 }
 
 object puntajeEnJuego inherits Puntaje{
-    override method position() = game.at(1,5)
+    override method position() = game.at(4,1)
 
     method sumar(cantidad){ 
         valor += cantidad 
+        self.actualizarVisuales()
     }
     method restar(cantidad){ 
         valor = (valor - cantidad).max(0) // nunca puede ser menor a 0
+        self.actualizarVisuales()
+    }
+
+    method actualizarVisuales(){
+        unidades.digito(valor % 10) //saca el resto de dividir por 10
+        decenas.digito((valor.div(10)) % 10)
+        centenas.digito((valor.div(100)) % 10)
     }
 
     method puntosPorEspera(pedido){
@@ -51,6 +67,7 @@ object controladorDePartida {
     //NIVEL BASICON
     var puntosParaGanar = 750 // creo variables asi no hay num magicos (evaluar)
     var maxPedidosPerdidos = 5
+    const digitos = [centenas, decenas, unidades]
 
     var nivelActual = nivel1
 
@@ -82,6 +99,7 @@ object controladorDePartida {
     method continuarJuego() {
         if (nivelActual.siguienteNivel() != null) {
             puntajeEnJuego.valor(0)
+            puntajeEnJuego.actualizarVisuales()
             self.partidaGanada(false)
             generadorDePedidos.terminar(nivelActual) 
             pedidosPerdidos = 0
@@ -101,7 +119,7 @@ object controladorDePartida {
 
         try { game.removeTickEvent("moverCocinero") } catch e {} //NUEVO
         try { game.removeTickEvent("controlarPartida") } catch e {}
-
+/*
         game.schedule(100, {
             game.clear()
             puntajeFinal.valor(puntajeEnJuego.valor())
@@ -109,12 +127,14 @@ object controladorDePartida {
             pantallaFinal.ejecutarPantalla()
             game.addVisual(puntajeFinal)
         })
+*/
     }
-
+/*
     method otorgarMensajeExtra() {
         if(partidaGanada) {puntajeFinal.mensajeExtra("Felicidades!")}
         else {puntajeFinal.mensajeExtra("Casi...")}
     }
+*/
 
     method reiniciarNivel() {
         nivelActual = nivel1
@@ -124,6 +144,7 @@ object controladorDePartida {
         partidaTerminada = false
         partidaGanada = false
         puntajeEnJuego.valor(0)
+        puntajeEnJuego.actualizarVisuales()
     }
 
     method reiniciarCocina() {
@@ -134,6 +155,7 @@ object controladorDePartida {
     }
 }
 
+/*
 object puntajeFinal inherits Puntaje{
     var mensajeExtra = ""
 
@@ -149,4 +171,6 @@ object puntajeFinal inherits Puntaje{
         return mensajeExtra + super() //porfin encontre donde usar super !! :')
     }
 }
+*/
+
 

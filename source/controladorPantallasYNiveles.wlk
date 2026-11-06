@@ -128,6 +128,9 @@ object juegoCocinero {
         
         game.addVisual(fondoJuego) 
         
+        game.addVisual(centenas)
+        game.addVisual(decenas)
+        game.addVisual(unidades)
         game.addVisual(horno1)
         game.addVisual(horno2)
         game.addVisual(mesadaEntrega1)
