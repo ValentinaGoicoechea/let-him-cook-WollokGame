@@ -7,7 +7,7 @@ import controladorPantallasYNiveles.*
 object selectorPersonajes { //highlight alrededor de personaje
     var property position = game.at(8, 5)
     const personajesDisponibles = [ropaCocinero, ropaOtro] //cambiar nombres a futuro
-    var personajeActual = null //el personaje actualmente seleccionado
+    var property personajeActual = null //el personaje actualmente seleccionado
     var personajeElegido = null // el personaje confirmado tras seleccion
     method image() {if(personajeActual == null ) return "imagenesEstaciones/vacio.png"
                     else return "imagenesFondos/selectorPersonajes.png"}
