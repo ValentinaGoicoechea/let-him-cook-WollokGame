@@ -133,8 +133,9 @@ object controladorDePartida {
             try { game.removeTickEvent("controlarPartida") } catch e {}
 
             game.schedule(100, {
-                game.clear()
-                pantallaFinal.ejecutarPantalla()
+                //game.clear()
+                //pantallaFinal.ejecutarPantalla()
+                controladorPantallas.cambiarPantalla(pantallaFinal)
                 puntajeEnJuego.ubicarEnPantallaFinal()
                 game.addVisual(puntajeEnJuego)               
                 digitos.forEach({digito => game.addVisual(digito) }) 
