@@ -21,15 +21,26 @@ const centenas = new DigitoPuntaje(position = game.at(7,1))
 const decenas = new DigitoPuntaje(position = game.at(8,1))
 const unidades = new DigitoPuntaje(position = game.at(9,1))
 
-class Puntaje{
+object puntajeEnJuego {
     var property valor = 0
     method image() = "imagenesFondos/PUNTOS.png"
-    method position()
-}
 
-object puntajeEnJuego inherits Puntaje{
-    override method position() = game.at(4,1)
+    var posicion = game.at(4, 1)
+    method position() = posicion //encapsulamiento!!
 
+    method ubicarEnJuego() {
+        posicion = game.at(4, 1)
+        centenas.position(game.at(7, 1))
+        decenas.position(game.at(8, 1))
+        unidades.position(game.at(9, 1))
+    }
+
+    method ubicarEnPantallaFinal() {
+        posicion = game.at(13, 7)
+        centenas.position(game.at(16, 7))
+        decenas.position(game.at(17, 7))
+        unidades.position(game.at(18, 7))
+    }
     method sumar(cantidad){ 
         valor += cantidad 
         self.actualizarVisuales()
@@ -113,28 +124,24 @@ object controladorDePartida {
     }
 
     method terminarPartida() {
-        partidaTerminada = true
-        generadorDePedidos.terminar(nivelActual)
-        vidas.limpiar()
+        if (!partidaTerminada) {
+            partidaTerminada = true
+            generadorDePedidos.terminar(nivelActual)
+            vidas.limpiar()
 
-        try { game.removeTickEvent("moverCocinero") } catch e {} //NUEVO
-        try { game.removeTickEvent("controlarPartida") } catch e {}
-/*
-        game.schedule(100, {
-            game.clear()
-            puntajeFinal.valor(puntajeEnJuego.valor())
-            self.otorgarMensajeExtra()
-            pantallaFinal.ejecutarPantalla()
-            game.addVisual(puntajeFinal)
-        })
-*/
+            try { game.removeTickEvent("moverCocinero") } catch e {}
+            try { game.removeTickEvent("controlarPartida") } catch e {}
+
+            game.schedule(100, {
+                game.clear()
+                pantallaFinal.ejecutarPantalla()
+                puntajeEnJuego.ubicarEnPantallaFinal()
+                game.addVisual(puntajeEnJuego)               
+                digitos.forEach({digito => game.addVisual(digito) }) 
+            })
+        }
+
     }
-/*
-    method otorgarMensajeExtra() {
-        if(partidaGanada) {puntajeFinal.mensajeExtra("Felicidades!")}
-        else {puntajeFinal.mensajeExtra("Casi...")}
-    }
-*/
 
     method reiniciarNivel() {
         nivelActual = nivel1
@@ -144,6 +151,7 @@ object controladorDePartida {
         partidaTerminada = false
         partidaGanada = false
         puntajeEnJuego.valor(0)
+        puntajeEnJuego.ubicarEnJuego()
         puntajeEnJuego.actualizarVisuales()
     }
 
@@ -155,22 +163,5 @@ object controladorDePartida {
     }
 }
 
-/*
-object puntajeFinal inherits Puntaje{
-    var mensajeExtra = ""
-
-    method textColor() = "FFFFFF"
-
-    method mensajeExtra(mensj) {
-      mensajeExtra = mensj
-    }
-
-    override method position() = game.at(10,8)
-    
-    override method text() {
-        return mensajeExtra + super() //porfin encontre donde usar super !! :')
-    }
-}
-*/
 
 
