@@ -15,7 +15,6 @@ object controladorPantallas {
 
     method configurarEnter() {
         keyboard.enter().onPressDo({
-            console.println("ENTER DETECTADO")
             self.avanzarPantalla()})
     }
 
@@ -26,7 +25,6 @@ object controladorPantallas {
     }
 
     method avanzarPantalla() {
-        console.println("PANTALLA ACTUAL: " + pantallaActual)
         if (pantallaActual != null) {
             pantallaActual.pasarASiguiente()
         }
