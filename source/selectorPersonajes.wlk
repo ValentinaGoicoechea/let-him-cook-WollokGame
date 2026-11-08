@@ -9,6 +9,7 @@ object selectorPersonajes { //highlight alrededor de personaje
     const personajesDisponibles = [ropaCocinero, ropaOtro] //cambiar nombres a futuro
     var property personajeActual = null //el personaje actualmente seleccionado
     var personajeElegido = null // el personaje confirmado tras seleccion
+    
     method image() {if(personajeActual == null ) return "imagenesEstaciones/vacio.png"
                     else return "imagenesFondos/selectorPersonajes.png"}
 
@@ -57,3 +58,18 @@ const ropaOtro = new Personajes(    //PRUEBA, después hacemos otro tipo de pers
     numero =2,
     posicionSelector = game.at(16, 5) 
 )
+
+object configuracionPartida {
+    var cantidadJugadores = 1
+
+    method actualizarJugadores(numero) {
+        cantidadJugadores = numero
+    }
+
+    method jugadoresActivos(){
+        if(cantidadJugadores == 2) return [jugador1, jugador2] 
+        else return [jugador1]
+    }
+
+    method esMultijugador()= (cantidadJugadores == 2)
+}

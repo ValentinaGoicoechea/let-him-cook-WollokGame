@@ -44,9 +44,6 @@ class Pantalla{
     method ejecutarPantalla() {
         game.clear()
         game.addVisual(self)
-        /*keyboard.enter().onPressDo({
-            self.pasarASiguiente()
-        })*/
     }
 
     method pasarASiguiente(){
@@ -55,8 +52,7 @@ class Pantalla{
 
 }
 object pantallaInicio inherits Pantalla(
-    image = "imagenesFondos/menuInicio.png"
-){
+    image = "imagenesFondos/menuInicio.png"){
     override method pasarASiguiente(){
         //pantallaHistoria.ejecutarPantalla()
         controladorPantallas.cambiarPantalla(pantallaHistoria)
@@ -86,10 +82,23 @@ object pantallaEstaciones inherits Pantalla(
     image = "imagenesFondos/juegoEstaciones.png"
     ){
     override method pasarASiguiente(){
-        //pantallaSeleccionPersonaje.ejecutarPantalla()
-        controladorPantallas.cambiarPantalla(pantallaSeleccionPersonaje)
+        controladorPantallas.cambiarPantalla(pantallaModoJuego)
     }
     
+}
+
+object pantallaModoJuego inherits Pantalla(
+    image = "imagenesFondos/pantallaModoJuego.png"
+    ){
+    override method ejecutarPantalla() {
+        super()
+        keyboard.num1().onPressDo({configuracionPartida.actualizarJugadores(1)})
+        keyboard.num2().onPressDo({configuracionPartida.actualizarJugadores(2)})
+    }
+
+    override method pasarASiguiente() {
+        controladorPantallas.cambiarPantalla(pantallaSeleccionPersonaje)
+    }
 }
 object pantallaSeleccionPersonaje inherits Pantalla(
     image = "imagenesFondos/seleccionDePersonajes.png"
@@ -150,12 +159,13 @@ object juegoCocinero {
     var nivel = nivel1
 
     method iniciarJuego() { 
-        try { game.removeTickEvent("moverCocinero") } catch e {}
+        try { game.removeTickEvent("mover1") } catch e {}
+        try { game.removeTickEvent("mover2") } catch e {}
         try { game.removeTickEvent("controlarPartida") } catch e {}
         try { game.removeVisual(pantallaSeleccionPersonaje) } catch e {}
         try { game.removeVisual(selectorPersonajes) } catch e {}
     
-        //[cajonDePapas, cajonDePollo, cajonDeHuevo, cajonDeBife].forEach({cajon => cajon.reiniciarPorFinDeNivel()})
+        
         controladorDePartida.reiniciarNivel()
         game.addVisual(fondoJuego) 
         game.addVisual(centenas)
@@ -175,7 +185,13 @@ object juegoCocinero {
         game.addVisual(mesaFernet1)
         game.addVisual(mesaFernet2)
         game.addVisual(mesaFernet3)
-        game.addVisual(personajePrincipal)
+
+        configuracionPartida.jugadoresActivos().forEach({jugador=>
+            game.addVisual(jugador)
+            jugador.reiniciar()
+            game.onTick(100, "mover" + jugador.numeroPersonaje(),{jugador.darPaso()})
+        })
+
         game.addVisual(plato1)
         game.addVisual(plato2)
         game.addVisual(plato3)
@@ -188,11 +204,9 @@ object juegoCocinero {
         teclado.movimiento()
         teclado.agarrarOSoltarObjeto()
         teclado.realizarAccion()
-        personajePrincipal.reiniciar()
-        
-        game.onTick(100, "moverCocinero", { personajePrincipal.darPaso() }) 
+
         game.onTick(200, "controlarPartida", {controladorDePartida.controlarProgresoPartida()})
-        //}
+        
     }
 }
 

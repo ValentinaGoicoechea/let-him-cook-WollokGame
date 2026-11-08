@@ -42,7 +42,7 @@ class Comida{
     
     method nuevaPosicion(posicion){self.position(posicion)}
     method desaparecer() {game.removeVisual(self)}
-    method colocarseEnMesadaArmado(mesadaArmado){mesadaArmado.recibirComida(self)}
+    method colocarseEnMesadaArmado(jugador, mesadaArmado){mesadaArmado.recibirComida(jugador, self)}
 
     method agarrar(personaje){
         if (sePuedeAgarrar && !estaEnPlato) {
@@ -52,7 +52,7 @@ class Comida{
 
     method soltar(personaje){personaje.sueltoObjeto(self)}
     method vaciarElementos() {}
-    method entregarEnMesaEntrega(mesadaEntrega){}
+    method entregarEnMesaEntrega(jugador,mesadaEntrega){}
     method tareaDeEstacion(objeto){} //PARA NO ROMPER EL POLIMORFISMO CON LAS ESTACIONES   
 }
 
@@ -68,7 +68,7 @@ class Vajilla {
     method desaparecer(){} //plato no hace nada
     method tareaDeEstacion(objeto){} //PARA NO ROMPER EL POLIMORFISMO CON LAS ESTACIONES
 
-    method entregarEnMesaEntrega(mesadaEntrega){}
+    method entregarEnMesaEntrega(jugador,mesadaEntrega){}
     
     method agarrar(personaje){
         if (sePuedeAgarrar && !estaEnPlato) {
@@ -80,8 +80,8 @@ class Vajilla {
         personaje.sueltoObjeto(self)
     }
 
-    method colocarseEnMesadaArmado(mesada){
-        estado.colocarseEnMesadaArmado(self, mesada)
+    method colocarseEnMesadaArmado(jugador, mesada){
+        estado.colocarseEnMesadaArmado(jugador, self, mesada)
     }
     
     method clase() = self.className()
@@ -106,7 +106,7 @@ class Vaso inherits Vajilla(position = game.at(4,8)){
         return tipo == tipoEsperado && estado == estadoEsperado
     }
     
-    override method colocarseEnMesadaArmado(mesada){} //no hace nada
+    override method colocarseEnMesadaArmado(jugador, mesada){} //no hace nada
     override method tareas() = [tareaLlenar]
 
     override method reiniciar(){
@@ -115,9 +115,9 @@ class Vaso inherits Vajilla(position = game.at(4,8)){
         sePuedeAgarrar = true
     }
 
-    override method entregarEnMesaEntrega(mesadaEntrega){
+    override method entregarEnMesaEntrega(jugador, mesadaEntrega){
         const pedido = selectorPedidos.eleccionDePedido([self]) 
-        personajePrincipal.agarrarOSoltar()
+        jugador.agarrarOSoltar()
 
         if (pedido == null) { 
             puntajeEnJuego.restar(100)  
@@ -176,11 +176,11 @@ class PlatoArmado inherits Vajilla(estado = platoArmado){
     })
     }
 
-    override method entregarEnMesaEntrega(mesadaEntrega){ //Ver si tiene sentido que este aca
+    override method entregarEnMesaEntrega(jugador, mesadaEntrega){ //Ver si tiene sentido que este aca
         const comidas = elementosPlato.filter({elem => elem.debeEliminarseAlVaciar()})
         const pedido = selectorPedidos.eleccionDePedido(comidas) //No compara el plato
 
-        personajePrincipal.agarrarOSoltar()
+        jugador.agarrarOSoltar()
         if (pedido == null) { 
             puntajeEnJuego.restar(100)  
             mesadaEntrega.tomarPlato(self)

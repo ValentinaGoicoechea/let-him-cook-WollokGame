@@ -32,12 +32,12 @@ class Estacion{
         }
     }
 
-    method tareaDeEstacion(objeto) {
+    method tareaDeEstacion(jugador, objeto) {
         if(objeto != null){
             if(objeto.tareas().contains(tareaAsociada) && !estaOcupado){
                 prendido = true
                 estaOcupado = true
-                personajePrincipal.agarrarOSoltar() //el personaje principal suelta el objeto
+                jugador.agarrarOSoltar() 
                 objeto.sePuedeAgarrar(false)
                 game.schedule(tiempoTarea, { 
                         tareaAsociada.ejecutar(objeto)
@@ -176,7 +176,7 @@ const tablaDeCortar = new Estacion(
 class Mesada{
     var property position
     const property image
-    method tareaDeEstacion(objeto)
+    method tareaDeEstacion(jugador, objeto)
     
     method agarrar(personaje){}
     method soltar(personaje){}
@@ -214,8 +214,8 @@ class MesadaEntrega inherits Mesada{
         self.tomarPlato(plato)
     }
 
-    override method tareaDeEstacion(objeto){
-        if(objeto != null){objeto.entregarEnMesaEntrega(self)}
+    override method tareaDeEstacion(jugador,objeto){
+        if(objeto != null){objeto.entregarEnMesaEntrega(jugador, self)}
     }
 }
 
@@ -244,38 +244,39 @@ class MesadaArmado inherits Mesada{
       platoEnArmado = new PlatoArmado(mesadaActual = self,position = position) 
     }
 
-    method recibirPlatoLimpio(objeto){
+    method recibirPlatoLimpio(jugador, objeto){
         if(platoEnArmado == null){
             self.crearPlatoArmado()
             game.addVisual(platoEnArmado)               
             platoEnArmado.elementosPlato().add(objeto) 
             objeto.estaEnPlato(true)  
-            personajePrincipal.agarrarOSoltar() 
+            jugador.agarrarOSoltar() 
             hayPlatoParaArmar = true
                 
         } 
     }
 
-    method recibirPlatoArmado(objeto){
+    method recibirPlatoArmado(jugador, objeto){
         if(platoEnArmado == null){
             hayPlatoParaArmar = true
             platoEnArmado = objeto 
             objeto.mesadaActual(self)
-            personajePrincipal.agarrarOSoltar()
+            jugador.agarrarOSoltar()
         }
     }
 
-    method recibirComida(objeto){
+    method recibirComida(jugador, objeto){
         if(hayPlatoParaArmar){ 
             platoEnArmado.elementosPlato().add(objeto)
             objeto.estaEnPlato(true) 
-            personajePrincipal.agarrarOSoltar()
+            jugador.agarrarOSoltar()
         }
     }
 
 
-    override method tareaDeEstacion(objeto){
-        if(objeto != null){ objeto.colocarseEnMesadaArmado(self)} //le mando la mesadaDeArmado por parametro
+    override method tareaDeEstacion(jugador, objeto){
+        if(objeto != null){
+            objeto.colocarseEnMesadaArmado(jugador, self)} //le mando la mesadaDeArmado por parametro
     }
 
     method agarrarPlatoArmado() {
