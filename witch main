@@ -1,0 +1,123 @@
+[33m7a1eafa[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mrama-multijugador[m[33m, [m[1;32mmain[m[33m)[m agrego imagen niveTres
+[33m88ae97a[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Elimino comentarios de la terminal
+[33m50a7bb7[m Cambio terminarPartida() para que llame a controladorPantallas
+[33m721c441[m Añado controladorPantallas para solucionar problema con el enter
+[33m5b9d197[m reseteo peder con vidas + puntaje al final del juego
+[33mc0af0f4[m nuevas direcciones + cambio nombre de clase para mayor claridad
+[33m56bf4fb[m nuevos gif para estaciones
+[33m3c9cde2[m nueva implementacion de direcciones por nivel #12
+[33mabd712e[m Merge branch 'main' of github.com:ValentinaGoicoechea/juego-wollok-troyano
+[33mbb127fb[m arreglo fondo segun nivel #12
+[33m29e4d72[m nuevos visuales de puntajes por imagenes
+[33mcbb10af[m empiezo a implementar nivel3 - imagenes y cambios de posiciones #12
+[33m959707f[m si hay algo en el suelo no puedo avanzar
+[33mb17b1a6[m fernet con coca implementado
+[33m63a5872[m imagenes fernet con coca completas
+[33m36f2111[m agrego nuevo pedido de fernet con coca- falta terminar
+[33me9f343e[m test arreglados y en funcionamiento tras los cambios de lógica #3
+[33m1960818[m nueva imagen de bacha en funcionamiento
+[33m573772e[m el juego reinicia el plato y comidas cuando cambia el nivel
+[33m79ffd51[m cambio en direcciones, no puede travesar basura
+[33m6c5f3c6[m vidas en pantalla implementadas
+[33m6608468[m arreglos al reinicio del juego con ticks #3
+[33mbb87949[m cambios en pantalla seleccion y el marco
+[33mdfb17f8[m cambios en imagenes y dimension del juego
+[33m0881e4f[m solucionado el error al entregar en el nivel 2 #3
+[33m4fbee9f[m reduccion de codigo de imagenes en comida #3
+[33m42927aa[m juego en funcionamiento con la nueva lógica #3
+[33me915639[m mesa de Armado - AgarrarOSoltar en funcionamiento #3
+[33m36e998f[m juego inicializa - faltan aplicar cambios a funcionalidades #3
+[33m1794c2f[m cambios en el polimorfismo aplicado en tareaDeEstacion() #3
+[33m1f42bc3[m cambio la lógica de accionar para evitar comparaciones por strings y aprovechar el polimorfismo #3
+[33mbde2f50[m implemento polimorfismo con agarrar y soltar en las estaciones y cajones #3
+[33m3d4b5e6[m aplico polimorfismo en agarrarOSoltar del personaje principal #3
+[33m4077b0a[m agrego objetos de tareas para no comparar con strings y utilizar el polimorfismo adecuadamente
+[33m86c5534[m elimino codigo sin uso #3
+[33m704fd80[m modifico los pedidos para no comparar sus ingredientes mediante strings con los elementos de los platos #3
+[33mc5646b2[m cambios a implementar #3
+[33m8da97e8[m elimino codigo repetido en cajon #3
+[33m3f28b3f[m implemento la nueva logica en la mesadaEntrega #3
+[33m8ca9d69[m cambios en la estacion basura implementados con la nueva logica #3
+[33mf769d4d[m implementacion del horno con la nueva logica de estados #3
+[33m096ea57[m implemento cambios en vajilla con sus respectivos estados para aplicar polimorfismo #3
+[33m9d9413f[m cambios en las comidas - cambio metodos de imagenes y tareas segun su estado #3
+[33m304405c[m agrego objetos de estados para implementar el polimorfismo #3
+[33md7526d3[m mejoras en codigo - mesada armado y tipos de elementos#3
+[33m008f871[m detalles para poder reiniciar nivel al 1
+[33m51e4a86[m arreglo pedidos que continuaban existiendo frente al cambio de nivel
+[33me4ebd64[m Merge branch 'main' of github.com:ValentinaGoicoechea/juego-wollok-troyano
+[33mc1fc971[m reordeno y agrego lineas por errores visuales
+[33m860ff23[m Puntajes por nivel
+[33mdb233eb[m mejoro tiempos de pantalla intermedia de niveles
+[33m49f3630[m cambios menores
+[33m0b61fdb[m cambios menores
+[33m0ec0910[m Merge branch 'main' of https://github.com/ValentinaGoicoechea/juego-wollok-troyano
+[33m235dabc[m nivel 1 y 2 arreglados - se inician pedidos correctamente
+[33mb4b8326[m pantallas de niveles!! #7
+[33md79dc57[m cambio imagenes
+[33m7524aae[m elimino imagenes
+[33mc0b2ca3[m agrego pantalla niveles
+[33mca34ec9[m regenero commit de niveles
+[33m23df60e[m Merge branch 'main' of https://github.com/ValentinaGoicoechea/juego-wollok-troyano
+[33m7e44cc7[m arreglos nivel2
+[33me01370c[m cambio texto a negro
+[33m7fe0395[m creo clases de niveles
+[33mb182400[m Merge branch 'main' of github.com:ValentinaGoicoechea/juego-wollok-troyano
+[33m7cb30e9[m agrego pantalla historia #7
+[33m60bddc5[m agrego ultimas imagenes
+[33ma26431b[m arreglo error times
+[33m4fb41cf[m Merge branch 'main' of https://github.com/ValentinaGoicoechea/juego-wollok-troyano
+[33m4ba04fa[m cambios menores
+[33ma9c9830[m Merge branch 'main' of https://github.com/pdepviernestm/2026-tpGame-Overcooked-Troyano
+[33m88cf66a[m Cuando se termina un nivel se pasa al siguiente
+[33mfb99175[m Merge branch 'main' of github.com:ValentinaGoicoechea/juego-wollok-troyano
+[33m41714d2[m cambio selector de personajes por nueva pantalla #7
+[33m05b093b[m agrego clase y objetos de vida
+[33m7d2287a[m arreglo imagen de fin de juego
+[33me7e9abf[m agrego pantalla final #7
+[33m047d7df[m merge
+[33mcc730ba[m Merge branch 'main' of https://github.com/ValentinaGoicoechea/juego-wollok-troyano
+[33m12e938c[m arreglo en test anteriores con cambios #11
+[33m1c1132f[m Merge branch 'main' of github.com:ValentinaGoicoechea/juego-wollok-troyano
+[33m00ffb0a[m creo nuevas pantallas para el juego #7
+[33m3512b4c[m Hago que controladorDePartida maneje puntos según el nivel
+[33mc03e963[m Agrego los objetos de niveln para que los pedidos se manejen distinto según el nivel en el que estemos (por ahora empieza en nivel 1)
+[33m9bf1e67[m nuevas imagenes
+[33mdd150ab[m cambio para que funcione stock
+[33m6c38010[m cambios en verificacion de pedidos segun estado por nuevos objetos con estados
+[33md41497d[m nuevo fin de juego (ganando o perdiendo) #6
+[33md492ea8[m arreglo problema al agarrar plato #3
+[33mc1870fc[m arreglo error de imagenes #7
+[33meb9f602[m limpieza de codigo con version anterior de seleccionar personaje #7
+[33m982c27e[m pantalla de seleccion de personajes en funcionamiento - errores con imagenes #7
+[33m6236daf[m implemento clases en Personajes
+[33m3ee939c[m implemento polimorfismo en el cambio de posicion de objetos y lo saco de personaje principal #3
+[33ma716035[m cambio nombres por agrupacion en carpetas
+[33mfc2730f[m modifico movimiento() y creo metodo para optimizar codigo #3
+[33mdad1cb9[m creo objeto escenario para controlar el suelo #3
+[33md57867c[m reubico imagen de cocineroizquierda
+[33m7042f7b[m cambio nombres de las imagenes del nuevo personaje
+[33mac20c22[m organizo las imagenes
+[33m2e64311[m nuevo diseño para el manejo del movimiento: metodos #3
+[33m7437364[m comentarios guia (borrar)
+[33m4adf997[m creo objetos para nuevo manejo de movimiento #3
+[33m0d42db0[m cambio imagenes
+[33mec37348[m En Pedido hago que estado y receta referencien a objetos y no strings
+[33m390dc3a[m Imagen() de cocinero y otro
+[33md8b4d9f[m Cambio elegirPersonaje() para que asigne el tipo de personaje.
+[33mebfb102[m Cambio image() de personajePrincipal usando composición
+[33m94a42a7[m Agrego pantallaSeleccionPersonaje y un personaje genérico para probar la selección de personajes.
+[33m324315e[m crearCartelPrecaucion() en Horno
+[33mf3c7ea2[m Agrego cartelito de precaución 5 segundos antes de quemarse la comida
+[33m434bb07[m reubico plato sucio
+[33m32cede4[m achico codigo para seleccionar pedidos #3
+[33m0cd37c0[m arreglo funcionamiento tareaExtra
+[33m5ee9e34[m Merge branch 'main' of github.com:ValentinaGoicoechea/juego-wollok-troyano
+[33m679616a[m implemento puntaje segun plato con ingrediente quemado #8
+[33m8642a20[m merge
+[33maa7d9ab[m reubico imagenes e implemento por cada comida #8
+[33mc4bf439[m creo carpeta del diagrama estatico
+[33m48c2cef[m Merge branch 'main' of github.com:ValentinaGoicoechea/juego-wollok-troyano
+[33m6388f95[m creo metodo extra especifico de cada estacion
+[33macc528a[m Agrego imagen del ojo de bife quemado
+[33me3a6e5a[m Agrego imagen del huevo frito quemado

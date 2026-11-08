@@ -7,14 +7,15 @@ import wollok.game.*
 
 //ACCIONES DEL PERSONAJE (MOVERSE-MIRAR-AGARRAR-ACCIONAR)
 
-object personajePrincipal{
-    var property personajeSeleccionado = null //Dependiendo el elegido hay un buff diferente
+class Jugador {
+    var property personajeSeleccionado = null
     var property tipoPersonaje = null
-    var property position = game.at(10, 10)
+    var property position
     var property direccion = ninguna
     var property ultimadireccion = ninguna
     var manoOcupada = false
     var objetoEnMano = null
+    const posicionInicial
 
     method asignarPersonaje(personaje) {
         personajeSeleccionado = personaje
@@ -70,10 +71,13 @@ object personajePrincipal{
     }
 
     method reiniciar() {
-        position = game.at(10, 10)
+        position = posicionInicial
         direccion = ninguna
         ultimadireccion = ninguna
         manoOcupada = false
         objetoEnMano = null
     }
 }
+
+const jugador1 = new Jugador(position = game.at(10, 10), posicionInicial = game.at(10, 10))
+const jugador2 = new Jugador(position = game.at(20, 10), posicionInicial = game.at(15, 10))
