@@ -63,17 +63,20 @@ object pantallaHistoria inherits Pantalla(
     image = "imagenesFondos/juegoHistoria.png"
     ){
     override method pasarASiguiente(){
-        //pantallaTeclas.ejecutarPantalla()
-        controladorPantallas.cambiarPantalla(pantallaTeclas)
+        controladorPantallas.cambiarPantalla(pantallaEstaciones)
     }
 }
 
 object pantallaTeclas inherits Pantalla(
     image = "imagenesFondos/juegoReglas.png"
     ){
+    override method image(){
+        if (configuracionPartida.esMultijugador()) return "imagenesFondos/juegoReglas2.png"
+        else return "imagenesFondos/juegoReglas.png"
+        
+    }
     override method pasarASiguiente(){
-        //pantallaEstaciones.ejecutarPantalla()
-        controladorPantallas.cambiarPantalla(pantallaEstaciones)
+        controladorPantallas.cambiarPantalla(pantallaSeleccionPersonaje)
     }
     
 }
@@ -97,20 +100,29 @@ object pantallaModoJuego inherits Pantalla(
     }
 
     override method pasarASiguiente() {
-        controladorPantallas.cambiarPantalla(pantallaSeleccionPersonaje)
+        controladorPantallas.cambiarPantalla(pantallaTeclas)
     }
 }
+
 object pantallaSeleccionPersonaje inherits Pantalla(
     image = "imagenesFondos/seleccionDePersonajes.png"
     ){
+    override method image(){
+        if (configuracionPartida.esMultijugador()){
+            var indice = selectorPersonajes.numJugador() + 1
+            return "imagenesFondos/seleccionDeJugador"+ indice + ".png"
+        } else{
+            return "imagenesFondos/seleccionDePersonajes.png"
+        }
+    }
     override method ejecutarPantalla() {
         super()  
+        selectorPersonajes.reiniciar()
         game.addVisual(selectorPersonajes)
         teclado.seleccion()
     }
 
     override method pasarASiguiente() {
-        controladorPantallas.entrarAlJuego()
         selectorPersonajes.confirmarSeleccion()
     }
 

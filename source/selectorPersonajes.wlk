@@ -9,6 +9,9 @@ object selectorPersonajes { //highlight alrededor de personaje
     const personajesDisponibles = [ropaCocinero, ropaOtro] //cambiar nombres a futuro
     var property personajeActual = null //el personaje actualmente seleccionado
     var personajeElegido = null // el personaje confirmado tras seleccion
+    var numJugador = 0
+
+    method numJugador() = numJugador
     
     method image() {if(personajeActual == null ) return "imagenesEstaciones/vacio.png"
                     else return "imagenesFondos/selectorPersonajes.png"}
@@ -23,23 +26,34 @@ object selectorPersonajes { //highlight alrededor de personaje
     
     }
 
-    method confirmarSeleccion(){ //solo se va a activar cuando ya tenga un personaje actual
+    method confirmarSeleccion(){ 
         if (personajeActual != null) {
             personajeElegido = personajeActual
-            self.elegirPersonaje() 
-           
-            game.schedule(1, {
-                juegoCocinero.iniciarJuego()
-            })
+            self.jugadorQueElige().asignarPersonaje(personajeElegido)
+
+            if(self.esElUltimoJugador()) {
+                controladorPantallas.entrarAlJuego()
+                game.schedule(1, {
+                    juegoCocinero.iniciarJuego() 
+                })
+            } else{
+                numJugador = numJugador + 1
+                personajeActual = null  
+            }
         }
-        
-        
     }
 
-    method elegirPersonaje() {
-        personajePrincipal.asignarPersonaje(personajeElegido) 
 
+    method reiniciar() {
+        personajeActual = null
+        numJugador = 0
     }
+
+    method jugadorQueElige() = configuracionPartida.jugadoresActivos().get(numJugador)
+
+    method esElUltimoJugador() = numJugador == configuracionPartida.jugadoresActivos().size() - 1
+
+
 }
 
 class Personajes{
@@ -64,11 +78,12 @@ object configuracionPartida {
 
     method actualizarJugadores(numero) {
         cantidadJugadores = numero
-    }
+    } 
 
     method jugadoresActivos(){
         if(cantidadJugadores == 2) return [jugador1, jugador2] 
         else return [jugador1]
+
     }
 
     method esMultijugador()= (cantidadJugadores == 2)

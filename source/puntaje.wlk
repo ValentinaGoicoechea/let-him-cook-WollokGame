@@ -1,3 +1,4 @@
+import selectorPersonajes.*
 import source.estados.*
 import wollok.game.*
 import pedidos.*
@@ -160,7 +161,6 @@ object controladorDePartida {
         [plato1, plato2, plato3, vaso1, vaso2, vaso3].forEach({ p => p.reiniciar() })
         [cajonDePapas, cajonDePollo, cajonDeHuevo, cajonDeBife].forEach({ c => c.reiniciarPorFinDeNivel() })
         [mesadaArmado1, mesadaArmado2, mesadaArmado3].forEach({ m => m.reiniciar() })
-        personajePrincipal.reiniciar()
     }
 }
 
