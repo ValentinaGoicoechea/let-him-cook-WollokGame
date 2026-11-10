@@ -58,6 +58,7 @@ class Comida{
 
 class Vajilla {
     var property position
+    var property posicionInicial = position
     var property estaEnPlato = false
     var property sePuedeAgarrar = true
     var property estado
@@ -90,7 +91,7 @@ class Vajilla {
     method tareas() = estado.tareas(self)
 
     method reiniciar() {
-        position = game.at(16, 3) 
+        position = posicionInicial
         estado = limpio          
         estaEnPlato = false
         sePuedeAgarrar = true
@@ -109,11 +110,12 @@ class Vaso inherits Vajilla(position = game.at(4,8)){
     override method colocarseEnMesadaArmado(mesada){} //no hace nada
     override method tareas() = [tareaLlenar]
 
-    override method reiniciar(){
-        position = game.at(4, 8)
+    /*override method reiniciar(){
+        position = posicionInicial
         estado = limpio
         sePuedeAgarrar = true
     }
+    */
 
     override method entregarEnMesaEntrega(mesadaEntrega){
         const pedido = selectorPedidos.eleccionDePedido([self]) 
@@ -132,7 +134,8 @@ class Vaso inherits Vajilla(position = game.at(4,8)){
 const vaso1 = new Vaso(estado=limpio)
 const vaso2 = new Vaso(estado=limpio)
 const vaso3 = new Vaso(estado=limpio)
-class Plato inherits Vajilla {  
+class Plato inherits Vajilla(){  
+    var property posicionPlatoSucio = game.at(4,5)
     var property debeEliminarseAlVaciar = false
 
     method imagenLimpio() = "imagenesComida-Vajilla/plato.png"

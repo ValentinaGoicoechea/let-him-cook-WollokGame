@@ -187,7 +187,7 @@ class MesadaEntrega inherits Mesada{
     const property esMesadaArmado = false //CAMBIAR ESTO 
 
     method devolverPlatoSucio(plato){
-        plato.position(game.at(4,5))
+        plato.position(plato.posicionPlatoSucio())
         plato.estado(sucio)
         plato.estaEnPlato(false)
     }

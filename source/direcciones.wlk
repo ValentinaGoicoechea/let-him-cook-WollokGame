@@ -59,6 +59,20 @@ object mapaNivelBase inherits Mapa(
 
 object mapaNivel3 inherits Mapa(
     zonas = [
+        new Zona(xMin = 5, xMax= 24, yMin = 3, yMax = 11) //piso principal
+    ],
+    bloqueados = [
+        new Zona(xMin = 4,  xMax = 10, yMin = 6, yMax = 6), //pared de la despensa
+        new Zona(xMin = 9,  xMax = 9,  yMin = 7, yMax = 7), //tacho de basura
+        new Zona(xMin = 7,  xMax = 9, yMin = 11, yMax = 11), //mesa Fernet
+        new Zona(xMin = 11, xMax = 14, yMin = 11, yMax = 11), //mesa de entrega
+        new Zona(xMin = 18, xMax = 22, yMin = 11, yMax = 11),//hornos
+        new Zona(xMin = 12, xMax = 24, yMin = 3, yMax = 3)//mesada de ingredientes
+    ]
+){}
+
+object mapaNivel5 inherits Mapa(
+    zonas = [
         new Zona(xMin = 4,  xMax = 24, yMin = 7, yMax = 10),   // piso principal
         new Zona(xMin = 10, xMax = 13, yMin = 11, yMax = 11),  // entre los hornos y el sofá
         new Zona(xMin = 11, xMax = 17, yMin = 3, yMax = 6),    // piso inferior centro

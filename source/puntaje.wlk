@@ -116,6 +116,9 @@ object controladorDePartida {
             pedidosPerdidos = 0
             vidas.reiniciar()
             self.reiniciarCocina()
+
+
+
             nivelActual = nivelActual.siguienteNivel()
             nivelActual.iniciar()
         } else {

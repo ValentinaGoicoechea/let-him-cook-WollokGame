@@ -3,6 +3,7 @@ import ambiente.*
 import controladorPantallasYNiveles.*
 import puntaje.*
 import direcciones.*
+import comida.*
 
 
 class Nivel{
@@ -52,34 +53,43 @@ class Nivel{
         cajonDeHuevo.posicionAlimento(game.at(11, 3))
         cajonDeBife.position(game.at(20, 3))
         cajonDeBife.posicionAlimento(game.at(13, 3))
+       
     }
-
 }
 
 object nivel3 inherits Nivel(
     puntosParaGanar = 200, //Cambiar
     pantalla = pantallaNivel3, //CAMBIAR
-    fondo = "imagenesFondos/fondoCocinaNivel3.png",
+    fondo = "imagenesFondos/fondoCocina3.png",
     mapa = mapaNivel3){   
     override method cajones() = [cajonDeHuevo, cajonDeBife, cajonDePapas, cajonDePollo]
     
     override method acomodarEscenario() {
-        horno1.position(game.at(4, 11))
-        horno2.position(game.at(8, 11))
-        basura.position(game.at(11, 3))
+        horno1.position(game.at(18, 11))
+        horno2.position(game.at(20, 11))
+        basura.position(game.at(9, 7))
         bacha.position(game.at(25, 6))
         tablaDeCortar.position(game.at(25, 10))
-        mesadaArmado1.position(game.at(18, 3))
-        mesadaArmado2.position(game.at(20, 3))
-        mesadaArmado3.position(game.at(22, 3))
+        mesadaArmado1.position(game.at(4, 7))
+        mesadaArmado2.position(game.at(4, 9))
+        mesadaArmado3.position(game.at(4, 11))
         cajonDePapas.position(game.at(4, 6))
-        cajonDePapas.posicionAlimento(game.at(20, 9))
+        cajonDePapas.posicionAlimento(game.at(14, 3))
         cajonDePollo.position(game.at(6, 3))
-        cajonDePollo.posicionAlimento(game.at(20, 8))
+        cajonDePollo.posicionAlimento(game.at(16, 3))
         cajonDeBife.position(game.at(6, 6))
-        cajonDeBife.posicionAlimento(game.at(19, 9))
+        cajonDeBife.posicionAlimento(game.at(18, 3))
         cajonDeHuevo.position(game.at(4, 3))
-        cajonDeHuevo.posicionAlimento(game.at(19, 8))
+        cajonDeHuevo.posicionAlimento(game.at(20, 3))
+        mesaFernet1.position(game.at(7,11))
+        mesaFernet2.position(game.at(8,11))
+        mesaFernet3.position(game.at(9,11))
+        mesadaEntrega1.position(game.at(12,11))
+        mesadaEntrega2.position(game.at(13,11))
+        mesadaEntrega3.position(game.at(14,11))
+        [vaso1,vaso2,vaso3].forEach({v=>v.posicionInicial(game.at(25,8))})
+        [plato1,plato2,plato3].forEach({p => p.posicionPlatoSucio(game.at(25,7)) p.posicionInicial(game.at(22,3))})
+        [plato1, plato2, plato3, vaso1, vaso2, vaso3].forEach({ v => v.reiniciar() }) //para aplicar los cambios de la posicion Inicial
     }
 
     override method nuevoPedido(){
@@ -93,7 +103,7 @@ object nivel2 inherits Nivel(
     puntosParaGanar = 100,
     siguienteNivel = nivel3,
     pantalla = pantallaNivel2,
-    fondo = "imagenesFondos/fondoCocina2.png"){
+    fondo = "imagenesFondos/fondoCocina.png"){
     override method nuevoPedido() {
         generadorDePedidos.pedir(0.randomUpTo(2).round()) //Puede salir ojo de bife, pollo con papas o fernet
     }
