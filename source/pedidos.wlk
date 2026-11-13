@@ -46,29 +46,24 @@ class Pedido{
 }
 object nuevo {
     var property prioridad = 1
-
-    method imagenPollo() = "imagenesPedidos/pedidoPolloNuevo.png"
+    /*method imagenPollo() = "imagenesPedidos/pedidoPolloNuevo.png"
     method imagenOjoDeBife() = "imagenesPedidos/pedidoOjoBifeNuevo.png"
     method imagenFernet() = "imagenesPedidos/pedidoFernetConCocaNuevo.png"
+    */
+    method sufijo() = "Nuevo"
 }
 object espera1 {
     var property prioridad = 2
-    method imagenPollo() = "imagenesPedidos/pedidoPolloEspera1.png"
-    method imagenOjoDeBife() = "imagenesPedidos/pedidoOjoBifeEspera1.png"
-    method imagenFernet() = "imagenesPedidos/pedidoFernetConCocaEspera1.png"
+    method sufijo() = "Espera1"
 }
 object espera2 {
     var property prioridad = 3
-    method imagenPollo() = "imagenesPedidos/pedidoPolloEspera2.png"
-    method imagenOjoDeBife() = "imagenesPedidos/pedidoOjoBifeEspera2.png"
-     method imagenFernet() = "imagenesPedidos/pedidoFernetConCocaEspera2.png"
+    method sufijo() = "Espera2"
 }
 object perdido {
     var property prioridad = 0
-    method imagenPollo() = "imagenesPedidos/pedidoPolloPerdido.png"
-    method imagenOjoDeBife() = "imagenesPedidos/pedidoOjoBifePerdido.png"
-     method imagenFernet() = "imagenesPedidos/pedidoFernetConCocaPerdido.png"
-}
+    method sufijo() = "Perdido"
+} 
 
 
 class RequerimientoIngrediente {
@@ -80,7 +75,8 @@ class RequerimientoIngrediente {
 
 
 object polloConPapas {
-    method imagenSegun(estado) = estado.imagenPollo()
+    const prefijo = "Pollo"
+    method imagenSegun(estado) = "imagenesPedidos/pedido" + prefijo + estado.sufijo() + ".png"   //estado.imagenPollo()
     method ingredientes() = [
         new RequerimientoIngrediente(tipoEsperado = tipoPollo, estadoEsperado = cocinada),
         new RequerimientoIngrediente(tipoEsperado = tipoPapa, estadoEsperado = cocinada)
@@ -88,7 +84,8 @@ object polloConPapas {
 }
 
 object ojoDeBifeConHuevo {
-    method imagenSegun(estado) = estado.imagenOjoDeBife()
+    const prefijo = "OjoBife"
+    method imagenSegun(estado) = "imagenesPedidos/pedido" + prefijo + estado.sufijo() + ".png"
     method ingredientes() = [
         new RequerimientoIngrediente(tipoEsperado = tipoBife, estadoEsperado = cocinada),
         new RequerimientoIngrediente(tipoEsperado = tipoHuevo, estadoEsperado = cocinada)
@@ -96,7 +93,8 @@ object ojoDeBifeConHuevo {
 }
 
 object fernetConCoca{
-    method imagenSegun(estado) = estado.imagenFernet()
+    const prefijo = "FernetConCoca"
+    method imagenSegun(estado) = "imagenesPedidos/pedido" + prefijo + estado.sufijo() + ".png"
     method ingredientes() = [
         new RequerimientoIngrediente(tipoEsperado = tipoVaso, estadoEsperado = lleno)
     ]
