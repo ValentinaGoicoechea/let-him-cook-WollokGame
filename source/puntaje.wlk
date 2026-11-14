@@ -80,7 +80,7 @@ object controladorDePartida {
     var maxPedidosPerdidos = 1
     const digitos = [centenas, decenas, unidades]
 
-    var nivelActual = nivel1
+    var property nivelActual = nivel1
 
     var pedidosPerdidos = 0
     var partidaTerminada = false

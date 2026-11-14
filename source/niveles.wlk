@@ -29,8 +29,10 @@ class Nivel{
         pantalla.mostrarInfoNivel()
 
         game.schedule(5200, {
-            controladorDePartida.puntosSegunNivel()
-            generadorDePedidos.empezar(self) 
+            if (controladorDePartida.nivelActual() == self) { //Para evitar la superposición de generadorDePedidos.empezar(self) en caso de terminar el nivel antes de 5200 ms (creo)
+                controladorDePartida.puntosSegunNivel()
+                generadorDePedidos.empezar(self) 
+            }
         })
     }
 
