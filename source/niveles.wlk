@@ -7,6 +7,7 @@ import comida.*
 
 
 class Nivel{
+    var recetasDisponibles 
     var property puntosParaGanar 
     var property siguienteNivel = null
     const pantalla
@@ -59,7 +60,8 @@ class Nivel{
     }
 }
 
-object nivel3 inherits Nivel(
+object nivel3 inherits Nivel (
+    recetasDisponibles = [ojoDeBifeConHuevo, polloConPapas, fernetConCoca],
     puntosParaGanar = 200, //Cambiar
     pantalla = pantallaNivel3, //CAMBIAR
     fondo = "imagenesFondos/fondoCocina3.png",
@@ -95,31 +97,34 @@ object nivel3 inherits Nivel(
     }
 
     override method nuevoPedido(){
-         generadorDePedidos.pedir(0.randomUpTo(2).round())//Puede salir ojo de bife, pollo con papas o fernet
+        // generadorDePedidos.pedir(0.randomUpTo(2).round())//Puede salir ojo de bife, pollo con papas o fernet
+        generadorDePedidos.pedir(recetasDisponibles.anyOne())
     }     
 
 
 }
 
 object nivel2 inherits Nivel(
+    recetasDisponibles = [ojoDeBifeConHuevo, polloConPapas, fernetConCoca],
     puntosParaGanar = 100,
     siguienteNivel = nivel3,
     pantalla = pantallaNivel2,
     fondo = "imagenesFondos/fondoCocina.png"){
     override method nuevoPedido() {
-        generadorDePedidos.pedir(0.randomUpTo(2).round()) //Puede salir ojo de bife, pollo con papas o fernet
+        generadorDePedidos.pedir(recetasDisponibles.anyOne()) //Puede salir ojo de bife, pollo con papas o fernet
     }
     override method cajones() = [cajonDeHuevo, cajonDeBife, cajonDePapas, cajonDePollo]
     
 }
 
 object nivel1 inherits Nivel(
+    recetasDisponibles = [ojoDeBifeConHuevo, fernetConCoca],
     puntosParaGanar = 300,
     siguienteNivel = nivel2,
     pantalla = pantallaNivel1,
     fondo = "imagenesFondos/fondoCocina.png"){
     override method nuevoPedido() {
-        generadorDePedidos.pedir(0.randomUpTo(1).round()) //pide ojo de bife y fernet
+        generadorDePedidos.pedir(recetasDisponibles.anyOne()) //pide ojo de bife y fernet
         //generadorDePedidos.pedir(1)  //Solo ojo de bife con huevo
     }
 }

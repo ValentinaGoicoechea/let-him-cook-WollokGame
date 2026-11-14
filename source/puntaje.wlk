@@ -77,7 +77,7 @@ object puntajeEnJuego {
 object controladorDePartida {
     //NIVEL BASICON
     var puntosParaGanar = 750 // creo variables asi no hay num magicos (evaluar)
-    var maxPedidosPerdidos = 1
+    var maxPedidosPerdidos = 5
     const digitos = [centenas, decenas, unidades]
 
     var property nivelActual = nivel1

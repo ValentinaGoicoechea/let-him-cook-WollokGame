@@ -127,8 +127,15 @@ object generadorDePedidos {
         pedidoX.estadoDelPedido()
     }
 
-    method pedir(numeroDePedido) {
+    method pedir(nuevaReceta) {
         var pedidoX
+        pedidoX = new Pedido (
+                    position = game.at(27, 12), //Hice cambios en las posiciones!
+                    // X se mantiebe igual, voy a hacer que por ahora haya 4 en pantalla
+                    receta = nuevaReceta
+                )
+        self.agregarNuevoPedido(pedidoX)
+        /*
         if(numeroDePedido == 2){
             pedidoX = new Pedido (
                     position = game.at(27, 12), //Hice cambios en las posiciones!
@@ -147,8 +154,7 @@ object generadorDePedidos {
                 position = game.at(27,12),
                 receta = ojoDeBifeConHuevo
             )
-        }
-        self.agregarNuevoPedido(pedidoX)
+        }*/
     }
 
     method empezar(nivel) {
