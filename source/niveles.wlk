@@ -119,13 +119,12 @@ object nivel2 inherits Nivel(
 
 object nivel1 inherits Nivel(
     recetasDisponibles = [ojoDeBifeConHuevo, fernetConCoca],
-    puntosParaGanar = 300,
+    puntosParaGanar = 100, //Cambiar
     siguienteNivel = nivel2,
     pantalla = pantallaNivel1,
     fondo = "imagenesFondos/fondoCocina.png"){
     override method nuevoPedido() {
         generadorDePedidos.pedir(recetasDisponibles.anyOne()) //pide ojo de bife y fernet
-        //generadorDePedidos.pedir(1)  //Solo ojo de bife con huevo
     }
 }
 
