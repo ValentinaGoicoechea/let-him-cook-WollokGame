@@ -161,8 +161,10 @@ class PlatoArmado inherits Vajilla(estado = platoArmado){
     }
 
     override method agarrar(personaje){
-        mesadaActual.agarrarPlatoArmado() //le avisa a la mesada que no esta mas el plato
-        mesadaActual = null
+        if (mesadaActual != null) {
+            mesadaActual.agarrarPlatoArmado() //le avisa a la mesada que no esta mas el plato
+            mesadaActual = null
+        }
         personaje.agarroObjeto(self)
     }
 
