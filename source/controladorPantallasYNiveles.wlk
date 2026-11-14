@@ -93,6 +93,14 @@ object pantallaEstaciones inherits Pantalla(
 object pantallaModoJuego inherits Pantalla(
     image = "imagenesFondos/pantallaModoJuego.png"
     ){
+    override method image() {
+        if (configuracionPartida.cantidadJugadores() == 0) {
+            return "imagenesFondos/pantallaModoJuego.png"
+        } else {
+            var indice = configuracionPartida.cantidadJugadores()
+            return "imagenesFondos/pantallaModoJuego" + indice + ".png"
+        }
+    }
     override method ejecutarPantalla() {
         super()
         keyboard.num1().onPressDo({configuracionPartida.actualizarJugadores(1)})
@@ -100,7 +108,9 @@ object pantallaModoJuego inherits Pantalla(
     }
 
     override method pasarASiguiente() {
-        controladorPantallas.cambiarPantalla(pantallaTeclas)
+        if (configuracionPartida.cantidadJugadores() != 0) {
+            controladorPantallas.cambiarPantalla(pantallaTeclas)
+        }
     }
 }
 
@@ -110,7 +120,7 @@ object pantallaSeleccionPersonaje inherits Pantalla(
     override method image(){
         if (configuracionPartida.esMultijugador()){
             var indice = selectorPersonajes.numJugador() + 1
-            return "imagenesFondos/seleccionDeJugador"+ indice + ".png"
+            return "imagenesFondos/seleccionDeJugador" + indice + ".png"
         } else{
             return "imagenesFondos/seleccionDePersonajes.png"
         }

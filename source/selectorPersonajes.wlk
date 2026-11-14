@@ -13,9 +13,13 @@ object selectorPersonajes { //highlight alrededor de personaje
 
     method numJugador() = numJugador
     
-    method image() {if(personajeActual == null ) return "imagenesEstaciones/vacio.png"
-                    else return "imagenesFondos/selectorPersonajes.png"}
-
+    method image() {
+        if(personajeActual == null ) {
+            return "imagenesEstaciones/vacio.png"
+        } else { 
+            return "imagenesFondos/selectorPersonajes.png"
+        }
+    }
 
     method seleccionarPersonaje(numero){
         personajeActual = personajesDisponibles.find({personaje => personaje.numero() == numero})
@@ -74,7 +78,7 @@ const ropaOtro = new Personajes(    //PRUEBA, después hacemos otro tipo de pers
 )
 
 object configuracionPartida {
-    var cantidadJugadores = 1
+    var property cantidadJugadores = 0
 
     method actualizarJugadores(numero) {
         cantidadJugadores = numero

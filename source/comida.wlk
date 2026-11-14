@@ -53,7 +53,7 @@ class Comida{
     method soltar(personaje){personaje.sueltoObjeto(self)}
     method vaciarElementos() {}
     method entregarEnMesaEntrega(jugador,mesadaEntrega){}
-    method tareaDeEstacion(objeto){} //PARA NO ROMPER EL POLIMORFISMO CON LAS ESTACIONES   
+    method tareaDeEstacion(jugador, objeto){} //PARA NO ROMPER EL POLIMORFISMO CON LAS ESTACIONES   
     method invalidaEntrega() = estado.invalidaEntrega()
 }
 
@@ -68,7 +68,7 @@ class Vajilla {
         self.position(posicion)
     }
     method desaparecer(){} //plato no hace nada
-    method tareaDeEstacion(objeto){} //PARA NO ROMPER EL POLIMORFISMO CON LAS ESTACIONES
+    method tareaDeEstacion(jugador, objeto){} //PARA NO ROMPER EL POLIMORFISMO CON LAS ESTACIONES
 
     method entregarEnMesaEntrega(jugador,mesadaEntrega){}
     
