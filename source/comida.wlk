@@ -97,6 +97,7 @@ class Vajilla {
         estaEnPlato = false
         sePuedeAgarrar = true
     }
+    method tieneAlgunIngredienteQuemado() = false
 }
 class Vaso inherits Vajilla(position = game.at(4,8)){
     const property tipo = tipoVaso
@@ -195,5 +196,5 @@ class PlatoArmado inherits Vajilla(estado = platoArmado){
         }
     }
 
-    method tieneAlgunElementoQuemado() = elementosPlato.any({ingrediente => ingrediente.invalidaEntrega()})
+    override method tieneAlgunIngredienteQuemado() = elementosPlato.any({ingrediente => ingrediente.invalidaEntrega()})
 }

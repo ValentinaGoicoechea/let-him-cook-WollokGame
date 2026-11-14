@@ -62,7 +62,7 @@ class Nivel{
 
 object nivel3 inherits Nivel (
     recetasDisponibles = [ojoDeBifeConHuevo, polloConPapas, fernetConCoca],
-    puntosParaGanar = 200, //Cambiar
+    puntosParaGanar = 300, //Cambiar
     pantalla = pantallaNivel3, //CAMBIAR
     fondo = "imagenesFondos/fondoCocina3.png",
     mapa = mapaNivel3){   
