@@ -70,7 +70,7 @@ object puntajeEnJuego {
             self.restar(250)
             return 0
         }*/
-        if (plato.tieneAlgunIngredienteQuemado()) {
+        if (plato.tieneAlgunElementoQuemado()) { 
             self.restar(250)
             return 0
         }
@@ -153,7 +153,7 @@ object controladorDePartida {
     }
 
     method reiniciarNivel() {
-        nivelActual = nivel1
+        nivelActual = nivel3 //cambiar a nivel1
         pedidosPerdidos = 0
         vidas.reiniciar()
         self.reiniciarCocina()

@@ -92,7 +92,9 @@ describe "Tests preliminares TPGame-Overcooked" {
         const mesadaArmado1 = new MesadaArmado(position = game.at(25,7),image = "imagenesEstaciones/mesadaArmado.png")
         const platoArmado = new PlatoArmado(mesadaActual = mesadaArmado1,position = game.at(10, 10),elementosPlato = [plato, papa, pechuga])      
         const mesadaEntrega1 = new MesadaEntrega(position = game.at(14,11),image = "imagenesEstaciones/mesada.png")
-        mesadaEntrega1.tareaDeEstacion(platoArmado)
+
+        const jugador1 = new Jugador(numeroPersonaje = 1, position = game.at(10, 10), posicionInicial = game.at(10, 10))
+        mesadaEntrega1.tareaDeEstacion(jugador1, platoArmado)
 
         assert.equals(true, pedido.seEntrego())
         assert.equals(false, generadorDePedidos.listaPedidos().contains(pedido))
@@ -114,7 +116,8 @@ describe "Tests preliminares TPGame-Overcooked" {
         const platoArmado = new PlatoArmado(mesadaActual = mesadaArmado1,position = game.at(10, 10),elementosPlato = [plato, papa, pechuga])      
         const mesadaEntrega = new MesadaEntrega(position = game.at(14, 11), image = "mesada.png")
 
-        mesadaEntrega.tareaDeEstacion(platoArmado)
+        const jugador1 = new Jugador(numeroPersonaje = 1, position = game.at(10, 10), posicionInicial = game.at(10, 10))
+        mesadaEntrega.tareaDeEstacion(jugador1, platoArmado)
 
         assert.equals(sucio, plato.estado())
     }
@@ -136,7 +139,8 @@ describe "Tests preliminares TPGame-Overcooked" {
         const platoArmado = new PlatoArmado(mesadaActual = mesadaArmado1,position = game.at(10, 10),elementosPlato = [plato, pechuga])   
         const mesadaEntrega = new MesadaEntrega(position = game.at(14, 11), image = "mesada.png")
 
-        mesadaEntrega.tareaDeEstacion(platoArmado)
+        const jugador1 = new Jugador(numeroPersonaje = 1, position = game.at(10, 10), posicionInicial = game.at(10, 10))
+        mesadaEntrega.tareaDeEstacion(jugador1, platoArmado)
 
         assert.equals(200, puntajeEnJuego.valor())
     }
@@ -149,10 +153,22 @@ describe "Tests preliminares TPGame-Overcooked" {
         const platoArmado = new PlatoArmado(mesadaActual = mesadaArmado1,position = game.at(10, 10),elementosPlato = [plato, papa])   
         const mesadaEntrega = new MesadaEntrega(position = game.at(14, 11), image = "mesada.png")
 
-        mesadaArmado1.tareaDeEstacion(platoArmado)
-        mesadaArmado1.tareaDeEstacion(pechuga)
+        const jugador1 = new Jugador(numeroPersonaje = 1, position = game.at(10, 10), posicionInicial = game.at(10, 10))
+
+        mesadaArmado1.tareaDeEstacion(jugador1, platoArmado)
+        mesadaArmado1.tareaDeEstacion(jugador1,pechuga)
 
         assert.equals([plato, papa, pechuga], mesadaArmado1.platoEnArmado().elementosPlato())
+    }
+
+    test "Si un plato armado tiene un ingrediente quemado, se restan 250 puntos" {
+        const platoArmado = new PlatoArmado(mesadaActual = null, position = game.at(0, 0))
+        const pollo = new Comida(tipo = tipoPollo, estado = quemada, position = game.at(0, 0))
+
+        platoArmado.elementosPlato().add(pollo)
+        puntajeEnJuego.valor(500)
+        puntajeEnJuego.asignarPuntos(null, platoArmado)
+        assert.equals(250, puntajeEnJuego.valor())
     }
 
 

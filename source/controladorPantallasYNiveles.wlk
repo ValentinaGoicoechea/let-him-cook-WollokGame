@@ -168,7 +168,7 @@ const pantallaNivel3 = new PantallaNivel(
        
 object juegoCocinero { 
 
-    var nivel = nivel1
+    var nivel = nivel3 //cambiar
 
     method iniciarJuego() { 
         try { game.removeTickEvent("mover1") } catch e {}

@@ -56,13 +56,16 @@ class Nivel{
         cajonDeHuevo.posicionAlimento(game.at(11, 3))
         cajonDeBife.position(game.at(20, 3))
         cajonDeBife.posicionAlimento(game.at(13, 3))
+        mesaFernet1.position(game.at(19,11))
+        mesaFernet2.position(game.at(20,11))
+        mesaFernet3.position(game.at(21,11))
        
     }
 }
 
 object nivel3 inherits Nivel (
     recetasDisponibles = [ojoDeBifeConHuevo, polloConPapas, fernetConCoca],
-    puntosParaGanar = 300, //Cambiar
+    puntosParaGanar = 700, //Cambiar
     pantalla = pantallaNivel3, //CAMBIAR
     fondo = "imagenesFondos/fondoCocina3.png",
     mapa = mapaNivel3){   
