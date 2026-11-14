@@ -54,6 +54,7 @@ class Comida{
     method vaciarElementos() {}
     method entregarEnMesaEntrega(mesadaEntrega){}
     method tareaDeEstacion(objeto){} //PARA NO ROMPER EL POLIMORFISMO CON LAS ESTACIONES   
+    method invalidaEntrega() = estado.invalidaEntrega()
 }
 
 class Vajilla {
@@ -193,4 +194,6 @@ class PlatoArmado inherits Vajilla(estado = platoArmado){
             mesadaEntrega.procesoPlato(pedido, self)
         }
     }
+
+    method tieneAlgunElementoQuemado() = elementosPlato.any({ingrediente => ingrediente.invalidaEntrega()})
 }

@@ -12,22 +12,26 @@ import tareas.*
 object cruda {
     method nombre() = "Cruda"
     method tareas(tipo) = tipo.tareasCruda()
+    method invalidaEntrega() = false
 }
 
 object cortada {
     method nombre() = "Cortada"
     method tareas(tipo) = tipo.tareasCortada()
+    method invalidaEntrega() = false
 }
 
 object cocinada {
     method nombre() = "Cocinada"
     method tareas(tipo) = [tareaTirar]
+    method invalidaEntrega() = false
    
 }
 
 object quemada {
     method nombre() = "Quemada"
     method tareas(tipo) = [tareaTirar]
+    method invalidaEntrega() = true
 }
 
 // Estados para el plato

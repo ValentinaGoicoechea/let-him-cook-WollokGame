@@ -65,7 +65,11 @@ object puntajeEnJuego {
     method puntosAlEntregar(pedido) = 200 + self.puntosPorEspera(pedido)
 
     method asignarPuntos(pedido, plato){
-        if(plato.elementosPlato().any{ingrediente => ingrediente.estado() == quemada}) { //VER COMO IMPLEMENTAR POLIMORFISMO ACA
+        /*if(plato.elementosPlato().any{ingrediente => ingrediente.estado() == quemada}) { //VER COMO IMPLEMENTAR POLIMORFISMO ACA
+            self.restar(250)
+            return 0
+        }*/
+        if (plato.tieneAlgunIngredienteQuemado()) {
             self.restar(250)
             return 0
         }
