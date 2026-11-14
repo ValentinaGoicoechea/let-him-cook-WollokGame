@@ -346,9 +346,9 @@ class Cajon {
         }
     }
 
-    method tareaDeEstacion(objeto){if(objeto == null) self.reponerStock()}
-
-    
+    method tareaDeEstacion(personaje, objeto){
+        if(objeto == null) self.reponerStock()
+    }
 
     method reiniciarPorFinDeNivel() {
         alimentos.forEach({ alimento => 

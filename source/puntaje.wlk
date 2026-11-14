@@ -153,7 +153,7 @@ object controladorDePartida {
     }
 
     method reiniciarNivel() {
-        nivelActual = nivel1 
+        nivelActual = nivel3 //cambiar
         pedidosPerdidos = 0
         vidas.reiniciar()
         self.reiniciarCocina()
