@@ -18,26 +18,26 @@ class DigitoPuntaje{
     var property digito = 0 //Inicialmente
     method image() = "numeros/" + digito.toString() + ".png"
 }
-const centenas = new DigitoPuntaje(position = game.at(7,1))
-const decenas = new DigitoPuntaje(position = game.at(8,1))
-const unidades = new DigitoPuntaje(position = game.at(9,1))
+const centenas = new DigitoPuntaje(position = game.at(4,0))
+const decenas = new DigitoPuntaje(position = game.at(5,0))
+const unidades = new DigitoPuntaje(position = game.at(6,0))
 
 object puntajeEnJuego {
     var property valor = 0
     method image() = "imagenesFondos/PUNTOS.png"
 
-    var posicion = game.at(4, 1)
+    var posicion = game.at(5, 1)
     method position() = posicion //encapsulamiento!!
 
     method ubicarEnJuego() {
         posicion = game.at(4, 1)
-        centenas.position(game.at(7, 1))
-        decenas.position(game.at(8, 1))
-        unidades.position(game.at(9, 1))
+        centenas.position(game.at(4, 0))
+        decenas.position(game.at(5, 0))
+        unidades.position(game.at(6, 0))
     }
 
     method ubicarEnPantallaFinal() {
-        posicion = game.at(13, 7)
+        posicion = game.at(16, 8)
         centenas.position(game.at(16, 7))
         decenas.position(game.at(17, 7))
         unidades.position(game.at(18, 7))
