@@ -119,7 +119,6 @@ object controladorDePartida {
             self.partidaGanada(false)
             generadorDePedidos.terminar(nivelActual) 
             pedidosPerdidos = 0
-            vidas.reiniciar()
             self.reiniciarCocina()
 
 

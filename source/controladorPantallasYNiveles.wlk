@@ -7,6 +7,8 @@ import pedidos.*
 import puntaje.*
 import selectorPersonajes.*
 import niveles.*
+import vidas.*
+
 
 //CAMBIO DE PANTALLAS (INICIO, MENU DE PERSONAJES, NIVELES)
 
@@ -160,7 +162,8 @@ object pantallaFinal inherits Pantalla (
 class PantallaNivel inherits Pantalla{
     method mostrarInfoNivel() {
         game.addVisual(self)
-        game.schedule(3500, { game.removeVisual(self) })
+        game.schedule(3500, { game.removeVisual(self) 
+        vidas.reiniciar()})
     }
 }
 
@@ -226,7 +229,6 @@ object juegoCocinero {
         teclado.movimiento()
         teclado.agarrarOSoltarObjeto()
         teclado.realizarAccion()
-
         game.onTick(200, "controlarPartida", {controladorDePartida.controlarProgresoPartida()})
         
     }
