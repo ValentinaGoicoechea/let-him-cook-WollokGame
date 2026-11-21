@@ -18,7 +18,7 @@ Si dejás que se quemen los platos o se vencen 5 pedidos, ¡Estás fuera de la c
 
 ## Portada del juego
 
-![Portada](assets/imagenesFondos/menuInicio.png)
+![Portada](assets/imagenesFondos/portada2ReadMe.png)
 
 ## 📜 Instrucciones
 
