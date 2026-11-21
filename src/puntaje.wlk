@@ -1,5 +1,5 @@
 import selectorPersonajes.*
-import source.estados.*
+import estados.*
 import wollok.game.*
 import pedidos.*
 import niveles.*

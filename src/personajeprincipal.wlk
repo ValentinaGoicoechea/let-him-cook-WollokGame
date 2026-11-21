@@ -1,7 +1,7 @@
-import source.direcciones.*
-import source.ambiente.*
-import source.comida.*
-import source.selectorPersonajes.*
+import direcciones.*
+import ambiente.*
+import comida.*
+import selectorPersonajes.*
 import wollok.game.*
 
 

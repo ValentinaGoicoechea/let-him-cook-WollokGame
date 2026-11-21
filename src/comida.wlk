@@ -1,4 +1,4 @@
-import source.ambiente.*
+import ambiente.*
 import wollok.game.*
 import estados.*
 import personajeprincipal.* 

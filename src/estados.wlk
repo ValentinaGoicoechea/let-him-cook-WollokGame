@@ -1,4 +1,4 @@
-import source.ambiente.*
+import ambiente.*
 import tareas.*
 
 

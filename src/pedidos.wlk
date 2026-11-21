@@ -1,4 +1,4 @@
-import source.comida.*
+import comida.*
 import wollok.game.*
 import puntaje.*
 import niveles.*

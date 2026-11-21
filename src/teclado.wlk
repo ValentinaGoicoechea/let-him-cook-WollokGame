@@ -1,4 +1,4 @@
-import source.pedidos.*
+import pedidos.*
 import personajeprincipal.*
 import wollok.game.*
 import controladorPantallasYNiveles.*
