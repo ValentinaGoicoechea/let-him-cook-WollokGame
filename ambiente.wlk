@@ -23,6 +23,8 @@ class Estacion{
     const tareaAsociada
     const property numeroEstacion 
     const property esMesadaArmado = false //ver si modificamos esto
+    
+    method reproducirSonido(){}
 
     method image(){
         if(prendido){
@@ -39,6 +41,7 @@ class Estacion{
                 estaOcupado = true
                 jugador.agarrarOSoltar() 
                 objeto.sePuedeAgarrar(false)
+                self.reproducirSonido()
                 game.schedule(tiempoTarea, { 
                         tareaAsociada.ejecutar(objeto)
                         objeto.sePuedeAgarrar(true)
@@ -62,7 +65,13 @@ class Estacion{
     }
 }
 
-const mesaFernet1 = new Estacion(
+class MesaFernet inherits Estacion{
+    override method reproducirSonido(){
+        game.sound("sonidos/sonidoFernet.mp3").play()
+    }
+}
+
+const mesaFernet1 = new MesaFernet(
     position = game.at(19,11),
     tiempoTarea = 4000, 
     imagen1 = "imagenesEstaciones/mesadaFernet.png", 
@@ -71,7 +80,7 @@ const mesaFernet1 = new Estacion(
     numeroEstacion = 1)
 
 
-const mesaFernet2 = new Estacion(
+const mesaFernet2 = new MesaFernet(
     position = game.at(20,11),
     tiempoTarea = 4000, 
     imagen1 = "imagenesEstaciones/vacio.png", 
@@ -80,7 +89,7 @@ const mesaFernet2 = new Estacion(
     numeroEstacion = 2)
 
 
-const mesaFernet3 = new Estacion(
+const mesaFernet3 = new MesaFernet(
     position = game.at(21,11),
     tiempoTarea = 4000, 
     imagen1 = "imagenesEstaciones/vacio.png", 
@@ -95,6 +104,13 @@ class CartelPrecaucion { //ver donde lo movemos
 
 class Horno inherits Estacion( tiempoTarea = 7000, imagen1 = "imagenesEstaciones/hornoprendido.gif", imagen2 = "imagenesEstaciones/hornoapagado.png",tareaAsociada = tareaCocinar){
     var precaucion = null
+    const sonidoActual
+    var sonido = null
+
+    override method reproducirSonido(){
+        sonido = game.sound(sonidoActual)
+        sonido.play()
+    }
 
     method controlarQuemado(objeto){
         var tiempoHastaQuemarse = 10 //si está mas de 10 segundos despues de cocinarse se quema
@@ -114,6 +130,7 @@ class Horno inherits Estacion( tiempoTarea = 7000, imagen1 = "imagenesEstaciones
                 tiempoHastaQuemarse -= 0.5
             } else {
                 if(objeto.position() != position){ // si lo saque
+                    sonido.stop()
                     self.liberar()
                     game.removeTickEvent(nombreTick)
                     game.removeVisual(precaucion)//Quitar cartel
@@ -138,40 +155,55 @@ class Horno inherits Estacion( tiempoTarea = 7000, imagen1 = "imagenesEstaciones
 //INSTANCIANDO TODAS LAS ESTACIONES 
 const horno1 = new Horno(
     position = game.at(6,11),
-    numeroEstacion = 1
+    numeroEstacion = 1,
+    sonidoActual = "sonidos/sonidoCocina1.mp3"
 )
 
 const horno2 = new Horno(
     position = game.at(8,11),
-    numeroEstacion = 2
+    numeroEstacion = 2,
+    sonidoActual = "sonidos/sonidoCocina2.mp3"
 )
 
-const basura = new Estacion(
+object basura inherits Estacion(
     position = game.at(20,7),
     tiempoTarea = 500,
     imagen1 = "imagenesEstaciones/basuraAbierta.png",
     imagen2 = "imagenesEstaciones/basura.png",
     tareaAsociada = tareaTirar,
     numeroEstacion = 1
-)
+){
+    override method reproducirSonido(){
+        game.sound("sonidos/sonidoBasura.mp3").play()
+    }
+}
 
-const bacha = new Estacion(
+object bacha inherits Estacion(
     position = game.at(4,6),
     tiempoTarea = 3000,
     imagen1 = "imagenesEstaciones/bachaAbierta.gif", 
     imagen2 = "imagenesEstaciones/vacio.png",
     tareaAsociada = tareaLimpiar,
     numeroEstacion = 1
-)
 
-const tablaDeCortar = new Estacion(
+){
+    override method reproducirSonido(){
+        game.sound("sonidos/sonidoBacha.mp3").play()
+    }
+}
+
+object tablaDeCortar inherits Estacion(
     position = game.at(4,9),
     tiempoTarea = 4500,
     imagen1 = "imagenesEstaciones/tablaDeCortar.png", 
     imagen2 = "imagenesEstaciones/tablaDeCortar.png", // hacer cambio (para notar que esta en uso)
     tareaAsociada = tareaCortar,
     numeroEstacion = 1
-)
+){
+    override method reproducirSonido(){
+        game.sound("sonido/sonidoCortar.mp3").play()
+    }
+}
 
 class Mesada{
     var property position
