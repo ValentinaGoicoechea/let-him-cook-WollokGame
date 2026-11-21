@@ -7,7 +7,7 @@ import pedidos.*
 import controladorPantallasYNiveles.*
 import selectorPersonajes.*
 
-program juego{
+program programa{
     game.width(32)
     game.height(16)
     game.cellSize(50)
