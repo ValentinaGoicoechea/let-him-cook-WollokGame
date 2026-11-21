@@ -1,6 +1,7 @@
 {
   "name": "TP GAMES",
   "version": "1.0.0",
+  "main": "programa",
   "sourceFolder": "src",
   "resourceFolder": "assets",
   "wollokVersion": "4.2.3",
