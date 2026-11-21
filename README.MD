@@ -2,7 +2,7 @@
 
 ![Let Him Cook](assets/imagenesFondos/portadaReadMe.jfif)
 
-🎮 **Jugar online:** https://valentinagoicoechea.github.io/let-him-cook-WollokGame/
+🎮 **Jugar online:** https://troyanowollok.github.io/let-him-cook-WollokGame/
 
 En un bodegón de barrio, después de un partido, una multitud de hinchas hambrientos espera su comida. Te dejaron al mando de la cocina, y la cosa es simple: cocinar, armar los platos y entregar cada pedido tal cual se pide, antes de que el cliente se canse de esperar.
 
