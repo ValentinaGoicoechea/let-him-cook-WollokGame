@@ -25,10 +25,11 @@ class Estacion{
     const property esMesadaArmado = false //ver si modificamos esto
     
     method reproducirSonido(){}
+    method imagenPrendida() = imagen1 
 
     method image(){
         if(prendido){
-            return imagen1
+            return self.imagenPrendida()
         } else{
             return imagen2
         }
@@ -187,6 +188,9 @@ object bacha inherits Estacion(
     numeroEstacion = 1
 
 ){
+    var property imagenAbierta = "imagenesEstaciones/bachaAbierta.gif"
+    override method imagenPrendida() = imagenAbierta
+
     override method reproducirSonido(){
         game.sound("sonidos/sonidoBacha.mp3").play()
     }

@@ -58,17 +58,17 @@ object mapaNivelBase inherits Mapa(
 ){}
 
 object mapaNivel3 inherits Mapa(
-    zonas = [
-        new Zona(xMin = 5, xMax = 24, yMin = 3, yMax = 11), //piso principal
-        new Zona(xMin = 4, xMax = 10, yMin = 3, yMax = 10) //pasilo despensa 
+     zonas = [
+        new Zona(xMin = 4, xMax = 24, yMin = 4, yMax = 11), //piso principal
+        new Zona(xMin = 4, xMax = 11, yMin = 3, yMax = 3)   //fila de abajo de la despensa + su entrada (x=11)
     ],
     bloqueados = [
-        new Zona(xMin = 5,  xMax = 10, yMin = 6, yMax = 6), //pared de la despensa
-        new Zona(xMin = 9,  xMax = 9,  yMin = 7, yMax = 7), //tacho de basura
-        new Zona(xMin = 7,  xMax = 9, yMin = 11, yMax = 11), //mesa Fernet
-        new Zona(xMin = 11, xMax = 14, yMin = 11, yMax = 11), //mesa de entrega
-        new Zona(xMin = 18, xMax = 21, yMin = 11, yMax = 11),//hornos
-        new Zona(xMin = 12, xMax = 24, yMin = 3, yMax = 3) //mesada de ingredientes
+        new Zona(xMin = 4,  xMax = 10, yMin = 6,  yMax = 6),  //pared de la despensa (borde de madera de la alfombra)
+        new Zona(xMin = 4,  xMax = 4,  yMin = 7,  yMax = 11), //mesadas de armado (ocupan toda la columna)
+        new Zona(xMin = 9,  xMax = 9,  yMin = 7,  yMax = 7),  //tacho de basura
+        new Zona(xMin = 8,  xMax = 10, yMin = 11, yMax = 11), //mesa Fernet (3 casillas, bajo el cartel FERNET)
+        new Zona(xMin = 12, xMax = 16, yMin = 11, yMax = 11), //mesada de entrega (la imagen ocupa 5 casillas)
+        new Zona(xMin = 19, xMax = 22, yMin = 11, yMax = 11)  //hornos (cada imagen ocupa 2 casillas, bajo la pizarra)
     ]
 ){}
 

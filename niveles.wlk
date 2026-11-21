@@ -44,6 +44,7 @@ class Nivel{
         horno2.position(game.at(8, 11))
         basura.position(game.at(20, 7))
         bacha.position(game.at(4, 6))
+        bacha.imagenAbierta("imagenesEstaciones/bachaAbierta.gif")
         tablaDeCortar.position(game.at(4, 9))
         mesadaArmado1.position(game.at(25, 7))
         mesadaArmado2.position(game.at(25, 9))
@@ -65,17 +66,18 @@ class Nivel{
 
 object nivel3 inherits Nivel (
     recetasDisponibles = [ojoDeBifeConHuevo, polloConPapas, fernetConCoca],
-    puntosParaGanar = 900, //900
+    puntosParaGanar =900, //900
     pantalla = pantallaNivel3, //CAMBIAR
     fondo = "imagenesFondos/fondoCocina3.png",
     mapa = mapaNivel3){   
     override method cajones() = [cajonDeHuevo, cajonDeBife, cajonDePapas, cajonDePollo]
     
     override method acomodarEscenario() {
-        horno1.position(game.at(18, 11))
-        horno2.position(game.at(20, 11))
+        horno1.position(game.at(19, 11))
+        horno2.position(game.at(21, 11))
         basura.position(game.at(9, 7))
         bacha.position(game.at(25, 6))
+        bacha.imagenAbierta("imagenesEstaciones/bachaAbiertaInvertida.gif")
         tablaDeCortar.position(game.at(25, 10))
         mesadaArmado1.position(game.at(4, 7))
         mesadaArmado2.position(game.at(4, 9))
@@ -88,9 +90,9 @@ object nivel3 inherits Nivel (
         cajonDeBife.posicionAlimento(game.at(18, 3))
         cajonDeHuevo.position(game.at(4, 3))
         cajonDeHuevo.posicionAlimento(game.at(20, 3))
-        mesaFernet1.position(game.at(7,11))
-        mesaFernet2.position(game.at(8,11))
-        mesaFernet3.position(game.at(9,11))
+        mesaFernet1.position(game.at(8,11))
+        mesaFernet2.position(game.at(9,11))
+        mesaFernet3.position(game.at(10,11))
         mesadaEntrega1.position(game.at(12,11))
         mesadaEntrega2.position(game.at(13,11))
         mesadaEntrega3.position(game.at(14,11))
