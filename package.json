@@ -1,7 +1,7 @@
 {
   "name": "TP GAMES",
   "version": "1.0.0",
-  "main": "source/programa.wpgm",
+  "main": "programa.wpgm",
   "resourceFolder": "assets",
   "wollokVersion": "4.0.0",
   "author": "troyano"
