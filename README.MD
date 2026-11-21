@@ -1,12 +1,12 @@
 # Let Him Cook
 
-![Let Him Cook](assets/imagenesFondos/menuInicio.png)
+![Let Him Cook](assets/imagenesFondos/portadaReadMe.jfif)
 
 🎮 **Jugar online:** https://valentinagoicoechea.github.io/let-him-cook-WollokGame/
 
 En un bodegón de barrio, después de un partido, una multitud de hinchas hambrientos espera su comida. Te dejaron al mando de la cocina, y la cosa es simple: cocinar, armar los platos y entregar cada pedido tal cual se pide, antes de que el cliente se canse de esperar.
 
-Si dejás que se quemen los platos o se vencen 5 pedidos, estás fuera de la cocina.
+Si dejás que se quemen los platos o se vencen 5 pedidos, ¡Estás fuera de la cocina!
 
 ## Equipo Troyano
 
@@ -16,21 +16,9 @@ Si dejás que se quemen los platos o se vencen 5 pedidos, estás fuera de la coc
 - Goicoechea, Valentina
 - Ocantos, Ulises
 
-## Capturas
-
-**Portada del juego**
+## Portada del juego
 
 ![Portada](assets/imagenesFondos/menuInicio.png)
-
-**Interiores**
-
-![Historia](assets/imagenesFondos/juegoHistoria.png)
-![Estaciones](assets/imagenesFondos/juegoEstaciones.png)
-![Modo de juego](assets/imagenesFondos/pantallaModoJuego.png)
-![Selección de personajes](assets/imagenesFondos/seleccionDePersonajes.png)
-![Nivel 1](assets/imagenesFondos/nivelUno.png)
-![Nivel 2](assets/imagenesFondos/nivelDos.png)
-![Nivel 3](assets/imagenesFondos/nivelTres.png)
 
 ## 📜 Instrucciones
 
@@ -41,6 +29,8 @@ Llegar al puntaje de cada nivel entregando los pedidos que van apareciendo, sin 
 ### 🔸 Modos de juego
 
 Se puede jugar solo o de a dos en la misma computadora. Al empezar se elige con `1` (solitario) o `2` (multijugador), después cada jugador elige su personaje con `1` o `2`, y con `ENTER` se avanza por las pantallas.
+
+![Modo de juego](assets/imagenesFondos/pantallaModoJuego.png)
 
 ### 🔸 Controles
 
@@ -62,6 +52,8 @@ Siempre se interactúa con lo que se tiene enfrente, según hacia dónde mire el
 - **Mesada de entrega:** entrega el plato según el pedido.
 - **Bacha:** lava los platos sucios.
 - **Basura:** para tirar lo que se quemó o no sirve.
+  
+![Estaciones](assets/imagenesFondos/juegoEstaciones.png)
 
 ### 🔸 Pedidos
 
@@ -86,14 +78,13 @@ Se empieza con 5 vidas, que se ven como corazones en pantalla. El puntaje nunca 
 
 ### 🔸 Niveles
 
-- **Nivel 1:** 750 puntos. Se piden ojo de bife con huevo y fernet.
-- **Nivel 2:** 850 puntos. Se suma el pollo con papas.
-- **Nivel 3:** 900 puntos. Están todas las recetas y la cocina cambia de distribución.
+- **Nivel 1:** OBJETIVO: 750 puntos. Se piden ojo de bife con huevo y fernet.
+- **Nivel 2:** OBJETIVO: 850 puntos. Se suma el pollo con papas.
+- **Nivel 3:** OBJETIVO: 900 puntos. Están todas las recetas y la cocina cambia de distribución.
 
 ## Otros
 
 - Facultad Regional Buenos Aires, Universidad Tecnológica Nacional (UTN FRBA) - Paradigmas de Programación
 - Versión de Wollok: 4.0.0
 - Presentación del proyecto: [ver acá](https://frbautneduar-my.sharepoint.com/:p:/g/personal/mcuellogomez_frba_utn_edu_ar/IQCr4bzKR4pnRZuBHmBFmnn6AQPMbDA9EQpBdgZuM0jYEbg?e=xQu1L3)
-- El repositorio es público.
 - Para correrlo en local hace falta Node.js y el CLI de Wollok (`npm install -g wollok-ts-cli`). Desde la carpeta del proyecto: `wollok run -g source.programa.juego`
