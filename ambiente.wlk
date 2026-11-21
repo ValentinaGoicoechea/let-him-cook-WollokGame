@@ -201,7 +201,7 @@ object tablaDeCortar inherits Estacion(
     numeroEstacion = 1
 ){
     override method reproducirSonido(){
-        game.sound("sonido/sonidoCortar.mp3").play()
+        game.sound("sonidos/sonidoCortar.mp3").play()
     }
 }
 
