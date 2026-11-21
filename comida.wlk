@@ -113,13 +113,6 @@ class Vaso inherits Vajilla(position = game.at(4,8)){
     override method colocarseEnMesadaArmado(jugador, mesada){} //no hace nada
     override method tareas() = [tareaLlenar]
 
-    /*override method reiniciar(){
-        position = posicionInicial
-        estado = limpio
-        sePuedeAgarrar = true
-    }
-    */
-
     override method entregarEnMesaEntrega(jugador, mesadaEntrega){
         const pedido = selectorPedidos.eleccionDePedido([self]) 
         jugador.agarrarOSoltar()

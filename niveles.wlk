@@ -60,13 +60,19 @@ class Nivel{
         mesaFernet1.position(game.at(19,11))
         mesaFernet2.position(game.at(20,11))
         mesaFernet3.position(game.at(21,11))
+        mesadaEntrega1.position(game.at(14,11))
+        mesadaEntrega2.position(game.at(15,11))
+        mesadaEntrega3.position(game.at(16,11))
+        [vaso1,vaso2,vaso3].forEach({v=>v.posicionInicial(game.at(4,8))})
+        [plato1,plato2,plato3].forEach({p => p.posicionPlatoSucio(game.at(4,5)) p.posicionInicial(game.at(16,3))})
+        [plato1, plato2, plato3, vaso1, vaso2, vaso3].forEach({ v => v.reiniciar() })         
        
     }
 }
 
 object nivel3 inherits Nivel (
     recetasDisponibles = [ojoDeBifeConHuevo, polloConPapas, fernetConCoca],
-    puntosParaGanar =900, //900
+    puntosParaGanar =100, //900
     pantalla = pantallaNivel3, //CAMBIAR
     fondo = "imagenesFondos/fondoCocina3.png",
     mapa = mapaNivel3){   
@@ -111,7 +117,7 @@ object nivel3 inherits Nivel (
 
 object nivel2 inherits Nivel(
     recetasDisponibles = [ojoDeBifeConHuevo, polloConPapas, fernetConCoca],
-    puntosParaGanar = 850,  //850
+    puntosParaGanar = 100,  //850
     siguienteNivel = nivel3,
     pantalla = pantallaNivel2,
     fondo = "imagenesFondos/fondoCocina.png"){
@@ -124,7 +130,7 @@ object nivel2 inherits Nivel(
 
 object nivel1 inherits Nivel(
     recetasDisponibles = [ojoDeBifeConHuevo, fernetConCoca],
-    puntosParaGanar = 750, //Cambiar a 750
+    puntosParaGanar = 100, //Cambiar a 750
     siguienteNivel = nivel2,
     pantalla = pantallaNivel1,
     fondo = "imagenesFondos/fondoCocina.png"){

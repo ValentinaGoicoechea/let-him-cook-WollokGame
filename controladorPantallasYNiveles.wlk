@@ -155,7 +155,7 @@ object pantallaFinal inherits Pantalla (
     }
     override method pasarASiguiente(){
         //pantallaSeleccionPersonaje.ejecutarPantalla() //seria en la de nivel
-        controladorPantallas.cambiarPantalla(pantallaSeleccionPersonaje)
+        controladorPantallas.cambiarPantalla(pantallaModoJuego)
     }
 }
 

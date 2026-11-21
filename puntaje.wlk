@@ -139,14 +139,16 @@ object controladorDePartida {
             try { game.removeTickEvent("moverCocinero") } catch e {}
             try { game.removeTickEvent("controlarPartida") } catch e {}
 
-            game.schedule(100, {
-                //game.clear()
-                //pantallaFinal.ejecutarPantalla()
+            controladorPantallas.cambiarPantalla(pantallaFinal) //Para que no se vea el puntaje en las nuevas pantallas
+        /*
+            game.schedule(100, 
+                
                 controladorPantallas.cambiarPantalla(pantallaFinal)
-                puntajeEnJuego.ubicarEnPantallaFinal()
-                game.addVisual(puntajeEnJuego)               
-                digitos.forEach({digito => game.addVisual(digito) }) 
-            })
+                //puntajeEnJuego.ubicarEnPantallaFinal()
+                //game.addVisual(puntajeEnJuego)               
+                //digitos.forEach({digito => game.addVisual(digito) }) 
+            )
+        */
         }
 
     }
