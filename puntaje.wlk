@@ -17,6 +17,7 @@ class DigitoPuntaje{
     var property position
     var property digito = 0 //Inicialmente
     method image() = "numeros/" + digito.toString() + ".png"
+    method permiteApoyar() = false
 }
 const centenas = new DigitoPuntaje(position = game.at(4,0))
 const decenas = new DigitoPuntaje(position = game.at(5,0))
@@ -25,6 +26,7 @@ const unidades = new DigitoPuntaje(position = game.at(6,0))
 object puntajeEnJuego {
     var property valor = 0
     method image() = "imagenesFondos/PUNTOS.png"
+    method permiteApoyar() = false
 
     var posicion = game.at(5, 1)
     method position() = posicion //encapsulamiento!!

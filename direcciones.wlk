@@ -58,6 +58,27 @@ object mapaNivelBase inherits Mapa(
 ){}
 
 object mapaNivel3 inherits Mapa(
+    zonas = [
+        new Zona(xMin = 9,  xMax = 13, yMin = 11, yMax = 11),
+        new Zona(xMin = 17, xMax = 18, yMin = 11, yMax = 11),
+        new Zona(xMin = 22, xMax = 24, yMin = 11, yMax = 11),
+        new Zona(xMin = 5,  xMax = 24, yMin = 7,  yMax = 10),
+        new Zona(xMin = 5,  xMax = 18, yMin = 6,  yMax = 6),
+        new Zona(xMin = 5,  xMax = 25, yMin = 4,  yMax = 5),
+        new Zona(xMin = 18, xMax = 25, yMin = 3,  yMax = 3)
+    ],
+    bloqueados= [
+        new Zona(xMin = 20, xMax = 20, yMin = 7,  yMax = 7),//TACHO DE BASURA
+        new Zona(xMin = 7,  xMax = 7,  yMin = 5,  yMax = 5),//Agujero 1
+        new Zona(xMin = 10, xMax = 11, yMin = 7,  yMax = 8), //Agujero2
+        new Zona(xMin = 15, xMax = 16, yMin = 5,  yMax = 5), //Agujero 3
+        new Zona(xMin = 18, xMax = 18, yMin = 9,  yMax=9), //Agujero 4
+        new Zona(xMin = 22, xMax = 22, yMin = 8,  yMax=8) //Agujero 5
+    ] 
+
+){}
+
+object mapaNivel4 inherits Mapa(
      zonas = [
         new Zona(xMin = 4, xMax = 24, yMin = 4, yMax = 11), //piso principal
         new Zona(xMin = 4, xMax = 11, yMin = 3, yMax = 3)   //fila de abajo de la despensa + su entrada (x=11)
@@ -72,7 +93,7 @@ object mapaNivel3 inherits Mapa(
     ]
 ){}
 
-object mapaNivel5 inherits Mapa(
+object mapaNivel5 inherits Mapa( //SIN IMPLEMENTAR AÚN
     zonas = [
         new Zona(xMin = 4,  xMax = 24, yMin = 7, yMax = 10),   // piso principal
         new Zona(xMin = 10, xMax = 13, yMin = 11, yMax = 11),  // entre los hornos y el sofá

@@ -70,12 +70,25 @@ class Nivel{
     }
 }
 
-object nivel3 inherits Nivel (
+object nivel3 inherits Nivel(
+    recetasDisponibles = [ojoDeBifeConHuevo, polloConPapas, fernetConCoca],
+    puntosParaGanar = 100,  //900
+    siguienteNivel = nivel4,
+    pantalla = pantallaNivel3,
+    fondo = "imagenesFondos/fondoCocinaNivel3.png",
+    mapa = mapaNivel3){
+    override method nuevoPedido() {
+        generadorDePedidos.pedir(recetasDisponibles.anyOne()) //Puede salir ojo de bife, pollo con papas o fernet
+    }
+    override method cajones() = [cajonDeHuevo, cajonDeBife, cajonDePapas, cajonDePollo]
+    }
+
+object nivel4 inherits Nivel (
     recetasDisponibles = [ojoDeBifeConHuevo, polloConPapas, fernetConCoca],
     puntosParaGanar =100, //900
-    pantalla = pantallaNivel3, //CAMBIAR
-    fondo = "imagenesFondos/fondoCocina3.png",
-    mapa = mapaNivel3){   
+    pantalla = pantallaNivel4, //CAMBIAR
+    fondo = "imagenesFondos/fondoCocinaNivel4.png",
+    mapa = mapaNivel4){   
     override method cajones() = [cajonDeHuevo, cajonDeBife, cajonDePapas, cajonDePollo]
     
     override method acomodarEscenario() {
@@ -143,4 +156,5 @@ object fondoJuego {
     var property imagen = "imagenesFondos/fondoCocina.png"
     method position() = game.at(0, 0)
     method image() = imagen
+    method permiteApoyar() = true
 }

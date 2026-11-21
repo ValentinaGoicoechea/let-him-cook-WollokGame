@@ -55,6 +55,7 @@ class Comida{
     method entregarEnMesaEntrega(jugador,mesadaEntrega){}
     method tareaDeEstacion(jugador, objeto){} //PARA NO ROMPER EL POLIMORFISMO CON LAS ESTACIONES   
     method invalidaEntrega() = estado.invalidaEntrega()
+    method permiteApoyar() = true
 }
 
 class Vajilla {
@@ -63,6 +64,8 @@ class Vajilla {
     var property estaEnPlato = false
     var property sePuedeAgarrar = true
     var property estado
+
+    method permiteApoyar() = true
 
     method nuevaPosicion(posicion){
         self.position(posicion)
@@ -115,7 +118,8 @@ class Vaso inherits Vajilla(position = game.at(4,8)){
 
     override method entregarEnMesaEntrega(jugador, mesadaEntrega){
         const pedido = selectorPedidos.eleccionDePedido([self]) 
-        jugador.agarrarOSoltar()
+        self.nuevaPosicion(mesadaEntrega.position())
+        jugador.soltarObjeto()
 
         if (pedido == null) { 
             puntajeEnJuego.restar(100)  
@@ -181,7 +185,8 @@ class PlatoArmado inherits Vajilla(estado = platoArmado){
         const comidas = elementosPlato.filter({elem => elem.debeEliminarseAlVaciar()})
         const pedido = selectorPedidos.eleccionDePedido(comidas) //No compara el plato
 
-        jugador.agarrarOSoltar()
+        self.nuevaPosicion(mesadaEntrega.position())
+        jugador.soltarObjeto()
         if (pedido == null) { 
             puntajeEnJuego.restar(100)  
             mesadaEntrega.tomarPlato(self)

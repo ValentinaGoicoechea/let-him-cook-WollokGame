@@ -5,6 +5,7 @@
 class Corazon{
     const property position
     method image() = "imagenesFondos/vida.png"
+    method permiteApoyar() = false
 }
 
 const corazon1 = new Corazon(position = game.at(4, 2))

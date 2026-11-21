@@ -59,12 +59,23 @@ class Jugador {
         }
     }
 
+    method soltarObjeto(){
+        objetoEnMano = null
+        manoOcupada = false
+    }
+
+    method puedeApoyarEn(posicion) {
+        return game.getObjectsIn(posicion).all({ elem => elem.permiteApoyar() })
+    }
+
     method agarrarOSoltar() {
         const elementosDondeMiro = game.getObjectsIn(self.posicionDondeMiro())
         if (!manoOcupada) {
             elementosDondeMiro.forEach({elem => if (!manoOcupada) elem.agarrar(self)}) 
         } else {
-            self.sueltoObjeto(objetoEnMano)
+            if (self.puedeApoyarEn(self.posicionDondeMiro())) {
+                self.sueltoObjeto(objetoEnMano)
+            }
         }
     }
 
@@ -80,6 +91,8 @@ class Jugador {
         manoOcupada = false
         objetoEnMano = null
     }
+
+    method permiteApoyar() = false
 }
 
 const jugador1 = new Jugador(numeroPersonaje = 1, position = game.at(10, 10), posicionInicial = game.at(10, 10))

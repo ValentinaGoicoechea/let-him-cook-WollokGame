@@ -178,6 +178,10 @@ const pantallaNivel2 = new PantallaNivel(
 const pantallaNivel3 = new PantallaNivel(
     image =  "imagenesFondos/nivelTres.png" 
 )
+
+const pantallaNivel4 = new PantallaNivel(
+    image = "imagenesFondos/nivelCuatro.png"
+)
        
 object juegoCocinero { 
 

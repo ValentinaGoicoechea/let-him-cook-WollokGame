@@ -43,6 +43,7 @@ class Pedido{
 
     // ESPERA2 es el más urgente, se entrega primero
     method prioridad() = estado.prioridad()
+    method permiteApoyar() = false
 }
 object nuevo {
     var property prioridad = 1

@@ -40,7 +40,8 @@ class Estacion{
             if(objeto.tareas().contains(tareaAsociada) && !estaOcupado){
                 prendido = true
                 estaOcupado = true
-                jugador.agarrarOSoltar() 
+                objeto.nuevaPosicion(position)
+                jugador.soltarObjeto() 
                 objeto.sePuedeAgarrar(false)
                 self.reproducirSonido()
                 game.schedule(tiempoTarea, { 
@@ -53,8 +54,10 @@ class Estacion{
         }
     }
 
+
     method agarrar(personaje){}
     method soltar(personaje){}
+    method permiteApoyar() = false
         
     method tareaExtra(objeto) {
         self.liberar()
@@ -101,6 +104,7 @@ const mesaFernet3 = new MesaFernet(
 class CartelPrecaucion { //ver donde lo movemos
     var property position
     method image() = "cartelPrecaucion.png"
+    method permiteApoyar() = false
 }
 
 class Horno inherits Estacion( tiempoTarea = 7000, imagen1 = "imagenesEstaciones/hornoprendido.gif", imagen2 = "imagenesEstaciones/hornoapagado.png",tareaAsociada = tareaCocinar){
@@ -216,6 +220,7 @@ class Mesada{
     
     method agarrar(personaje){}
     method soltar(personaje){}
+    method permiteApoyar() = false
 }
 
 class MesadaEntrega inherits Mesada{
@@ -286,7 +291,8 @@ class MesadaArmado inherits Mesada{
             game.addVisual(platoEnArmado)               
             platoEnArmado.elementosPlato().add(objeto) 
             objeto.estaEnPlato(true)  
-            jugador.agarrarOSoltar() 
+            objeto.nuevaPosicion(position)
+            jugador.soltarObjeto() 
             hayPlatoParaArmar = true
                 
         } 
@@ -297,7 +303,8 @@ class MesadaArmado inherits Mesada{
             hayPlatoParaArmar = true
             platoEnArmado = objeto 
             objeto.mesadaActual(self)
-            jugador.agarrarOSoltar()
+            objeto.nuevaPosicion(position)
+            jugador.soltarObjeto()
         }
     }
 
@@ -305,7 +312,8 @@ class MesadaArmado inherits Mesada{
         if(hayPlatoParaArmar){ 
             platoEnArmado.elementosPlato().add(objeto)
             objeto.estaEnPlato(true) 
-            jugador.agarrarOSoltar()
+            objeto.nuevaPosicion(position)
+            jugador.soltarObjeto()
         }
     }
 
@@ -365,6 +373,7 @@ class Cajon {
 
     method agarrar(personaje){}
     method soltar(personaje){}
+    method permiteApoyar() = false
 
     method cantidadEnStock() {
         return alimentos.count({alimento => alimento.position() == posicionAlimento })
