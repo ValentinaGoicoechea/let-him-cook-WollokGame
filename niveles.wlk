@@ -86,7 +86,7 @@ object nivel3 inherits Nivel(
 object nivel4 inherits Nivel (
     recetasDisponibles = [ojoDeBifeConHuevo, polloConPapas, fernetConCoca],
     puntosParaGanar =100, //900
-    pantalla = pantallaNivel4, //CAMBIAR
+    pantalla = pantallaNivel4, 
     fondo = "imagenesFondos/fondoCocinaNivel4.png",
     mapa = mapaNivel4){   
     override method cajones() = [cajonDeHuevo, cajonDeBife, cajonDePapas, cajonDePollo]

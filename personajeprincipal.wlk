@@ -14,8 +14,8 @@ class Jugador {
     var property position
     var property direccion = ninguna
     var property ultimadireccion = ninguna
-    var manoOcupada = false
-    var objetoEnMano = null
+    var property manoOcupada = false
+    var property objetoEnMano = null
     const posicionInicial
 
     method numeroPersonaje() = numeroPersonaje

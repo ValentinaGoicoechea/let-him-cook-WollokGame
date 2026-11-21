@@ -292,6 +292,72 @@ describe "Jugador" {
         assert.equals(game.at(10, 10), jugador1.position())
         assert.equals(game.at(20, 10), jugador2.position())
     }
+
+    test "No se puede apoyar comida con la tecla E sobre una estacion de trabajo" {
+        const jugador = self.nuevoJugador(6, 10)
+        const bife = new Comida(tipo = tipoBife, position = game.at(6, 10))
+        jugador.agarroObjeto(bife)
+        jugador.ultimadireccion(arriba) // mira hacia (6, 11) donde esta horno1
+        game.addVisual(horno1)
+
+        jugador.agarrarOSoltar()
+
+        // Sigue en la mano del jugador y no se apoyo sobre el horno
+        assert.equals(bife, jugador.objetoEnMano())
+        assert.that(jugador.manoOcupada())
+        assert.equals(game.at(6, 10), bife.position())
+        game.removeVisual(horno1)
+    }
+
+    test "Se activa la estacion con la tecla Q y la comida pasa a la posicion de la estacion" {
+        const jugador = self.nuevoJugador(6, 10)
+        const bife = new Comida(tipo = tipoBife, position = game.at(6, 10))
+        jugador.agarroObjeto(bife)
+        jugador.ultimadireccion(arriba)
+        game.addVisual(horno1)
+
+        jugador.accionar()
+
+        // El horno se activo, el jugador ya no tiene la comida y esta paso a la posicion del horno
+        assert.equals(null, jugador.objetoEnMano())
+        assert.equals(false, jugador.manoOcupada())
+        assert.equals(horno1.position(), bife.position())
+        assert.equals("imagenesEstaciones/hornoprendido.gif", horno1.image())
+        horno1.liberar()
+        game.removeVisual(horno1)
+    }
+
+    test "Se puede retirar la comida de una estacion de trabajo con la tecla E una vez lista" {
+        const jugador = self.nuevoJugador(6, 10)
+        const bife = new Comida(tipo = tipoBife, position = horno1.position(), estado = cocinada, sePuedeAgarrar = true)
+        game.addVisual(horno1)
+        game.addVisual(bife)
+        jugador.ultimadireccion(arriba)
+
+        jugador.agarrarOSoltar()
+
+        // El jugador retiro la comida cocinada del horno con la tecla E
+        assert.equals(bife, jugador.objetoEnMano())
+        assert.that(jugador.manoOcupada())
+        assert.equals(game.at(6, 10), bife.position())
+        game.removeVisual(horno1)
+        game.removeVisual(bife)
+    }
+
+    test "No se puede apoyar comida con la tecla E sobre bacha, tabla de cortar, basura, mesada de armado ni mesada de entrega" {
+        const jugador = self.nuevoJugador(4, 8)
+        const bife = new Comida(tipo = tipoBife, position = game.at(4, 8))
+        jugador.agarroObjeto(bife)
+        jugador.ultimadireccion(arriba) // mira a tablaDeCortar en (4, 9)
+        game.addVisual(tablaDeCortar)
+
+        jugador.agarrarOSoltar()
+
+        assert.equals(bife, jugador.objetoEnMano())
+        assert.that(jugador.manoOcupada())
+        assert.equals(game.at(4, 8), bife.position())
+        game.removeVisual(tablaDeCortar)
+    }
 }
 
 
