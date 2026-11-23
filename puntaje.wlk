@@ -8,6 +8,7 @@ import vidas.*
 import ambiente.*
 import comida.*
 import personajeprincipal.*
+import musica.*
 
 
 
@@ -84,7 +85,7 @@ object puntajeEnJuego {
 object controladorDePartida {
     //NIVEL BASICON
     var puntosParaGanar = 750 // creo variables asi no hay num magicos (evaluar)
-    var maxPedidosPerdidos = 5
+    var maxPedidosPerdidos = 1
     const digitos = [centenas, decenas, unidades]
 
     var property nivelActual = nivel1
@@ -120,7 +121,7 @@ object controladorDePartida {
             puntajeEnJuego.actualizarVisuales()
             self.partidaGanada(false)
             generadorDePedidos.terminar(nivelActual) 
-            musicaDeFondo.detener()
+            musicaDeFondo.detenerMusica()
             pedidosPerdidos = 0
             self.reiniciarCocina()
 
@@ -137,7 +138,7 @@ object controladorDePartida {
         if (!partidaTerminada) {
             partidaTerminada = true
             generadorDePedidos.terminar(nivelActual)
-            musicaDeFondo.detener()
+            //musicaDeFondo.detenerMusica()
             vidas.limpiar()
 
             try { game.removeTickEvent("moverCocinero") } catch e {}

@@ -8,6 +8,7 @@ import puntaje.*
 import selectorPersonajes.*
 import niveles.*
 import vidas.*
+import musica.*
 
 
 //CAMBIO DE PANTALLAS (INICIO, MENU DE PERSONAJES, NIVELES)
@@ -105,6 +106,7 @@ object pantallaModoJuego inherits Pantalla(
     }
     override method ejecutarPantalla() {
         super()
+        musicaDeFondo.detenerMusica()
         keyboard.num1().onPressDo({configuracionPartida.actualizarJugadores(1)})
         keyboard.num2().onPressDo({configuracionPartida.actualizarJugadores(2)})
     }
@@ -149,6 +151,9 @@ object pantallaFinal inherits Pantalla (
     }
     override method ejecutarPantalla() {
         super()  
+        if (!controladorDePartida.partidaGanada()) {
+            musicaDeFondo.iniciarMusica(game.sound("musica/musicaPerdiste.wav"))
+        }
         keyboard.z().onPressDo({
             game.stop()})
         
@@ -182,25 +187,6 @@ const pantallaNivel3 = new PantallaNivel(
 const pantallaNivel4 = new PantallaNivel(
     image = "imagenesFondos/nivelCuatro.png"
 )
-
-object musicaDeFondo {
-    var sonido = null
-
-    method iniciar() {
-        self.detener() //por si quedo una sonando (ej: al pasar de nivel)
-        sonido = game.sound("sonidos/musicaFondo.mp3") //se crea uno nuevo cada vez: un sonido frenado no se puede volver a reproducir
-        sonido.shouldLoop(true) //bucle
-        sonido.volume(0.4)
-        sonido.play()
-    }
-
-    method detener() {
-        if (sonido != null) {
-            try { sonido.stop() } catch e {}
-            sonido = null
-        }
-    }
-}
        
 object juegoCocinero { 
 

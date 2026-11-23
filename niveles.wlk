@@ -4,6 +4,7 @@ import controladorPantallasYNiveles.*
 import puntaje.*
 import direcciones.*
 import comida.*
+import musica.*
 
 
 class Nivel{
@@ -29,7 +30,9 @@ class Nivel{
 
         pantalla.mostrarInfoNivel()
         game.schedule(3500, { //cuando se saca la pantalla de presentacion y se puede jugar
-            if (controladorDePartida.nivelActual() == self) { musicaDeFondo.iniciar() }
+            if (controladorDePartida.nivelActual() == self) { 
+                musicaDeFondo.iniciarMusica(game.sound("musica/musicaJuegoPrincipal.wav")) 
+                musicaDeFondo.configurarMuteo()}
         })
 
         game.schedule(5200, {
@@ -145,7 +148,7 @@ object nivel2 inherits Nivel(
 
 object nivel1 inherits Nivel(
     recetasDisponibles = [ojoDeBifeConHuevo, fernetConCoca],
-    puntosParaGanar = 750, //Cambiar a 750
+    puntosParaGanar = 100, //Cambiar a 750
     siguienteNivel = nivel2,
     pantalla = pantallaNivel1,
     fondo = "imagenesFondos/fondoCocina.png"){
