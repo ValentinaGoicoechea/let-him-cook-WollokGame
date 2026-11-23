@@ -124,7 +124,7 @@ object nivel2 inherits Nivel(
 
 object nivel1 inherits Nivel(
     recetasDisponibles = [ojoDeBifeConHuevo, fernetConCoca],
-    puntosParaGanar = 750, //Cambiar a 750
+    puntosParaGanar = 200, //Cambiar a 750
     siguienteNivel = nivel2,
     pantalla = pantallaNivel1,
     fondo = "imagenesFondos/fondoCocina.png"){

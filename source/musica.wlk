@@ -1,32 +1,42 @@
 
 object musicaDeFondo {
     var musicaActual = game.sound("musica/musicaJuegoPrincipal.wav")
+    var musicaIniciada = false
     var musicaPausada = false
 
     method iniciarMusica() {
         musicaActual.shouldLoop(true)
-        game.schedule(500, { musicaActual.play()} )
+        musicaActual.play()
+        musicaIniciada = true
+        musicaPausada = false
     }
 
     method pararMusica() {
-        musicaActual.stop()
-    }
-
-    method pausarOReanudarMusica() {
-        if (musicaPausada) {
+        if (musicaIniciada) {
+            musicaActual.stop()
+            musicaIniciada = false
             musicaPausada = false
-            musicaActual.resume()
-        } else {
-            musicaPausada = true
-            musicaActual.pause()
         }
     }
 
     method cambiarMusica(nuevaMusica) {
+        self.pararMusica()
         musicaActual = nuevaMusica
     }
 
+    method pausarOReanudarMusica() {
+        if (musicaPausada) {
+            musicaActual.resume()
+            musicaPausada = false
+        } else {
+            musicaActual.pause()
+            musicaPausada = true
+        }
+    }
+
     method mutearMusica() {
-        keyboard.p().onPressDo({self.pausarOReanudarMusica()})
+        keyboard.p().onPressDo({
+            self.pausarOReanudarMusica()
+        })
     }
 }

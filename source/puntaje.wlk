@@ -163,6 +163,7 @@ object controladorDePartida {
         puntajeEnJuego.ubicarEnJuego()
         puntajeEnJuego.actualizarVisuales()
         //musicaDeFondo.pararMusica()
+        musicaDeFondo.cambiarMusica(game.sound("musica/musicaJuegoPrincipal.wav"))
         musicaDeFondo.iniciarMusica()
     }
 

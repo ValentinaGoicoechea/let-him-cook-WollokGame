@@ -130,6 +130,7 @@ object pantallaSeleccionPersonaje inherits Pantalla(
     }
     override method ejecutarPantalla() {
         super()  
+        musicaDeFondo.pararMusica()
         selectorPersonajes.reiniciar()
         game.addVisual(selectorPersonajes)
         teclado.seleccion()
@@ -150,9 +151,11 @@ object pantallaFinal inherits Pantalla (
     }
     override method ejecutarPantalla() {
         super()  
-        musicaDeFondo.pararMusica()
-        //musicaDeFondo.cambiarMusica("musicaPerdiste.wav") para música cuando perdés
-        //musicaDeFondo.iniciarMusica()
+        //if (!controladorDePartida.partidaGanada()) {
+            musicaDeFondo.pararMusica()
+            musicaDeFondo.cambiarMusica(game.sound("musica/musicaPerdiste.wav"))
+            musicaDeFondo.iniciarMusica()
+        //}  
         keyboard.z().onPressDo({
             game.stop()})
         
