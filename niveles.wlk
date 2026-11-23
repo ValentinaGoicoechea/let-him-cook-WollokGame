@@ -4,7 +4,7 @@ import controladorPantallasYNiveles.*
 import puntaje.*
 import direcciones.*
 import comida.*
-import musica.*
+import musicaYSonidos.*
 
 
 class Nivel{
@@ -27,13 +27,13 @@ class Nivel{
             {game.addVisual(cajon)}
             cajon.reponerStock()
         })
-        
+
         pantalla.mostrarInfoNivel()
         game.schedule(3500, { //cuando se saca la pantalla de presentacion y se puede jugar
             if (controladorDePartida.nivelActual() == self) { 
                 musicaDeFondo.iniciarOReanudarMusica(game.sound("musica/musicaJuegoPrincipal.wav"))
-                //musicaDeFondo.iniciarMusica(game.sound("musica/musicaJuegoPrincipal.wav")) 
-                musicaDeFondo.configurarMuteo()}
+                musicaDeFondo.configurarMuteo()
+                controladorSonidos.configurarMuteo()}
         })
 
         game.schedule(5200, {

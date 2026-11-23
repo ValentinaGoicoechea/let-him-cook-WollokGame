@@ -8,7 +8,7 @@ import vidas.*
 import ambiente.*
 import comida.*
 import personajeprincipal.*
-import musica.*
+import musicaYSonidos.*
 
 
 

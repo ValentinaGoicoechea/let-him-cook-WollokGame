@@ -8,7 +8,7 @@ import puntaje.*
 import selectorPersonajes.*
 import niveles.*
 import vidas.*
-import musica.*
+import musicaYSonidos.*
 
 
 //CAMBIO DE PANTALLAS (INICIO, MENU DE PERSONAJES, NIVELES)

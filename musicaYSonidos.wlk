@@ -1,7 +1,7 @@
 object musicaDeFondo {
     var musicaActual = null
     var musicaMuteada = false
-    var musicaIniciada = false
+    var musicaIniciada = false //Creo que no va a hacer falta 
 
     method iniciarMusica(musica) {
         self.detenerMusica() //por si quedo una sonando (ej: al pasar de nivel)
@@ -45,7 +45,7 @@ object musicaDeFondo {
                 musicaMuteada = false
             }
         }
-}
+    }
 
     method configurarMuteo() {
         keyboard.p().onPressDo({self.mutearMusica()})
@@ -57,5 +57,35 @@ object musicaDeFondo {
         } else {
             self.reanudarMusica()
         }
+    }
+}
+
+object controladorSonidos {
+    var sonidosActivados = true
+    var sonidosEnReproduccion = #{}
+
+    method desactivarSonidos() {
+        sonidosActivados = !sonidosActivados
+        sonidosEnReproduccion.forEach({ sonido =>
+            if (sonidosActivados) {
+                sonido.volume(0.4)
+            } else {
+                sonido.volume(0)
+            }
+        })
+    }
+
+    method configurarMuteo() {
+        keyboard.o().onPressDo({self.desactivarSonidos()})
+    }
+
+    method reproducirSonido(sonido, volumen) {
+        sonidosEnReproduccion.add(sonido)
+        if (sonidosActivados) {
+            sonido.volume(volumen)
+        } else {
+            sonido.volume(0)
+        }
+        sonido.play() 
     }
 }

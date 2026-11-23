@@ -1,3 +1,4 @@
+import musicaYSonidos.*
 import wollok.game.*
 import pedidos.*
 import personajeprincipal.*
@@ -71,7 +72,8 @@ class Estacion{
 
 class MesaFernet inherits Estacion{
     override method reproducirSonido(){
-        game.sound("sonidos/sonidoFernet.mp3").play()
+        //game.sound("sonidos/sonidoFernet.mp3").play()
+        controladorSonidos.reproducirSonido(game.sound("sonidos/sonidoFernet.mp3"), 0.4)
     }
 }
 
@@ -113,9 +115,7 @@ class Horno inherits Estacion( tiempoTarea = 7000, imagen1 = "imagenesEstaciones
     var sonido = null
 
     override method reproducirSonido(){
-        sonido = game.sound(sonidoActual)
-        sonido.volume(0.4)
-        sonido.play()
+        controladorSonidos.reproducirSonido(game.sound(sonidoActual), 0.4)
     }
 
     method controlarQuemado(objeto){
@@ -180,7 +180,7 @@ object basura inherits Estacion(
     numeroEstacion = 1
 ){
     override method reproducirSonido(){
-        game.sound("sonidos/sonidoBasura.mp3").play()
+        controladorSonidos.reproducirSonido(game.sound("sonidos/sonidoBasura.mp3"), 1)
     }
 }
 
@@ -197,7 +197,7 @@ object bacha inherits Estacion(
     override method imagenPrendida() = imagenAbierta
 
     override method reproducirSonido(){
-        game.sound("sonidos/sonidoBacha.mp3").play()
+        controladorSonidos.reproducirSonido(game.sound("sonidos/sonidoBacha.mp3"), 1)
     }
 }
 
@@ -210,7 +210,7 @@ object tablaDeCortar inherits Estacion(
     numeroEstacion = 1
 ){
     override method reproducirSonido(){
-        game.sound("sonidos/sonidoCortar.mp3").play()
+        controladorSonidos.reproducirSonido(game.sound("sonidos/sonidoCortar.mp3"), 1)
     }
 }
 
