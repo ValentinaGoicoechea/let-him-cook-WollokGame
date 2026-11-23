@@ -121,7 +121,6 @@ object controladorDePartida {
             puntajeEnJuego.actualizarVisuales()
             self.partidaGanada(false)
             generadorDePedidos.terminar(nivelActual) 
-            musicaDeFondo.detener()
             pedidosPerdidos = 0
             self.reiniciarCocina()
 
@@ -138,7 +137,7 @@ object controladorDePartida {
         if (!partidaTerminada) {
             partidaTerminada = true
             generadorDePedidos.terminar(nivelActual)
-            musicaDeFondo.detener()
+            musicaDeFondo.pararMusica()
             vidas.limpiar()
 
             try { game.removeTickEvent("moverCocinero") } catch e {}

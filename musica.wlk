@@ -1,14 +1,24 @@
 
 object musicaDeFondo {
-    var musicaActual = game.sound("musica/musicaJuegoPrincipal.wav")
+    var musicaActual = game.sound("musica/musicaJuegoPrincipal.mp3")
     var musicaIniciada = false
     var musicaPausada = false
+    var tecladoConfigurado = false
 
     method iniciarMusica() {
-        musicaActual.shouldLoop(true)
-        musicaActual.play()
-        musicaIniciada = true
-        musicaPausada = false
+        if (!musicaIniciada) {
+            musicaActual.shouldLoop(true)
+            musicaActual.play()
+            musicaIniciada = true
+            musicaPausada = false
+        }
+    }
+
+    method iniciarMusicaJuego() {
+        if (!musicaIniciada) {
+            self.cambiarMusica(game.sound("musica/musicaJuegoPrincipal.mp3"))
+            self.iniciarMusica()
+        }
     }
 
     method pararMusica() {
@@ -25,18 +35,23 @@ object musicaDeFondo {
     }
 
     method pausarOReanudarMusica() {
-        if (musicaPausada) {
-            musicaActual.resume()
-            musicaPausada = false
-        } else {
-            musicaActual.pause()
-            musicaPausada = true
+        if (musicaIniciada) {
+            if (musicaPausada) {
+                musicaActual.resume()
+                musicaPausada = false
+            } else {
+                musicaActual.pause()
+                musicaPausada = true
+            }
         }
     }
 
     method mutearMusica() {
-        keyboard.p().onPressDo({
-            self.pausarOReanudarMusica()
-        })
+        if (!tecladoConfigurado) {
+            keyboard.p().onPressDo({
+                self.pausarOReanudarMusica()
+            })
+            tecladoConfigurado = true
+        }
     }
 }

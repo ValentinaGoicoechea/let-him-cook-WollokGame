@@ -29,9 +29,8 @@ class Nivel{
         })
 
         pantalla.mostrarInfoNivel()
-        game.schedule(3500, { //cuando se saca la pantalla de presentacion y se puede jugar
-            if (controladorDePartida.nivelActual() == self) { musicaDeFondo.iniciar() }
-        })
+        musicaDeFondo.iniciarMusicaJuego()
+        musicaDeFondo.mutearMusica()
 
         game.schedule(5200, {
             if (controladorDePartida.nivelActual() == self) { //Para evitar la superposición de generadorDePedidos.empezar(self) en caso de terminar el nivel antes de 5200 ms (creo)
@@ -39,7 +38,6 @@ class Nivel{
                 generadorDePedidos.empezar(self) 
             }
         })
-        musicaDeFondo.mutearMusica()
     }
 
     method cajones() = [cajonDeHuevo, cajonDeBife]
@@ -70,8 +68,8 @@ class Nivel{
         mesadaEntrega3.position(game.at(16,11))
         [vaso1,vaso2,vaso3].forEach({v=>v.posicionInicial(game.at(4,8))})
         [plato1,plato2,plato3].forEach({p => p.posicionPlatoSucio(game.at(4,5)) p.posicionInicial(game.at(16,3))})
-        [plato1, plato2, plato3, vaso1, vaso2, vaso3].forEach({ v => v.reiniciar() })         
-       
+        [plato1, plato2, plato3, vaso1, vaso2, vaso3].forEach({ v => v.reiniciar()})
+        [horno1, horno2].forEach({horno => if(horno.prendido()) horno.liberar()})
     }
 }
 
