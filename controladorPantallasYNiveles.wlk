@@ -1,3 +1,4 @@
+import source.musica.*
 import wollok.game.*
 import teclado.*
 import personajeprincipal.*
@@ -129,6 +130,7 @@ object pantallaSeleccionPersonaje inherits Pantalla(
     }
     override method ejecutarPantalla() {
         super()  
+        musicaDeFondo.pararMusica()
         selectorPersonajes.reiniciar()
         game.addVisual(selectorPersonajes)
         teclado.seleccion()
@@ -149,6 +151,11 @@ object pantallaFinal inherits Pantalla (
     }
     override method ejecutarPantalla() {
         super()  
+        //if (!controladorDePartida.partidaGanada()) {
+            musicaDeFondo.pararMusica()
+            musicaDeFondo.cambiarMusica(game.sound("musica/musicaPerdiste.wav"))
+            musicaDeFondo.iniciarMusica()
+        //}  
         keyboard.z().onPressDo({
             game.stop()})
         
@@ -253,7 +260,6 @@ object juegoCocinero {
         teclado.agarrarOSoltarObjeto()
         teclado.realizarAccion()
         game.onTick(200, "controlarPartida", {controladorDePartida.controlarProgresoPartida()})
-        
     }
 }
 

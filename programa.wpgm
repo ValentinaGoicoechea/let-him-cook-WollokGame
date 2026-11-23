@@ -6,6 +6,7 @@ import comida.*
 import pedidos.*
 import controladorPantallasYNiveles.*
 import selectorPersonajes.*
+import musica.*
 
 program programa{
     game.width(32)
@@ -16,7 +17,6 @@ program programa{
     
     controladorPantallas.cambiarPantalla(pantallaInicio)
     controladorPantallas.configurarEnter()
-    //pantallaInicio.ejecutarPantalla()
 
     game.start()
    

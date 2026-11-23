@@ -4,6 +4,7 @@ import controladorPantallasYNiveles.*
 import puntaje.*
 import direcciones.*
 import comida.*
+import musica.*
 
 
 class Nivel{
@@ -38,6 +39,7 @@ class Nivel{
                 generadorDePedidos.empezar(self) 
             }
         })
+        musicaDeFondo.mutearMusica()
     }
 
     method cajones() = [cajonDeHuevo, cajonDeBife]
@@ -145,7 +147,7 @@ object nivel2 inherits Nivel(
 
 object nivel1 inherits Nivel(
     recetasDisponibles = [ojoDeBifeConHuevo, fernetConCoca],
-    puntosParaGanar = 750, //Cambiar a 750
+    puntosParaGanar = 200, //Cambiar a 750
     siguienteNivel = nivel2,
     pantalla = pantallaNivel1,
     fondo = "imagenesFondos/fondoCocina.png"){
