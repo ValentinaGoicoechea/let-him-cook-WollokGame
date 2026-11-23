@@ -23,37 +23,39 @@ object musicaDeFondo {
         musicaActual = nuevaMusica
     }
 
-    /*method pausarMusica() {
+    method pausarMusica() {
         if (musicaActual != null) {
             musicaActual.pause()
-        }
+        }   
     }
 
     method reanudarMusica() {
         if (musicaActual != null) {
             musicaActual.resume()
         }
-    }*/
+    }
 
     method mutearMusica() {
-        if (musicaActual != null and !musicaMuteada) {
-            musicaActual.volume(0)
-            musicaMuteada = true
-        } else {
-            musicaActual.volume(0.4)
-            musicaMuteada = false
+        if (musicaActual != null) {
+            if (!musicaMuteada) {
+                musicaActual.volume(0)
+                musicaMuteada = true
+            } else {
+                musicaActual.volume(0.4)
+                musicaMuteada = false
+            }
         }
-    }
+}
 
     method configurarMuteo() {
         keyboard.p().onPressDo({self.mutearMusica()})
     }
 
-    /*method iniciarOReanudarMusica(musica) {
-        if (!musicaIniciada) {
+    method iniciarOReanudarMusica(musica) {
+        if (musicaActual == null) {
             self.iniciarMusica(musica)
         } else {
             self.reanudarMusica()
         }
-    }*/
+    }
 }

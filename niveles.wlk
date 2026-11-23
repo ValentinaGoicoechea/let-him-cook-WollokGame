@@ -27,11 +27,12 @@ class Nivel{
             {game.addVisual(cajon)}
             cajon.reponerStock()
         })
-
+        
         pantalla.mostrarInfoNivel()
         game.schedule(3500, { //cuando se saca la pantalla de presentacion y se puede jugar
             if (controladorDePartida.nivelActual() == self) { 
-                musicaDeFondo.iniciarMusica(game.sound("musica/musicaJuegoPrincipal.wav")) 
+                musicaDeFondo.iniciarOReanudarMusica(game.sound("musica/musicaJuegoPrincipal.wav"))
+                //musicaDeFondo.iniciarMusica(game.sound("musica/musicaJuegoPrincipal.wav")) 
                 musicaDeFondo.configurarMuteo()}
         })
 
@@ -78,7 +79,7 @@ class Nivel{
 
 object nivel3 inherits Nivel(
     recetasDisponibles = [ojoDeBifeConHuevo, polloConPapas, fernetConCoca],
-    puntosParaGanar = 900,  //900
+    puntosParaGanar = 100,  //900
     siguienteNivel = nivel4,
     pantalla = pantallaNivel3,
     fondo = "imagenesFondos/fondoCocinaNivel3.png",
@@ -135,7 +136,7 @@ object nivel4 inherits Nivel (
 
 object nivel2 inherits Nivel(
     recetasDisponibles = [ojoDeBifeConHuevo, polloConPapas, fernetConCoca],
-    puntosParaGanar = 850,  //850
+    puntosParaGanar = 100,  //850
     siguienteNivel = nivel3,
     pantalla = pantallaNivel2,
     fondo = "imagenesFondos/fondoCocina.png"){

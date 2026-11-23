@@ -153,6 +153,7 @@ object pantallaFinal inherits Pantalla (
         super()  
         if (!controladorDePartida.partidaGanada()) {
             musicaDeFondo.iniciarMusica(game.sound("musica/musicaPerdiste.wav"))
+            musicaDeFondo.configurarMuteo()
         }
         keyboard.z().onPressDo({
             game.stop()})

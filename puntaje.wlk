@@ -121,7 +121,7 @@ object controladorDePartida {
             puntajeEnJuego.actualizarVisuales()
             self.partidaGanada(false)
             generadorDePedidos.terminar(nivelActual) 
-            musicaDeFondo.detenerMusica()
+            musicaDeFondo.pausarMusica()
             pedidosPerdidos = 0
             self.reiniciarCocina()
 
