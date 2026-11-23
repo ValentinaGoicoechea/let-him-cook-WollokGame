@@ -78,7 +78,7 @@ object nivel3 inherits Nivel(
     fondo = "imagenesFondos/fondoCocinaNivel3.png",
     mapa = mapaNivel3){
     override method nuevoPedido() {
-        generadorDePedidos.pedir(recetasDisponibles.anyOne()) //Puede salir ojo de bife, pollo con papas o fernet
+        generadorDePedidos.pedir(recetasDisponibles.anyOne()) 
     }
     override method cajones() = [cajonDeHuevo, cajonDeBife, cajonDePapas, cajonDePollo]
     }
@@ -117,11 +117,10 @@ object nivel4 inherits Nivel (
         mesadaEntrega3.position(game.at(14,11))
         [vaso1,vaso2,vaso3].forEach({v=>v.posicionInicial(game.at(25,8))})
         [plato1,plato2,plato3].forEach({p => p.posicionPlatoSucio(game.at(25,7)) p.posicionInicial(game.at(22,3))})
-        [plato1, plato2, plato3, vaso1, vaso2, vaso3].forEach({ v => v.reiniciar() }) //para aplicar los cambios de la posicion Inicial
+        [plato1, plato2, plato3, vaso1, vaso2, vaso3].forEach({ v => v.reiniciar() }) 
     }
 
     override method nuevoPedido(){
-        // generadorDePedidos.pedir(0.randomUpTo(2).round())//Puede salir ojo de bife, pollo con papas o fernet
         generadorDePedidos.pedir(recetasDisponibles.anyOne())
     }     
 
