@@ -150,6 +150,9 @@ object pantallaFinal inherits Pantalla (
     }
     override method ejecutarPantalla() {
         super()  
+        musicaDeFondo.pararMusica()
+        //musicaDeFondo.cambiarMusica("musicaPerdiste.wav") para música cuando perdés
+        //musicaDeFondo.iniciarMusica()
         keyboard.z().onPressDo({
             game.stop()})
         
@@ -231,7 +234,6 @@ object juegoCocinero {
         teclado.agarrarOSoltarObjeto()
         teclado.realizarAccion()
         game.onTick(200, "controlarPartida", {controladorDePartida.controlarProgresoPartida()})
-        musicaDeFondo.iniciarMusica()
     }
 }
 

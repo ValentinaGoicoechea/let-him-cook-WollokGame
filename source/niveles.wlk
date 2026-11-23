@@ -4,6 +4,7 @@ import controladorPantallasYNiveles.*
 import puntaje.*
 import direcciones.*
 import comida.*
+import musica.*
 
 
 class Nivel{
@@ -35,6 +36,7 @@ class Nivel{
                 generadorDePedidos.empezar(self) 
             }
         })
+        musicaDeFondo.mutearMusica()
     }
 
     method cajones() = [cajonDeHuevo, cajonDeBife]
