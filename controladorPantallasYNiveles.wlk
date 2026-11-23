@@ -204,6 +204,7 @@ object juegoCocinero {
         
         controladorDePartida.reiniciarNivel()
         game.addVisual(fondoJuego) 
+        game.addVisual(musicaDeFondo)
         game.addVisual(centenas)
         game.addVisual(decenas)
         game.addVisual(unidades)

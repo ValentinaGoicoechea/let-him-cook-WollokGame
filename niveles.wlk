@@ -28,9 +28,15 @@ class Nivel{
             cajon.reponerStock()
         })
 
+        musicaDeFondo.pausarOReanudarMusica()
         pantalla.mostrarInfoNivel()
-        musicaDeFondo.iniciarMusicaJuego()
         musicaDeFondo.mutearMusica()
+
+        game.schedule(3500, {
+            if (controladorDePartida.nivelActual() == self) {
+                musicaDeFondo.pausarOReanudarMusica()
+            }
+        })
 
         game.schedule(5200, {
             if (controladorDePartida.nivelActual() == self) { //Para evitar la superposición de generadorDePedidos.empezar(self) en caso de terminar el nivel antes de 5200 ms (creo)
@@ -145,7 +151,7 @@ object nivel2 inherits Nivel(
 
 object nivel1 inherits Nivel(
     recetasDisponibles = [ojoDeBifeConHuevo, fernetConCoca],
-    puntosParaGanar = 200, //Cambiar a 750
+    puntosParaGanar = 750, //Cambiar a 750
     siguienteNivel = nivel2,
     pantalla = pantallaNivel1,
     fondo = "imagenesFondos/fondoCocina.png"){

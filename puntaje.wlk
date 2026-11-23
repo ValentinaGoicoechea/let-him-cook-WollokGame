@@ -85,7 +85,7 @@ object puntajeEnJuego {
 object controladorDePartida {
     //NIVEL BASICON
     var puntosParaGanar = 750 // creo variables asi no hay num magicos (evaluar)
-    var maxPedidosPerdidos = 1
+    var maxPedidosPerdidos = 5
     const digitos = [centenas, decenas, unidades]
 
     var property nivelActual = nivel1
@@ -139,20 +139,14 @@ object controladorDePartida {
             generadorDePedidos.terminar(nivelActual)
             musicaDeFondo.pararMusica()
             vidas.limpiar()
+            if(horno1.prendido()) {horno1.liberar()}
+            if(horno2.prendido()) {horno2.liberar()}
 
             try { game.removeTickEvent("moverCocinero") } catch e {}
             try { game.removeTickEvent("controlarPartida") } catch e {}
 
             controladorPantallas.cambiarPantalla(pantallaFinal) //Para que no se vea el puntaje en las nuevas pantallas
-        /*
-            game.schedule(100, 
-                
-                controladorPantallas.cambiarPantalla(pantallaFinal)
-                //puntajeEnJuego.ubicarEnPantallaFinal()
-                //game.addVisual(puntajeEnJuego)               
-                //digitos.forEach({digito => game.addVisual(digito) }) 
-            )
-        */
+        
         }
 
     }
@@ -167,7 +161,7 @@ object controladorDePartida {
         puntajeEnJuego.valor(0)
         puntajeEnJuego.ubicarEnJuego()
         puntajeEnJuego.actualizarVisuales()
-        //musicaDeFondo.pararMusica()
+        musicaDeFondo.pararMusica()
         musicaDeFondo.cambiarMusica(game.sound("musica/musicaJuegoPrincipal.wav"))
         musicaDeFondo.iniciarMusica()
     }

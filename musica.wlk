@@ -1,9 +1,15 @@
 
 object musicaDeFondo {
-    var musicaActual = game.sound("musica/musicaJuegoPrincipal.mp3")
+    var musicaActual = game.sound("musica/musicaJuegoPrincipal.wav")
     var musicaIniciada = false
     var musicaPausada = false
     var tecladoConfigurado = false
+
+    method position() = game.at(25,14)
+    method image() {
+        if (musicaIniciada && !musicaPausada) return "imagenesFondos/musicaActiva.png"
+        else return "imagenesFondos/musicaInactiva.png"
+    }
 
     method iniciarMusica() {
         if (!musicaIniciada) {
@@ -16,7 +22,7 @@ object musicaDeFondo {
 
     method iniciarMusicaJuego() {
         if (!musicaIniciada) {
-            self.cambiarMusica(game.sound("musica/musicaJuegoPrincipal.mp3"))
+            self.cambiarMusica(game.sound("musica/musicaJuegoPrincipal.wav"))
             self.iniciarMusica()
         }
     }
