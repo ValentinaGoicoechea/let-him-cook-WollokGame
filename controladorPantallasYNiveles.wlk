@@ -182,6 +182,25 @@ const pantallaNivel3 = new PantallaNivel(
 const pantallaNivel4 = new PantallaNivel(
     image = "imagenesFondos/nivelCuatro.png"
 )
+
+object musicaDeFondo {
+    var sonido = null
+
+    method iniciar() {
+        self.detener() //por si quedo una sonando (ej: al pasar de nivel)
+        sonido = game.sound("sonidos/musicaFondo.mp3") //se crea uno nuevo cada vez: un sonido frenado no se puede volver a reproducir
+        sonido.shouldLoop(true) //bucle
+        sonido.volume(0.4)
+        sonido.play()
+    }
+
+    method detener() {
+        if (sonido != null) {
+            try { sonido.stop() } catch e {}
+            sonido = null
+        }
+    }
+}
        
 object juegoCocinero { 
 

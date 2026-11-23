@@ -114,6 +114,7 @@ class Horno inherits Estacion( tiempoTarea = 7000, imagen1 = "imagenesEstaciones
 
     override method reproducirSonido(){
         sonido = game.sound(sonidoActual)
+        sonido.volume(0.4)
         sonido.play()
     }
 
