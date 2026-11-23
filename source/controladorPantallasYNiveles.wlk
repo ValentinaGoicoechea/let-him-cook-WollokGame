@@ -1,3 +1,4 @@
+import source.musica.*
 import wollok.game.*
 import teclado.*
 import personajeprincipal.*
@@ -230,7 +231,7 @@ object juegoCocinero {
         teclado.agarrarOSoltarObjeto()
         teclado.realizarAccion()
         game.onTick(200, "controlarPartida", {controladorDePartida.controlarProgresoPartida()})
-        
+        musicaDeFondo.iniciarMusica()
     }
 }
 
