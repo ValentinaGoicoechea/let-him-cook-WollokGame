@@ -1,11 +1,7 @@
 import wollok.game.*
 import teclado.*
-import personajeprincipal.*
-import ambiente.*
-import comida.*
-import pedidos.*
 import controladorPantallasYNiveles.*
-import selectorPersonajes.*
+
 
 program programa{
     game.width(32)

@@ -4,11 +4,6 @@ import tareas.*
 
 //Unicamente para estados de COMIDAS y PLATOS
 
-//COSAS A CAMBIAR
-//Elemento y estado 
-//Tareas
-
-
 object cruda {
     method nombre() = "Cruda"
     method tareas(tipo) = tipo.tareasCruda()

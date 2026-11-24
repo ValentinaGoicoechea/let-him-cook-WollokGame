@@ -6,8 +6,6 @@ import puntaje.*
 import pedidos.*
 import tareas.*
 
-//Ver si tiene sentido lo ultimo de que el plato armado sepa entregarse (por eso se agregan los ultimos 3 imports)
-
 // COMIDAS Y VAJILLA (CLASES Y OBJETOS)
 
 class TipoDeComida{

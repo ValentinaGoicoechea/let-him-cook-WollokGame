@@ -10,10 +10,7 @@ import comida.*
 import personajeprincipal.*
 import musicaYSonido.*
 
-
-
 //PUNTAJE: CONTEO-SUMA-RESTA-CALCULAR FRENTE A PEDIDOS
-//IMPLEMENTAR POLIMORFISMO DONDE ESTA MARCADO
 class DigitoPuntaje{
     var property position
     var property digito = 0 //Inicialmente
@@ -69,10 +66,6 @@ object puntajeEnJuego {
     method puntosAlEntregar(pedido) = 200 + self.puntosPorEspera(pedido)
 
     method asignarPuntos(pedido, plato){
-        /*if(plato.elementosPlato().any{ingrediente => ingrediente.estado() == quemada}) { //VER COMO IMPLEMENTAR POLIMORFISMO ACA
-            self.restar(250)
-            return 0
-        }*/
         if (plato.tieneAlgunElementoQuemado()) { 
             self.restar(250)
             return 0
@@ -84,7 +77,7 @@ object puntajeEnJuego {
 
 object controladorDePartida {
     //NIVEL BASICON
-    var puntosParaGanar = 750 // creo variables asi no hay num magicos (evaluar)
+    var puntosParaGanar = 750 
     const maxPedidosPerdidos = 5
 
     var property nivelActual = nivel1

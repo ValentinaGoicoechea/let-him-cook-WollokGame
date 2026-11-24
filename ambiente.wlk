@@ -23,7 +23,7 @@ class Estacion{
     const imagen2
     const tareaAsociada
     const property numeroEstacion 
-    const property esMesadaArmado = false //ver si modificamos esto
+    const property esMesadaArmado = false 
     const sonido
     
     method reproducirSonido(){
@@ -101,7 +101,7 @@ const mesaFernet3 = new Estacion(
     numeroEstacion = 3,
     sonido = "sonidos/sonidoFernet.mp3")
 
-class CartelPrecaucion { //ver donde lo movemos
+class CartelPrecaucion { 
     var property position
     method image() = "cartelPrecaucion.png"
     method permiteApoyar() = false
@@ -226,7 +226,7 @@ const tablaDeCortar = new Estacion(
     position = game.at(4,9),
     tiempoTarea = 4500,
     imagen1 = "imagenesEstaciones/tablaDeCortar.png", 
-    imagen2 = "imagenesEstaciones/tablaDeCortar.png", // hacer cambio (para notar que esta en uso)
+    imagen2 = "imagenesEstaciones/tablaDeCortar.png", 
     tareaAsociada = tareaCortar,
     numeroEstacion = 1,
     sonido = "sonidos/sonidoCortar.mp3"
@@ -244,7 +244,7 @@ class Mesada{
 
 class MesadaEntrega inherits Mesada{
     var property contador = 0 
-    const property esMesadaArmado = false //CAMBIAR ESTO 
+    const property esMesadaArmado = false 
 
     method devolverPlatoSucio(plato){
         plato.position(plato.posicionPlatoSucio())

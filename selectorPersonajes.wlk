@@ -2,11 +2,11 @@ import teclado.*
 import personajeprincipal.*
 import controladorPantallasYNiveles.*
 
-//SELECCION DE PERSONAJES (?)
+//SELECCION DE PERSONAJES 
 
 object selectorPersonajes { //highlight alrededor de personaje
     var property position = game.at(8, 5)
-    const personajesDisponibles = [ropaCocinero, ropaOtro] //cambiar nombres a futuro
+    const personajesDisponibles = [ropaCocinero, ropaOtro] 
     var property personajeActual = null //el personaje actualmente seleccionado
     var personajeElegido = null // el personaje confirmado tras seleccion
     var numJugador = 0
@@ -71,7 +71,7 @@ const ropaCocinero = new Personajes(
     numero = 1,
     posicionSelector = game.at(8, 5) 
 )
-const ropaOtro = new Personajes(    //PRUEBA, después hacemos otro tipo de personaje
+const ropaOtro = new Personajes(   
     tipo = "parrillero",
     numero =2,
     posicionSelector = game.at(16, 5) 

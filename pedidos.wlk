@@ -47,10 +47,6 @@ class Pedido{
 }
 object nuevo {
     var property prioridad = 1
-    /*method imagenPollo() = "imagenesPedidos/pedidoPolloNuevo.png"
-    method imagenOjoDeBife() = "imagenesPedidos/pedidoOjoBifeNuevo.png"
-    method imagenFernet() = "imagenesPedidos/pedidoFernetConCocaNuevo.png"
-    */
     method sufijo() = "Nuevo"
 }
 object espera1 {
@@ -111,7 +107,6 @@ object generadorDePedidos {
     method nuevoPedido(nivel) {
         contadorDePedidos += 1
         posicionSegunFila = contadorDePedidos % 4 // el primer pedido es 1, el segundo 2, el tercero 3, el 4 0
-        //self.pedir(0.randomUpTo(1).round())
         nivel.nuevoPedido() //Se manejan los pedidos dependiendo del nivel en el que estemos
     }
 
@@ -130,30 +125,9 @@ object generadorDePedidos {
 
     method pedir(nuevaReceta) {
         self.agregarNuevoPedido(new Pedido (
-                    position = game.at(27, 12), //Hice cambios en las posiciones!
-                    // X se mantiebe igual, voy a hacer que por ahora haya 4 en pantalla
+                    position = game.at(27, 12),
                     receta = nuevaReceta
                 ))
-        /*
-        if(numeroDePedido == 2){
-            pedidoX = new Pedido (
-                    position = game.at(27, 12), //Hice cambios en las posiciones!
-                    // X se mantiebe igual, voy a hacer que por ahora haya 4 en pantalla
-                    receta = polloConPapas
-                )
-        }
-        else if(numeroDePedido ==1){
-            pedidoX = new Pedido(
-                position = game.at(27,12),
-                receta = fernetConCoca
-            )
-        }
-        else{
-            pedidoX = new Pedido ( 
-                position = game.at(27,12),
-                receta = ojoDeBifeConHuevo
-            )
-        }*/
     }
 
     method empezar(nivel) {
@@ -179,7 +153,7 @@ object selectorPedidos{
     }
 
     method coincide(pedido, elementosPlato) {
-        if(pedido.seEntrego() || pedido.prioridad() == 0) return false //ver como hacer para poner estado = perdido?
+        if(pedido.seEntrego() || pedido.prioridad() == 0) return false 
         if (elementosPlato.size() != pedido.ingredientes().size()) return false
 
         const disponibles = elementosPlato.map({ e => e }) // copia de la lista de elementosPlato

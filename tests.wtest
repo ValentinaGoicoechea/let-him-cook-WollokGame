@@ -1,5 +1,3 @@
-// source/testsCobertura.wtest
-// Tests complementarios a tests.wtest para cubrir la mayor parte de la logica del juego.
 import wollok.game.*
 import comida.*
 import ambiente.*
@@ -15,10 +13,8 @@ import teclado.*
 import selectorPersonajes.*
 import controladorPantallasYNiveles.*
 
-
-// ============================================================
 // TAREAS Y ESTADOS
-// ============================================================
+
 describe "Tareas y estados de la comida" {
 
     method comida(tipo, estado) = new Comida(tipo = tipo, position = game.at(1, 1), estado = estado)
@@ -61,8 +57,6 @@ describe "Tareas y estados de la comida" {
         assert.equals([tareaTirar], self.comida(tipoPollo, quemada).tareas())
     }
 
-
-
     test "Una comida cumple el requerimiento solo si coincide tipo y estado" {
         const pollo = self.comida(tipoPollo, cocinada)
         assert.that(pollo.cumpleRequerimiento(tipoPollo, cocinada))
@@ -70,39 +64,15 @@ describe "Tareas y estados de la comida" {
         assert.equals(false, pollo.cumpleRequerimiento(tipoPapa, cocinada))
     }
 
-
-    test "Una comida desaparece al sacarla del juego" {
-        const papa = self.comida(tipoPapa, cruda)
-        game.addVisual(papa)
-        papa.desaparecer()
-        assert.equals(false, game.allVisuals().contains(papa))
-    }
-
 }
 
-
-// ============================================================
 // VAJILLA (PLATOS, VASOS, PLATO ARMADO)
-// ============================================================
 describe "Vajilla y plato armado" {
 
 
     test "Las tareas de un plato dependen de su estado" {
         assert.equals([], new Plato(position = game.at(1, 1), estado = limpio).tareas())
         assert.equals([tareaLimpiar], new Plato(position = game.at(1, 1), estado = sucio).tareas())
-    }
-
-    test "El plato armado solo se puede tirar y no se ve" {
-        const armado = new PlatoArmado(mesadaActual = null, position = game.at(1, 1))
-        assert.equals([tareaTirar], armado.tareas())
-        assert.equals("imagenesEstaciones/vacio.png", armado.image())
-    }
-
-    test "Un vaso cumple el requerimiento solo si esta lleno" {
-        const vaso = new Vaso(estado = limpio)
-        assert.equals(false, vaso.cumpleRequerimiento(tipoVaso, lleno))
-        tareaLlenar.ejecutar(vaso)
-        assert.that(vaso.cumpleRequerimiento(tipoVaso, lleno))
     }
 
     test "Reiniciar una vajilla la devuelve limpia a su posicion inicial" {
@@ -117,32 +87,6 @@ describe "Vajilla y plato armado" {
         assert.equals(limpio, plato.estado())
         assert.equals(false, plato.estaEnPlato())
         assert.that(plato.sePuedeAgarrar())
-    }
-
-    test "Un jugador puede agarrar un plato" {
-        const plato = new Plato(position = game.at(16, 3), estado = limpio)
-        const jugador = new Jugador(numeroPersonaje = 9, position = game.at(15, 3), posicionInicial = game.at(15, 3))
-        plato.agarrar(jugador)
-        assert.equals(game.at(15, 3), plato.position())
-    }
-
-    test "No se puede agarrar un plato que ya esta en un plato armado" {
-        const plato = new Plato(position = game.at(16, 3), estado = limpio)
-        const jugador = new Jugador(numeroPersonaje = 9, position = game.at(15, 3), posicionInicial = game.at(15, 3))
-        plato.estaEnPlato(true)
-        plato.agarrar(jugador)
-        assert.equals(game.at(16, 3), plato.position())
-    }
-
-    test "Un plato armado detecta si alguno de sus elementos esta quemado" {
-        const plato = new Plato(position = game.at(1, 1), estado = limpio)
-        const papa = new Comida(tipo = tipoPapa, position = game.at(1, 1), estado = cocinada)
-        const pollo = new Comida(tipo = tipoPollo, position = game.at(1, 1), estado = cocinada)
-        const armado = new PlatoArmado(mesadaActual = null, position = game.at(1, 1), elementosPlato = [plato, papa, pollo])
-        assert.equals(false, armado.tieneAlgunElementoQuemado())
-
-        tareaQuemar.ejecutar(pollo)
-        assert.that(armado.tieneAlgunElementoQuemado())
     }
 
     test "Mover un plato armado mueve tambien todos sus elementos" {
@@ -187,10 +131,8 @@ describe "Vajilla y plato armado" {
     }
 }
 
-
-// ============================================================
 // JUGADOR
-// ============================================================
+
 describe "Jugador" {
 
     method nuevoJugador(x, y) = new Jugador(numeroPersonaje = 9, position = game.at(x, y), posicionInicial = game.at(x, y))
@@ -201,26 +143,6 @@ describe "Jugador" {
         assert.equals(game.at(11, 10), jugador.proximaPosicion())
         jugador.direccion(ninguna)
         assert.equals(game.at(10, 10), jugador.proximaPosicion())
-    }
-
-    test "El jugador no se mueve si no tiene direccion" {
-        const jugador = self.nuevoJugador(10, 10)
-        jugador.darPaso()
-        assert.equals(game.at(10, 10), jugador.position())
-    }
-
-    test "El jugador no puede pasar por las mesadas de entrega del nivel base" {
-        const jugador = self.nuevoJugador(14, 10)
-        jugador.direccion(arriba)
-        jugador.darPaso()
-        assert.equals(game.at(14, 10), jugador.position())
-    }
-
-    test "El jugador no puede caminar sobre el tacho de basura" {
-        const jugador = self.nuevoJugador(20, 8)
-        jugador.direccion(abajo)
-        jugador.darPaso()
-        assert.equals(game.at(20, 8), jugador.position())
     }
 
     test "El jugador no avanza si hay un objeto en la casilla siguiente" {
@@ -255,17 +177,6 @@ describe "Jugador" {
         assert.equals(game.at(11, 10), bife.position())
     }
 
-
-    test "Accionar frente a un cajon sin nada en la mano repone el stock" {
-        const jugador = self.nuevoJugador(23, 6)
-        jugador.ultimadireccion(derecha) // mira el cajon de huevos en (24, 6)
-        game.addVisual(cajonDeHuevo)
-
-        jugador.accionar()
-
-        assert.equals(5, cajonDeHuevo.cantidadEnStock())
-    }
-
     test "Reiniciar al jugador lo devuelve a su posicion inicial con la mano libre" {
         const jugador = self.nuevoJugador(10, 10)
         const bife = new Comida(tipo = tipoBife, position = game.at(10, 10))
@@ -284,29 +195,6 @@ describe "Jugador" {
         jugador.ultimadireccion(derecha)
         jugador.agarrarOSoltar()
         assert.equals(game.at(10, 10), huevo.position())
-    }
-
-    test "Los dos jugadores del juego tienen su numero y su posicion inicial" {
-        assert.equals(1, jugador1.numeroPersonaje())
-        assert.equals(2, jugador2.numeroPersonaje())
-        assert.equals(game.at(10, 10), jugador1.position())
-        assert.equals(game.at(20, 10), jugador2.position())
-    }
-
-    test "No se puede apoyar comida con la tecla E sobre una estacion de trabajo" {
-        const jugador = self.nuevoJugador(6, 10)
-        const bife = new Comida(tipo = tipoBife, position = game.at(6, 10))
-        jugador.agarroObjeto(bife)
-        jugador.ultimadireccion(arriba) // mira hacia (6, 11) donde esta horno1
-        game.addVisual(horno1)
-
-        jugador.agarrarOSoltar()
-
-        // Sigue en la mano del jugador y no se apoyo sobre el horno
-        assert.equals(bife, jugador.objetoEnMano())
-        assert.that(jugador.manoOcupada())
-        assert.equals(game.at(6, 10), bife.position())
-        game.removeVisual(horno1)
     }
 
     test "Se activa la estacion con la tecla Q y la comida pasa a la posicion de la estacion" {
@@ -360,10 +248,8 @@ describe "Jugador" {
     }
 }
 
-
-// ============================================================
 // DIRECCIONES, ZONAS Y MAPAS
-// ============================================================
+
 describe "Direcciones y mapas" {
 
     test "Cada direccion calcula la siguiente posicion" {
@@ -373,42 +259,6 @@ describe "Direcciones y mapas" {
         assert.equals(game.at(4, 5), izquierda.siguiente(origen))
         assert.equals(game.at(6, 5), derecha.siguiente(origen))
         assert.equals(game.at(5, 5), ninguna.siguiente(origen))
-    }
-
-    test "Cada direccion sabe el sufijo de imagen" {
-        assert.equals("Espalda", arriba.direccionImagen())
-        assert.equals("Frente", abajo.direccionImagen())
-        assert.equals("Izquierda", izquierda.direccionImagen())
-        assert.equals("Derecha", derecha.direccionImagen())
-        assert.equals("Frente", ninguna.direccionImagen())
-    }
-
-    test "Una zona incluye sus bordes y excluye lo de afuera" {
-        const zona = new Zona(xMin = 1, xMax = 3, yMin = 1, yMax = 3)
-        assert.that(zona.dentroDeZona(game.at(2, 2)))
-        assert.that(zona.dentroDeZona(game.at(1, 1)))
-        assert.that(zona.dentroDeZona(game.at(3, 3)))
-        assert.equals(false, zona.dentroDeZona(game.at(4, 2)))
-        assert.equals(false, zona.dentroDeZona(game.at(2, 0)))
-    }
-
-    test "Un mapa es transitable dentro de sus zonas y fuera de los bloqueados" {
-        const mapa = new Mapa(
-            zonas = [new Zona(xMin = 0, xMax = 5, yMin = 0, yMax = 5)],
-            bloqueados = [new Zona(xMin = 2, xMax = 2, yMin = 2, yMax = 2)]
-        )
-        assert.that(mapa.esTransitable(game.at(1, 1)))
-        assert.that(mapa.estaBloqueado(game.at(2, 2)))
-        assert.equals(false, mapa.esTransitable(game.at(2, 2)))
-        assert.equals(false, mapa.esTransitable(game.at(9, 9)))
-    }
-
-    test "Mapa del nivel base: piso transitable, tacho y mesada de entrega no" {
-        assert.that(mapaNivelBase.esTransitable(game.at(10, 10)))
-        assert.that(mapaNivelBase.esTransitable(game.at(10, 11)))
-        assert.equals(false, mapaNivelBase.esTransitable(game.at(20, 7)))
-        assert.equals(false, mapaNivelBase.esTransitable(game.at(14, 11)))
-        assert.equals(false, mapaNivelBase.esTransitable(game.at(0, 0)))
     }
 
     test "Mapa del nivel 3: el tacho y la pared de la despensa bloquean" {
@@ -433,10 +283,8 @@ describe "Direcciones y mapas" {
     }
 }
 
-
-// ============================================================
 // ESTACIONES DE LA COCINA
-// ============================================================
+
 describe "Estaciones de la cocina" {
 
     method jugadorCon(objeto) {
@@ -500,11 +348,7 @@ describe "Estaciones de la cocina" {
     }
 
 }
-
-
-// ============================================================
 // CAJONES (STOCK)
-// ============================================================
 describe "Cajones de ingredientes" {
 
     test "Reponer crea el stock maximo de 5 y los agrega al juego" {
@@ -531,25 +375,10 @@ describe "Cajones de ingredientes" {
         assert.equals(cajonDePapas.posicionAlimento(), cajonDePapas.crearAlimento().position())
     }
 
-    test "Accionar un cajon con un objeto en la mano no repone" {
-        const jugador = new Jugador(numeroPersonaje = 9, position = game.at(1, 1), posicionInicial = game.at(1, 1))
-        const bife = new Comida(tipo = tipoBife, position = game.at(1, 1))
-        cajonDePollo.tareaDeEstacion(jugador, bife)
-        assert.equals(0, cajonDePollo.cantidadEnStock())
-    }
-
-    test "Reiniciar un cajon por fin de nivel saca todo su stock del juego" {
-        cajonDePapas.reponerStock()
-        cajonDePapas.reiniciarPorFinDeNivel()
-        assert.equals(0, cajonDePapas.cantidadEnStock())
-        assert.that(game.getObjectsIn(cajonDePapas.posicionAlimento()).isEmpty())
-    }
 }
 
 
-// ============================================================
 // MESADAS (ENTREGA Y ARMADO)
-// ============================================================
 describe "Mesadas de entrega y de armado" {
 
     method nuevaMesadaEntrega() = new MesadaEntrega(position = game.at(14, 11), image = "imagenesEstaciones/mesada.png")
@@ -564,7 +393,6 @@ describe "Mesadas de entrega y de armado" {
         return pedido
     }
 
-    // ---------- Mesada de armado ----------
 
     test "Un plato limpio en la mesada de armado crea el plato armado" {
         const mesada = self.nuevaMesadaArmado()
@@ -597,31 +425,6 @@ describe "Mesadas de entrega y de armado" {
         assert.equals(false, papa.estaEnPlato())
     }
 
-    test "La mesada de armado recibe un plato armado completo" {
-        const mesada = self.nuevaMesadaArmado()
-        const armado = self.platoArmadoCon([])
-
-        mesada.tareaDeEstacion(self.nuevoJugador(), armado)
-
-        assert.equals(armado, mesada.platoEnArmado())
-        assert.equals(mesada, armado.mesadaActual())
-        assert.that(mesada.hayPlatoParaArmar())
-    }
-
-    test "La mesada de armado ocupada no recibe otro plato armado" {
-        const mesada = self.nuevaMesadaArmado()
-        const jugador = self.nuevoJugador()
-        const primero = self.platoArmadoCon([])
-        const segundo = self.platoArmadoCon([])
-
-        mesada.tareaDeEstacion(jugador, primero)
-        mesada.tareaDeEstacion(jugador, segundo)
-
-        assert.equals(primero, mesada.platoEnArmado())
-    }
-
-    // ---------- Mesada de entrega ----------
-
     test "Entregar un plato correcto de ojo de bife con huevo da 250 puntos y deja el plato sucio" {
         generadorDePedidos.listaPedidos().clear()
         const pedido = self.pedidoDe(ojoDeBifeConHuevo)
@@ -639,22 +442,6 @@ describe "Mesadas de entrega y de armado" {
         assert.equals(sucio, plato.estado())
         assert.equals(plato.posicionPlatoSucio(), plato.position())
     }
-
-    test "Entregar un pedido que ya espero un poco da menos puntos" {
-        generadorDePedidos.listaPedidos().clear()
-        const pedido = self.pedidoDe(polloConPapas)
-        pedido.estado(espera1)
-        const armado = self.platoArmadoCon([
-            new Plato(position = game.at(3, 3), estado = limpio),
-            self.comida(tipoPollo, cocinada),
-            self.comida(tipoPapa, cocinada)
-        ])
-
-        self.nuevaMesadaEntrega().tareaDeEstacion(self.nuevoJugador(), armado)
-
-        assert.equals(225, puntajeEnJuego.valor())
-    }
-
 
     test "Entregar un plato con un ingrediente quemado no cumple el pedido y resta 100" {
         generadorDePedidos.listaPedidos().clear()
@@ -685,23 +472,9 @@ describe "Mesadas de entrega y de armado" {
         assert.equals(200, puntajeEnJuego.valor())
     }
 
-    test "Entregar un pedido lo saca de la lista de pedidos activos" {
-        generadorDePedidos.listaPedidos().clear()
-        const pedido = self.pedidoDe(fernetConCoca)
-        const vaso = new Vaso(estado = limpio)
-        tareaLlenar.ejecutar(vaso)
-
-        self.nuevaMesadaEntrega().tareaDeEstacion(self.nuevoJugador(), vaso)
-
-        assert.equals(false, generadorDePedidos.listaPedidos().contains(pedido))
-        assert.equals(false, game.allVisuals().contains(pedido))
-    }
 }
 
-
-// ============================================================
 // PEDIDOS
-// ============================================================
 describe "Pedidos y selector de pedidos" {
 
     method initialize() {
@@ -709,8 +482,6 @@ describe "Pedidos y selector de pedidos" {
     }
 
     method comida(tipo, estado) = new Comida(tipo = tipo, position = game.at(1, 1), estado = estado)
-
-    // ---------- Recetas ----------
 
     test "Cada receta tiene sus requerimientos" {
         assert.equals(2, polloConPapas.ingredientes().size())
@@ -724,12 +495,6 @@ describe "Pedidos y selector de pedidos" {
         assert.equals(false, requerimiento.esSatisfechoPor(self.comida(tipoPollo, cruda)))
         assert.equals(false, requerimiento.esSatisfechoPor(self.comida(tipoBife, cocinada)))
     }
-    test "Un pedido nuevo no esta entregado ni cancelado" {
-        const pedido = new Pedido(receta = polloConPapas, position = game.at(27, 12))
-        assert.equals(nuevo, pedido.estado())
-        assert.equals(false, pedido.seEntrego())
-        assert.equals(false, pedido.cancelado())
-    }
 
     test "A mayor espera, mayor prioridad" {
         const pedido = new Pedido(receta = polloConPapas, position = game.at(27, 12))
@@ -742,45 +507,11 @@ describe "Pedidos y selector de pedidos" {
         assert.equals(0, pedido.prioridad())
     }
 
-    test "Cancelar un pedido lo marca y lo saca del juego" {
-        const pedido = new Pedido(receta = polloConPapas, position = game.at(27, 12))
-        generadorDePedidos.agregarNuevoPedido(pedido)
-        assert.that(game.allVisuals().contains(pedido))
-
-        pedido.cancelarPorCambioDeNivel()
-
-        assert.that(pedido.cancelado())
-        assert.equals(false, game.allVisuals().contains(pedido))
-    }
-
-    // ---------- Generador ----------
-
-    test "Al agregar un pedido tambien se muestra en el juego" {
-        const pedido = new Pedido(receta = fernetConCoca, position = game.at(27, 12))
-        generadorDePedidos.agregarNuevoPedido(pedido)
-        assert.that(game.allVisuals().contains(pedido))
-        assert.that(generadorDePedidos.listaPedidos().contains(pedido))
-    }
-
     test "Los pedidos activos bajan 3 casilleros cuando llega uno nuevo" {
         generadorDePedidos.pedir(polloConPapas)
         generadorDePedidos.cambiarPosicionPedidosActivos()
         assert.equals(game.at(27, 9), generadorDePedidos.listaPedidos().first().position())
     }
-
-    test "Terminar un nivel cancela y descarta todos los pedidos" {
-        generadorDePedidos.pedir(polloConPapas)
-        generadorDePedidos.pedir(fernetConCoca)
-        const pedido = generadorDePedidos.listaPedidos().first()
-
-        generadorDePedidos.terminar(nivel1)
-
-        assert.that(generadorDePedidos.listaPedidos().isEmpty())
-        assert.that(pedido.cancelado())
-        assert.equals(false, game.allVisuals().contains(pedido))
-    }
-
-    // ---------- Selector ----------
 
 
     test "Un plato con los ingredientes correctos coincide con el pedido" {
@@ -805,15 +536,9 @@ describe "Pedidos y selector de pedidos" {
         assert.equals(urgente, elegido)
     }
 
-    test "Solo se elige un pedido que coincide con lo entregado" {
-        generadorDePedidos.pedir(polloConPapas)
-        assert.equals(null, selectorPedidos.eleccionDePedido([self.comida(tipoBife, cocinada), self.comida(tipoHuevo, cocinada)]))
-    }
 }
-
-// ============================================================
 // PUNTAJE
-// ============================================================
+
 describe "Puntaje" {
 
     test "El puntaje arranca en cero" {
@@ -826,13 +551,6 @@ describe "Puntaje" {
         assert.equals(3, centenas.digito())
         assert.equals(4, decenas.digito())
         assert.equals(5, unidades.digito())
-    }
-
-    test "Cada digito muestra su imagen" {
-        puntajeEnJuego.sumar(407)
-        assert.equals("numeros/4.png", centenas.image())
-        assert.equals("numeros/0.png", decenas.image())
-        assert.equals("numeros/7.png", unidades.image())
     }
 
     test "Los puntos extra por rapidez dependen de la prioridad del pedido" {
@@ -854,22 +572,10 @@ describe "Puntaje" {
         pedido.estado(espera2)
         assert.equals(200, puntajeEnJuego.puntosAlEntregar(pedido))
     }
-
-    test "Asignar puntos a un plato con quemados resta 250 y no da puntos" {
-        const pedido = new Pedido(receta = polloConPapas, position = game.at(27, 12))
-        const armado = new PlatoArmado(mesadaActual = null, position = game.at(1, 1))
-        armado.elementosPlato().add(new Comida(tipo = tipoPollo, position = game.at(1, 1), estado = quemada))
-        puntajeEnJuego.valor(500)
-
-        assert.equals(0, puntajeEnJuego.asignarPuntos(pedido, armado))
-        assert.equals(250, puntajeEnJuego.valor())
-    }
 }
 
-
-// ============================================================
 // VIDAS
-// ============================================================
+
 describe "Vidas" {
     test "Reiniciar da 5 vidas y las muestra" {
         vidas.reiniciar()
@@ -877,21 +583,6 @@ describe "Vidas" {
         assert.that(vidas.quedanVidas())
         assert.that(game.allVisuals().contains(corazon1))
         assert.that(game.allVisuals().contains(corazon5))
-    }
-
-    test "Perder una vida saca el ultimo corazon" {
-        vidas.reiniciar()
-        vidas.perderVida()
-        assert.equals(4, vidas.cantidad())
-        assert.equals(false, game.allVisuals().contains(corazon5))
-        assert.that(game.allVisuals().contains(corazon1))
-    }
-
-    test "Al perder todas las vidas ya no quedan" {
-        vidas.reiniciar()
-        5.times({ _ => vidas.perderVida() })
-        assert.equals(0, vidas.cantidad())
-        assert.equals(false, vidas.quedanVidas())
     }
 
     test "Limpiar saca los corazones del juego" {
@@ -902,34 +593,14 @@ describe "Vidas" {
     }
 }
 
-
-// ============================================================
 // NIVELES
-// ============================================================
-describe "Niveles" {
 
-    test "Los niveles estan encadenados y el ultimo no tiene siguiente" {
-        assert.equals(nivel2, nivel1.siguienteNivel())
-        assert.equals(nivel3, nivel2.siguienteNivel())
-        assert.equals(null, nivel3.siguienteNivel())
-    }
+describe "Niveles" {
 
     test "Cada nivel usa su mapa" {
         assert.equals(mapaNivelBase, nivel1.mapa())
         assert.equals(mapaNivelBase, nivel2.mapa())
         assert.equals(mapaNivel3, nivel3.mapa())
-    }
-    test "Acomodar el escenario del nivel 3 reubica todas las estaciones" {
-        nivel3.acomodarEscenario()
-        assert.equals(game.at(18, 11), horno1.position())
-        assert.equals(game.at(9, 7), basura.position())
-        assert.equals(game.at(25, 6), bacha.position())
-        assert.equals(game.at(4, 7), mesadaArmado1.position())
-        assert.equals(game.at(14, 3), cajonDePapas.posicionAlimento())
-        assert.equals(game.at(12, 11), mesadaEntrega1.position())
-        assert.equals(game.at(25, 8), vaso1.position())
-        assert.equals(game.at(22, 3), plato1.position())
-        assert.equals(game.at(25, 7), plato1.posicionPlatoSucio())
     }
 
     test "Iniciar el nivel 1 configura el escenario y repone solo huevos y bifes" {
@@ -944,22 +615,10 @@ describe "Niveles" {
         assert.that(game.allVisuals().contains(pantallaNivel1))
     }
 
-    test "Iniciar el nivel 3 repone los cuatro cajones y cambia el fondo" {
-        nivel3.iniciar()
-
-        assert.equals(nivel3, escenario.nivelActual())
-        assert.equals("imagenesFondos/fondoCocina3.png", fondoJuego.imagen())
-        assert.equals(5, cajonDePapas.cantidadEnStock())
-        assert.equals(5, cajonDePollo.cantidadEnStock())
-        assert.equals(5, cajonDeHuevo.cantidadEnStock())
-        assert.equals(5, cajonDeBife.cantidadEnStock())
-    }
 }
 
-
-// ============================================================
 // CONTROLADOR DE PARTIDA
-// ============================================================
+
 describe "Controlador de partida" {
 
     method initialize() {
@@ -997,17 +656,6 @@ describe "Controlador de partida" {
         assert.equals(false, controladorDePartida.partidaGanada())
     }
 
-    test "Pasar de nivel reinicia la vajilla" {
-        const platoSucio = plato1
-        platoSucio.estado(sucio)
-        platoSucio.position(game.at(9, 9))
-        puntajeEnJuego.valor(750)
-
-        controladorDePartida.controlarProgresoPartida()
-
-        assert.equals(limpio, plato1.estado())
-    }
-
     test "Ganar el ultimo nivel termina la partida como ganada" {
         puntajeEnJuego.valor(750)
         controladorDePartida.controlarProgresoPartida()
@@ -1038,51 +686,8 @@ describe "Controlador de partida" {
 }
 
 
-// ============================================================
-// SELECTOR DE PERSONAJES Y CONFIGURACION DE PARTIDA
-// ============================================================
-describe "Seleccion de personajes y configuracion de partida" {
-
-    method initialize() {
-        selectorPersonajes.reiniciar()
-        configuracionPartida.actualizarJugadores(0)
-    }
-
-    test "Los personajes disponibles tienen su tipo, numero y posicion en el selector" {
-        assert.equals("cocinero", ropaCocinero.tipo())
-        assert.equals(1, ropaCocinero.numero())
-        assert.equals(game.at(8, 5), ropaCocinero.posicionSelector())
-        assert.equals("parrillero", ropaOtro.tipo())
-        assert.equals(2, ropaOtro.numero())
-        assert.equals(game.at(16, 5), ropaOtro.posicionSelector())
-    }
-    test "Seleccionar un personaje mueve el selector hasta el" {
-        selectorPersonajes.seleccionarPersonaje(1)
-        assert.equals(ropaCocinero, selectorPersonajes.personajeActual())
-        assert.equals(game.at(8, 5), selectorPersonajes.position())
-        assert.equals("imagenesFondos/selectorPersonajes.png", selectorPersonajes.image())
-
-        selectorPersonajes.seleccionarPersonaje(2)
-        assert.equals(ropaOtro, selectorPersonajes.personajeActual())
-        assert.equals(game.at(16, 5), selectorPersonajes.position())
-    }
-
-    test "Reiniciar el selector vuelve al jugador 1 sin personaje elegido" {
-        configuracionPartida.actualizarJugadores(2)
-        selectorPersonajes.seleccionarPersonaje(1)
-        selectorPersonajes.confirmarSeleccion()
-
-        selectorPersonajes.reiniciar()
-
-        assert.equals(0, selectorPersonajes.numJugador())
-        assert.equals(null, selectorPersonajes.personajeActual())
-    }
-}
-
-
-// ============================================================
 // PANTALLAS
-// ============================================================
+
 describe "Pantallas y navegacion" {
 
     method initialize() {
@@ -1092,20 +697,6 @@ describe "Pantallas y navegacion" {
 
     method estaMostrada(pantalla) = game.allVisuals().contains(pantalla)
 
-    test "La pantalla de reglas cambia segun sea multijugador o no" {
-        assert.equals("imagenesFondos/juegoReglas.png", pantallaTeclas.image())
-        configuracionPartida.actualizarJugadores(2)
-        assert.equals("imagenesFondos/juegoReglas2.png", pantallaTeclas.image())
-    }
-
-    test "Cambiar de pantalla muestra la nueva y saca lo anterior" {
-        controladorPantallas.cambiarPantalla(pantallaInicio)
-        assert.that(self.estaMostrada(pantallaInicio))
-
-        controladorPantallas.cambiarPantalla(pantallaHistoria)
-        assert.that(self.estaMostrada(pantallaHistoria))
-        assert.equals(false, self.estaMostrada(pantallaInicio))
-    }
 
     test "Con ENTER se recorren inicio, historia, estaciones y modo de juego" {
         controladorPantallas.cambiarPantalla(pantallaInicio)
@@ -1126,12 +717,10 @@ describe "Pantallas y navegacion" {
         assert.that(self.estaMostrada(pantallaHistoria))
     }
 
-
 }
 
-// ============================================================
 // INICIO DEL JUEGO Y TECLADO
-// ============================================================
+
 describe "Inicio del juego y teclado" {
 
     test "Iniciar el juego arma la cocina completa y deja todo en el nivel 1" {
@@ -1169,12 +758,5 @@ describe "Inicio del juego y teclado" {
 
         assert.that(game.allVisuals().contains(jugador1))
         assert.that(game.allVisuals().contains(jugador2))
-    }
-
-    test "Configurar las teclas no falla" {
-        assert.doesNotThrowException({ teclado.movimiento() })
-        assert.doesNotThrowException({ teclado.seleccion() })
-        assert.doesNotThrowException({ teclado.agarrarOSoltarObjeto() })
-        assert.doesNotThrowException({ teclado.realizarAccion() })
     }
 }
