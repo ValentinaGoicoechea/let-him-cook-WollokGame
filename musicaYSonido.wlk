@@ -22,7 +22,6 @@ object musicaDeFondo {
     }
 
     method pararMusica() {
-        try { self.error("pararMusica llamado desde:") } catch e { e.printStackTrace() }
         if (musicaIniciada) {
             musicaActual.stop()
             musicaIniciada = false
