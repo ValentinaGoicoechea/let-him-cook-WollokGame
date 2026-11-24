@@ -35,7 +35,7 @@ class Nivel{
 
         game.schedule(3500, {
             if (controladorDePartida.nivelActual() == self) {
-                musicaDeFondo.pausarOReanudarMusica()
+                if(musicaDeFondo.musicaIniciada() && !musicaDeFondo.musicaPausada()) {musicaDeFondo.pausarOReanudarMusica()} //si no fue silenciada, se silencia entre las pantallas
             }
         })
 

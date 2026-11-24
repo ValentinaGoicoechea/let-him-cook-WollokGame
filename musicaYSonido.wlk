@@ -11,6 +11,9 @@ object musicaDeFondo {
         else return "imagenesFondos/musicaInactiva.png"
     }
 
+    method musicaPausada() = musicaPausada
+    method musicaIniciada() = musicaIniciada
+
     method iniciarMusica() {
         if (!musicaIniciada) {
             musicaActual.shouldLoop(true)
