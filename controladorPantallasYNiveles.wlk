@@ -49,6 +49,7 @@ class Pantalla{
     method ejecutarPantalla() {
         game.clear()
         game.addVisual(self)
+        musicaDeFondo.pararMusica()
     }
 
     method pasarASiguiente(){
@@ -58,10 +59,6 @@ class Pantalla{
 }
 object pantallaInicio inherits Pantalla(
     image = "imagenesFondos/menuInicio.png"){
-    override method ejecutarPantalla() {
-        super()
-        musicaDeFondo.iniciarMusica("musica/musicaJuegoPrincipal.wav")  
-    }
     override method pasarASiguiente(){
         //pantallaHistoria.ejecutarPantalla()
         controladorPantallas.cambiarPantalla(pantallaHistoria)
@@ -157,14 +154,13 @@ object pantallaFinal inherits Pantalla (
     override method ejecutarPantalla() {
         super()  
         if (!controladorDePartida.partidaGanada()) {
-            musicaDeFondo.cambiarMusica(game.sound("musica/musicaPerdiste.wav"))
+            game.schedule(200,{ musicaDeFondo.iniciarMusica("musica/musicaPerdiste.wav") })
         }  
         keyboard.z().onPressDo({
             game.stop()})
         
     }
     override method pasarASiguiente(){
-        musicaDeFondo.cambiarMusica("musica/musicaJuegoPrincipal.wav")
         controladorPantallas.cambiarPantalla(pantallaModoJuego)
     }
 }
@@ -244,6 +240,7 @@ object juegoCocinero {
         game.addVisual(vaso3)
         game.addVisual(puntajeEnJuego)
 
+        musicaDeFondo.iniciarMusica("musica/musicaJuegoPrincipal.wav")
         nivel.iniciar()
         teclado.movimiento()
         teclado.agarrarOSoltarObjeto()

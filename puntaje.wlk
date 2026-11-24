@@ -153,7 +153,6 @@ object controladorDePartida {
         puntajeEnJuego.valor(0)
         puntajeEnJuego.ubicarEnJuego()
         puntajeEnJuego.actualizarVisuales()
-        musicaDeFondo.cambiarMusica("musica/musicaJuegoPrincipal.wav")
     }
 
     method reiniciarCocina() {
