@@ -1,6 +1,6 @@
 
 object musicaDeFondo {
-    var musicaActual = game.sound("musica/musicaJuegoPrincipal.wav")
+    var musicaActual = null //game.sound("musica/musicaJuegoPrincipal.wav")
     var musicaIniciada = false
     var musicaPausada = false
     var tecladoConfigurado = false
@@ -11,11 +11,9 @@ object musicaDeFondo {
         else return "imagenesFondos/musicaInactiva.png"
     }
 
-    method musicaPausada() = musicaPausada
-    method musicaIniciada() = musicaIniciada
-
-    method iniciarMusica() {
+    method iniciarMusica(pista) {
         if (!musicaIniciada) {
+            musicaActual = game.sound(pista)
             musicaActual.shouldLoop(true)
             musicaActual.play()
             musicaIniciada = true
@@ -23,14 +21,8 @@ object musicaDeFondo {
         }
     }
 
-    method iniciarMusicaJuego() {
-        if (!musicaIniciada) {
-            self.cambiarMusica(game.sound("musica/musicaJuegoPrincipal.wav"))
-            self.iniciarMusica()
-        }
-    }
-
     method pararMusica() {
+        try { self.error("pararMusica llamado desde:") } catch e { e.printStackTrace() }
         if (musicaIniciada) {
             musicaActual.stop()
             musicaIniciada = false
@@ -40,28 +32,24 @@ object musicaDeFondo {
 
     method cambiarMusica(nuevaMusica) {
         self.pararMusica()
-        musicaActual = nuevaMusica
+        self.iniciarMusica(nuevaMusica)
     }
 
     method pausarOReanudarMusica() {
         if (musicaIniciada) {
             if (musicaPausada) {
                 musicaActual.resume()
-                musicaPausada = false
             } else {
                 musicaActual.pause()
-                musicaPausada = true
             }
+            musicaPausada = !musicaPausada //como es lo contrario...
         }
     }
 
-    method mutearMusica() {
-        if (!tecladoConfigurado) {
-            keyboard.p().onPressDo({
-                self.pausarOReanudarMusica()
-            })
-            tecladoConfigurado = true
-        }
+
+    //sino cada vez dsp del clear no se puede volver  ausar
+    method configurarTeclado() {
+        keyboard.p().onPressDo({self.pausarOReanudarMusica()})
     }
 }
 

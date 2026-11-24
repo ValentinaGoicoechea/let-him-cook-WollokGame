@@ -25,6 +25,8 @@ object controladorPantallas {
         pantallaActual = nuevaPantalla
         nuevaPantalla.ejecutarPantalla()
         self.configurarEnter() //Porque game.clear() elimina los eventos de teclado
+        musicaDeFondo.configurarTeclado()
+        controladorSonidos.configurarMuteo()
     }
 
     method avanzarPantalla() {
@@ -56,6 +58,10 @@ class Pantalla{
 }
 object pantallaInicio inherits Pantalla(
     image = "imagenesFondos/menuInicio.png"){
+    override method ejecutarPantalla() {
+        super()
+        musicaDeFondo.iniciarMusica("musica/musicaJuegoPrincipal.wav")  
+    }
     override method pasarASiguiente(){
         //pantallaHistoria.ejecutarPantalla()
         controladorPantallas.cambiarPantalla(pantallaHistoria)
@@ -106,7 +112,6 @@ object pantallaModoJuego inherits Pantalla(
     }
     override method ejecutarPantalla() {
         super()
-        musicaDeFondo.pararMusica()
         keyboard.num1().onPressDo({configuracionPartida.actualizarJugadores(1)})
         keyboard.num2().onPressDo({configuracionPartida.actualizarJugadores(2)})
     }
@@ -131,7 +136,6 @@ object pantallaSeleccionPersonaje inherits Pantalla(
     }
     override method ejecutarPantalla() {
         super()  
-        musicaDeFondo.pararMusica()
         selectorPersonajes.reiniciar()
         game.addVisual(selectorPersonajes)
         teclado.seleccion()
@@ -152,17 +156,15 @@ object pantallaFinal inherits Pantalla (
     }
     override method ejecutarPantalla() {
         super()  
-        musicaDeFondo.pararMusica()
         if (!controladorDePartida.partidaGanada()) {
             musicaDeFondo.cambiarMusica(game.sound("musica/musicaPerdiste.wav"))
-            musicaDeFondo.iniciarMusica()
         }  
         keyboard.z().onPressDo({
             game.stop()})
         
     }
     override method pasarASiguiente(){
-        musicaDeFondo.pararMusica()
+        musicaDeFondo.cambiarMusica("musica/musicaJuegoPrincipal.wav")
         controladorPantallas.cambiarPantalla(pantallaModoJuego)
     }
 }

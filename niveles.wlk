@@ -29,15 +29,7 @@ class Nivel{
         })
 
         controladorDePartida.puntosSegunNivel()
-        musicaDeFondo.pausarOReanudarMusica()
         pantalla.mostrarInfoNivel()
-        musicaDeFondo.mutearMusica()
-
-        game.schedule(3500, {
-            if (controladorDePartida.nivelActual() == self) {
-                if(musicaDeFondo.musicaIniciada() && !musicaDeFondo.musicaPausada()) {musicaDeFondo.pausarOReanudarMusica()} //si no fue silenciada, se silencia entre las pantallas
-            }
-        })
 
         game.schedule(5200, {
             if (controladorDePartida.nivelActual() == self) {
