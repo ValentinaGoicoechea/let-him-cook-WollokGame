@@ -8,7 +8,7 @@ import estados.*
 
 class Pedido{
 
-    var receta //pollo con papas u ojo de bife con huevo
+    const receta //pollo con papas u ojo de bife con huevo
     var property position 
     var property estado = nuevo 
     var property seEntrego = false

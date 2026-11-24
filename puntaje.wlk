@@ -1,4 +1,3 @@
-import musica.*
 import selectorPersonajes.*
 import estados.*
 import wollok.game.*
@@ -9,6 +8,7 @@ import vidas.*
 import ambiente.*
 import comida.*
 import personajeprincipal.*
+import musicaYSonido.*
 
 
 
@@ -85,8 +85,7 @@ object puntajeEnJuego {
 object controladorDePartida {
     //NIVEL BASICON
     var puntosParaGanar = 750 // creo variables asi no hay num magicos (evaluar)
-    var maxPedidosPerdidos = 5
-    const digitos = [centenas, decenas, unidades]
+    const maxPedidosPerdidos = 5
 
     var property nivelActual = nivel1
 
@@ -122,9 +121,8 @@ object controladorDePartida {
             self.partidaGanada(false)
             generadorDePedidos.terminar(nivelActual) 
             pedidosPerdidos = 0
+            vidas.reiniciar()
             self.reiniciarCocina()
-
-
 
             nivelActual = nivelActual.siguienteNivel()
             nivelActual.iniciar()
@@ -153,6 +151,7 @@ object controladorDePartida {
 
     method reiniciarNivel() {
         nivelActual = nivel1
+        self.puntosSegunNivel()
         pedidosPerdidos = 0
         vidas.reiniciar()
         self.reiniciarCocina()

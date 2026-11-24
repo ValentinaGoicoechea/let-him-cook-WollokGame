@@ -15,8 +15,7 @@ const corazon4 = new Corazon(position = game.at(7, 2))
 const corazon5 = new Corazon(position = game.at(8, 2))
 
 object vidas{
-    var property corazones =[] 
-    const cantMax=5
+    var property corazones =[]
 
     method reiniciar(){
         self.limpiar()

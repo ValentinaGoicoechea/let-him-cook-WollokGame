@@ -61,3 +61,34 @@ object musicaDeFondo {
         }
     }
 }
+
+
+object controladorSonidos {
+    var sonidosActivados = true
+    const sonidosEnReproduccion = #{}
+
+    method desactivarSonidos() {
+        sonidosActivados = !sonidosActivados
+        sonidosEnReproduccion.forEach({ sonido =>
+            if (sonidosActivados) {
+                sonido.volume(0.4)
+            } else {
+                sonido.volume(0)
+            }
+        })
+    }
+
+    method configurarMuteo() {
+        keyboard.o().onPressDo({self.desactivarSonidos()})
+    }
+
+    method reproducirSonido(sonido, volumen) {
+        sonidosEnReproduccion.add(sonido)
+        if (sonidosActivados) {
+            sonido.volume(volumen)
+        } else {
+            sonido.volume(0)
+        }
+        sonido.play() 
+    }
+}

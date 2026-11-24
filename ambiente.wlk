@@ -1,3 +1,4 @@
+import musicaYSonido.*
 import wollok.game.*
 import pedidos.*
 import personajeprincipal.*

@@ -8,7 +8,7 @@ import puntaje.*
 import selectorPersonajes.*
 import niveles.*
 import vidas.*
-import musica.*
+import musicaYSonido.*
 
 
 //CAMBIO DE PANTALLAS (INICIO, MENU DE PERSONAJES, NIVELES)
@@ -100,12 +100,13 @@ object pantallaModoJuego inherits Pantalla(
         if (configuracionPartida.cantidadJugadores() == 0) {
             return "imagenesFondos/pantallaModoJuego.png"
         } else {
-            var indice = configuracionPartida.cantidadJugadores()
+            const indice = configuracionPartida.cantidadJugadores()
             return "imagenesFondos/pantallaModoJuego" + indice + ".png"
         }
     }
     override method ejecutarPantalla() {
         super()
+        musicaDeFondo.pararMusica()
         keyboard.num1().onPressDo({configuracionPartida.actualizarJugadores(1)})
         keyboard.num2().onPressDo({configuracionPartida.actualizarJugadores(2)})
     }
@@ -122,7 +123,7 @@ object pantallaSeleccionPersonaje inherits Pantalla(
     ){
     override method image(){
         if (configuracionPartida.esMultijugador()){
-            var indice = selectorPersonajes.numJugador() + 1
+            const indice = selectorPersonajes.numJugador() + 1
             return "imagenesFondos/seleccionDeJugador" + indice + ".png"
         } else{
             return "imagenesFondos/seleccionDePersonajes.png"
@@ -169,8 +170,12 @@ object pantallaFinal inherits Pantalla (
 class PantallaNivel inherits Pantalla{
     method mostrarInfoNivel() {
         game.addVisual(self)
-        game.schedule(3500, { game.removeVisual(self) 
-        vidas.reiniciar()})
+        game.schedule(3500, { 
+            if (game.allVisuals().contains(self)) {
+                game.removeVisual(self)
+            }
+            vidas.reiniciar()
+        })
     }
 }
 
@@ -192,7 +197,7 @@ const pantallaNivel4 = new PantallaNivel(
       
 object juegoCocinero { 
 
-    var nivel = nivel1 
+    const nivel = nivel1 
 
     method iniciarJuego() { 
         try { game.removeTickEvent("mover1") } catch e {}

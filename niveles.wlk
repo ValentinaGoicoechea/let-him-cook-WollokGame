@@ -4,11 +4,11 @@ import controladorPantallasYNiveles.*
 import puntaje.*
 import direcciones.*
 import comida.*
-import musica.*
+import musicaYSonido.*
 
 
 class Nivel{
-    var recetasDisponibles 
+    const recetasDisponibles 
     var property puntosParaGanar 
     var property siguienteNivel = null
     const pantalla
@@ -28,6 +28,7 @@ class Nivel{
             cajon.reponerStock()
         })
 
+        controladorDePartida.puntosSegunNivel()
         musicaDeFondo.pausarOReanudarMusica()
         pantalla.mostrarInfoNivel()
         musicaDeFondo.mutearMusica()
@@ -39,8 +40,7 @@ class Nivel{
         })
 
         game.schedule(5200, {
-            if (controladorDePartida.nivelActual() == self) { //Para evitar la superposición de generadorDePedidos.empezar(self) en caso de terminar el nivel antes de 5200 ms (creo)
-                controladorDePartida.puntosSegunNivel()
+            if (controladorDePartida.nivelActual() == self) {
                 generadorDePedidos.empezar(self) 
             }
         })
@@ -81,7 +81,7 @@ class Nivel{
 
 object nivel3 inherits Nivel(
     recetasDisponibles = [ojoDeBifeConHuevo, polloConPapas, fernetConCoca],
-    puntosParaGanar = 900,  //900
+    puntosParaGanar = 100,  //900
     siguienteNivel = nivel4,
     pantalla = pantallaNivel3,
     fondo = "imagenesFondos/fondoCocinaNivel3.png",
@@ -138,7 +138,7 @@ object nivel4 inherits Nivel (
 
 object nivel2 inherits Nivel(
     recetasDisponibles = [ojoDeBifeConHuevo, polloConPapas, fernetConCoca],
-    puntosParaGanar = 850,  //850
+    puntosParaGanar = 100,  //850
     siguienteNivel = nivel3,
     pantalla = pantallaNivel2,
     fondo = "imagenesFondos/fondoCocina.png"){
@@ -151,7 +151,7 @@ object nivel2 inherits Nivel(
 
 object nivel1 inherits Nivel(
     recetasDisponibles = [ojoDeBifeConHuevo, fernetConCoca],
-    puntosParaGanar = 750, //Cambiar a 750
+    puntosParaGanar = 100, //Cambiar a 750
     siguienteNivel = nivel2,
     pantalla = pantallaNivel1,
     fondo = "imagenesFondos/fondoCocina.png"){
