@@ -155,7 +155,9 @@ object pantallaFinal inherits Pantalla (
         super()  
         if (!controladorDePartida.partidaGanada()) {
             game.schedule(200,{ musicaDeFondo.iniciarMusica("musica/musicaPerdiste.wav") })
-        }  
+        } else {
+            game.schedule(200, { musicaDeFondo.iniciarMusica("musica/musicaGanaste.wav")})
+        }
         keyboard.z().onPressDo({
             game.stop()})
         
