@@ -78,7 +78,7 @@ object puntajeEnJuego {
 object controladorDePartida {
     //NIVEL BASICON
     var puntosParaGanar = 750 
-    const maxPedidosPerdidos = 5
+    const maxPedidosPerdidos = 1
 
     var property nivelActual = nivel1
 

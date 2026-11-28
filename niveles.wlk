@@ -73,7 +73,7 @@ class Nivel{
 
 object nivel3 inherits Nivel(
     recetasDisponibles = [ojoDeBifeConHuevo, polloConPapas, fernetConCoca],
-    puntosParaGanar = 900,  //900
+    puntosParaGanar = 100,  //900
     siguienteNivel = nivel4,
     pantalla = pantallaNivel3,
     fondo = "imagenesFondos/fondoCocinaNivel3.png",
@@ -86,7 +86,7 @@ object nivel3 inherits Nivel(
 
 object nivel4 inherits Nivel (
     recetasDisponibles = [ojoDeBifeConHuevo, polloConPapas, fernetConCoca],
-    puntosParaGanar =900, //900
+    puntosParaGanar = 100, //900
     pantalla = pantallaNivel4, 
     fondo = "imagenesFondos/fondoCocinaNivel4.png",
     mapa = mapaNivel4){   
@@ -130,7 +130,7 @@ object nivel4 inherits Nivel (
 
 object nivel2 inherits Nivel(
     recetasDisponibles = [ojoDeBifeConHuevo, polloConPapas, fernetConCoca],
-    puntosParaGanar = 850,  //850
+    puntosParaGanar = 100,  //850
     siguienteNivel = nivel3,
     pantalla = pantallaNivel2,
     fondo = "imagenesFondos/fondoCocina.png"){
@@ -143,7 +143,7 @@ object nivel2 inherits Nivel(
 
 object nivel1 inherits Nivel(
     recetasDisponibles = [ojoDeBifeConHuevo, fernetConCoca],
-    puntosParaGanar = 750, //Cambiar a 750
+    puntosParaGanar = 100, //Cambiar a 750
     siguienteNivel = nivel2,
     pantalla = pantallaNivel1,
     fondo = "imagenesFondos/fondoCocina.png"){

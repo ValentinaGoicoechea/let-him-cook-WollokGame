@@ -49,7 +49,7 @@ class Pantalla{
     method ejecutarPantalla() {
         game.clear()
         game.addVisual(self)
-        musicaDeFondo.pararMusica()
+        //musicaDeFondo.pararMusica()
     }
 
     method pasarASiguiente(){
@@ -109,6 +109,7 @@ object pantallaModoJuego inherits Pantalla(
     }
     override method ejecutarPantalla() {
         super()
+        musicaDeFondo.pararMusica()
         keyboard.num1().onPressDo({configuracionPartida.actualizarJugadores(1)})
         keyboard.num2().onPressDo({configuracionPartida.actualizarJugadores(2)})
     }

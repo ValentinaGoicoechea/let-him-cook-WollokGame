@@ -27,7 +27,7 @@ class Estacion{
     const sonido
     
     method reproducirSonido(){
-        game.sound(sonido).play()
+        controladorSonidos.reproducirSonido(game.sound(sonido), 1)
     }
     method imagenPrendida() = imagen1 
 
@@ -111,16 +111,14 @@ class Horno inherits Estacion( tiempoTarea = 7000, imagen1 = "imagenesEstaciones
     var precaucion = null
     var sonidoActual = null
 
-    override method reproducirSonido(){
-        self.pararSonido()
+    override method reproducirSonido() {
         sonidoActual = game.sound(sonido)
-        sonidoActual.volume(0.4)
-        sonidoActual.play()
+        controladorSonidos.reproducirSonido(sonidoActual, 0.4)
     }
 
     method pararSonido() {
         if (sonidoActual != null) {
-            sonidoActual.stop()
+            controladorSonidos.detenerSonido(sonidoActual)
             sonidoActual = null
         }
     }

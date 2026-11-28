@@ -22,12 +22,17 @@ object musicaDeFondo {
     }
 
     method pararMusica() {
-        if (musicaIniciada) {
+    if (musicaIniciada) {
+        try {
             musicaActual.stop()
-            musicaIniciada = false
-            musicaPausada = false
+        } catch e {
+            // el sonido ya estaba detenido o fue limpiado por game.clear()
         }
+        musicaActual = null
     }
+    musicaIniciada = false
+    musicaPausada = false
+}
 
     method cambiarMusica(nuevaMusica) {
         self.pararMusica()
@@ -55,7 +60,7 @@ object musicaDeFondo {
 
 object controladorSonidos {
     var sonidosActivados = true
-    const sonidosEnReproduccion = #{}
+    var sonidosEnReproduccion = #{}
 
     method desactivarSonidos() {
         sonidosActivados = !sonidosActivados
@@ -72,6 +77,10 @@ object controladorSonidos {
         keyboard.o().onPressDo({self.desactivarSonidos()})
     }
 
+    method detenerSonido(sonido) {
+        sonido.stop()
+    }
+
     method reproducirSonido(sonido, volumen) {
         sonidosEnReproduccion.add(sonido)
         if (sonidosActivados) {
@@ -79,6 +88,6 @@ object controladorSonidos {
         } else {
             sonido.volume(0)
         }
-        sonido.play() 
+        sonido.play()
     }
 }
