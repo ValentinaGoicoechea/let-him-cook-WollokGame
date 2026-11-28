@@ -3,6 +3,8 @@ object musicaDeFondo {
     var musicaActual = null //game.sound("musica/musicaJuegoPrincipal.wav")
     var musicaIniciada = false
     var musicaPausada = false
+    var muteadaPorUsuario = false
+    var pausadaPorCarga = false
     var tecladoConfigurado = false
 
     method position() = game.at(25,14)
@@ -14,25 +16,30 @@ object musicaDeFondo {
     method iniciarMusica(pista) {
         if (!musicaIniciada) {
             musicaActual = game.sound(pista)
-            musicaActual.shouldLoop(true)
+            const esMusicaPrincipal = (pista == "musica/musicaJuegoPrincipal.wav" || pista == "musica/musicaJuegoPrincipal.mp3")
+            musicaActual.shouldLoop(esMusicaPrincipal)
             musicaActual.play()
             musicaIniciada = true
             musicaPausada = false
+            muteadaPorUsuario = false
+            pausadaPorCarga = false
         }
     }
 
     method pararMusica() {
-    if (musicaIniciada) {
-        try {
-            musicaActual.stop()
-        } catch e {
-            // el sonido ya estaba detenido o fue limpiado por game.clear()
+        if (musicaIniciada) {
+            try {
+                musicaActual.stop()
+            } catch e {
+                // el sonido ya estaba detenido o fue limpiado por game.clear()
+            }
+            musicaActual = null
         }
-        musicaActual = null
+        musicaIniciada = false
+        musicaPausada = false
+        muteadaPorUsuario = false
+        pausadaPorCarga = false
     }
-    musicaIniciada = false
-    musicaPausada = false
-}
 
     method cambiarMusica(nuevaMusica) {
         self.pararMusica()
@@ -41,19 +48,48 @@ object musicaDeFondo {
 
     method pausarOReanudarMusica() {
         if (musicaIniciada) {
-            if (musicaPausada) {
-                musicaActual.resume()
+            if (muteadaPorUsuario) {
+                muteadaPorUsuario = false
+                if (!pausadaPorCarga) {
+                    musicaActual.resume()
+                    musicaPausada = false
+                }
             } else {
-                musicaActual.pause()
+                muteadaPorUsuario = true
+                if (!musicaPausada) {
+                    musicaActual.pause()
+                    musicaPausada = true
+                }
             }
-            musicaPausada = !musicaPausada //como es lo contrario...
         }
     }
 
+    method pausarPorCargaDeNivel() {
+        pausadaPorCarga = true
+        if (musicaIniciada && !musicaPausada) {
+            musicaActual.pause()
+            musicaPausada = true
+        }
+    }
 
-    //sino cada vez dsp del clear no se puede volver  ausar
+    method reanudarPorFinDeCarga() {
+        pausadaPorCarga = false
+        if (musicaIniciada && !muteadaPorUsuario) {
+            musicaActual.resume()
+            musicaPausada = false
+        }
+    }
+
+    method resetearTeclado() {
+        tecladoConfigurado = false
+    }
+
+    //sino cada vez dsp del clear no se puede volver ausar
     method configurarTeclado() {
-        keyboard.p().onPressDo({self.pausarOReanudarMusica()})
+        if (!tecladoConfigurado) {
+            keyboard.p().onPressDo({self.pausarOReanudarMusica()})
+            tecladoConfigurado = true
+        }
     }
 }
 
@@ -61,6 +97,7 @@ object musicaDeFondo {
 object controladorSonidos {
     var sonidosActivados = true
     var sonidosEnReproduccion = #{}
+    var tecladoConfigurado = false
 
     method desactivarSonidos() {
         sonidosActivados = !sonidosActivados
@@ -73,8 +110,15 @@ object controladorSonidos {
         })
     }
 
+    method resetearTeclado() {
+        tecladoConfigurado = false
+    }
+
     method configurarMuteo() {
-        keyboard.o().onPressDo({self.desactivarSonidos()})
+        if (!tecladoConfigurado) {
+            keyboard.o().onPressDo({self.desactivarSonidos()})
+            tecladoConfigurado = true
+        }
     }
 
     method detenerSonido(sonido) {

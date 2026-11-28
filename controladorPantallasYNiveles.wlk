@@ -23,6 +23,8 @@ object controladorPantallas {
 
     method cambiarPantalla(nuevaPantalla) {
         pantallaActual = nuevaPantalla
+        musicaDeFondo.resetearTeclado()
+        controladorSonidos.resetearTeclado()
         nuevaPantalla.ejecutarPantalla()
         self.configurarEnter() //Porque game.clear() elimina los eventos de teclado
         musicaDeFondo.configurarTeclado()
@@ -48,6 +50,8 @@ class Pantalla{
 
     method ejecutarPantalla() {
         game.clear()
+        musicaDeFondo.resetearTeclado()
+        controladorSonidos.resetearTeclado()
         game.addVisual(self)
         //musicaDeFondo.pararMusica()
     }
@@ -164,18 +168,21 @@ object pantallaFinal inherits Pantalla (
         
     }
     override method pasarASiguiente(){
+        musicaDeFondo.pararMusica()
         controladorPantallas.cambiarPantalla(pantallaModoJuego)
     }
 }
 
 class PantallaNivel inherits Pantalla{
     method mostrarInfoNivel() {
+        musicaDeFondo.pausarPorCargaDeNivel()
         game.addVisual(self)
         game.schedule(3500, { 
             if (game.allVisuals().contains(self)) {
                 game.removeVisual(self)
             }
             vidas.reiniciar()
+            musicaDeFondo.reanudarPorFinDeCarga()
         })
     }
 }
@@ -248,6 +255,8 @@ object juegoCocinero {
         teclado.movimiento()
         teclado.agarrarOSoltarObjeto()
         teclado.realizarAccion()
+        musicaDeFondo.configurarTeclado()
+        controladorSonidos.configurarMuteo()
         game.onTick(200, "controlarPartida", {controladorDePartida.controlarProgresoPartida()})
     }
 }
